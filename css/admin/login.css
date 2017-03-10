@@ -1,0 +1,34 @@
+* {
+    background-color: #03A9F4; }
+
+.btn-primary {
+    background-color: #0288D1;
+    border-color: #BBDEFB; }
+.btn-primary:hover {
+    background-color: #03A9F4;
+    border-color: #BBDEFB; }
+
+#login-box > h1 {
+    color: #FFFFFF;
+    text-align: center;
+    margin-bottom: 1rem; }
+
+#login-page {
+    position: fixed;
+    top: 10%;
+    left: 50%; }
+
+#login-box {
+    position: relative;
+    left: -50%; }
+
+#login-box > form,
+#login-box > form > .form-group,
+#login-box > form > .form-group > label {
+    background-color: #FFFFFF; }
+
+#login-box > form {
+    padding: 2rem 4rem;
+    border-radius: 5%; }
+
+/*# sourceMappingURL=style.css.map */

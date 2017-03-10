@@ -1,0 +1,51 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - {{ lang.CATEGORIES }} {% endblock %}
+
+{% block header %} {{ lang.CATEGORIES }} {% endblock %}
+
+{% block button %} <a class="btn btn-primary" href="{{ url.CATEGORY_ADMIN_ADD }}">{{ lang.CATEGORY_NEW }}</a> {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped sortable">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>#</th>
+                        <th>{{ lang.CATEGORY_NAME }}</th>
+                        <th>{{ lang.CATEGORY_PARENT }}</th>
+                        <th>{{ lang.NUMBER_OF_PRODUCTS }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for category in categories %}
+                    <tr>
+
+                        <td><a href="/admin/kategorie/upravit/{{ category.id }}">{{ category.id }}</a></td>
+                        <td>
+                            {% if category.image != "none" %}
+                            <a rel="popover" data-img="{{ constant("UPLOADS") }}categories/{{ category.image }}-thumb">{{ category.name }}</a>
+                            {% else %}
+                            {{ category.name }}
+                            {% endif %}
+                        </td>
+                        <td>{{ categories[category.parent - 1].name }}</td>
+                        <td><a href="/admin/produkty/{{ category.slug }}">{{ category.numberOfProducts }}</a></td>
+
+
+                    </tr>
+                    {% else %}
+                        No Category Found
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}

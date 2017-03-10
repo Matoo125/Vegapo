@@ -1,0 +1,39 @@
+{% extends "public/base.twig" %}
+
+{% block title %} VegaPo - {{ lang.PRODUCTS }} {% endblock %}
+
+{% block content %}
+<section>
+	<div class="container">
+		<div class="wow fadeInUp text-center"><h2>{{ lang.PRODUCTS }} | {{ current_category ? current_category.name : lang.CATEGORIES_ALL }} | {{ current_supermarket ? current_supermarket.name : lang.SUPERMARKETS_ALL }}</h2></div> <br>
+	
+		   <div class="card-deck">
+
+            {% for product in products %}
+            <!-- card -->
+            <div class="card">
+                <img class="card-img-top img-fluid" src={{ product.image != "none" ? "/uploads/products/#{product.image}-thumb450x450" : "http://placehold.jp/450x450.png"}}>
+                <div class="card-block">
+                    <p class="card-title">{{ product.name }}</p>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+
+        <br>
+        <div class="row">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {% for i in 1..number_of_pages %}
+                    <li class="page-item"><a class="page-link" href="/produkty/{{ current_category }}/{{ current_supermarket }}/{{ current_tag }}/{{ i }}">{{ i }}</a></li>
+
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+
+	</div>
+</section>
+
+
+{% endblock %}

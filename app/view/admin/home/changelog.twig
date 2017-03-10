@@ -1,0 +1,11 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - {{ lang.CHANGELOG }} {% endblock %}
+
+{% block header %} {{ lang.CHANGELOG }} {% endblock %}
+
+{% block content %}
+
+{{ parsedown|raw }}
+
+{% endblock %}

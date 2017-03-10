@@ -1,0 +1,81 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - {{ lang.PRODUCT_NEW }} {% endblock %}
+
+{% block header %} {{ lang.PRODUCT_NEW }} {% endblock %}
+
+{% block content %}
+
+
+    {% if supermarkets and categories %}
+    <form class="row" enctype="multipart/form-data" method="post">
+        <div class="col-md-5">
+
+            <div class="form-group">
+                <label for="productName">{{ lang.PRODUCT_NAME }}</label>
+                <input type="text" class="form-control" name="productName" id="productName" autofocus required>
+            </div>
+
+            <div class="form-group">
+                <label for="productPrice">{{ lang.PRICE }}</label>
+                <input type="number" class="form-control" name="productPrice" id="productPrice" min="0.1" max="99" step="any" required>
+            </div>
+
+            {% if categories %}
+            <div class="form-group">
+                <label for="selectCategory">{{ lang.CATEGORIES }}</label>
+                <select class="form-control" name="selectCategory" id="selectCategory" required>
+
+                    {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+
+                </select>
+            </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="file">{{ lang.IMAGE }}</label>
+                <input type="file" id="file" name="file" class="form-control-file">
+            </div>
+
+            <button type="submit" class="btn btn-primary">{{ lang.SUBMIT }}</button>
+
+        </div>
+
+        {% if supermarkets %}
+        <div class="col-md-3 offset-md-1">
+            <p>Obchody</p>
+            {% for supermarket in supermarkets %}
+            <div class="form-group">
+                <label class="custom-control custom-checkbox">
+                    <input type="checkbox" id="supermarket" name="supermarket[]" class="custom-control-input" value="{{ supermarket.id }}">
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">{{ supermarket.name }}</span>
+                </label>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if tags %}
+            <div class="col-md-3">
+                <p>Tagy</p>
+                {% for tag in tags %}
+                    <div class="form-group">
+                        <label class="custom-control custom-checkbox">
+                            <input type="checkbox" id="tag" name="tag[]" class="custom-control-input" value="{{ tag.id }}">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">{{ tag.name }}</span>
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </form>
+    {% else %}
+    <h3>Please Create Supermarket and Category before product</h3>
+    {% endif %}
+
+{% endblock %}

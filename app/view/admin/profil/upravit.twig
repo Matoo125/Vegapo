@@ -1,0 +1,66 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - {{ lang.PERSONAL_INFO }} {% endblock %}
+
+{% block header %} {{ lang.PERSONAL_INFO }} {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-5">
+            <h3>{{ lang.GENERAL_INFO }}</h3>
+            <form method="post" action="" id="profile-update">
+                <div class="form-group">
+                    <label for="email">{{ lang.EMAIL_ADDRESS }}</label>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="username">{{ lang.USERNAME }}</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Username" value="{{ user.username }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="first-name">{{ lang.FIRST_NAME }}</label>
+                    <input type="text" class="form-control" id="first-name" name="first-name" placeholder="First Name" value="{{ user.first_name }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="last-name">{{ lang.LAST_NAME }}</label>
+                    <input type="text" class="form-control" id="last-name" name="last-name" placeholder="Last Name" value="{{ user.last_name }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="about-me">{{ lang.BRIEF_DESCRIPTION }}</label>
+                    <textarea class="form-control" id="about-me" name="about-me" rows="3">{{ user.about_me }}</textarea>
+                </div>
+
+                <button type="submit" name="change-details" class="btn btn-primary">{{ lang.SUBMIT }}</button>
+            </form>
+        </div>
+
+        <div class="col-md-5 offset-1">
+            <h3>{{ lang.PASSWORD_CHANGE }}</h3>
+            <form method="post" action="" id="password-update">
+                <div class="form-group">
+                    <label for="old-password">{{ lang.PASSWORD_OLD }}</label>
+                    <input type="password" class="form-control" id="old-password" name="old-password" >
+                </div>
+
+                <div class="form-group">
+                    <label for="new-password">{{ lang.PASSWORD_NEW }}</label>
+                    <input type="password" class="form-control" id="new-password" name="new-password" >
+                </div>
+
+                <div class="form-group">
+                    <label for="new-password2">{{ lang.PASSWORD_NEW2 }}</label>
+                    <input type="password" class="form-control" id="new-password2" name="new-password2" >
+                </div>
+
+                <button type="submit" name="change-password" class="btn btn-primary">{{ lang.SUBMIT }}</button>
+            </form>
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - {{ lang.SUPERMARKET_NEW }} {% endblock %}
+
+{% block header %} {{ lang.SUPERMARKET_NEW }} {% endblock %}
+
+{% block content %}
+
+
+    <form class="row" enctype="multipart/form-data" method="post">
+        <div class="col-md-6">
+
+            <div class="form-group">
+                <label for="supermarketName">{{ lang.SUPERMARKET_NAME }}</label>
+                <input type="text" class="form-control" name="supermarketName" id="supermarketName" autofocus required>
+            </div>
+
+
+            <div class="form-group">
+                <label for="file">{{ lang.IMAGE }}</label>
+                <input type="file" id="file" name="file" class="form-control-file">
+            </div>
+
+            <button type="submit" class="btn btn-primary">{{ lang.SUBMIT }}</button>
+
+        </div>
+
+    </form>
+
+{% endblock %}

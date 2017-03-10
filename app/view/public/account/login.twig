@@ -1,0 +1,44 @@
+{% extends "public/base.twig" %}
+
+{% block title %} VegaPo - {{ lang.LOGIN }} {% endblock %}
+
+{% block content %}
+
+    <header id="first">
+    <div class="header-content">
+        <div class="inner">
+{{ include('public/modules/flash.twig') }}  
+      <div class="row">
+                <div class="col-md-12">
+                    <h1>{{ lang.LOGIN }}</h1>
+                </div>
+           </div>
+
+<br>
+
+          <div class="row">
+            <div class="col-md-12">
+                <form action="/users/login" method="post">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="loginEmail">{{ lang.EMAIL }}</label>
+                <div class="col-sm-8">
+                    <input type="email" class="form-control" autofocus required id="loginEmail" name="loginEmail" aria-describedby="emailHelp" placeholder="Enter email">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="loginPassword">{{ lang.PASSWORD }}</label>
+                <div class="col-sm-8">
+                    <input type="password" class="form-control" id="loginPassword" name="loginPassword" placeholder="Password" required>
+                </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">{{ lang.SUBMIT }}</button>
+        </form>
+            </div>
+          </div>
+        </div>
+    </div>
+</header>
+
+
+{% endblock %}

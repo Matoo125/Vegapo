@@ -1,0 +1,40 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - {{ lang.SUPERMARKET_EDIT }} {% endblock %}
+
+{% block header %} {{ lang.SUPERMARKET_EDIT }} {% endblock %}
+
+{% block content %}
+
+
+    <form class="row" enctype="multipart/form-data" method="post">
+        <div class="col-md-6">
+
+            <div class="form-group">
+                <label for="supermarketName">{{ lang.SUPERMARKET_EDIT }}</label>
+                <input type="text" class="form-control" name="supermarketName" id="supermarketName" value="{{ supermarket.name }}" required>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="file">{{ lang.IMAGE }}</label>
+                        <input type="file" id="file" name="file" class="form-control-file">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <img src="{{ url.SUPERMARKET_UPLOADS }}{{ supermarket.image }}" alt="" width="100px">
+                    <input type="hidden" value="{{ supermarket.image }}" name="image_old">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="{{ url.SUPERMARKET_ADMIN_DELETE }}{{ supermarket.id }}/{{ supermarket.image }}" class="btn btn-danger" id="deleteConfirm">{{ lang.REMOVE }}</a>
+
+        </div>
+
+    </form>
+
+
+{% endblock %}

@@ -1,0 +1,6 @@
+{% if sessionclass.hasFlash %}
+ <div class="alert alert-{{ sessionclass.flashStyle }}" role="alert">
+        {{ sessionclass.flash }}
+    </div>
+    <br>
+{% endif %}   

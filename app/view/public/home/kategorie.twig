@@ -1,0 +1,26 @@
+{% extends "public/base.twig" %}
+
+{% block title %} VegaPo - {{ lang.CATEGORIES }} {% endblock %}
+
+{% block content %}
+
+<section>
+	<div class="container">
+		<div class="wow fadeInUp text-center"><h2>{{ lang.CATEGORIES }}</h2></div> <br>
+		   <div class="card-deck">
+            {% for category in categories %}
+            <!-- card -->
+            <div class="card">
+                <img class="card-img-top img-fluid" src={{ category.image != "none" ? "/uploads/categories/#{category.image}-thumb450x450" : "http://placehold.jp/450x450.png"}}>
+                <div class="card-block">
+                    <p class="card-title">{{ category.name }}</p>
+
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+	</div>
+</section>
+
+
+{% endblock %}

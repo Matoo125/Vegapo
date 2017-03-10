@@ -1,0 +1,55 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - {{ lang.TRASH }} {% endblock %}
+
+{% block header %} {{ lang.TRASH }} {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+
+
+            <div class="table-responsive">
+                <table class="table table-striped sortable">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>#</th>
+                        <th>{{ lang.TITLE }}</th>
+                        <th>{{ lang.CATEGORY }}</th>
+                        <th>{{ lang.SUPERMARKETS }}</th>
+                        <th>{{ lang.TAGS }}</th>
+                        <th>{{ lang.PRICE }}</th>
+                        <th>{{ lang.ACTION }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if products %}
+                    {% for item in products %}
+                    <tr>
+
+                        <td><a href="{{ url.PRODUCT_ADMIN_EDIT }}{{ item.id }}">{{ item.id }}</a></td>
+                        <td>
+                            {% if item.image != "none" %}
+                                <a rel="popover" data-img="{{ url.PRODUCT_UPLOADS }}{{ item.image }}-thumb">{{ item.name }}</a>
+                            {% else %}
+                                {{ item.name }}
+                            {% endif %}
+                        </td>
+                        <td>{{ item.category }}</td>
+                        <td>{{ item.supermarkets }}</td>
+                        <td>{{ item.tags }}</td>
+                        <td>{{ item.price }}</td>
+                        <td><a href="{{ url.TRASH_RECOVER }}{{ item.id }}">{{ lang.RECOVER }}</a> | <a href="{{ url.TRASH_DELETE }}{{ item.id }}/{{ item.image }}" id="deleteConfirm">{{ lang.REMOVE }}</a></td>
+
+
+                    </tr>
+
+                    {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

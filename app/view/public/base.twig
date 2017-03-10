@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="Zoznam vegánskych potravín dostupných v bežných supermarketoch" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/bower_components/animate.css/animate.min.css" />
+    <link rel="stylesheet" href="/bower_components/Ionicons/css/ionicons.min.css" />
+
+
+    <link rel="stylesheet" href="/css/styles.css" /> 
+  </head>
+  <body class="bg-faded">
+
+<nav id="topNav" class="navbar fixed-top navbar-toggleable-sm">
+    <div class="container">
+        <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
+            ☰
+        </button>
+        <a class="navbar-brand page-scroll" href="/">VegaPo</a>
+        <div class="collapse navbar-collapse" id="collapsingNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="/produkty">{{ lang.PRODUCTS }}</a>
+                </li>
+                {% if supermarkets %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link page-scroll dropdown-toggle" data-toggle="dropdown" href="/obchody">{{ lang.SUPERMARKETS }}</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        {% for supermarket in supermarkets %}
+                             <a class="dropdown-item" href="/produkty/{{ current_category ? current_category.slug : 0 }}/{{ supermarket.slug }}">{{ supermarket.name }}</a>
+                        {% endfor %}
+
+                    </div>
+                </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="/obchody">{{ lang.SUPERMARKETS }}</a>
+                    </li>
+                {% endif %}
+                {% if categories %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link page-scroll dropdown-toggle" data-toggle="dropdown" href="/kategorie">{{ lang.CATEGORIES }}</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        {% for category in categories %}
+                        <a class="dropdown-item" href="/produkty/{{ category.slug }}/{{ current_supermarket ? current_supermarket.slug : 0 }}">{{ category.name }}</a>
+                        {% endfor %}
+
+                    </div>
+                </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="/kategorie">{{ lang.CATEGORIES }}</a>
+                    </li>
+                {% endif %}
+
+            </ul>
+            <ul class="nav navbar-nav ml-auto">
+            {% if not session.user_id %}
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" data-toggle="modal" title="Chcem sa prihlásiť" href="#loginModal">{{ lang.LOGIN1 }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" data-toggle="modal" title="Rád by som sa zaregistroval" href="#registerModal">{{ lang.REGISTER1 }}</a>
+                </li>
+            {% else %}
+                {% if session.user_role > 30 %}
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" title="Chcem ist prec" href="/admin">Administracia</a>
+                </li>
+                {% endif %}
+
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" title="Chcem ist prec" href="/users/">{{ session.username }}</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" title="Chcem ist prec" href="/users/logout">{{ lang.LOGOUT }}</a>
+                </li>
+
+            {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+{% block content %}{%endblock%}
+<footer id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 col-sm-3">
+                <h6 class="text-uppercase">{{ lang.ABOUT }} VegaPo</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#" target="ext">{{ lang.ABOUT_PROJECT }}</a></li>
+                    <li><a href="#" target="ext">{{ lang.ABOUT_AUTHORS }}</a></li>
+                    <li><a href="#" target="ext">{{ lang.ABOUT_HELP }}</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-sm-3 column">
+                <h6 class="text-uppercase">{{ lang.OTHER }}</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#">{{ lang.CONTACT }}</a></li>
+                    <li><a href="#" target="ext">{{ lang.FAQ }}</a></li>
+
+                </ul>
+            </div>
+            <div class="col-12 col-sm-3 column">
+                <h6 class="text-uppercase">{{ lang.STAY_IN_TOUCH }}</h6>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" title="No spam, we promise!" placeholder="Daj nám tvoj email">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#alertModal" type="button">{{ lang.SUBSCRIBE }}</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-12 col-sm-3 text-right">
+                <h6 class="text-uppercase">{{ lang.SOCIAL }}</h6>
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a rel="nofollow" href="" title="Facebook"><i class="icon-lg ion-social-facebook-outline"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <br>
+        <span class="float-right text-muted small">VegaPo 2017</span>
+    </div>
+</footer>
+
+{{ include('public/modal/register.twig') }}
+{{ include('public/modal/login.twig') }}
+
+    <!--scripts loaded here-->
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
+    <script src="/js/scripts.js"></script>
+  </body>
+</html>

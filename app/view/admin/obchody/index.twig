@@ -1,0 +1,48 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - {{ lang.SUPERMARKETS }} {% endblock %}
+
+{% block header %} {{ lang.SUPERMARKETS }} {% endblock %}
+
+{% block button %} <a class="btn btn-primary" href="{{ url.SUPERMARKET_ADMIN_ADD }}">{{ lang.SUPERMARKET_NEW }}</a> {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped sortable">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>#</th>
+                        <th>{{ lang.TITLE }}</th>
+                        <th>{{ lang.NUMBER_OF_PRODUCTS }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in stores %}
+                    <tr>
+                        <td><a href="{{ url.SUPERMARKET_ADMIN_EDIT }}{{ item.id }}">{{ item.id }}</a></td>
+                        <td>
+                            {% if item.image != "none" %}
+                            <a rel="popover" data-img="{{ url.SUPERMARKET_UPLOADS }}{{ item.image }}-thumb">{{ item.name }}</a>
+                            {% else %}
+                            <p> {{ item.name }}</p>
+                            {% endif %}
+                        </td>
+                        <td><a href="/admin/produkty/0/{{ item.slug }}">{{ item.numberOfProducts }}</a></td>
+
+                    </tr>
+                    {% else %}
+                        No stores found.
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+
+{% endblock %}

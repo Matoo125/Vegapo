@@ -1,0 +1,69 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - {{ lang.CATEGORY_EDIT }} {% endblock %}
+
+{% block header %} {{ lang.CATEGORY_EDIT }} {% endblock %}
+
+{% block content %}
+
+
+
+    <form class="row" enctype="multipart/form-data" method="post">
+        <div class="col-md-6">
+
+            <div class="form-group">
+                <label for="categoryName">{{ lang.CATEGORY_NAME }}</label>
+                <input type="text" class="form-control" name="categoryName" id="categoryName" value="{{ category.name }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="categoryParent">{{ lang.CATEGORY_PARENT }}</label>
+                <select class="form-control" name="categoryParent" id="categoryParent" required>
+
+                    {% if category.parent == 0 %}
+                    <option value="0">{{ lang.CATEGORY_MAIN }}</option>
+
+                    {% else %}
+                    <option value="{{ category.parent }}">
+                        {{ categories[category.parent - 1].name }}
+                    </option>
+
+                    {% endif %}
+
+
+                    {% for item in categories %}
+                        {% if item.id != category.parent and item.id != category.id %}
+                             <option value="{{ item.id }}">{{ item.name }}</option>
+                         {% endif %}
+                    {% endfor %}
+
+                    {% if category.parent != 0 %}
+                    <option value="0">{{ lang.CATEGORY_MAIN }}</option>
+                    {% endif %}
+
+                </select>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="file">{{ lang.IMAGE }}</label>
+                        <input type="file" id="file" name="file" class="form-control-file">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <img src="{{ url.CATEGORY_UPLOADS }}{{ category.image }}" alt="" width="100px">
+                    <input type="hidden" value="{{ category.image }}" name="image_old">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">{{ lang.SUBMIT }}</button>
+            <a href="{{ url.CATEGORY_ADMIN_DELETE }}{{ category.id }}/{{ category.image }}" class="btn btn-danger" id="deleteConfirm">{{ lang.REMOVE }}</a>
+
+        </div>
+
+    </form>
+
+
+{% endblock %}

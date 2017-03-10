@@ -1,0 +1,55 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - {{ lang.USERS_LIST }} {% endblock %}
+
+{% block header %} {{ lang.USERS_LIST }} {% endblock %}
+
+{% block content %}
+
+
+    <div class="row">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>#</th>
+                            <th>{{ lang.USERNAME }}</th>
+                            <th>{{ lang.FIRST_NAME }}</th>
+                            <th>{{ lang.LAST_NAME }}</th>
+                            <th>{{ lang.CONTACT_EMAIL }}</th>
+                            <th>{{ lang.USER_TYPE }}</th>
+                            <th>{{ lang.COUNTRY }}</th>
+                            <th>{{ lang.REGISTERED_AT }}</th>
+                            <th>{{ lang.LAST_LOGIN }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if data %}
+                        {% for item in data %}
+
+                        <tr>
+                            <td>{{ item.user_id }}</td>
+                            <td>{{ item.username }}</td>
+                            <td>{{ item.first_name }}</td>
+                            <td>{{ item.last_name }}</td>
+                            <td>{{ item.email }}</td>
+                            <td>{{ constant("USERS")[item.role] }}</td>
+                            <td>{{ item.country }}</td>
+                            <td>{{ item.created_at|date('d. m. Y') }}</td>
+                            <td>{{ item.last_activity|date('d. m. | H:i') }}</td>
+                        </tr>
+
+                        {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}

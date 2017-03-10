@@ -1,0 +1,48 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - {{ lang.TAGS }} {% endblock %}
+
+{% block header %} {{ lang.TAGS }} {% endblock %}
+
+{% block button %} <a class="btn btn-primary" href="{{ url.TAG_ADMIN_ADD }}">{{ lang.TAG_NEW }}</a> {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped sortable">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>#</th>
+                        <th>{{ lang.TITLE }}</th>
+                        <th>{{ lang.NUMBER_OF_PRODUCTS }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in tags %}
+                        <tr>
+                            <td><a href="{{ url.TAG_ADMIN_EDIT }}{{ item.id }}">{{ item.id }}</a></td>
+                            <td>
+                                {% if item.image != "none" %}
+                                    <a rel="popover" data-img="{{ url.TAG_UPLOADS }}{{ item.image }}-thumb">{{ item.name }}</a>
+                                {% else %}
+                                    {{ item.name }}
+                                {% endif %}
+                            </td>
+                            <td><a href="/admin/produkty/0/{{ item.slug }}">{{ item.numberOfProducts }}</a></td>
+
+                        </tr>
+                    {% else %}
+                        No tags found.
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+
+{% endblock %}

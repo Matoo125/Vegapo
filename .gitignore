@@ -1,0 +1,7 @@
+/vendor
+/.idea
+/bower_components
+/uploads/categories/*
+/uploads/supermarkets/*
+/uploads/tags/*
+/uploads/products/*

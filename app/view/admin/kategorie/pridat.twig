@@ -1,0 +1,40 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - {{ constant("CATEGORY_NEW") }} {% endblock %}
+
+{% block header %} {{ constant("CATEGORY_NEW") }} {% endblock %}
+
+{% block content %}
+
+
+    <form class="row" enctype="multipart/form-data" method="post">
+        <div class="col-md-6">
+
+            <div class="form-group">
+                <label for="productName">{{ lang.CATEGORY_NAME }}</label>
+                <input type="text" class="form-control" name="categoryName" id="productName" autofocus required>
+            </div>
+
+            <div class="form-group">
+                <label for="categoryParent">{{ lang.CATEGORY_PARENT }}</label>
+                <select class="form-control" name="categoryParent" id="categoryParent" required>
+                    <option value="0">{{ lang.CATEGORY_MAIN }}</option>
+                    {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="file">{{ lang.IMAGE }}</label>
+                <input type="file" id="file" name="file" class="form-control-file">
+            </div>
+
+            <button type="submit" class="btn btn-primary">{{ lang.SUBMIT }}</button>
+
+        </div>
+
+    </form>
+
+{% endblock %}

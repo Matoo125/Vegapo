@@ -1,0 +1,97 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - {{ lang.PRODUCT_EDIT }} {% endblock %}
+
+{% block header %} {{ lang.PRODUCT_EDIT }} {% endblock %}
+
+{% block content %}
+
+    <form class="row" enctype="multipart/form-data" method="post">
+        <div class="col-md-5">
+
+            <div class="form-group">
+                <label for="productName">{{ lang.PRODUCT_NAME }}</label>
+                <input type="text" class="form-control" name="productName" id="productName" value="{{ product.name }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="productPrice">{{ lang.PRICE }}</label>
+                <input type="number" class="form-control" name="productPrice" id="productPrice" min="0.1" max="99" step="any" value="{{ product.price }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="selectCategory">{{ lang.CATEGORY }}</label>
+                <select class="form-control" name="selectCategory" id="selectCategory" required>
+                    <option value="{{ product.category_id }}" >{{ product.category_name }}</option>
+                    {% for category in categories %}
+                        {% if category.id != product.category_id %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+
+                </select>
+            </div>
+
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="file">{{ lang.IMAGE }}</label>
+                        <input type="file" id="file" name="file" class="form-control-file">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <img src="{{ url.PRODUCT_UPLOADS }}{{ product.image }}" alt="" width="100px">
+                    <input type="hidden" value="{{ product.image }}" name="image_old">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">{{ lang.SUBMIT }}</button>
+            <a href="{{ url.TRASH_MOVE }}{{ product.id }}" class="btn btn-danger" id="deleteConfirm">{{ lang.REMOVE }}</a>
+
+        </div>
+
+        <div class="col-md-3 offset-md-1">
+            <p>{{ lang.SUPERMARKETS }}</p>
+            {% for supermarket in supermarkets %}
+            <div class="form-group">
+                <label class="custom-control custom-checkbox">
+
+                    <input type="checkbox"
+                           id="supermarket"
+                           name="supermarket[]"
+                           class="custom-control-input"
+                           value="{{ supermarket.id }}"
+                           {% if supermarket.name in product.supermarket_names %} checked {% endif %} >
+
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">{{ supermarket.name }}</span>
+                </label>
+            </div>
+            {% endfor %}
+            <input type="hidden" name="supermarkets_old" value="{{ product.supermarket_ids }}">
+
+        </div>
+
+        <div class="col-md-3">
+            <p>{{ lang.TAGS }}</p>
+            {% for tag in tags %}
+                <div class="form-group">
+                    <label class="custom-control custom-checkbox">
+
+                        <input type="checkbox"
+                               id="tag"
+                               name="tag[]"
+                               class="custom-control-input"
+                               value="{{ tag.id }}"
+                                {% if tag.name in product.tag_names %} checked {% endif %} >
+
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">{{ tag.name }}</span>
+                    </label>
+                </div>
+            {% endfor %}
+            <input type="hidden" name="tags_old" value="{{ product.tag_ids }}">
+
+        </div>
+
+    </form>
+{% endblock %}
