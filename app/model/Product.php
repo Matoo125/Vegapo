@@ -82,6 +82,45 @@ class Product extends Model
 
     }
 
+    public function count($category = null, $supermarket = null, $tag = null, $visibility = 1)
+    {
+        $sql = "SELECT COUNT(p.id) AS numberOfProducts FROM products AS p";
+
+        $where = [];
+        $where[] = " p.country = :country";
+        $where[] = " p.visibility = :visibility"; 
+
+        $args = [];
+        $args['country'] = COUNTRY_CODE;
+        $args['visibility'] = $visibility;
+
+        if ($supermarket) {
+            $sql .= " LEFT JOIN matching_supermarkets AS ms ON p.id = ms.product_id";
+            $where[] = " ms.supermarket_id = :supermarket_id";
+            $args['supermarket_id'] = $supermarket;
+        }
+
+        if ($category) {
+            $where[] = " category_id = :category_id";
+            $args['category_id'] = $category;
+            
+        }
+
+        if ($tag) {
+            $sql .= " LEFT JOIN matching_tags AS mt ON p.id = mt.product_id";
+            $where[] = "mt.tag_id = :tag_id";
+            $args['tag_id'] = $tag_id;
+        }
+
+        $sql = $sql . " WHERE" . implode(" AND", $where);
+
+        //echo $sql; die;
+
+        return $this->runQuery($sql, $args, "get1");
+
+
+    }
+
     public function getCategories()
     {
         return $this->runQuery("SELECT * FROM categories WHERE country = :country", array("country" => COUNTRY_CODE) , "get");

@@ -5,7 +5,7 @@
 {% block content %}
 <section>
 	<div class="container">
-		<div class="wow fadeInUp text-center"><h2>{{ lang.PRODUCTS }} | {{ current_category ? current_category.name : lang.CATEGORIES_ALL }} | {{ current_supermarket ? current_supermarket.name : lang.SUPERMARKETS_ALL }}</h2></div> <br>
+		<div class="wow fadeInUp text-center"><h2>{{ lang.PRODUCTS }} {{ current_category ? "| " ~ current_category.name }} {{ current_supermarket ? "| " ~ current_supermarket.name}}</h2></div> <br>
 	
 		   <div class="card-deck">
 
@@ -24,8 +24,8 @@
         <div class="row">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                    {% for i in 1..number_of_pages %}
-                    <li class="page-item"><a class="page-link" href="/produkty/{{ current_category }}/{{ current_supermarket }}/{{ current_tag }}/{{ i }}">{{ i }}</a></li>
+                    {% for i in 1..number_of_pages if number_of_pages %}
+                    <li class="page-item"><a class="page-link" href="/produkty/{{ current_category ? current_category.slug : 0 }}/{{ current_supermarket ? current_supermarket.slug : 0 }}/{{ current_tag ? current_tag.slug : 0}}/{{ i }}">{{ i }}</a></li>
 
                     {% endfor %}
                 </ul>

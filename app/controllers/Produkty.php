@@ -24,22 +24,13 @@ class Produkty extends Controller {
     public function admin_index($category_slug = null, $supermarket_slug = null, $tag_slug = null, $current_page = 1) {
         $this->view = 'admin/produkty/index';
 
-        $this->data['current_tag'] = 0;
-        $this->data['current_category'] = 0;
-        $this->data['current_supermarket'] = 0;
-
-        // count number of products
-        $number_of_products = $this->model->countTable('products', array('visibility' => 1));
-        $number_of_pages = ceil($number_of_products / 20);
-        // get number of pages
-
         $start = ($current_page - 1 ) * 20;
 
         $products = $this->model->getProducts($category_slug, $supermarket_slug,$tag_slug, $start, 1);
         $categories = $this->model->getCategories();
         $supermarkets = $this->model->getSupermarkets();
 
-
+        // separate current category from categories
         if($category_slug != null) {
              for($i = 0; $i < count($categories); $i++) {
                 if($categories[$i]['slug'] == $category_slug) {
@@ -49,6 +40,7 @@ class Produkty extends Controller {
             }
         }
 
+        // separate current supermarket from supermarkets
         if($supermarket_slug != null) {
             for($i = 0; $i < count($supermarkets); $i++) {
                 if($supermarkets[$i]['slug'] == $supermarket_slug) {
@@ -57,6 +49,21 @@ class Produkty extends Controller {
                 }
             }
         }
+
+      //  isset($this->data['current_tag']['slug']) ?: $this->data['current_tag']['slug'] = null;
+      //  isset($this->data['current_category']['slug']) ?: $this->data['current_category']['slug'] = null;
+      //  isset($this->data['current_supermarket']['slug']) ?: $this->data['current_supermarket']['slug'] = null;
+
+        $number_of_products = $this->model->count(
+            isset($this->data['current_category']['id']) ? $this->data['current_category']['id'] : null,
+            isset($this->data['current_supermarket']['id']) ? $this->data['current_supermarket']['id'] : null,
+            isset($this->data['current_tag']['id']) ? $this->data['current_tag']['id'] : null
+        )['numberOfProducts'];
+
+            $number_of_pages = ceil($number_of_products / 20);
+
+
+        //echo $number_of_pages; die;
 
 
         $this->data['supermarkets'] = $supermarkets;
