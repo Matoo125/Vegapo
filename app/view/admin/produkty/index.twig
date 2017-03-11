@@ -6,11 +6,40 @@
 
 {% block button %} <a class="btn btn-primary" href="{{ url.PRODUCT_ADMIN_ADD }}">{{ lang.PRODUCT_NEW }}</a> {% endblock %}
 
+{% block page_menu %}
+<div class="row">
+    <div class="col-md-4">
+            <div class="dropdown">
+                 <button class="btn btn-secondary dropdown-toggle" type="button" id="supermarketsDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ lang.SUPERMARKETS }}
+              </button>
+                 <div class="dropdown-menu" aria-labelledby="supermarketsDropDown">
+                 {% for supermarket in supermarkets %}
+                  <a class="dropdown-item" href="/admin/produkty/{{ current_category ? current_category.slug : 0 }}/{{ supermarket.slug }}">{{ supermarket.name }}</a>
+                   {% endfor %}
+              </div>
+             </div>
+        </div>
+        <div class="col-md-4">
+             <div class="dropdown">
+                 <button class="btn btn-secondary dropdown-toggle" type="button" id="supermarketsDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ lang.CATEGORIES }}
+              </button>
+                 <div class="dropdown-menu" aria-labelledby="supermarketsDropDown">
+                 {% for category in categories %}
+                  <a class="dropdown-item" href="/admin/produkty/{{ category.slug }}/{{ current_supermarket ? current_supermarket.slug : 0 }}">{{ category.name }}</a>
+                   {% endfor %}
+              </div>
+             </div>
+    </div>
+</div>
+{% endblock %}
+
 {% block content %}
 
     <div class="row">
         <div class="col-md-12">
-        {% if categories %}
+     <!--   {% if categories %}
             <select id="select-category">
                 {% if current_category %}
                 <option value="0">{{ current_category.name }}</option>
@@ -44,6 +73,8 @@
             </select>
 
             {% endif %}
+-->
+
 
             <div class="table-responsive">
                 <table class="table table-striped sortable">
@@ -86,15 +117,15 @@
     </div>
 
     <br>
-    <div class="row">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                {% for i in 1..number_of_pages %}
-                    <li class="page-item"><a class="page-link" href="/admin/produkty/{{ current_category }}/{{ current_supermarket }}/{{ current_tag }}/{{ i }}">{{ i }}</a></li>
+        <div class="row">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {% for i in 1..number_of_pages if number_of_pages %}
+                    <li class="page-item"><a class="page-link" href="/produkty/{{ current_category ? current_category.slug : 0 }}/{{ current_supermarket ? current_supermarket.slug : 0 }}/{{ current_tag ? current_tag.slug : 0}}/{{ i }}">{{ i }}</a></li>
 
-                {% endfor %}
-            </ul>
-        </nav>
-    </div>
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
 
 {% endblock %}

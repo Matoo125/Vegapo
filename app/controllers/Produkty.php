@@ -24,53 +24,30 @@ class Produkty extends Controller {
     public function admin_index($category_slug = null, $supermarket_slug = null, $tag_slug = null, $current_page = 1) {
         $this->view = 'admin/produkty/index';
 
-        $start = ($current_page - 1 ) * 20;
 
-        $products = $this->model->getProducts($category_slug, $supermarket_slug,$tag_slug, $start, 1);
         $categories = $this->model->getCategories();
         $supermarkets = $this->model->getSupermarkets();
 
-        // separate current category from categories
-        if($category_slug != null) {
-             for($i = 0; $i < count($categories); $i++) {
-                if($categories[$i]['slug'] == $category_slug) {
-                    $this->data['current_category'] = $categories[$i];
-                    unset($categories[$i]);
-                }
-            }
-        }
-
-        // separate current supermarket from supermarkets
-        if($supermarket_slug != null) {
-            for($i = 0; $i < count($supermarkets); $i++) {
-                if($supermarkets[$i]['slug'] == $supermarket_slug) {
-                    $this->data['current_supermarket'] = $supermarkets[$i];
-                    unset($supermarkets[$i]);
-                }
-            }
-        }
-
-      //  isset($this->data['current_tag']['slug']) ?: $this->data['current_tag']['slug'] = null;
-      //  isset($this->data['current_category']['slug']) ?: $this->data['current_category']['slug'] = null;
-      //  isset($this->data['current_supermarket']['slug']) ?: $this->data['current_supermarket']['slug'] = null;
+        $current_category = findBySlugInArray($category_slug, $categories);
+        $current_supermarket = findBySlugInArray($supermarket_slug, $supermarkets);
 
         $number_of_products = $this->model->count(
-            isset($this->data['current_category']['id']) ? $this->data['current_category']['id'] : null,
-            isset($this->data['current_supermarket']['id']) ? $this->data['current_supermarket']['id'] : null,
+            isset($current_category['id']) ? $current_category['id'] : null,
+            isset($current_supermarket['id']) ? $current_supermarket['id'] : null,
             isset($this->data['current_tag']['id']) ? $this->data['current_tag']['id'] : null
         )['numberOfProducts'];
 
-            $number_of_pages = ceil($number_of_products / 20);
-
-
-        //echo $number_of_pages; die;
-
+        $number_of_pages = ceil($number_of_products / 20);
+        $start = ($current_page - 1 ) * 20;
 
         $this->data['supermarkets'] = $supermarkets;
         $this->data['categories'] = $categories;
-        $this->data['products'] = $products;
+        $this->data['current_supermarket'] = $current_supermarket;
+        $this->data['current_category'] = $current_category;
         $this->data['number_of_pages'] = $number_of_pages;
         $this->data['current_page'] = $current_page;
+        $this->data['products'] = $this->model->getProducts($category_slug, $supermarket_slug,$tag_slug, $start, 1);
+
 
     }
 
@@ -86,7 +63,7 @@ class Produkty extends Controller {
             redirect("admin/produkty/ziadosti");
         } 
 
-        $products = $this->model->getProducts(null, null, 2);
+        $products = $this->model->getProducts(null, null, null, 0, 2);
 
         $this->data['products'] = $products;
     }
@@ -105,7 +82,7 @@ class Produkty extends Controller {
             redirect("admin/produkty/trash");
         }
 
-        $this->data['products'] = $this->model->getProducts(null, null, 3);
+        $this->data['products'] = $this->model->getProducts(null, null, null, 0, 3);
     }
 
     public function admin_pridat() {

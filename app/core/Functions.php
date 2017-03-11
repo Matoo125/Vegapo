@@ -1,6 +1,7 @@
 <?php
 
-function redirect($url) {
+function redirect($url) 
+{
     header("Location: " . DS . $url);
     exit();
 }
@@ -8,6 +9,18 @@ function redirect($url) {
 function paginate($query, $start, $per_page)
 {
     return $query . " LIMIT " . $start . ", " . $per_page;
+}
+
+function findBySlugInArray($slug, $array)
+{
+  if ($slug == null || $array == null) return;
+
+  for ( $i = 0; $i < count($array); $i++ ) {
+    if ( $array[$i]['slug'] == $slug ) {
+      return $array[$i];
+    }
+  }
+
 }
 
 function slugify($text)
