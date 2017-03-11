@@ -13,13 +13,15 @@ function paginate($query, $start, $per_page)
 
 function findBySlugInArray($slug, $array)
 {
-  if ($slug == null || $array == null) return;
+  if ($slug == null || $array == null) return null;
 
   for ( $i = 0; $i < count($array); $i++ ) {
     if ( $array[$i]['slug'] == $slug ) {
       return $array[$i];
     }
   }
+
+  return false;
 
 }
 
