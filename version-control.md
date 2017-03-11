@@ -2,10 +2,11 @@
 TODO:
 - registration validation
 - improve authority checking
-- pagination
 
 Ver 0.0.0.8
 - front end filters
+- pagination
+- admin filters update
 
 Ver 0.0.0.7
 - code cleanup
