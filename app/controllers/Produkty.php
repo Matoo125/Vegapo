@@ -134,7 +134,16 @@ class Produkty extends Controller {
         redirect('admin/produkty');
     }
 
-    public function admin_upravit($id) {
+    public function produkt($slug = null)
+    {
+        $this->view = 'public/home/produkt';
+
+        $this->data['product'] = $this->model->getProductBySlug($slug);
+
+    }
+
+    public function admin_upravit($id) 
+    {
         $this->view = 'admin/produkty/upravit';
 
         if ($_POST) {

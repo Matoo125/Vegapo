@@ -14,7 +14,7 @@
             <div class="card">
                 <img class="card-img-top img-fluid" src={{ product.image != "none" ? "/uploads/products/#{product.image}-thumb450x450" : "http://placehold.jp/450x450.png"}}>
                 <div class="card-block">
-                    <p class="card-title">{{ product.name }}</p>
+                    <p class="card-title"><a href="/produkty/produkt/{{ product.slug }}">{{ product.name }}</a></p>
                 </div>
             </div>
         {% endfor %}

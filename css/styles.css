@@ -46,8 +46,9 @@ a {
 
 a:hover,
 a:focus {
-    color: #222;
+    color: #001A33;
     outline: 0;
+    text-decoration: none;
 }
 
 p {
@@ -103,6 +104,10 @@ section {
     padding: 70px 0;
 }
 
+section {
+    background-color: white;
+}
+
 aside {
     padding: 45px 0;
 }
@@ -117,7 +122,7 @@ footer h4, footer h6, footer{
     color:#fff;
 }
 
-a:hover, footer a:active {
+footer a:hover, footer a:active {
     color: #fff;
     text-decoration: none;
 }
@@ -318,6 +323,7 @@ img::-moz-selection {
 .card {
     margin: 15px 15px 0 0;
     max-width: 450px;
+    border: none;
 }
 
 .alert {

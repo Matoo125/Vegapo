@@ -19,6 +19,9 @@ class Controller {
         $twig->addExtension(new Twig_Extension_Debug());
         $twig->addGlobal("session", $_SESSION);
 
+        $slugifilter = new Twig_Filter('slugifilter', 'slugify');
+        $twig->addFilter($slugifilter);
+
         $data['sessionclass'] = new Session;
         $data['lang'] = $GLOBALS['lang'];
         $data['url']  = $GLOBALS['url'];

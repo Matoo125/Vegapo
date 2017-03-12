@@ -47,7 +47,8 @@ class Product extends Model
         $this->runQuery($sql, $array, "post");
     }
 
-    public function getProductById($id) {
+    public function getProductById($id) 
+    {
 
         $sql = "SELECT p.id AS id, p.name AS name, p.expected_price AS price, p.image AS image, c.name AS category_name, c.id AS category_id, GROUP_CONCAT(DISTINCT s.name) AS supermarket_names, GROUP_CONCAT(DISTINCT s.id) AS supermarket_ids, GROUP_CONCAT(DISTINCT t.name) AS tag_names, GROUP_CONCAT(DISTINCT t.id) AS tag_ids FROM products AS p INNER JOIN categories AS c ON p.category_id = c.id LEFT JOIN matching_supermarkets AS ms ON ms.product_id = p.id LEFT JOIN supermarkets AS s ON s.id = ms.supermarket_id LEFT JOIN matching_tags AS mt ON mt.product_id = p.id LEFT JOIN tags AS t on t.id = mt.tag_id WHERE p.id = :id
 ";
@@ -57,13 +58,21 @@ class Product extends Model
 
     }
 
+    public function getProductBySlug($slug)
+    {
+          $sql = "SELECT p.id AS id, p.name AS name, p.slug AS slug, p.expected_price AS price, p.image AS image, c.name AS category, GROUP_CONCAT(DISTINCT s.name) AS supermarkets, GROUP_CONCAT(DISTINCT t.name) AS tags FROM products AS p INNER JOIN categories AS c ON p.category_id = c.id LEFT JOIN matching_supermarkets AS ms ON ms.product_id = p.id LEFT JOIN supermarkets AS s ON s.id = ms.supermarket_id LEFT JOIN matching_tags AS mt ON mt.product_id = p.id LEFT JOIN tags AS t ON t.id = mt.tag_id WHERE p.slug = :slug GROUP BY p.id LIMIT 1
+";
+
+        return $this->runQuery($sql, array("slug" => $slug), "get1");      
+    }
+
     public function getProducts($category_slug = null, $supermarket_slug = null, $tag_slug = null, $current_page, $visibility = null)
     {
         $array = array();
         $array['country'] = COUNTRY_CODE;
         $array['visibility'] = $visibility;
 
-        $sql = "SELECT p.id AS id, p.name AS name, p.expected_price AS price, p.image AS image, c.name AS category, GROUP_CONCAT(DISTINCT s.name) AS supermarkets, GROUP_CONCAT(DISTINCT t.name) AS tags FROM products AS p INNER JOIN categories AS c ON p.category_id = c.id LEFT JOIN matching_supermarkets AS ms ON ms.product_id = p.id LEFT JOIN supermarkets AS s ON s.id = ms.supermarket_id LEFT JOIN matching_tags AS mt ON mt.product_id = p.id LEFT JOIN tags AS t ON t.id = mt.tag_id WHERE p.country = :country AND p.visibility = :visibility";
+        $sql = "SELECT p.id AS id, p.name AS name, p.slug as slug, p.expected_price AS price, p.image AS image, c.name AS category, GROUP_CONCAT(DISTINCT s.name) AS supermarkets, GROUP_CONCAT(DISTINCT t.name) AS tags FROM products AS p INNER JOIN categories AS c ON p.category_id = c.id LEFT JOIN matching_supermarkets AS ms ON ms.product_id = p.id LEFT JOIN supermarkets AS s ON s.id = ms.supermarket_id LEFT JOIN matching_tags AS mt ON mt.product_id = p.id LEFT JOIN tags AS t ON t.id = mt.tag_id WHERE p.country = :country AND p.visibility = :visibility";
 
         if($category_slug){
             $sql .= " AND c.slug = :category_slug";
