@@ -7,18 +7,19 @@
 	<div class="container">
 		<div class="wow fadeInUp text-center"><h2>{{ lang.PRODUCTS }} {{ current_category ? "| " ~ current_category.name }} {{ current_supermarket ? "| " ~ current_supermarket.name}}</h2></div> <br>
 	
-		   <div class="card-deck">
+            <div class="flex-row row">
 
-            {% for product in products %}
-            <!-- card -->
-            <div class="card">
-                <img class="card-img-top img-fluid" src={{ product.image != "none" ? "/uploads/products/#{product.image}-thumb450x450" : "http://placehold.jp/450x450.png"}}>
-                <div class="card-block">
-                    <p class="card-title"><a href="/produkty/produkt/{{ product.slug }}">{{ product.name }}</a></p>
+                {% for product in products %}
+                <div class="col-xs-6 col-sm-4 col-lg-3">
+                    <a href="/produkty/produkt/{{ product.slug }}">
+                    <img class="card-img-top img-fluid" src={{ product.image != "none" ? "/uploads/products/#{product.image}-thumb450x450" : "http://placehold.jp/450x450.png"}}>
+                    <div class="card-block">
+                        <p class="card-title">{{ product.name }}</p>
+                    </div>
+                    </a>
                 </div>
+            {% endfor %}
             </div>
-        {% endfor %}
-        </div>
 
         <br>
         <div class="row">
