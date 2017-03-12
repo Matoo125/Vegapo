@@ -5,3 +5,4 @@
 /uploads/supermarkets/*
 /uploads/tags/*
 /uploads/products/*
+/app/core/Config.php
