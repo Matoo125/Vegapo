@@ -11,17 +11,17 @@
 
 	} else {
 
-		 define("DB_HOST", "localhost");
-		 define("DB_NAME", 'vegpotraviny');
-		 define("DB_USER", "vegpotraviny");
-		 define("DB_PASSWORD", "vegpass");
+		 define("DB_HOST", "");
+		 define("DB_NAME", '');
+		 define("DB_USER", "");
+		 define("DB_PASSWORD", "");
 		 define("SHOW_ERRORS", false);
 
 	}
 
 
 	define( "COUNTRY_CODE", substr($_SERVER['SERVER_NAME'], -2) );
-    define("SALT", "asd57rgre574sdfs5gs658floinbc489sdg49");
+    define("SALT", "");
 
 define( 'USERS', array(450 => "developer", 74 => "superadmin", 34 => "admin", 24 => "superuser", 4 => "user") );
 define( 'VISIBILITY', array(1 => "visible", 2 => "request", 3 => "trash") );
