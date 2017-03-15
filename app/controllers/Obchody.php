@@ -2,10 +2,6 @@
 
 class Obchody extends Controller {
 
-    private $model = null;
-    private $view = null;
-    private $data = null;
-
     public function __construct()
     {
         if (!check_user_premission(35)) redirect('/');

@@ -17,7 +17,7 @@ class App
             $this->method_prefix = 'admin_';
             array_shift($url);
             if(check_user_premission(30) != true) redirect(toURL("LOGIN"));
-           // if (! Session::get('user_id') || !Session::get('user_role') || !Session::get('user_country')) redirect(LOGIN_PAGE);
+
         }
 
         if ($url && file_exists(APP . DS . 'controllers' . DS . ucfirst($url[0]) . '.php')) {

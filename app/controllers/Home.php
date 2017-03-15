@@ -2,9 +2,6 @@
 
 class Home extends Controller
 {
-    private $model;
-    private $view;
-    private $data;
 
     public function __construct()
     {

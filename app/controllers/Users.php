@@ -9,10 +9,6 @@
 
 class Users extends Controller {
 
-    private $view = null;
-    private $model = null;
-    private $data = array();
-
     public function __construct()
     {
         $this->model = $this->model('User');
