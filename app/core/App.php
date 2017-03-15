@@ -16,7 +16,7 @@ class App
         if ($url[0] == 'admin'){
             $this->method_prefix = 'admin_';
             array_shift($url);
-            if(check_user_premission(30) != true) redirect(LOGIN_PAGE);
+            if(check_user_premission(30) != true) redirect(toURL("LOGIN"));
            // if (! Session::get('user_id') || !Session::get('user_role') || !Session::get('user_country')) redirect(LOGIN_PAGE);
         }
 

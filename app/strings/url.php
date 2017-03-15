@@ -17,6 +17,7 @@ $url['ADMIN_USERS'] = "/admin/users/";
 $url['ADMIN_SETTINGS'] = "/admin/home/settings";
 $url['ADMIN_CHANGELOG'] = "/admin/home/changelog";
 $url['LOGOUT'] = "/users/logout/";
+$url['LOGIN'] = "/users/login";
 $url['ADMIN'] = "/admin/";
 $url['INDEX'] = "/";
 
