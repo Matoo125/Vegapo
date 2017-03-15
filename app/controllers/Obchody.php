@@ -8,6 +8,7 @@ class Obchody extends Controller {
 
     public function __construct()
     {
+        if (!check_user_premission(35)) redirect('');
         $this->model = $this->model("Store");
     }
 

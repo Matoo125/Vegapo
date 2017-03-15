@@ -24,6 +24,9 @@
                             <th>{{ lang.COUNTRY }}</th>
                             <th>{{ lang.REGISTERED_AT }}</th>
                             <th>{{ lang.LAST_LOGIN }}</th>
+                            {% if session.user_role > 35 %}
+                                <th>{{ lang.ACTION }}</th>
+                            {% endif %}
                         </tr>
                         </thead>
                         <tbody>
@@ -40,6 +43,29 @@
                             <td>{{ item.country }}</td>
                             <td>{{ item.created_at|date('d. m. Y') }}</td>
                             <td>{{ item.last_activity|date('d. m. | H:i') }}</td>
+
+                            {% if session.user_role > 35 %}
+                                {% if item.role < 30 %}
+                                    <td>
+                                        <a href="/admin/users/change_role/{{ item.user_id }}/34">Make admin</a>
+                                    </td>
+                                {% elseif item.role > 30 and item.role < 70 %}
+                                    <td>
+                                    {% if session.user_role > 75 %}
+                                        <a href="/admin/users/change_role/{{ item.user_id }}/74">Make superadmin</a>
+                                    {% endif %}
+                                      <a href="/admin/users/change_role/{{ item.user_id }}/4">Make user</a>
+
+                                    </td>
+                                   {% else %}
+                                     <td>
+                                        {% if item.role < 75 and session.user_role > 75 %}
+                                         <a href="/admin/users/change_role/{{ item.user_id }}/34">Make admin</a>
+                                        {% endif %}
+                                     </td>
+                                {% endif %}
+
+                            {% endif %}
                         </tr>
 
                         {% endfor %}

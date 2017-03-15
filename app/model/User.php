@@ -75,4 +75,11 @@ class User extends Model
         return $stmt->rowCount() ? true : null;
     }
 
+    public function changeRole($id, $role)
+    {
+        $sql = "UPDATE users SET role=:role WHERE user_id=:id LIMIT 1";
+        $params = array("role" => $role, "id" => $id);
+        return $this->runQuery($sql, $params, "post");
+    }
+
 }

@@ -73,6 +73,8 @@ class Produkty extends Controller {
     }
 
     public function admin_trash($action = null, $id = null, $image = null) {
+        
+        if (!check_user_premission(35)) redirect('');
         $this->view = "admin/produkty/trash";
 
         if( isset($action) && isset($id) ) {

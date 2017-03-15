@@ -47,6 +47,7 @@ abstract class Model
     }
 
     public function delete($id, $column_name = "id", $image = null) {
+        if (!check_user_premission(35)) redirect('');
         $sql = "DELETE FROM " . static::$table . " WHERE " . $column_name ." = :id";
         $stmt = self::getDB()->prepare($sql);
         $stmt->execute(array(
