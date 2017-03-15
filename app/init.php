@@ -13,7 +13,6 @@ require_once 'core/Model.php';
 require_once 'core/Config.php';
 require_once 'core/Session.php';
 require_once 'core/Functions.php';
-require_once 'core/Lang.php';
 require_once 'vendor/autoload.php';
 
 define('DS', DIRECTORY_SEPARATOR);
