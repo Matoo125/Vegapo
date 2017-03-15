@@ -74,12 +74,12 @@
             {% else %}
                 {% if session.user_role > 30 %}
                 <li class="nav-item">
-                    <a class="nav-link page-scroll" title="Chcem ist prec" href="/admin">Administracia</a>
+                    <a class="nav-link page-scroll" title="Prejsť do administrácie" href="/admin">Administracia</a>
                 </li>
                 {% endif %}
 
                 <li class="nav-item">
-                    <a class="nav-link page-scroll" title="Chcem ist prec" href="/users/">{{ session.username }}</a>
+                    <a class="nav-link page-scroll" title="Uživateľské funkcie" href="/users/">{{ session.username }}</a>
                 </li>
 
                 <li class="nav-item">

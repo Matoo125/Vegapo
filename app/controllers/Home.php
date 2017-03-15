@@ -193,7 +193,7 @@ class Home extends Controller
     {
         $this->view = "/admin/home/changelog";
 
-        $mdFile = file_get_contents(ROOT . DS . "version-control.md");
+        $mdFile = file_get_contents(ROOT . DS . "changelog.md");
 
         $Parsedown = new Parsedown();
         $this->data['parsedown'] = $Parsedown->text($mdFile);

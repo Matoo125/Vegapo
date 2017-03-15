@@ -8,29 +8,41 @@
 
 {% block page_menu %}
 <div class="row">
-    <div class="col-md-4">
             <div class="dropdown">
                  <button class="btn btn-secondary dropdown-toggle" type="button" id="supermarketsDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {{ lang.SUPERMARKETS }}
+                  {{ current_supermarket.name ?: lang.SUPERMARKETS }}
               </button>
                  <div class="dropdown-menu" aria-labelledby="supermarketsDropDown">
                  {% for supermarket in supermarkets %}
-                  <a class="dropdown-item" href="/admin/produkty/{{ current_category ? current_category.slug : 0 }}/{{ supermarket.slug }}">{{ supermarket.name }}</a>
+                    {% if current_supermarket.slug != supermarket.slug %}
+                     <a class="dropdown-item" href="/admin/produkty/{{ current_category ? current_category.slug : 0 }}/{{ supermarket.slug }}/{{ current_tag ? current_tag.slug : 0 }}">{{ supermarket.name }}</a>
+                    {% endif %}
                    {% endfor %}
               </div>
              </div>
-        </div>
-        <div class="col-md-4">
              <div class="dropdown">
                  <button class="btn btn-secondary dropdown-toggle" type="button" id="supermarketsDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {{ lang.CATEGORIES }}
-              </button>
+                     {{ current_category.name ?: lang.CATEGORIES }}  
+                 </button>
                  <div class="dropdown-menu" aria-labelledby="supermarketsDropDown">
                  {% for category in categories %}
-                  <a class="dropdown-item" href="/admin/produkty/{{ category.slug }}/{{ current_supermarket ? current_supermarket.slug : 0 }}">{{ category.name }}</a>
+                    {% if category.slug != current_category.slug %}
+                      <a class="dropdown-item" href="/admin/produkty/{{ category.slug }}/{{ current_supermarket ? current_supermarket.slug : 0 }}/{{ current_tag ? current_tag.slug : 0 }}">{{ category.name }}</a>
+                    {% endif %}
                    {% endfor %}
               </div>
              </div>
+             <div class="dropdown">
+                 <button class="btn btn-secondary dropdown-toggle" type="button" id="tagsDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ current_tag.name ?: lang.TAGS }}
+              </button>
+                 <div class="dropdown-menu" aria-labelledby="tagsDropDown">
+                 {% for tag in tags %}
+                    {% if current_tag.slug != tag.slug %}
+                        <a class="dropdown-item" href="/admin/produkty/{{ current_category ? current_category.slug : 0 }}/{{ current_supermarket ? current_supermarket.slug : 0 }}/{{ tag.slug }}">{{ tag.name }}</a>
+                    {% endif %}
+                   {% endfor %}
+              </div>
     </div>
 </div>
 {% endblock %}
@@ -39,42 +51,6 @@
 
     <div class="row">
         <div class="col-md-12">
-     <!--   {% if categories %}
-            <select id="select-category">
-                {% if current_category %}
-                <option value="0">{{ current_category.name }}</option>
-                {% else %}
-                <option value="0">{{ lang.CATEGORIES_ALL }}</option>
-                {% endif %}
-
-                {% for category in categories %}
-                <option value="{{ category.slug }}">{{ category.name }}</option>
-                {% endfor %}
-                {% if current_category %}
-                <option value="0">{{ lang.CATEGORIES_ALL }}</option>
-                {% endif %}
-            </select>
-            {% endif %}
-            {% if supermarkets %}
-            <select id="select-supermarket">
-                {% if current_supermarket %}
-                <option value="0">{{ current_supermarket.name }}</option>
-                {% else %}
-                <option value="0">{{ lang.SUPERMARKETS_ALL }}</option>
-                {% endif %}
-
-                {% for supermarket in supermarkets %}
-                <option value="{{ supermarket.slug }}">{{ supermarket.name }}</option>
-                {% endfor %}
-                {% if current_supermarket %}
-                <option value="0">{{ lang.SUPERMARKETS_ALL }}</option>
-                {% endif %}
-
-            </select>
-
-            {% endif %}
--->
-
 
             <div class="table-responsive">
                 <table class="table table-striped sortable">

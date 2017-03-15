@@ -85,6 +85,11 @@ class Product extends Model
             $array['supermarket'] = $supermarket_slug;
         }
 
+        if ($tag_slug) {
+            $sql .= " AND t.slug = :tag_slug";
+            $array['tag_slug'] = $tag_slug;
+        }
+
         $sql .= " GROUP BY p.id, p.name";
         $sql = paginate($sql, $current_page, 20);
         return $this->runQuery($sql, $array, "get");
@@ -117,8 +122,8 @@ class Product extends Model
 
         if ($tag) {
             $sql .= " LEFT JOIN matching_tags AS mt ON p.id = mt.product_id";
-            $where[] = "mt.tag_id = :tag_id";
-            $args['tag_id'] = $tag_id;
+            $where[] = " mt.tag_id = :tag_id";
+            $args['tag_id'] = $tag;
         }
 
         $sql = $sql . " WHERE" . implode(" AND", $where);

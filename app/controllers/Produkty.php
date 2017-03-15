@@ -27,14 +27,16 @@ class Produkty extends Controller {
 
         $categories = $this->model->getCategories();
         $supermarkets = $this->model->getSupermarkets();
+        $tags = $this->model->getTags();
 
         $current_category = findBySlugInArray($category_slug, $categories);
         $current_supermarket = findBySlugInArray($supermarket_slug, $supermarkets);
+        $current_tag = findBySlugInArray($tag_slug, $tags);
 
         $number_of_products = $this->model->count(
             isset($current_category['id']) ? $current_category['id'] : null,
             isset($current_supermarket['id']) ? $current_supermarket['id'] : null,
-            isset($this->data['current_tag']['id']) ? $this->data['current_tag']['id'] : null
+            isset($current_tag['id']) ? $current_tag['id'] : null
         )['numberOfProducts'];
 
         $number_of_pages = ceil($number_of_products / 20);
@@ -42,8 +44,10 @@ class Produkty extends Controller {
 
         $this->data['supermarkets'] = $supermarkets;
         $this->data['categories'] = $categories;
+        $this->data['tags'] = $tags;
         $this->data['current_supermarket'] = $current_supermarket;
         $this->data['current_category'] = $current_category;
+        $this->data['current_tag'] = $current_tag;
         $this->data['number_of_pages'] = $number_of_pages;
         $this->data['current_page'] = $current_page;
         $this->data['products'] = $this->model->getProducts($category_slug, $supermarket_slug,$tag_slug, $start, 1);

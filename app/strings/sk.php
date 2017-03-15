@@ -55,6 +55,8 @@ $lang["PERSONAL_INFO"] ="Osobné informácie";
 $lang["GENERAL_INFO"] ="Všeobecné informácie";
 $lang["BRIEF_DESCRIPTION"] ="Stručný popis";
 
+$lang["PROFILE_EDIT"] = "Upraviť profil";
+
 $lang["PASSWORD_CHANGE"] ="Zmena hesla";
 $lang["PASSWORD_OLD"] ="Staré heslo";
 $lang["PASSWORD_NEW"] ="Nové heslo";
@@ -85,6 +87,8 @@ $lang["TAG_NEW"] ="Nový Tag";
 $lang["PRODUCTS"] ="Produkty";
 $lang["PRODUCT_NEW"] ="Nový Produkt";
 $lang["PRODUCT_NAME"] ="Názov produktu";
+$lang["PRODUCTS_MY"] = "Moje produkty";
+
 $lang["PRICE"] ="Približná cena";
 $lang["IMAGE"] ="Obrázok";
 $lang["TRASH"] ="Kôš";

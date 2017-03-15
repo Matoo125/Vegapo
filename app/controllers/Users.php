@@ -124,7 +124,14 @@ class Users extends Controller {
 
     }
 
+    public function update() {
+        $this->admin_update();
+        $this->view = "public/account/edit";
+    }
+
     public function index() {
+        // get user added products
+       // $this->data['products'] = $this->model->getProductsByUser();
         $this->profile();
     }
 

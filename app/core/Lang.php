@@ -94,3 +94,4 @@ define("PASSWORD_UPDATE_ERROR", "Heslo nebolo zmenené");
 
 define("PROFILE_UPDATED", "Profil upravený úspešne");
 define("PROFILE_UPDATE_FAILED", "Profil sa upraviť nepodarilo");
+define("PROFILE_EDIT", "Upraviť profil");
