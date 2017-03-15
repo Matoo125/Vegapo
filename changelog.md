@@ -1,9 +1,13 @@
 
 TODO:
+- FIX controllers redirect links
+- Clean code
+- Prepare for framework migration
+- create table images
+- allow more images per product
 
 
-
-Ver 0.0.2
+Ver 0.0.2 ALFA
 - admin tags filters
 - improve authority checking
 - registration validation

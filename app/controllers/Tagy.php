@@ -8,7 +8,7 @@ class Tagy extends Controller {
 
     public function __construct()
     {
-        if (!check_user_premission(35)) redirect('');
+        if (!check_user_premission(35)) redirect('/');
         $this->model = $this->model("Tag");
     }
 
@@ -91,7 +91,7 @@ class Tagy extends Controller {
             Session::setFlash("Tag sa nepodarilo vymazat", 'danger', 1);
         }
 
-        redirect('admin/tagy');
+        redirect('/admin/tagy');
     }
 
 

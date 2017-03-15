@@ -8,7 +8,7 @@ class Obchody extends Controller {
 
     public function __construct()
     {
-        if (!check_user_premission(35)) redirect('');
+        if (!check_user_premission(35)) redirect('/');
         $this->model = $this->model("Store");
     }
 
@@ -44,7 +44,7 @@ class Obchody extends Controller {
             }
 
             if ($this->model->insert($supermarketName, $image)) {
-                Session::setFlash(SUPERMARKET_ADD_SUCCESS, 'success');
+                Session::setFlash(getString('SUPERMARKET_ADD_SUCCESS'), 'success');
             }
         }
 
@@ -68,9 +68,9 @@ class Obchody extends Controller {
 
 
             if ($this->model->update($supermarketName, $image, $id)) {
-                Session::setFlash(SUPERMARKET_UPDATE_SUCCESS, 'success');
+                Session::setFlash(getString('SUPERMARKET_UPDATE_SUCCESS'), 'success');
             } else {
-                Session::setFlash(SUPERMARKET_UPDATE_FAILED, 'danger');
+                Session::setFlash(getString('SUPERMARKET_UPDATE_FAILED'), 'danger');
             }
         }
 
@@ -91,7 +91,7 @@ class Obchody extends Controller {
             Session::setFlash("Supermarket sa nepodarilo vymazat", 'danger', 1);
         }
 
-        redirect('admin/obchody');
+        redirect('/admin/obchody');
     }
 
     

@@ -64,7 +64,7 @@ class Produkty extends Controller {
             } elseif ($action == "deny") {
                  $this->model->setVisibility(3, $id);
             }
-            redirect("admin/produkty/ziadosti");
+            redirect("/admin/produkty/ziadosti");
         } 
 
         $products = $this->model->getProducts(null, null, null, 0, 2);
@@ -73,8 +73,8 @@ class Produkty extends Controller {
     }
 
     public function admin_trash($action = null, $id = null, $image = null) {
-        
-        if (!check_user_premission(35)) redirect('');
+
+        if (!check_user_premission(35)) redirect('/');
         $this->view = "admin/produkty/trash";
 
         if( isset($action) && isset($id) ) {
@@ -85,7 +85,7 @@ class Produkty extends Controller {
             } elseif ($action == "move") {
                 $this->model->setVisibility(3, $id);
             }
-            redirect("admin/produkty/trash");
+            redirect("/admin/produkty/trash");
         }
 
         $this->data['products'] = $this->model->getProducts(null, null, null, 0, 3);
@@ -118,7 +118,7 @@ class Produkty extends Controller {
                 $this->model->matching_supermarkets($id, $supermarkets);
                 $this->model->matching_tags($id, $tags);
 
-                Session::setFlash(PRODUCT_ADD_SUCCESS, "success");
+                Session::setFlash(getString('PRODUCT_ADD_SUCCESS'), "success");
             }
 
         }
@@ -137,7 +137,7 @@ class Produkty extends Controller {
             Session::setFlash("Produkt sa nepodarilo vymazat", 'danger', 1);
         }
 
-        redirect('admin/produkty');
+        redirect('/admin/produkty');
     }
 
     public function produkt($slug = null)
@@ -184,7 +184,7 @@ class Produkty extends Controller {
             $this->model->update($data);
             $this->model->matching_supermarkets($id, $added_supermarkets, $deleted_supermarkets);
             $this->model->matching_tags($id, $added_tags, $deleted_tags);
-            Session::setFlash(PRODUCT_UPDATE_SUCCESS, "success");
+            Session::setFlash(getString('PRODUCT_UPDATE_SUCCESS'), "success");
             
         }
 

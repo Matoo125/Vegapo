@@ -45,7 +45,7 @@ class Users extends Controller {
                     $this->model->runQuery("UPDATE `users` SET last_activity = now() WHERE user_id=:id", array("id" => $user['user_id']), "post");
                     //Session::setFlash("You are logged in.", "success", 1);
                     $this->view = '';
-                    redirect('users');
+                    redirect('/users');
                 } else {
                     Session::setFlash("Credentials do not match.", "warning", 1);
                 }
@@ -102,7 +102,7 @@ class Users extends Controller {
 
         $this->model->changeRole($id, $role);
 
-        redirect('admin/users');
+        redirect('/admin/users');
     }
 
     public function admin_update() {
@@ -112,9 +112,9 @@ class Users extends Controller {
             if (isset($_POST['change-details'])){
 
                 if ($this->model->update($_POST)) {
-                    Session::setFlash(PROFILE_UPDATED, 'success');
+                    Session::setFlash(getString('PROFILE_UPDATED'), 'success');
                 } else {
-                    Session::setFlash(PROFILE_UPDATE_FAILED, 'danger');
+                    Session::setFlash(getString('PROFILE_UPDATE_FAILED'), 'danger');
                 }
 
             } elseif(isset($_POST['change-password'])) {
@@ -123,16 +123,16 @@ class Users extends Controller {
                 if ($current_password[0] == md5(SALT . $_POST['old-password'])) {
                     if ($_POST['new-password'] == $_POST['new-password2']) {
                         if ( $this->model->updatePassword( md5(SALT . $_POST['new-password']) ) ) {
-                            Session::setFlash(PASSWORD_CHANGED, 'success');
+                            Session::setFlash(getString('PASSWORD_CHANGED'), 'success');
                         } else {
-                            Session::setFlash(PASSWORD_UPDATE_ERROR, 'danger');
+                            Session::setFlash(getString('PASSWORD_UPDATE_ERROR'), 'danger');
                         }
                     } else {
-                        Session::setFlash(PASSWORDS_DO_NOT_MATCH, 'warning');
+                        Session::setFlash(getString('PASSWORDS_DO_NOT_MATCH'), 'warning');
                     }
 
                 } else {
-                    Session::setFlash(PASSWORDS_DO_NOT_MATCH, 'danger');
+                    Session::setFlash(getString('PASSWORDS_DO_NOT_MATCH'), 'danger');
                     return;
                 }
 
@@ -164,7 +164,7 @@ class Users extends Controller {
         Session::destroy();
         Session::setFlash("You are logged out", "success", 1);
        // $this->login();
-        redirect(INDEX);
+        redirect(toURL('INDEX'));
 
     }
 

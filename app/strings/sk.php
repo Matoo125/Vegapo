@@ -106,4 +106,24 @@ $lang = [
 
     "WARRNING_MISSING_SUPERMARKET_OR_CATEGORY" => "Prosím vytvorte supermarket a kategóriu skôr ako pridáte produkt",
 
+    "PRODUCT_ADD_SUCCESS"       => "Produkt pridaný úspešne",
+    "PRODUCT_UPDATE_SUCCESS"    => "Produkt upravený úspešne",
+    "PRODUCT_UPDATE_FAILED"     => "Upravenie produktu neprebehlo úspešne",
+
+    "CATEGORY_ADD_SUCCESS"      => "Kategoria pridana úspešne",
+    "CATEGORY_UPDATE_SUCCESS"   => "Kategoria upravena úspešne",
+    "CATEGORY_UPDATE_FAILED"    => "Upravenie kategórie neprebehlo úspešne",
+
+    "SUPERMARKET_ADD_SUCCESS"   => "Supermarket pridany úspešne",
+    "SUPERMARKET_UPDATE_SUCCESS"=> "Supermarket upraveny úspešne",
+    "SUPERMARKET_UPDATE_FAILED" => "Prosim zmente niektory udaj",
+
+    "PASSWORDS_DO_NOT_MATCH"    => "Heslá sa nezhodujú",
+    "PASSWORD_CHANGED"          => "Heslo bolo úspešne zmenené",
+    "PASSWORD_UPDATE_ERROR"     => "Heslo nebolo zmenené",
+
+    "PROFILE_UPDATED"           => "Profil upravený úspešne",
+    "PROFILE_UPDATE_FAILED"     => "Profil sa upraviť nepodarilo",
+    "PROFILE_EDIT"              => "Upraviť profil",
+
  ];

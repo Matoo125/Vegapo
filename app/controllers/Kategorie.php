@@ -8,7 +8,7 @@ class Kategorie extends Controller {
 
     public function __construct()
     {
-        if (!check_user_premission(35)) redirect('');
+        if (!check_user_premission(35)) redirect('/');
         $this->model = $this->model('Category');
     }
 
@@ -46,7 +46,7 @@ class Kategorie extends Controller {
             }
 
             if ($this->model->insert($categoryName, $categoryParent, $image)) {
-                Session::setFlash(CATEGORY_ADD_SUCCESS, "success");
+                Session::setFlash(getString('CATEGORY_ADD_SUCCESS'), "success");
             }
         }
 
@@ -71,7 +71,7 @@ class Kategorie extends Controller {
             }
 
             if ($this->model->update($categoryName, $categoryParent, $image, $id)) {
-                Session::setFlash(CATEGORY_UPDATE_SUCCESS, "success");
+                Session::setFlash(getString('CATEGORY_UPDATE_SUCCESS'), "success");
             }
         }
 
@@ -90,7 +90,7 @@ class Kategorie extends Controller {
             Session::setFlash("Kategóriu sa nepodarilo vymazat", 'danger', 1);
         }
 
-        redirect('admin/kategorie');
+        redirect('/admin/kategorie');
     }
 
     public function __destruct()

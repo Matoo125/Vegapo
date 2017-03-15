@@ -18,6 +18,7 @@ $url['ADMIN_SETTINGS'] = "/admin/home/settings";
 $url['ADMIN_CHANGELOG'] = "/admin/home/changelog";
 $url['LOGOUT'] = "/users/logout/";
 $url['ADMIN'] = "/admin/";
+$url['INDEX'] = "/";
 
 
 $url['SUPERMARKET_ADMIN_DELETE'] = "/admin/obchody/vymazat/";

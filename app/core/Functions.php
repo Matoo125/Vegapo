@@ -2,7 +2,7 @@
 
 function redirect($url) 
 {
-    header("Location: " . DS . $url);
+    header("Location: " . $url);
     exit();
 }
 
@@ -10,6 +10,12 @@ function toURL($key)
 {
   global $url;
   return $url[$key];
+}
+
+function getString($key)
+{
+  global $lang;
+  return $lang[strtoupper($key)];
 }
 
 function paginate($query, $start, $per_page)
