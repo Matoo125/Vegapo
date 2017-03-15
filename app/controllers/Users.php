@@ -65,6 +65,11 @@ class Users extends Controller {
             $data['password1'] = $_POST['password1'];
             $data['password2'] = $_POST['password2'];
 
+            if($this->model->getByEmail($data['email'])) {
+                Session::setFlash("This email is already in the database", "warning", 1);
+                return;
+            }
+
             if($data['password1'] != $data['password2']) {
                 Session::setFlash("Passwords does not match", "warning", 1);
                 return;

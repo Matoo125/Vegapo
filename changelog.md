@@ -1,11 +1,12 @@
 
 TODO:
-- registration validation
+
 
 
 Ver 0.0.2
 - admin tags filters
 - improve authority checking
+- registration validation
 
 Ver 0.0.1 ALFA
 - front end product detail grid fix
