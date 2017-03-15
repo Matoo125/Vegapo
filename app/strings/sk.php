@@ -1,107 +1,109 @@
 <?php
 
-$lang = array();
+$lang = [
 
-$lang['PAGE_FULL_NAME'] = "Vegánske Potraviny";
-$lang['PAGE_BRIEF_DESCRIPTION'] = "Zoznam výrobkov dostupných v bežných supermarketoch bez živočíšnych ingrediencií.";
-$lang['INDEX_ACTION_BUTTON'] = "To chcem!";
+    'PAGE_FULL_NAME' 			=> "Vegánske Potraviny",
+    'PAGE_BRIEF_DESCRIPTION' 	=> "Zoznam výrobkov dostupných v bežných supermarketoch bez živočíšnych ingrediencií.",
+    'INDEX_ACTION_BUTTON' 		=> "To chcem!",
 
-$lang["MY_ACCOUNT"] ="Môj účet";
-$lang["MEMBERS"] ="Užívatelia";
-$lang["SETTINGS"] ="Nastavenia";
-$lang["WEB"] ="Web";
-$lang["LOGOUT"] ="Odhlásiť sa";
-$lang["LOGIN"] ="Prihlásiť sa";
-$lang["LOGIN1"] ="Prihlásenie";
-$lang["REGISTER"] ="Registrovať sa";
-$lang["REGISTER1"] ="Registrácia";
+    "MY_ACCOUNT"				=> 	"Môj účet",
+    "MEMBERS" 					=> 	"Užívatelia",
+    "SETTINGS"					=> 	"Nastavenia",
+    "WEB" 						=> 	"Web",
+    "LOGOUT"					=>	"Odhlásiť sa",
+    "LOGIN" 					=>	"Prihlásiť sa",
+    "LOGIN1" 					=>	"Prihlásenie",
+    "REGISTER" 					=>	"Registrovať sa",
+    "REGISTER1" 				=> 	"Registrácia",
 
-$lang["GREETING"] = "Ahoj";
-$lang["WELCOME_BACK"] = "Vítaj späť";
+    "GREETING"					=> "Ahoj",
+    "WELCOME_BACK" 				=> "Vítaj späť",
 
-$lang['ABOUT'] = "O";
-$lang['ABOUT_PROJECT'] = "O projekte";
-$lang['ABOUT_AUTHORS'] = "O autoroch";
-$lang['ABOUT_HELP'] = "O tom, ako pomôcť";
-$lang['OTHER'] = "Ostatné";
-$lang['CONTACT'] = "Kontakt";
-$lang['FAQ'] = "FAQ";
+    'ABOUT' 					=> "O",
+    'ABOUT_PROJECT' 			=> "O projekte",
+    'ABOUT_AUTHORS' 			=> "O autoroch",
+    'ABOUT_HELP' 				=> "O tom, ako pomôcť",
+    'OTHER' 					=> "Ostatné",
+    'CONTACT' 					=> "Kontakt",
+    'FAQ' 						=> "FAQ",
 
-$lang['STAY_IN_TOUCH'] = "Zostaň v kontakte";
-$lang['SUBSCRIBE'] = "Odoberať";
-$lang['SOCIAL'] = "Sociálne";
+    'STAY_IN_TOUCH'				=> "Zostaň v kontakte",
+    'SUBSCRIBE' 				=> "Odoberať",
+    'SOCIAL' 					=> "Sociálne",
 
-$lang["OVERVIEW"] ="Prehľad";
-$lang["NUMBER_OF_PRODUCTS"] ="Počet Produktov";
-$lang["NUMBER_OF_CATEGORIES"] ="Počet Kategórií";
-$lang["NUMBER_OF_SUPERMARKETS"] ="Počet Obchodov";
-$lang["NUMBER_OF_REQUESTS"] ="Na schválenie";
-
-
-$lang["MENU"] ="Menu";
-$lang["TITLE"] ="Názov";
-$lang["USERS_LIST"] ="Zoznam užívateľov";
-$lang["USERNAME"] ="Prezývka";
-$lang["FIRST_NAME"] ="Krstné meno";
-$lang["LAST_NAME"] ="Priezvisko";
-$lang["CONTACT_EMAIL"] ="Kontaktný email";
-$lang['EMAIL_ADDRESS'] = "Email adresa";
-$lang['EMAIL'] = "Email";
-$lang["USER_TYPE"] ="Rola";
-$lang["COUNTRY"] ="Krajina";
-$lang["REGISTERED_AT"] ="Registrovaný dňa";
-$lang["LAST_LOGIN"] ="Naposledy prihlásený";
-$lang["PERSONAL_INFO"] ="Osobné informácie";
-$lang["GENERAL_INFO"] ="Všeobecné informácie";
-$lang["BRIEF_DESCRIPTION"] ="Stručný popis";
-
-$lang["PROFILE_EDIT"] = "Upraviť profil";
-
-$lang["PASSWORD_CHANGE"] ="Zmena hesla";
-$lang["PASSWORD_OLD"] ="Staré heslo";
-$lang["PASSWORD_NEW"] ="Nové heslo";
-$lang["PASSWORD_NEW2"] ="Kontrola nového hesla";
-
-$lang["CATEGORY"] ="Kategória";
-$lang["CATEGORIES"] ="Kategórie";
-$lang["CATEGORY_NAME"] ="Názov Kategórie";
-$lang["CATEGORY_MAIN"] ="Hlavná Kategória";
-$lang["CATEGORY_NEW"] ="Nová kategória";
-$lang["CATEGORY_PARENT"] ="Rodičovská kategória";
-$lang["CATEGORY_EDIT"] ="Upraviť kategóriu";
-$lang["CATEGORIES_ALL"] ="Všetky kategórie";
-
-$lang["SUPERMARKETS"] ="Obchody";
-$lang["SUPERMARKETS_ALL"] ="Všetky obchody";
-$lang["SUPERMARKET_NAME"] ="Názov Obchodu";
-$lang["SUPERMARKET_EDIT"] ="Upraviť Obchod";
-$lang["SUPERMARKET_NEW"] ="Nový Obchod";
-
-$lang["TAGS"] ="Tagy";
-$lang["TAGS_ALL"] ="Všetky Tagy";
-$lang["TAG_NAME"] ="Názov Tagu";
-$lang["TAG_EDIT"] ="Upraviť Tag";
-$lang["TAG_NEW"] ="Nový Tag";
+    "OVERVIEW" 					=>"Prehľad",
+    "NUMBER_OF_PRODUCTS" 		=>"Počet Produktov",
+    "NUMBER_OF_CATEGORIES" 		=>"Počet Kategórií",
+    "NUMBER_OF_SUPERMARKETS"	=>"Počet Obchodov",
+    "NUMBER_OF_REQUESTS" 		=>"Na schválenie",
 
 
-$lang["PRODUCTS"] ="Produkty";
-$lang["PRODUCT_NEW"] ="Nový Produkt";
-$lang["PRODUCT_NAME"] ="Názov produktu";
-$lang["PRODUCTS_MY"] = "Moje produkty";
+    "MENU" 						=>"Menu",
+    "TITLE" 					=>"Názov",
+    "USERS_LIST" 				=>"Zoznam užívateľov",
+    "USERNAME" 					=>"Prezývka",
+    "FIRST_NAME" 				=>"Krstné meno",
+    "LAST_NAME" 				=>"Priezvisko",
+    "CONTACT_EMAIL" 			=>"Kontaktný email",
+    'EMAIL_ADDRESS' 			=> "Email adresa",
+    'EMAIL' 					=> "Email",
+    "USER_TYPE" 				=>"Rola",
+    "COUNTRY"					=>"Krajina",
+    "REGISTERED_AT" 			=>"Registrovaný dňa",
+    "LAST_LOGIN" 				=>"Naposledy prihlásený",
+    "PERSONAL_INFO" 			=>"Osobné informácie",
+    "GENERAL_INFO" 				=>"Všeobecné informácie",
+    "BRIEF_DESCRIPTION" 		=>"Stručný popis",
 
-$lang["PRICE"] ="Približná cena";
-$lang["IMAGE"] ="Obrázok";
-$lang["TRASH"] ="Kôš";
-$lang["ACTION"] ="Akcia";
-$lang["RECOVER"] ="Obnoviť";
-$lang["REMOVE"] ="Vymazať";
-$lang["MOVE_TO_TRASH"] ="Presunúť do koša";
-$lang["REQUESTS"] ="Žiadosti";
-$lang["ACCEPT"] ="Schváliť";
-$lang["REJECT"] ="Zamietnuť";
-$lang["SUBMIT"] ="Odoslať";
+    "PROFILE_EDIT" 				=> "Upraviť profil",
+
+    'PASSWORD' 					=> "Heslo",
+    "PASSWORD_CHANGE" 			=>"Zmena hesla",
+    "PASSWORD_OLD" 				=>"Staré heslo",
+    "PASSWORD_NEW" 				=>"Nové heslo",
+    "PASSWORD_NEW2" 			=>"Kontrola nového hesla",
+
+    "CATEGORY"					=>"Kategória",
+    "CATEGORIES" 				=>"Kategórie",
+    "CATEGORY_NAME"				=>"Názov Kategórie",
+    "CATEGORY_MAIN" 			=>"Hlavná Kategória",
+    "CATEGORY_NEW"				=>"Nová kategória",
+    "CATEGORY_PARENT" 			=>"Rodičovská kategória",
+    "CATEGORY_EDIT" 			=>"Upraviť kategóriu",
+    "CATEGORIES_ALL" 			=>"Všetky kategórie",
+
+    "SUPERMARKETS" 				=>"Obchody",
+    "SUPERMARKETS_ALL" 			=>"Všetky obchody",
+    "SUPERMARKET_NAME" 			=>"Názov Obchodu",
+    "SUPERMARKET_EDIT" 			=>"Upraviť Obchod",
+    "SUPERMARKET_NEW"			=>"Nový Obchod",
+
+    "TAGS" 						=>"Tagy",
+    "TAGS_ALL" 					=>"Všetky Tagy",
+    "TAG_NAME" 					=>"Názov Tagu",
+    "TAG_EDIT"					=>"Upraviť Tag",
+    "TAG_NEW"					=>"Nový Tag",
 
 
-$lang['CHANGELOG'] = "Changelog";
+    "PRODUCTS" 					=>"Produkty",
+    "PRODUCT_NEW" 				=>"Nový Produkt",
+    "PRODUCT_NAME"				=>"Názov produktu",
+    "PRODUCTS_MY"				=> "Moje produkty",
 
-$lang["WARRNING_MISSING_SUPERMARKET_OR_CATEGORY"] = "Prosím vytvorte supermarket a kategóriu skôr ako pridáte produkt";
+    "PRICE" 					=>"Približná cena",
+    "IMAGE" 					=>"Obrázok",
+    "TRASH" 					=>"Kôš",
+    "ACTION" 					=>"Akcia",
+    "RECOVER" 					=>"Obnoviť",
+    "REMOVE"					=>"Vymazať",
+    "MOVE_TO_TRASH"				=>"Presunúť do koša",
+    "REQUESTS"					=>"Žiadosti",
+    "ACCEPT"					=>"Schváliť",
+    "REJECT"					=>"Zamietnuť",
+    "SUBMIT"					=>"Odoslať",
+
+    'CHANGELOG' 				=> "Changelog",
+
+    "WARRNING_MISSING_SUPERMARKET_OR_CATEGORY" => "Prosím vytvorte supermarket a kategóriu skôr ako pridáte produkt",
+
+ ];
