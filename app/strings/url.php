@@ -41,3 +41,5 @@ $url['TRASH_MOVE'] = "/admin/produkty/trash/move/";
 
 $url['REQUEST_ACCEPT'] = "/admin/produkty/ziadosti/accept/";
 $url['REQUEST_DENY'] = "/admin/produkty/ziadosti/deny/";
+
+$url['PROFILE_PAGE'] = "/users";

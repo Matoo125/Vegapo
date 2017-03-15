@@ -8,6 +8,10 @@
     <div class="header-content">
         <div class="inner">
             <h1>{{ lang.REGISTER }}</h1><br>
+           <div class="text-center">
+                 {{ include('public/modules/flash.twig') }}  
+            </div>
+
                              <form action="/users/register" method="post">
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="username">{{ lang.USERNAME }}</label>

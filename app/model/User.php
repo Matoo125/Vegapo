@@ -39,7 +39,7 @@ class User extends Model
     public function register($data) {
         $sql = "INSERT INTO users (username, email, password, country, role) VALUES(:username,:email,:password,:country,:role)";
         $params = array("username" => $data['username'], "email" => $data['email'], "password" => $data['password'], "country" => COUNTRY_CODE, "role" => 4 );
-        $this->runQuery($sql, $params, "post");
+        return $this->runQuery($sql, $params, "post");
     }
 
     public function getUserPassword(){

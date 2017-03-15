@@ -6,6 +6,12 @@ function redirect($url)
     exit();
 }
 
+function toURL($key)
+{
+  global $url;
+  return $url[$key];
+}
+
 function paginate($query, $start, $per_page)
 {
     return $query . " LIMIT " . $start . ", " . $per_page;

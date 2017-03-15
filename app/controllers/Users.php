@@ -43,8 +43,9 @@ class Users extends Controller {
                     Session::set('user_country', $user['country']);
                     Session::set('username', $user['username']);
                     $this->model->runQuery("UPDATE `users` SET last_activity = now() WHERE user_id=:id", array("id" => $user['user_id']), "post");
-                    Session::setFlash("You are logged in.", "success", 1);
-                    redirect(PROFILE_PAGE);
+                    //Session::setFlash("You are logged in.", "success", 1);
+                    $this->view = '';
+                    redirect('users');
                 } else {
                     Session::setFlash("Credentials do not match.", "warning", 1);
                 }
@@ -64,14 +65,15 @@ class Users extends Controller {
             $data['password1'] = $_POST['password1'];
             $data['password2'] = $_POST['password2'];
 
-            if($data['password1'] == $data['password2'] ) {
-                $data['password'] = md5(SALT . $data['password1']);
-                if($this->model->register($data)){
-                    redirect('/');
-                }
+            if($data['password1'] != $data['password2']) {
+                Session::setFlash("Passwords does not match", "warning", 1);
+                return;
             }
-          redirect("users/register");
 
+            $data['password'] = md5(SALT . $data['password1']);
+            if($this->model->register($data)){
+                Session::setFlash("You are registered", "success", 1);
+            }
         }
     }
 
