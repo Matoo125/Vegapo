@@ -1,6 +1,7 @@
 {
     "require": {
         "erusev/parsedown": "^1.6",
-        "twig/twig": "^2.0"
+        "twig/twig": "^2.0",
+        "phpmailer/phpmailer": "^5.2"
     }
 }

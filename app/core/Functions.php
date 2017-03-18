@@ -37,6 +37,14 @@ function findBySlugInArray($slug, $array)
 
 }
 
+function slugifyImage($image)
+{
+  $explode = explode(".", $image);
+  $extension = end($explode);
+  $filename = substr($image, 0, strlen($image) - (strlen($extension) + 1));
+  return slugify($filename) . "." . $extension;
+}
+
 function slugify($text)
 {
   // replace non letter or digits by -

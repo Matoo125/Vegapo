@@ -64,6 +64,7 @@ abstract class Model
 
     public function uploadImage($image, $folder) {
         $name = rand(100, 1000) . "-" . $image['name'];
+        $name = slugifyImage($name);
         $tmp = $image['tmp_name'];
         $location = ROOT . DS . "uploads" . DS . $folder . DS . $name;
         if(move_uploaded_file($tmp, $location)){

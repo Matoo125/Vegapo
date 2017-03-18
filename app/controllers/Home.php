@@ -99,5 +99,42 @@ class Home extends Controller
         $this->view($this->view, $this->data);
     }
 
+    public function admin_rename_images()
+    {
+  // get all products
+  $products = $this->model->runQuery("SELECT * FROM products", array(), "get");
+  $dircontent = array_slice(scandir(ROOT . DS . "uploads" . DS . "products"), 2);
+ 
+  foreach ($dircontent as $key => $value) {
+      $image = $value;
+      $explode = explode(".", $image);
+      $extension = end($explode);
+      $filename = substr($image, 0, strlen($image) - (strlen($extension) + 1));
+      $slugname = slugify($filename) . "." . $extension;
+      rename((ROOT . DS . "uploads" . DS . "products" . DS . $image), (ROOT . DS . "uploads" . DS . "products" . DS . strtolower($slugname)));
+  }
+ 
+ 
+  foreach ($products as $product) {
+      # code
+      $image = strtolower($product['image']);
+      $explode = explode(".", $image);
+      $extension = end($explode);
+      $filename = substr($image, 0, strlen($image) - (strlen($extension) + 1));
+      $slugname = slugify($filename) . "." . $extension;
+ 
+      if ($slugname == "none.none") {
+          $slugname = NULL;
+      }
+      //update database records
+      $sql = "UPDATE products SET image = :image WHERE id = :id";
+      $array = array("image" => $slugname, "id" => $product['id']);
+      $this->model->runQuery($sql, $array, "post");
+      //rename files
+      // rename((APP . DS . "uploads" . DS . "products" . DS . $image), (APP .DS. "uploads" . DS . "products" . DS . $slugname) );
+ 
+  }
+     }
+
 
 }
