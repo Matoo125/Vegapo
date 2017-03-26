@@ -72,13 +72,20 @@ class Produkty extends Controller
                 $visibility = 2;
             }
 
-            if ( $id = $this->model->insert($data, true, $visibility) ){
-                // get last inserted id
-                $this->model->matching_supermarkets($id, $supermarkets);
-                $this->model->matching_tags($id, $tags);
+            // check for duplicant
+            if ($this->model->getProductBySlug(slugify($data['name']))) {
+                Session::setFlash(getString('PRODUCT_ALREADY_EXISTS'), "danger");
+            } else {
+                if ( $id = $this->model->insert($data, true, $visibility) ){
+                    // get last inserted id
+                    $this->model->matching_supermarkets($id, $supermarkets);
+                    $this->model->matching_tags($id, $tags);
 
-                Session::setFlash(getString('PRODUCT_ADD_SUCCESS'), "success");
+                    Session::setFlash(getString('PRODUCT_ADD_SUCCESS'), "success");
+                }
             }
+
+
 
         }
 

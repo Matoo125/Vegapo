@@ -1,6 +1,6 @@
 <?php
 
-$lang = [
+$sk = [
 
     'PAGE_FULL_NAME' 			=> "Vegánske Potraviny",
     'PAGE_BRIEF_DESCRIPTION' 	=> "Zoznam výrobkov dostupných v bežných supermarketoch bez živočíšnych ingrediencií.",
@@ -110,6 +110,7 @@ $lang = [
     "PRODUCT_ADD_SUCCESS"       => "Produkt pridaný úspešne",
     "PRODUCT_UPDATE_SUCCESS"    => "Produkt upravený úspešne",
     "PRODUCT_UPDATE_FAILED"     => "Upravenie produktu neprebehlo úspešne",
+    "PRODUCT_ALREADY_EXISTS"    => "Produkt s týmto názvom už existuje",
 
     "CATEGORY_ADD_SUCCESS"      => "Kategoria pridana úspešne",
     "CATEGORY_UPDATE_SUCCESS"   => "Kategoria upravena úspešne",

@@ -12,7 +12,8 @@
                 {% for product in products %}
                 <div class="col-xs-6 col-sm-4 col-lg-3">
                     <a href="/produkty/produkt/{{ product.slug }}">
-                    <img class="card-img-top img-fluid" src={{ product.image != "none" ? "/uploads/products/#{product.image}-thumb450x450" : "http://placehold.jp/450x450.png"}}>
+                    <img class="b-lazy card-img-top img-fluid" src="https://dummyimage.com/250" data-src="{{ "/uploads/products/#{product.image}-thumb450x450" }}">
+
                     <div class="card-block">
                         <p class="card-title">{{ product.name }}</p>
                     </div>

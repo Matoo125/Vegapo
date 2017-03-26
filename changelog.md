@@ -2,13 +2,18 @@
 TODO:
 - allow more images per product
 - use new object oriented helpers
-- when uploading product check if it does not exists
-- use country separator when selecting product
+- if form is not submitted fill the form with data
+- manage thumbnails from admin panel
+- image lazy loading
 
 Ver 0.0.4 ALFA
 - Framework migration ( namespaces, core logic )
 - Code cleanup
 - minor fixes
+- changed password hashing
+- when uploading product check if it does not exists
+- use country separator when selecting product
+- add fallback if string is missing
 
 Ver 0.0.3 ALFA
 - czech language added
