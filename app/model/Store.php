@@ -1,5 +1,10 @@
 <?php
 
+namespace app\model;
+
+use app\core\Model;
+use app\core\Session;
+
 class Store extends Model
 {
     private $db;

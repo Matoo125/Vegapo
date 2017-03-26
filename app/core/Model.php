@@ -1,5 +1,7 @@
 <?php
 
+namespace app\core;
+
 /*
  * Core Model
  * is extended by other models
@@ -14,8 +16,8 @@ abstract class Model
         if ($db === null) {
             try {
                 $dns = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8';
-                $db = new PDO($dns, DB_USER, DB_PASSWORD);
-                $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $db = new \PDO($dns, DB_USER, DB_PASSWORD);
+                $db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                 return $db;
             } catch (\PDOException $e) {
                 echo $e->getMessage();

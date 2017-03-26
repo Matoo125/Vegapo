@@ -1,11 +1,18 @@
 
 TODO:
-- FIX controllers redirect links
-- Clean code
-- Prepare for framework migration
-- create table images
 - allow more images per product
+- use new object oriented helpers
+- when uploading product check if it does not exists
+- use country separator when selecting product
 
+Ver 0.0.4 ALFA
+- Framework migration ( namespaces, core logic )
+- Code cleanup
+- minor fixes
+
+Ver 0.0.3 ALFA
+- czech language added
+- image slugs fix
 
 Ver 0.0.2 ALFA
 - admin tags filters

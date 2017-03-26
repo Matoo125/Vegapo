@@ -97,7 +97,7 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     {% for i in 1..number_of_pages if number_of_pages %}
-                    <li class="page-item"><a class="page-link" href="/produkty/{{ current_category ? current_category.slug : 0 }}/{{ current_supermarket ? current_supermarket.slug : 0 }}/{{ current_tag ? current_tag.slug : 0}}/{{ i }}">{{ i }}</a></li>
+                    <li class="page-item"><a class="page-link" href="/admin/produkty/{{ current_category ? current_category.slug : 0 }}/{{ current_supermarket ? current_supermarket.slug : 0 }}/{{ current_tag ? current_tag.slug : 0}}/{{ i }}">{{ i }}</a></li>
 
                     {% endfor %}
                 </ul>

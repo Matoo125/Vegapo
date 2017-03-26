@@ -1,5 +1,10 @@
 <?php
 
+namespace app\model;
+
+use app\core\Model;
+use app\core\Session;
+
 class User extends Model
 {
     private $db;

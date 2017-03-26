@@ -1,5 +1,7 @@
 <?php
 
+use app\core\Session;
+
 function redirect($url) 
 {
     header("Location: " . $url);
