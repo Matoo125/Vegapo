@@ -4,6 +4,11 @@ TODO:
 - use new object oriented helpers
 - if form is not submitted fill the form with data
 - manage thumbnails from admin panel
+
+- contact form
+- voting system
+
+Ver 0.0.5
 - image lazy loading
 
 Ver 0.0.4 ALFA
