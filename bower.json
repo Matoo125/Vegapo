@@ -19,6 +19,7 @@
     "animate.css": "^3.5.2",
     "Ionicons": "ionicons#^2.0.1",
     "jquery-validation": "^1.16.0",
-    "jquery-confirm": "^2.7.0"
+    "jquery-confirm": "^2.7.0",
+    "bLazy": "blazy#^1.8.2"
   }
 }

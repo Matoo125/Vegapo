@@ -34,7 +34,7 @@ class App
         }
 
         // set first folder for view
-        $this->view = $this->module . "/";
+        $this->view = $this->module . DS;
 
         // set controller
         if ($url && file_exists(APP . DS . 'controllers' . DS . $this->module . DS . ucfirst($url[0] ) . '.php')) {
@@ -42,7 +42,7 @@ class App
             array_shift($url);
         }
         // set second folder for view
-        $this->view .= lcfirst($this->controller) . "/";
+        $this->view .= lcfirst($this->controller) . DS;
 
         // require controller file
         require_once APP . DS . 'controllers' . DS . $this->module . DS . $this->controller . '.php';
@@ -66,7 +66,9 @@ class App
           // call controller's method with parameters
           call_user_func_array([$this->controller, $this->method], $this->params);
           // call view
-          call_user_func_array([$this->controller, 'view'], [$this->view]);
+          if (file_exists(APP . DS . "view" . DS .$this->view . ".twig")) {
+             call_user_func_array([$this->controller, 'view'], [$this->view]);
+          }
         }
 
 

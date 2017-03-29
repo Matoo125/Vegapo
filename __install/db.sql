@@ -113,3 +113,10 @@ CREATE TABLE `matching_tags` (
   `country` varchar(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `newsletter` (
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `user_id` int(11) DEFAULT NULL,
+  `email` varchar(255) NOT NULL
+);
