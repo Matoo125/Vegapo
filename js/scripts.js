@@ -8,22 +8,33 @@
 
     new WOW().init();
     
-    $('a.page-scroll').bind('click', function(event) {
-        var $ele = $(this);
-        $('html, body').stop().animate({
-            scrollTop: ($($ele.attr('href')).offset().top - 60)
-        }, 1450, 'easeInOutExpo');
-        event.preventDefault();
-    });
     
     $('#collapsingNavbar li a').click(function() {
         /* always close responsive nav after click */
         $('.navbar-toggler:visible').click();
     });
 
-    $('#galleryModal').on('show.bs.modal', function (e) {
-       $('#galleryImage').attr("src",$(e.relatedTarget).data("src"));
-    });
+    $('#subscribe').submit(function(e) {
+        e.preventDefault();
+
+        var form = $( this );
+        $.ajax({
+            type: form.attr('method'),
+            url: form.attr('action'),
+            data: form.serialize,
+            dataType: 'json',
+            success: function (data) {
+                alert('ok')
+                console.log(data)
+            },
+            error: function (xhr, desc, err) {
+                alert('error')
+                console.log(err)
+                console.log(xhr)
+            }
+        });
+
+    })
 
 
 

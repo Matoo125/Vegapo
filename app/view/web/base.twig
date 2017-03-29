@@ -93,7 +93,7 @@
 </nav>
 
 
-{% block content %}{%endblock%}
+{% block content %}{% endblock %}
 <footer id="footer">
     <div class="container">
         <div class="row">
@@ -115,12 +115,12 @@
             </div>
             <div class="col-12 col-sm-3 column">
                 <h6 class="text-uppercase">{{ lang.STAY_IN_TOUCH }}</h6>
-                <form>
+                <form action="post" id="subscribe" action="/index/subscribe/">
                     <div class="form-group">
                         <input type="text" class="form-control" title="No spam, we promise!" placeholder="Daj nám tvoj email">
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#alertModal" type="button">{{ lang.SUBSCRIBE }}</button>
+                        <input class="btn btn-primary" type="submit" value="{{ lang.SUBSCRIBE }}">
                     </div>
                 </form>
             </div>
@@ -149,5 +149,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
     <script src="/bower_components/bLazy/blazy.min.js"></script>
     <script src="/js/scripts.js"></script>
+    {% block scripts %} {% endblock %}
   </body>
 </html>
