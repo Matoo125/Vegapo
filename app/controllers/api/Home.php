@@ -19,4 +19,9 @@ class Home extends Controller
     {
     	
     }
+
+    public function subscribe()
+    {
+        echo 'hello';
+    }
 }

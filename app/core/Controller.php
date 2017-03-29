@@ -21,6 +21,8 @@ class Controller {
     }
 
     public function view($view) {
+
+
         $loader = new \Twig_Loader_Filesystem(APP . DS . 'view');
         $twig = new \Twig_Environment( $loader, array(
             'debug' => true,
