@@ -9,13 +9,13 @@ TODO:
 - voting system
 - separate images to folders cz and sk
 - separate thumbnails to different folders
-- show products added by author
 
 Ver 0.0.5 ALFA
 - image lazy loading
 - newsletter table
 - contact form (public part)
 - change order for products fetching
+- show products added by author
 
 
 Ver 0.0.4 ALFA
