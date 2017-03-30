@@ -120,3 +120,5 @@ CREATE TABLE `newsletter` (
   `user_id` int(11) DEFAULT NULL,
   `email` varchar(255) NOT NULL
 );
+
+ALTER TABLE `newsletter` ADD country varchar(2) DEFAULT NULL;
