@@ -21,16 +21,18 @@
         $.ajax({
             type: form.attr('method'),
             url: form.attr('action'),
-            data: form.serialize,
-            dataType: 'json',
+            data: form.serialize(),
             success: function (data) {
-                alert('ok')
-                console.log(data)
+                alert(data)
+                console.log(this.data)
             },
             error: function (xhr, desc, err) {
                 alert('error')
                 console.log(err)
                 console.log(xhr)
+                console.log(this.url)
+                console.log(this.type)
+                console.log(this.data)
             }
         });
 

@@ -22,6 +22,13 @@ class Home extends Controller
 
     public function subscribe()
     {
-        echo 'hello';
+
+        //print_r($_POST);
+        if ($_POST) {
+            // insert email to database
+
+
+            echo 'Thank you!';
+        }
     }
 }
