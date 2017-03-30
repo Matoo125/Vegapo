@@ -122,3 +122,23 @@ CREATE TABLE `newsletter` (
 );
 
 ALTER TABLE `newsletter` ADD country varchar(2) DEFAULT NULL;
+
+
+CREATE TABLE `contact` (
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `author` varchar(255) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `message` TEXT NOT NULL,
+  `country` varchar(2) NOT NULL
+);
+
+ALTER TABLE `contact` ADD state varchar(5) NOT NULL;
+ALTER TABLE `contact` ADD email varchar(255) NOT NULL;
+
+CREATE TABLE `images` (
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `filename` varchar(255) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `role` int(1) NOT NULL,
+  `country` varchar(2) NOT NULL
+);

@@ -81,7 +81,6 @@ class Users extends Controller
     public function update()
     {
 
-// $2y$10$G4FpkeOpkq1TNpNwULEBB.2wvM7A9qHXUDQzodS0nyxTM9f0L3n.a
          if ($_POST) {
             if (isset($_POST['change-details'])){
 

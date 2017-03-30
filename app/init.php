@@ -12,8 +12,7 @@ define('ROOT', dirname(__DIR__));
 define('APP', ROOT . DS . "app");
 define('UPLOADS',  DS . "uploads" . DS);
 
-
+require_once ROOT . DS . 'vendor/autoload.php';
 require_once APP . DS . 'core/Config.php';
 require_once APP . DS . 'core/Functions.php';
 require_once APP . DS . 'string/lang.php';
-require_once ROOT . DS . 'vendor/autoload.php';

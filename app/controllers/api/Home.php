@@ -20,6 +20,25 @@ class Home extends Controller
     	
     }
 
+    public function test(){}
+
+    public function kontakt()
+    {
+        echo 'contact';
+    }
+
+    public function contactAjax()
+    {
+        if ($_POST) {
+            if ($this->model->insertMessage($_POST)) {
+                echo "Your message has been send. ";
+            } else {
+                echo "There was problem with your message. Please try again. ";
+            }
+        }
+
+    }
+
     public function subscribe()
     {
 

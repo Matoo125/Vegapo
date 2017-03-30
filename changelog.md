@@ -7,9 +7,14 @@ TODO:
 
 - contact form
 - voting system
+- separate images to folders cz and sk
+- separate thumbnails to different folders
 
 Ver 0.0.5
 - image lazy loading
+- newsletter table
+- contact form (public part)
+
 
 Ver 0.0.4 ALFA
 - Framework migration ( namespaces, core logic )

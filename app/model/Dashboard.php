@@ -25,5 +25,20 @@ class Dashboard extends Model {
         return $this->runQuery($sql, array("email" => $email, "country" => COUNTRY_CODE), "post");
     }
 
+    public function insertMessage($data)
+    {
+        $sql = "INSERT INTO `contact` (`author`, `email`, `subject`, `message`, `country`, `state`) VALUES (:author, :email, :subject, :message, :country, :state)";
+        $params = [
+            "author" => $data['author'],
+            'email' => $data['email'],
+            'subject' => $data['subject'],
+            'message' => $data['message'],
+            'country' => COUNTRY_CODE,
+            'state' => 'new'
+        ];
+
+        return $this->runQuery($sql, $params, 'post');
+    }
+
 
 }

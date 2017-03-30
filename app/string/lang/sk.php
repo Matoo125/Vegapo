@@ -42,6 +42,7 @@ $sk = [
     "TITLE" 					=>"Názov",
     "USERS_LIST" 				=>"Zoznam užívateľov",
     "USERNAME" 					=>"Prezývka",
+    "NAME"                      =>"Meno",
     "FIRST_NAME" 				=>"Krstné meno",
     "LAST_NAME" 				=>"Priezvisko",
     "CONTACT_EMAIL" 			=>"Kontaktný email",
@@ -102,6 +103,10 @@ $sk = [
     "ACCEPT"					=>"Schváliť",
     "REJECT"					=>"Zamietnuť",
     "SUBMIT"					=>"Odoslať",
+    "SUBJECT"                   =>"Predmet",
+
+    "YOUR_MESSAGE_HERE"         =>"Tvoja sprava ...",
+    "CONTACT_PAGE_TEXT"         => "Máme radi odozvu. Vyplňte formulár a my sa vám ozveme hned, ako to bude možné.",
 
     'CHANGELOG' 				=> "Changelog",
 
