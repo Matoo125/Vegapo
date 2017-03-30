@@ -5,15 +5,17 @@ TODO:
 - if form is not submitted fill the form with data
 - manage thumbnails from admin panel
 
-- contact form
+- show messages from contact form in admin panel
 - voting system
 - separate images to folders cz and sk
 - separate thumbnails to different folders
+- show products added by author
 
-Ver 0.0.5
+Ver 0.0.5 ALFA
 - image lazy loading
 - newsletter table
 - contact form (public part)
+- change order for products fetching
 
 
 Ver 0.0.4 ALFA

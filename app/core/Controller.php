@@ -9,6 +9,7 @@ class Controller {
 
     protected $data = [];
     protected $model;
+    protected $view;
 
     /**
      * @param $model String
@@ -21,6 +22,14 @@ class Controller {
     }
 
     public function view($view) {
+
+        // return if no view to render
+        if (!$view && !$this->view) return;
+
+        // if someone wants to render view in different path
+        if ($this->view) {
+            $view = $this->view;
+        }
 
 
         $loader = new \Twig_Loader_Filesystem(APP . DS . 'view');

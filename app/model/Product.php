@@ -77,11 +77,18 @@ class Product extends Model
         return $this->runQuery($sql, array("slug" => $slug, "cc" => COUNTRY_CODE), "get1");      
     }
 
-    public function getProducts($category_slug = null, $supermarket_slug = null, $tag_slug = null, $current_page, $visibility = null)
+    public function getProducts($category_slug = null, $supermarket_slug = null, $tag_slug = null, $current_page, $visibility = null, $author_id = null)
     {
         $array = array();
         $array['country'] = COUNTRY_CODE;
-        $array['visibility'] = $visibility;
+       
+
+
+       if ($visibility) {
+            $array['visibility'] = $visibility;
+       } else {
+           $array['visibility'] = '1';
+       }
 
         $sql = "SELECT p.id AS id, p.name AS name, p.slug as slug, p.expected_price AS price, p.image AS image, c.name AS category, GROUP_CONCAT(DISTINCT s.name) AS supermarkets, GROUP_CONCAT(DISTINCT t.name) AS tags FROM products AS p INNER JOIN categories AS c ON p.category_id = c.id LEFT JOIN matching_supermarkets AS ms ON ms.product_id = p.id LEFT JOIN supermarkets AS s ON s.id = ms.supermarket_id LEFT JOIN matching_tags AS mt ON mt.product_id = p.id LEFT JOIN tags AS t ON t.id = mt.tag_id WHERE p.country = :country AND p.visibility = :visibility";
 
@@ -100,23 +107,37 @@ class Product extends Model
             $array['tag_slug'] = $tag_slug;
         }
 
-        $sql .= " GROUP BY p.id, p.name";
+        if ($author_id) {
+            $sql .= " AND p.author_id = :author_id";
+            $array['author_id'] = $author_id;
+        }
+
+        $sql .= " GROUP BY p.id, p.name ORDER BY p.id DESC";
+
         $sql = paginate($sql, $current_page, 20);
         return $this->runQuery($sql, $array, "get");
 
     }
 
-    public function count($category = null, $supermarket = null, $tag = null, $visibility = 1)
+    public function count($category = null, $supermarket = null, $tag = null, $visibility = 1, $author_id = null)
     {
         $sql = "SELECT COUNT(p.id) AS numberOfProducts FROM products AS p";
 
         $where = [];
         $where[] = " p.country = :country";
-        $where[] = " p.visibility = :visibility"; 
 
         $args = [];
         $args['country'] = COUNTRY_CODE;
-        $args['visibility'] = $visibility;
+
+        if ($visibility) {
+             $where[] = " p.visibility = :visibility"; 
+             $args['visibility'] = $visibility;
+        }
+
+        if ($author_id) {
+            $where[] = " p.author_id = :author_id";
+            $args['author_id'] = $author_id;
+        }
 
         if ($supermarket) {
             $sql .= " LEFT JOIN matching_supermarkets AS ms ON p.id = ms.product_id";

@@ -68,6 +68,8 @@ class App
           // call view
           if (file_exists(APP . DS . "view" . DS .$this->view . ".twig")) {
              call_user_func_array([$this->controller, 'view'], [$this->view]);
+          } else {
+             call_user_func([$this->controller, 'view'], null);
           }
         }
 

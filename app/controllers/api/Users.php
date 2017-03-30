@@ -116,4 +116,6 @@ class Users extends Controller
         $this->data['user'] = $this->model->getById(Session::get('user_id'));
     }
 
+
+
 }

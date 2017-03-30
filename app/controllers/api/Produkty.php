@@ -14,8 +14,6 @@ class Produkty extends Controller
 
 
 	public function index($category_slug = null, $supermarket_slug = null, $tag_slug = null, $current_page = 1) {
-        $this->view = 'admin/produkty/index';
-
 
         $categories = $this->model->getCategories();
         $supermarkets = $this->model->getSupermarkets();
@@ -93,6 +91,20 @@ class Produkty extends Controller
         $this->data['supermarkets'] = $this->model->getSupermarkets();
         $this->data['tags'] = $this->model->getTags();
 
+    }
+
+    // get products by user id 
+    public function user($id, $current_page = 1)
+    {
+        $this->view = 'web/produkty/index';
+        $number_of_products = $this->model->count(null, null, null, null, $id)['numberOfProducts'];
+
+        $number_of_pages = ceil($number_of_products / 20);
+        $start = ($current_page - 1 ) * 20;
+
+        $this->data['number_of_pages'] = $number_of_pages;
+        $this->data['current_page'] = $current_page;
+        $this->data['products'] = $this->model->getProducts(null, null, null, $start, null, $id);
     }
 
 }

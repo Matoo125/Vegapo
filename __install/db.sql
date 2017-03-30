@@ -142,3 +142,5 @@ CREATE TABLE `images` (
   `role` int(1) NOT NULL,
   `country` varchar(2) NOT NULL
 );
+
+-- done 30.3.2017
