@@ -45,6 +45,7 @@ class Controller {
         $this->data['sessionclass'] = new Session;
         $this->data['lang'] = $GLOBALS['lang'];
         $this->data['url']  = Url::getAll();
+        $this->data['cc'] = COUNTRY_CODE;
 
         echo $twig->render($view.".twig", $this->data);
     }
