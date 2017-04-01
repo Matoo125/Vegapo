@@ -4,6 +4,7 @@ namespace app\controllers\api;
 
 use app\core\Controller; 
 use app\core\Session;
+use app\helper\Image;
 
 class Produkty extends Controller
 {
@@ -56,13 +57,10 @@ class Produkty extends Controller
             $data['name'] = $_POST['productName'];
             $data['category_id'] = $_POST['selectCategory'];
             $images['1'] = $_FILES['file'];
+            $images['2'] = $_FILES['ingredients'];
             $data['price'] = $_POST['productPrice'];
             $supermarkets = isset($_POST['supermarket']) ? $_POST['supermarket'] : array();
             $tags = isset($_POST['tag']) ? $_POST['tag'] : array();
-
-            if (!$images['1'] = \app\helper\Image::upload($images['1'], "products")) {
-                $images['1'] = NULL;
-            }
 
             if(Session::get('user_role') !== null && Session::get('user_role') > 20) {
                 $visibility = 1;
@@ -73,12 +71,23 @@ class Produkty extends Controller
             // check for duplicant
             if ($this->model->getProductBySlug(slugify($data['name']))) {
                 Session::setFlash(getString('PRODUCT_ALREADY_EXISTS'), "warning");
+
             } else {
+
                 if ( $id = $this->model->insert($data, true, $visibility) ){
                     // get last inserted id
                     $this->model->matching_supermarkets($id, $supermarkets);
                     $this->model->matching_tags($id, $tags);
-                    $this->model->insertImages($id, $images);
+                    
+                    // store image in db if it was uploaded
+                    if ($images['1'] = Image::upload($images['1'], "products")) {
+                        $this->model->insertImage($id, 1, $images['1']);
+                    }
+
+                    // store ingredients image in db
+                    if ($images['2'] = Image::upload($images['2'], "products")) {
+                        $this->model->insertImage($id, 2, $images['2']);
+                    }                    
 
                     Session::setFlash(getString('PRODUCT_ADD_SUCCESS'), "success");
                 }

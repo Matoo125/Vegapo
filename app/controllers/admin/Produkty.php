@@ -4,6 +4,7 @@ namespace app\controllers\admin;
 
 use app\controllers\api\Produkty as ProduktyApiController;
 use app\core\Session;
+use app\helper\Image;
 
 class Produkty extends ProduktyApiController
 {
@@ -14,6 +15,7 @@ class Produkty extends ProduktyApiController
             $data['name'] = $_POST['productName'];
             $data['category_id'] = $_POST['selectCategory'];
             $images['1'] = $_FILES['file'];
+            $images['2'] = $_FILES['file2'];
             $data['price'] = $_POST['productPrice'];
             $data['id'] = $id;
 
@@ -29,21 +31,29 @@ class Produkty extends ProduktyApiController
             $added_tags = array_diff($tags_new, $tags_old);
             $deleted_tags = array_diff($tags_old, $tags_new);
 
-
-            // editing main image
-            if (isset($images['1']['name'])) {
-                $images['1'] = \app\helper\Image::upload($images['1'], "products");
-                \app\helper\Image::delete($_POST['image_old']);
-                $this->model->deleteImages(null, $data['id'], 1);
-            } else {
-                $images['1'] = NULL;
-            }
-
-
             $this->model->update($data);
             $this->model->matching_supermarkets($id, $added_supermarkets, $deleted_supermarkets);
             $this->model->matching_tags($id, $added_tags, $deleted_tags);
-            $this->model->insertImages($id, $images);
+
+
+            // editing main image
+            if ($images['1'] && $images['1']['error'] === 0) {
+
+                $images['1'] = Image::upload($images['1'], "products");
+                Image::delete($_POST['image_old']);
+                $this->model->deleteImages(null, $data['id'], 1);
+                $this->model->insertImage($id, 1, $images['1']);
+
+            } 
+
+            // editing image of ingredients2
+            if ($images['2'] && $images['2']['error'] === 0) {
+                $images['2'] = Image::upload($images['2'], 'products');
+                Image::delete($_POST['image2_old']);
+                $this->model->deleteImages(null, $data['id'], 2);
+                $this->model->insertImage($id, 2, $images['2']);
+            }
+
             Session::setFlash(getString('PRODUCT_UPDATE_SUCCESS'), "success");
             
         }

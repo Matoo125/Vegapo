@@ -76,7 +76,7 @@ class Image
   public static function delete($filename)
   {
     $path = ROOT . DS . "uploads" . DS . 'products' . DS . COUNTRY_CODE . DS;
-    if( file_exists($path . $filename) ){
+    if( file_exists($path . $filename) && is_file($path.$filename) ){
        unlink($path . $filename);
        unlink($path . "450x450" . DS . $filename);
        unlink($path . "150x150" . DS . $filename);

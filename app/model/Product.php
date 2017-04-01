@@ -165,11 +165,11 @@ class Product extends Model
 
     }
 
-    public function insertImages($id, $images)
+    public function insertImage($id, $role, $filename)
     {
-        return $this->runQuery(
+        $this->runQuery(
             "INSERT INTO images(product_id, filename, role, country) VALUES(:id, :name, :role, :country)",
-            ['id' => $id, 'name' => $images['1'], 'role' => 1, 'country' => COUNTRY_CODE],
+            ['id' => $id, 'name' => $filename, 'role' => $role, 'country' => COUNTRY_CODE],
             'post'
         );
     }

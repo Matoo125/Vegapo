@@ -39,11 +39,25 @@
                         <input type="file" id="file" name="file" class="form-control-file">
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3 offset-md-3">
                     <img src="{{ url.PRODUCT_UPLOADS }}{{ cc }}/150x150/{{ product.image }}" alt="" width="100px">
                     <input type="hidden" value="{{ product.image }}" name="image_old">
                 </div>
             </div>
+            <br>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="file2">{{ lang.INGREDIENTS }}</label>
+                        <input type="file" id="file2" name="file2" class="form-control-file">
+                    </div>
+                </div>
+                <div class="col-md-3 offset-md-3">
+                    <img src="{{ url.PRODUCT_UPLOADS }}{{ cc }}/150x150/{{ product.image2 }}" alt="" width="100px">
+                    <input type="hidden" value="{{ product.image2 }}" name="image2_old">
+                </div>
+            </div>
+
             <button type="submit" class="btn btn-primary">{{ lang.SUBMIT }}</button>
             <a href="{{ url.TRASH_MOVE }}{{ product.id }}" class="btn btn-danger" id="deleteConfirm">{{ lang.REMOVE }}</a>
 

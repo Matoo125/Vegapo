@@ -94,6 +94,7 @@ $sk = [
 
     "PRICE" 					=>"Približná cena",
     "IMAGE" 					=>"Obrázok",
+    "INGREDIENTS"               =>"Zloženie",
     "TRASH" 					=>"Kôš",
     "ACTION" 					=>"Akcia",
     "RECOVER" 					=>"Obnoviť",
