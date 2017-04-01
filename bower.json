@@ -20,6 +20,7 @@
     "Ionicons": "ionicons#^2.0.1",
     "jquery-validation": "^1.16.0",
     "jquery-confirm": "^2.7.0",
-    "bLazy": "blazy#^1.8.2"
+    "bLazy": "blazy#^1.8.2",
+    "fancybox": "^3.0.47"
   }
 }

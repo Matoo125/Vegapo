@@ -2,13 +2,19 @@
 
 {% block title %} VegaPo - {{ lang.PRODUCT }} {% endblock %}
 
+{% block header %} 
+<link rel="stylesheet" href="/bower_components/fancybox/dist/jquery.fancybox.min.css" />
+{% endblock %}
+
 {% block content %}
 <section id="white">
 	<div class="container">
 		<div class="wow fadeInUp text-center"><h2>{{ product.name }}</h2></div> <br>
 		  <div class="row justify-content-start">
             <div class="col-lg-6 col-md-8 align-self-start">
-                <img src="/uploads/products/{{ cc }}/450x450/{{ product.image }}">
+                <a data-fancybox="gallery" href="/uploads/products/{{ cc }}/{{ product.image }}">
+                    <img src="/uploads/products/{{ cc }}/450x450/{{ product.image }}">
+                </a>
             </div>
             <div class="col-lg-6 col-md-4">
                 <p>Približná cena: {{ product.price }}</p>
@@ -21,6 +27,11 @@
                      {% endfor %}
                 </p>
                 <p>Tagy: {{ product.tags }}</p>
+
+                {% if product.image2 %}
+                    <p><a data-fancybox="gallery" href="/uploads/products/{{ cc }}/{{ product.image2 }}">{{ lang.INGREDIENTS }}</a></p>
+                {% endif %}
+
             </div>
           </div>
 
@@ -29,5 +40,10 @@
 
 
 
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="/bower_components/fancybox/dist/jquery.fancybox.min.js"></script>
 
 {% endblock %}
