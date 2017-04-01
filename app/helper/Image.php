@@ -7,16 +7,18 @@ class Image
   public static function upload($image, $folder)
   {
     $name = rand(100, 1000) . "-" . $image['name'];
+    $name = slugifyImage($name);
     $tmp = $image['tmp_name'];
-    $location = ROOT . DS . "uploads/images" . DS . $folder . DS . $name;
+    $location = ROOT . DS . "uploads" . DS . $folder . DS . COUNTRY_CODE . DS . $name;
     if(!move_uploaded_file($tmp, $location)){
       return false;
     }
-    self::generateThumbnail($location, 150, 150);
+    self::generateThumbnail($location, 150, 150, $name);
+    self::generateThumbnail($location, 450, 450, $name);
     return $name;
   }
 
-  public function generateThumbnail($path, $width, $height)
+  public static function generateThumbnail($path, $width, $height, $name)
   {
     $info = getimagesize($path);
     $size = array($info[0], $info[1]);
@@ -57,24 +59,28 @@ class Image
     $new_size[1] = max($new_size[1], 1);
 
     imagecopyresampled($thumb, $src, 0, 0, $src_pos[0], $src_pos[1], $new_size[0], $new_size[1], $size[0], $size[1]);
-    // example path : uploads/images/post/first-post/cool-image.jpg
-    //              : uploads/images/page/one-page/anathat-imag.gif
-    //              : uploads/images/user/ja-user/my-pic.png
 
-    // example path : uploads/thumbs/450x450/post/first-post/cool-image.jpg
-    //              : uploads/thumbs/200x200/page/one-page/anathat-imag.gif
-    //              : uploads/thumbs/150x150/user/ja-user/my-pic.png
+
+
+    // example path main  : uploads/produkty/cz/cool-image.jpg
+    // example path thumb : uploads/produkty/cz/450x450/cool-image.jpg
+
 
     // change images folder for thumbs
     // add folder for sizes
-    $path = preg_replace('/images/', 'thumbs'.DS.$width."x".$height, $path, 1);
-
-    // create folder if it doesn't exists
-    if(!is_dir(dirname($path))) {
-      mkdir(dirname($path), 0777, true);
-    }
+    $path = ROOT . DS . "uploads" . DS . 'products' . DS . COUNTRY_CODE . DS . $width . "x" . $height . DS . $name;
 
     return imagepng($thumb, $path);
+  }
+
+  public static function delete($filename)
+  {
+    $path = ROOT . DS . "uploads" . DS . 'products' . DS . COUNTRY_CODE . DS;
+    if( file_exists($path . $filename) ){
+       unlink($path . $filename);
+       unlink($path . "450x450" . DS . $filename);
+       unlink($path . "150x150" . DS . $filename);
+     }
   }
 
 }

@@ -55,13 +55,13 @@ class Produkty extends Controller
         if ($_POST) {
             $data['name'] = $_POST['productName'];
             $data['category_id'] = $_POST['selectCategory'];
-            $data['image'] = $_FILES['file'];
+            $images['1'] = $_FILES['file'];
             $data['price'] = $_POST['productPrice'];
             $supermarkets = isset($_POST['supermarket']) ? $_POST['supermarket'] : array();
             $tags = isset($_POST['tag']) ? $_POST['tag'] : array();
 
-            if (!$data['image'] = $this->model->uploadImage($data['image'], "products")) {
-                $data['image'] = 'none';
+            if (!$images['1'] = \app\helper\Image::upload($images['1'], "products")) {
+                $images['1'] = NULL;
             }
 
             if(Session::get('user_role') !== null && Session::get('user_role') > 20) {
@@ -72,12 +72,13 @@ class Produkty extends Controller
 
             // check for duplicant
             if ($this->model->getProductBySlug(slugify($data['name']))) {
-                Session::setFlash(getString('PRODUCT_ALREADY_EXISTS'), "danger");
+                Session::setFlash(getString('PRODUCT_ALREADY_EXISTS'), "warning");
             } else {
                 if ( $id = $this->model->insert($data, true, $visibility) ){
                     // get last inserted id
                     $this->model->matching_supermarkets($id, $supermarkets);
                     $this->model->matching_tags($id, $tags);
+                    $this->model->insertImages($id, $images);
 
                     Session::setFlash(getString('PRODUCT_ADD_SUCCESS'), "success");
                 }

@@ -157,9 +157,54 @@ class Home extends Controller
 
         }
 
-        // move thumbnails
+        echo 'all images were moved successfully';
 
     }
 
+
+    public function images_to_different_table()
+    {
+        $sql = "SELECT image, id FROM products WHERE country = 'sk'";
+        $skImages = $this->model->runQuery($sql, null, "get");
+
+      //  echo '<pre>'; print_r($skImages);
+
+        foreach($skImages as $row) {
+            if ($row['image'] != 'none' && !$this->model->runQuery("SELECT * FROM images WHERE filename = :filename", ['filename' => $row['image']], 'get1')) {
+                $sql = "INSERT INTO images(filename, product_id, role, country) VALUES (:flnm, :prdtid, :rl, :cntr)";
+                $array = ["flnm" => $row['image'], "prdtid" => $row['id'], 'rl' => 1, 'cntr' => 'sk'];
+                $this->model->runQuery($sql, $array, "post");
+            }
+        }
+
+
+        $sql = "SELECT image, id FROM products WHERE country = 'cz'";
+        $skImages = $this->model->runQuery($sql, null, "get");
+
+       // echo '<pre>'; print_r($skImages);
+
+        foreach($skImages as $row) {
+            if ($row['image'] != 'none' && !$this->model->runQuery("SELECT * FROM images WHERE filename = :filename", ['filename' => $row['image']], 'get1')) {
+                $sql = "INSERT INTO images(filename, product_id, role, country) VALUES (:flnm, :prdtid, :rl, :cntr)";
+                $array = ["flnm" => $row['image'], "prdtid" => $row['id'], 'rl' => 1, 'cntr' => 'cz'];
+                $this->model->runQuery($sql, $array, "post");
+            }
+        }
+
+        echo 'all data were moved successfully';
+
+
+
+    }
+
+    public function drop_image_column()
+    {
+        if ($this->model->runQuery("SHOW COLUMNS FROM products WHERE Field = 'image'", null, 'get1')) {
+            $this->model->runQuery("ALTER TABLE products DROP COLUMN IF EXISTS image", null, 'post');
+            echo '<p>image column of products table was dropped';
+        } else {
+            echo '<p>image column does not exists';
+        }
+    }
 
 }

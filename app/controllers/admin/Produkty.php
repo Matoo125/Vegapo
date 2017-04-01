@@ -13,7 +13,7 @@ class Produkty extends ProduktyApiController
         if ($_POST) {
             $data['name'] = $_POST['productName'];
             $data['category_id'] = $_POST['selectCategory'];
-            $data['image'] = $_FILES['file'];
+            $images['1'] = $_FILES['file'];
             $data['price'] = $_POST['productPrice'];
             $data['id'] = $id;
 
@@ -31,15 +31,19 @@ class Produkty extends ProduktyApiController
 
 
             // editing main image
-            if (!$data['image'] = $this->model->uploadImage($data['image'], "products")) {
-                $data['image'] = $_POST['image_old'];
+            if (isset($images['1']['name'])) {
+                $images['1'] = \app\helper\Image::upload($images['1'], "products");
+                \app\helper\Image::delete($_POST['image_old']);
+                $this->model->deleteImages(null, $data['id'], 1);
             } else {
-                delete_image(ROOT.DS."uploads".DS."products".DS.$_POST['image_old']);
+                $images['1'] = NULL;
             }
+
 
             $this->model->update($data);
             $this->model->matching_supermarkets($id, $added_supermarkets, $deleted_supermarkets);
             $this->model->matching_tags($id, $added_tags, $deleted_tags);
+            $this->model->insertImages($id, $images);
             Session::setFlash(getString('PRODUCT_UPDATE_SUCCESS'), "success");
             
         }

@@ -31,7 +31,12 @@ abstract class Model
 
     public function runQuery($query, $args, $type) {
         $stmt = self::getDB()->prepare($query);
-        $stmt->execute($args);
+
+        try {
+            $stmt->execute($args);
+        } catch(Exception $e) {
+            echo "SQL ERROR";
+        }
 
         if($type == "get") {
             if ($results = $stmt->fetchAll()) {

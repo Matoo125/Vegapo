@@ -144,3 +144,4 @@ CREATE TABLE `images` (
 );
 
 -- done 30.3.2017
+ALTER TABLE products DROP COLUMN image;
