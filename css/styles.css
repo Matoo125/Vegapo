@@ -182,6 +182,9 @@ footer .btn:hover{
     background-color: transparent;
 }
 
+.navbar-nav .nav-link {
+    padding-top: .8rem;
+}
 
 
 
