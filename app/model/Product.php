@@ -77,7 +77,7 @@ class Product extends Model
         return $this->runQuery($sql, array("slug" => $slug, "cc" => COUNTRY_CODE), "get1");      
     }
 
-    public function getProducts($category_slug = null, $supermarket_slug = null, $tag_slug = null, $current_page, $visibility = null, $author_id = null)
+    public function getProducts($category_slug = null, $supermarket_slug = null, $tag_slug = null, $current_page, $visibility = null, $author_id = null, $searchTerm = null)
     {
         $array = array();
         $array['country'] = COUNTRY_CODE;
@@ -110,6 +110,11 @@ class Product extends Model
         if ($author_id) {
             $sql .= " AND p.author_id = :author_id";
             $array['author_id'] = $author_id;
+        }
+
+        if ($searchTerm) {
+            $sql .= " AND p.name LIKE :searchTerm";
+            $array['searchTerm'] = "%".$searchTerm."%";
         }
 
         $sql .= " GROUP BY p.id, p.name ORDER BY p.id DESC";

@@ -118,4 +118,22 @@ class Produkty extends Controller
         $this->data['products'] = $this->model->getProducts(null, null, null, $start, null, $id);
     }
 
+    public function search($term = null, $current_page = 1)
+    {
+        if ($_GET['search']) {
+            $term = $_GET['search'];
+        }
+
+        $this->view = 'web/produkty/index';
+        $number_of_products = $this->model->count(null, null, null, null, null, $term)['numberOfProducts'];
+
+        $number_of_pages = ceil($number_of_products / 20);
+        $start = ($current_page - 1 ) * 20;
+
+        $this->data['number_of_pages'] = $number_of_pages;
+        $this->data['current_page'] = $current_page;
+
+        $this->data['products'] = $this->model->getProducts(null, null, null, $start, 1, null, $term);
+    }
+
 }

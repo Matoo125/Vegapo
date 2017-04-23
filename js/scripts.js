@@ -38,6 +38,29 @@
 
     })
 
+    $(document).on('click', '#searchButton', function(e) {
+
+
+
+        $("#search").show('slow');
+        
+
+        setTimeout(function() {
+            $("#searchButton").prop("type", "submit");
+        }, 100);
+
+
+    });
+
+    $('body').click(function(e) {
+        if (!$(e.target).is('#search') && !$(e.target).is('#searchButton')) {
+            $('#search').hide('slow');
+            $("#searchButton").prop("type", "button");
+        }
+
+    });
+
+
 
 
 })(jQuery);

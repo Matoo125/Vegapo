@@ -63,6 +63,7 @@
                 {% endif %}
 
             </ul>
+
             <ul class="nav navbar-nav ml-auto">
             {% if not session.user_id %}
                 <li class="nav-item">
@@ -88,6 +89,14 @@
 
             {% endif %}
             </ul>
+
+            <form class="form-inline" id="searchForm" method="get" action="/produkty/search">
+              <input class="form-control mr-sm-2" style="display: none" type="text" name="search" id="search" placeholder="Search">
+              <button class="btn btn-outline-success" type="button" id="searchButton"><i class="ion-search"></i></button>
+            </form>
+
+
+
         </div>
     </div>
 </nav>
