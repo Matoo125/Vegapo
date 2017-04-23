@@ -2,17 +2,18 @@
 
 
 TODO:
-- use new object oriented helpers
 - if form is not submitted fill the form with data
-- manage thumbnails from admin panel
 
 - show messages from contact form in admin panel
 - voting system
+- gamification
 
+
+Ver 0.0.7 ALFA
 - add number of users to admin dashboard
 - add number of tags to admin dashboard
 - add number of emails in a newsletter to the admin dashboard
-- add view for messages from contact from
+- add number of messages to admin dashboard
 
 Ver 0.0.6 ALFA
 - allow more images per product (main and ingredients)
