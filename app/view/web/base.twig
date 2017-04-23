@@ -95,6 +95,11 @@
               <button class="btn btn-outline-success" type="button" id="searchButton"><i class="ion-search"></i></button>
             </form>
 
+            {% if cc == 'sk' %}
+                <a class="nav-link page-scroll" title="Chcem ist prec" href="http://vegapo.cz"><img src="/images/sk.svg" width="40"></a>
+            {% else %}
+                <a class="nav-link page-scroll" title="Chcem ist prec" href="http://vegapo.sk"><img src="/images/cz.svg" width="40"></a>
+            {% endif %}
 
 
         </div>

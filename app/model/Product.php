@@ -124,7 +124,7 @@ class Product extends Model
 
     }
 
-    public function count($category = null, $supermarket = null, $tag = null, $visibility = 1, $author_id = null)
+    public function count($category = null, $supermarket = null, $tag = null, $visibility = 1, $author_id = null, $searchTerm = null)
     {
         $sql = "SELECT COUNT(p.id) AS numberOfProducts FROM products AS p";
 
@@ -160,6 +160,12 @@ class Product extends Model
             $sql .= " LEFT JOIN matching_tags AS mt ON p.id = mt.product_id";
             $where[] = " mt.tag_id = :tag_id";
             $args['tag_id'] = $tag;
+        }
+
+        if ($searchTerm) {
+            $where[] = " p.name LIKE :searchTerm";
+            $args['searchTerm'] = "%".$searchTerm."%";
+
         }
 
         $sql = $sql . " WHERE" . implode(" AND", $where);

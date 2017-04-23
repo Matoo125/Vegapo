@@ -7,7 +7,6 @@ TODO:
 - voting system
 - gamification
 
-- add product search
 - add reviews
 - add 'my product' like / heart
 - add facebook like / share 
@@ -16,6 +15,7 @@ TODO:
 
 Ver 0.0.8 ALFA
 - add barcode input
+- add product search
 
 
 Ver 0.0.7 ALFA
