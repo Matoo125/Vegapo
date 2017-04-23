@@ -145,3 +145,11 @@ CREATE TABLE `images` (
 
 -- done 30.3.2017
 ALTER TABLE products DROP COLUMN image;
+
+
+CREATE TABLE `forgotten_password` (
+  `id`  int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `user_id` int(11) NOT NULL,
+  `token` varchar(255),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

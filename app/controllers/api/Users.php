@@ -42,7 +42,7 @@ class Users extends Controller
                     $this->model->runQuery("UPDATE `users` SET last_activity = now() WHERE user_id=:id", array("id" => $user['user_id']), "post");
                     redirect('/users');
                 } else {
-                    Session::setFlash("Credentials do not match.", "warning", 1);
+                    Session::setFlash(getString('CREDENTIALS_NOT_MATCH'), "warning", 1);
                 }
             } else {
                 Session::setFlash("No input received", "danger");
@@ -61,19 +61,19 @@ class Users extends Controller
             $data['password2'] = $_POST['password2'];
 
             if($this->model->getByEmail($data['email'])) {
-                Session::setFlash("This email is already in the database", "warning", 1);
+                Session::setFlash(getString('EMAIL_ALREADY_EXISTS'), "warning", 1);
                 return;
             }
 
             if($data['password1'] != $data['password2']) {
-                Session::setFlash("Passwords does not match", "warning", 1);
+                Session::setFlash(getString('PASSWORDS_DO_NOT_MATCH'), "warning", 1);
                 return;
             }
 
             $data['password'] = password_hash($data['password1'], PASSWORD_DEFAULT);
 
             if($this->model->register($data)){
-                Session::setFlash("You are registered", "success", 1);
+                Session::setFlash(getString('REGISTRATION_SUCCESS'), "success", 1);
             }
         }
     }

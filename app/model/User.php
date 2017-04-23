@@ -56,11 +56,15 @@ class User extends Model
         return null;
     }
 
-    public function updatePassword($password) {
+    public function updatePassword($password, $session = null) {
+
+        if (!$session) {
+            Session::get('user_id');
+        }
         $stmt = $this->db->prepare("UPDATE users SET password = :password, updated_at = now() WHERE user_id = :id");
         $stmt->execute(array(
             ':password' => $password,
-            ':id'       => Session::get('user_id')
+            ':id'       => $session
         ));
         return $stmt->rowCount() ? true : null;
     }
@@ -85,6 +89,38 @@ class User extends Model
         $sql = "UPDATE users SET role=:role WHERE user_id=:id LIMIT 1";
         $params = array("role" => $role, "id" => $id);
         return $this->runQuery($sql, $params, "post");
+    }
+
+    public function set_forgotten_password_token($user_id, $token)
+    {
+        $sql = "INSERT INTO forgotten_password (user_id, token) VALUES (:user_id, :token)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(array(
+            'user_id'   =>      $user_id,
+            'token'     =>      $token
+        ));
+    }
+
+    public function check_forgotten_password_token($user_id, $token)
+    {
+        // Delete all old tokens
+        $sql = "DELETE FROM `forgotten_password` WHERE `created_at` < ADDDATE(NOW(), INTERVAL -1 HOUR)";
+        $this->runQuery($sql, [], 'post');
+
+        // check token 
+        $sql = "SELECT * FROM forgotten_password WHERE user_id = :user_id AND token = :token";
+        $params = array(
+            'user_id'   =>      $user_id,
+            'token'     =>      $token
+        );
+        return $this->runQuery($sql, $params, 'get1');
+    }
+
+    public function delete_forgotten_password_token($user_id, $token)
+    {
+        $sql = "DELETE FROM forgotten_password WHERE user_id = :user_id AND token = :token";
+        $params = ['user_id'=>$user_id, ':token'=>$token];
+        return $this->runQuery($sql, $params, 'post');
     }
 
 }

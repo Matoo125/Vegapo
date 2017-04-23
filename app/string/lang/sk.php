@@ -15,8 +15,17 @@ $sk = [
     "LOGIN1" 					=>	"Prihlásenie",
     "REGISTER" 					=>	"Registrovať sa",
     "REGISTER1" 				=> 	"Registrácia",
+    "RECOVER_PASSWORD"          =>  "Obnoviť heslo",
+    "INVALID_TOKEN"             =>  "Tento token je expirovaný.",
+    "RECOVERY_EMAIL_SENT"       =>  "Email s odkazom na obnovenie hesla bol úspešne odoslaný",
+    "EMAIL_NOT_FOUND"           =>  "Tento email sa v databáze nenachádza. Prosím zaregistrujte sa. ",
+    "CREDENTIALS_NOT_MATCH"     =>  "Prihlasovacie údaje sa nezhodujú. ",
+    "EMAIL_ALREADY_EXISTS"      =>  "Tento email už existuje. Môžete sa prihlásiť alebo si heslo obnoviť.",
+    "REGISTRATION_SUCCESS"      =>  "Registrácia prebehla úspešne. ",
+    "RECOVER_PASSWORD_MESSAGE"  =>  "bolo požiadané o zmenu hesla na vašom účte. Ak si prajete heslo zmeniť, prosím kliknite na nasledujúci odkaz. Ak si myslíte, že niekde nastala chyba, kľudne ignorujte tento email. Vegapo vám želá pekný deň :)",
 
-    "GREETING"					=> "Ahoj",
+
+    "GREETING"					=> "Zdravím",
     "WELCOME_BACK" 				=> "Vítaj späť",
 
     'ABOUT' 					=> "O",
@@ -36,6 +45,9 @@ $sk = [
     "NUMBER_OF_CATEGORIES" 		=>"Počet Kategórií",
     "NUMBER_OF_SUPERMARKETS"	=>"Počet Obchodov",
     "NUMBER_OF_REQUESTS" 		=>"Na schválenie",
+    "NUMBER_OF_USERS"           =>"Počet užívateľov",
+    "NUMBER_OF_EMAILS"          =>"Newsletter",
+    "NUMBER_OF_MESSAGES"        =>"Počet správ",
 
 
     "MENU" 						=>"Menu",
@@ -63,6 +75,7 @@ $sk = [
     "PASSWORD_OLD" 				=>"Staré heslo",
     "PASSWORD_NEW" 				=>"Nové heslo",
     "PASSWORD_NEW2" 			=>"Kontrola nového hesla",
+    "FORGOTTEN_PASSWORD"        =>"Zabudnuté heslo",
 
     "CATEGORY"					=>"Kategória",
     "CATEGORIES" 				=>"Kategórie",

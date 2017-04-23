@@ -2,6 +2,16 @@
 
 {% block title %}VegaPo - {{ lang.OVERVIEW }} {% endblock %}
 
+{% block css %} 
+    <style type="text/css">
+
+    .card {
+        margin-bottom: 20px;
+    }
+
+    </style>
+{% endblock %}
+
 {% block header %} {{ lang.OVERVIEW }} {% endblock %}
 
 {% block content %}
@@ -51,6 +61,44 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card card-inverse" style="border-color: #232925">
+                <div class="card-block" style="background-color: #232925">
+                    <div class="rotate">
+                        <i class="fa fa-check-square-o fa-4x"></i>
+                    </div>
+                    <h6 class="text-uppercase">{{ lang.NUMBER_OF_USERS }}</h6>
+                    <h1 class="display-1">{{ numberOfUsers }}</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card card-inverse " style="border-color: #7b217b">
+                <div class="card-block" style="background-color: #7b217b">
+                    <div class="rotate">
+                        <i class="fa fa-check-square-o fa-4x"></i>
+                    </div>
+                    <h6 class="text-uppercase">{{ lang.NUMBER_OF_MESSAGES }}</h6>
+                    <h1 class="display-1">{{ numberOfMessages }}</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card card-inverse card-primary ">
+                <div class="card-block bg-primary">
+                    <div class="rotate">
+                        <i class="fa fa-check-square-o fa-4x"></i>
+                    </div>
+                    <h6 class="text-uppercase">{{ lang.NUMBER_OF_EMAILS }}</h6>
+                    <h1 class="display-1">{{ numberOfEmails }}</h1>
+                </div>
+            </div>
+        </div>
+
+
     </div>
     <!--/row--><br> <hr>
     <div class="row">

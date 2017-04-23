@@ -1,35 +1,24 @@
-TEMPORARY
-
-PART 1
-
-1. separate product images to cz and sk folders
-- do it with script
-2. separate product thumbnails to folders based on size
-- also with script
-3. change location of storing images based on those new rules
-
-PART 2
-2. allow more images per product
-
-
 --------------------------------------
 
 
 TODO:
-- allow more images per product
 - use new object oriented helpers
 - if form is not submitted fill the form with data
 - manage thumbnails from admin panel
 
 - show messages from contact form in admin panel
 - voting system
-- separate images to folders cz and sk
-- separate thumbnails to different folders
 
 - add number of users to admin dashboard
 - add number of tags to admin dashboard
 - add number of emails in a newsletter to the admin dashboard
 - add view for messages from contact from
+
+Ver 0.0.6 ALFA
+- allow more images per product (main and ingredients)
+- separate images to folders cz and sk
+- separate thumbnails to different folders
+ 
 
 Ver 0.0.5 ALFA
 - image lazy loading

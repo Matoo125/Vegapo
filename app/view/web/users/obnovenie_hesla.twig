@@ -1,0 +1,46 @@
+{% extends "web/base.twig" %}
+
+{% block title %} VegaPo - {{ lang.LOGIN }} {% endblock %}
+
+{% block content %}
+
+    <header id="first">
+    <div class="header-content">
+        <div class="inner">
+            {{ include('web/modules/flash.twig') }}  
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{ lang.RECOVER_PASSWORD }}</h1>
+            </div>
+        </div>
+
+        <br>
+        {% if token == true %}
+          <div class="row">
+            <div class="col-md-12">
+                <form action="" method="post">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="password">{{ lang.PASSWORD_NEW }}</label>
+                <div class="col-sm-8">
+                    <input type="password" class="form-control" autofocus required id="password" name="password" placeholder="Enter password">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="password2">{{ lang.PASSWORD_NEW2 }}</label>
+                <div class="col-sm-8">
+                    <input type="password" class="form-control" required id="password2" name="password2" placeholder="Enter password again">
+                </div>
+            </div>
+
+
+                  <button type="submit" class="btn btn-primary">{{ lang.SUBMIT }}</button>
+        </form>
+            </div>
+          </div>
+      {% endif %}
+        </div>
+    </div>
+</header>
+
+
+{% endblock %}

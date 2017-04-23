@@ -20,6 +20,9 @@ class Home extends ApiHomeController
         $this->data['numberOfRequests'] = $this->model->countTable('products', array('visibility' => 2));
         $this->data['numberOfStores'] = $this->model->countTable('supermarkets');
         $this->data['numberOfCategories'] = $this->model->countTable('categories');
+        $this->data['numberOfUsers'] = $this->model->countTable('users');
+        $this->data['numberOfEmails'] = $this->model->countTable('newsletter');
+        $this->data['numberOfMessages'] = $this->model->countTable('contact');
    	}
 
    	public function changelog()

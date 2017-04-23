@@ -52,6 +52,8 @@ class App
         $controller = "app\controllers\\" . $this->module . "\\" . $this->controller;
         $this->controller = new $controller();
 
+        // replace - with _
+
         if ( isset( $url[0] ) && method_exists( $this->controller, $url[0] ) ) {
             $this->method = $url[0];
             array_shift($url);
