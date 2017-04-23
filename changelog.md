@@ -3,10 +3,19 @@
 
 TODO:
 - if form is not submitted fill the form with data
-
 - show messages from contact form in admin panel
 - voting system
 - gamification
+
+- add product search
+- add reviews
+- add 'my product' like / heart
+- add facebook like / share 
+- add facebook login
+
+
+Ver 0.0.8 ALFA
+- add barcode input
 
 
 Ver 0.0.7 ALFA
@@ -14,6 +23,7 @@ Ver 0.0.7 ALFA
 - add number of tags to admin dashboard
 - add number of emails in a newsletter to the admin dashboard
 - add number of messages to admin dashboard
+- password recovery
 
 Ver 0.0.6 ALFA
 - allow more images per product (main and ingredients)

@@ -59,6 +59,7 @@ class Produkty extends Controller
             $images['1'] = $_FILES['file'];
             $images['2'] = $_FILES['ingredients'];
             $data['price'] = $_POST['productPrice'];
+            $data['barcode'] = $_POST['barcode'];
             $supermarkets = isset($_POST['supermarket']) ? $_POST['supermarket'] : array();
             $tags = isset($_POST['tag']) ? $_POST['tag'] : array();
 

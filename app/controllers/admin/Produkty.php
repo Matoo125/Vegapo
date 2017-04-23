@@ -13,6 +13,7 @@ class Produkty extends ProduktyApiController
     {
         if ($_POST) {
             $data['name'] = $_POST['productName'];
+            $data['barcode'] = $_POST['barcode'];
             $data['category_id'] = $_POST['selectCategory'];
             $images['1'] = $_FILES['file'];
             $images['2'] = $_FILES['file2'];

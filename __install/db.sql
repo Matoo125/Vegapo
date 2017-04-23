@@ -153,3 +153,5 @@ CREATE TABLE `forgotten_password` (
   `token` varchar(255),
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+ALTER TABLE `products` ADD barcode varchar(255) DEFAULT NULL;

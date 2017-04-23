@@ -106,6 +106,7 @@ $sk = [
     "PRODUCTS_MY"				=> "Moje produkty",
 
     "PRICE" 					=>"Približná cena",
+    "BARCODE"                   =>"Čiarový kód",
     "IMAGE" 					=>"Obrázok",
     "INGREDIENTS"               =>"Zloženie",
     "TRASH" 					=>"Kôš",
