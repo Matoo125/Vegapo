@@ -340,3 +340,7 @@ img::-moz-selection {
         max-width: 150px;
     }
 }
+
+#heart.active {
+    color: red;
+}

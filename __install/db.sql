@@ -155,3 +155,23 @@ CREATE TABLE `forgotten_password` (
 );
 
 ALTER TABLE `products` ADD barcode varchar(255) DEFAULT NULL;
+
+-- done 24.4.2017
+
+CREATE TABLE `favourite_products` (
+  `id`  int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+
+);
+
+CREATE TABLE `product_reviews` (
+  `id`  int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `review` text NOT NULL,
+  `status` int(1) DEFAULT NULL
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);

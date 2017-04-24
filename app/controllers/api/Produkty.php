@@ -49,6 +49,11 @@ class Produkty extends Controller
     public function produkt($slug = null)
     {
     	$this->data['product'] = $this->model->getProductBySlug($slug);
+
+        if (Session::get('user_id')) {
+
+            $this->data['liked'] = $this->model->isProductFavourite($this->data['product']['id'], Session::get('user_id'))[0];
+        }
     }
 
     public function pridat() {
@@ -134,6 +139,39 @@ class Produkty extends Controller
         $this->data['current_page'] = $current_page;
 
         $this->data['products'] = $this->model->getProducts(null, null, null, $start, 1, null, $term);
+    }
+
+
+    /*
+    *       24.4.2017 
+    *       AJAX function Favourites
+    */
+
+    public function favourites()
+    {
+        if (!$_POST) return;
+
+        $action = $_POST['action'];
+
+        if ($action == 1) {
+
+            $user_id = Session::get('user_id');
+            $product_id = $_POST['product_id'];
+
+
+            $this->model->addToFavourites($product_id, $user_id);
+
+            echo 'added';  return;
+
+        } else {
+            $id = $_POST['id'];
+
+            $this->model->removeFromFavourites($id);
+
+            echo 'removed'; return;
+        }
+
+        echo 'error';
     }
 
 }

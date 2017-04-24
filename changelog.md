@@ -8,9 +8,11 @@ TODO:
 - gamification
 
 - add reviews
+- add facebook login
+
+Ver 0.0.9 ALFA
 - add 'my product' like / heart
 - add facebook like / share 
-- add facebook login
 
 
 Ver 0.0.8 ALFA

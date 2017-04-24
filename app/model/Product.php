@@ -223,4 +223,28 @@ class Product extends Model
     {
         return $this->runQuery("SELECT * FROM tags WHERE country = :country", array("country" => COUNTRY_CODE), "get");
     }
+
+
+    public function addToFavourites($product_id, $user_id)
+    {
+        return $this->runQuery(
+            "INSERT INTO favourite_products (user_id, product_id) VALUES (:user_id, :product_id)", 
+            ["user_id" => $user_id, "product_id" => $product_id],
+            "post"
+        );
+
+    }
+
+    public function removeFromFavourites($id) 
+    {
+        return $this->runQuery("DELETE FROM favourite_products WHERE id = :id", ['id' => $id], "post");
+    }
+
+    public function isProductFavourite($product_id, $user_id)
+    {
+        return $this->runQuery("SELECT id FROM favourite_products WHERE product_id = :product_id AND user_id = :user_id", ['product_id' => $product_id, 'user_id' => $user_id], 'get1');
+    }
+
+
+
 }
