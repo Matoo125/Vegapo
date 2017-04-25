@@ -145,6 +145,7 @@ class Produkty extends Controller
     /*
     *       24.4.2017 
     *       AJAX function Favourites
+    *       adding and deleting
     */
 
     public function favourites()
@@ -172,6 +173,24 @@ class Produkty extends Controller
         }
 
         echo 'error';
+    }
+
+    /*
+     *  25.5.2017 Matej Vrzala
+     *  Showing user's favourites products
+     */
+
+    public function oblubene($user_id, $current_page = 1)
+    {
+        $this->view = 'web/produkty/index';
+        $number_of_products = $this->model->count(null, null, null, null, null, null, $user_id)['numberOfProducts'];
+
+        $number_of_pages = ceil($number_of_products / 20);
+        $start = ($current_page - 1 ) * 20;
+
+        $this->data['number_of_pages'] = $number_of_pages;
+        $this->data['current_page'] = $current_page;
+        $this->data['products'] = $this->model->getProducts(null, null, null, $start, null, null, null, $user_id);
     }
 
 }

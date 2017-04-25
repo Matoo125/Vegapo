@@ -104,6 +104,9 @@ $sk = [
     "PRODUCT_EDIT"              =>"Upraviť Produkt",
     "PRODUCT_NAME"				=>"Názov produktu",
     "PRODUCTS_MY"				=> "Moje produkty",
+    "FAVOURITES"                =>  "Obľúbené",
+    "FAVOURITES_ADD"            =>  "Pridať do obľúbených",
+    "FAVOURITES_REMOVE"         =>  "Odstrániť z obľúbených",
 
     "PRICE" 					=>"Približná cena",
     "BARCODE"                   =>"Čiarový kód",

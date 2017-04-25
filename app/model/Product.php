@@ -77,7 +77,8 @@ class Product extends Model
         return $this->runQuery($sql, array("slug" => $slug, "cc" => COUNTRY_CODE), "get1");      
     }
 
-    public function getProducts($category_slug = null, $supermarket_slug = null, $tag_slug = null, $current_page, $visibility = null, $author_id = null, $searchTerm = null)
+    public function getProducts($category_slug = null, $supermarket_slug = null, $tag_slug = null, $current_page, 
+                                $visibility = null, $author_id = null, $searchTerm = null, $favourites = null)
     {
         $array = array();
         $array['country'] = COUNTRY_CODE;
@@ -90,32 +91,46 @@ class Product extends Model
            $array['visibility'] = '1';
        }
 
-        $sql = "SELECT p.id AS id, p.name AS name, p.slug AS slug, p.expected_price AS price, c.name AS category, GROUP_CONCAT(DISTINCT i.filename) AS image, GROUP_CONCAT(DISTINCT s.name) AS supermarkets, GROUP_CONCAT(DISTINCT t.name) AS tags FROM products AS p INNER JOIN categories AS c ON p.category_id = c.id LEFT JOIN images AS i ON i.product_id = p.id AND i.role=1 LEFT JOIN matching_supermarkets AS ms ON ms.product_id = p.id LEFT JOIN supermarkets AS s ON s.id = ms.supermarket_id LEFT JOIN matching_tags AS mt ON mt.product_id = p.id LEFT JOIN tags AS t ON t.id = mt.tag_id WHERE p.country = :country AND p.visibility = :visibility";
+        $sql = "SELECT p.id AS id, p.name AS name, p.slug AS slug, p.expected_price AS price, c.name AS category, GROUP_CONCAT(DISTINCT i.filename) AS image, GROUP_CONCAT(DISTINCT s.name) AS supermarkets, GROUP_CONCAT(DISTINCT t.name) AS tags FROM products AS p INNER JOIN categories AS c ON p.category_id = c.id LEFT JOIN images AS i ON i.product_id = p.id AND i.role=1 LEFT JOIN matching_supermarkets AS ms ON ms.product_id = p.id LEFT JOIN supermarkets AS s ON s.id = ms.supermarket_id LEFT JOIN matching_tags AS mt ON mt.product_id = p.id LEFT JOIN tags AS t ON t.id = mt.tag_id";
+
+        // WHERE p.country = :country AND p.visibility = :visibility
+
+        $where = [];
+        $where[] = " p.country = :country";
+        $where[] = " p.visibility = :visibility";
 
         if($category_slug){
-            $sql .= " AND c.slug = :category_slug";
+            $where[] = "c.slug = :category_slug";
             $array['category_slug'] = $category_slug;
         }
 
         if ($supermarket_slug) {
-            $sql .= " AND s.slug = :supermarket";
+            $$where[] ="s.slug = :supermarket";
             $array['supermarket'] = $supermarket_slug;
         }
 
         if ($tag_slug) {
-            $sql .= " AND t.slug = :tag_slug";
+            $where[]  ="t.slug = :tag_slug";
             $array['tag_slug'] = $tag_slug;
         }
 
         if ($author_id) {
-            $sql .= " AND p.author_id = :author_id";
+           $where[] = "p.author_id = :author_id";
             $array['author_id'] = $author_id;
         }
 
         if ($searchTerm) {
-            $sql .= " AND p.name LIKE :searchTerm";
+            $where[] = "p.name LIKE :searchTerm";
             $array['searchTerm'] = "%".$searchTerm."%";
         }
+
+        if ($favourites) {
+            $sql .= " INNER JOIN favourite_products AS fp ON p.id = fp.product_id";
+            $where[] = "fp.user_id = :user_id";
+            $array['user_id'] = $favourites;
+        }
+
+        $sql = $sql . " WHERE" . implode(" AND ", $where);
 
         $sql .= " GROUP BY p.id, p.name ORDER BY p.id DESC";
 
@@ -124,7 +139,7 @@ class Product extends Model
 
     }
 
-    public function count($category = null, $supermarket = null, $tag = null, $visibility = 1, $author_id = null, $searchTerm = null)
+    public function count($category = null, $supermarket = null, $tag = null, $visibility = 1, $author_id = null, $searchTerm = null, $favourites = null)
     {
         $sql = "SELECT COUNT(p.id) AS numberOfProducts FROM products AS p";
 
@@ -165,10 +180,15 @@ class Product extends Model
         if ($searchTerm) {
             $where[] = " p.name LIKE :searchTerm";
             $args['searchTerm'] = "%".$searchTerm."%";
-
         }
 
-        $sql = $sql . " WHERE" . implode(" AND", $where);
+        if ($favourites) {
+            $sql .= " INNER JOIN favourite_products fp ON p.id = fp.product_id";
+            $where[] = "fp.user_id = :user_id";
+            $args['user_id'] = $favourites;
+        }
+
+        $sql = $sql . " WHERE" . implode(" AND ", $where);
 
         //echo $sql; die;
 
