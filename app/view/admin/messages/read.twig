@@ -1,0 +1,44 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - {{ lang.MESSAGE }} {% endblock %}
+
+{% block header %} {{ lang.MESSAGE }} {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-4">
+            <p>Author: {{ message.author }}</p>
+            <p>Subject: {{ message.subject }}</p>
+            <p>Email: {{ message.email }}</p>
+            <p>Received at: {{ message.created_at }}</p>
+        </div>
+
+        <div class="col-md-4">
+            {{ message.message }}
+
+
+
+        <hr>
+        {% if message.state == 'new' %} 
+            <form action="/admin/messages/answer" method="post">
+
+                <div class="form-group">
+                    <textarea class="form-control"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Answer</button>
+            </form>
+
+        {% else %}
+            <p>This message has been answered</p>
+        {% endif %}
+
+
+        </div>
+
+<p>This page is in progress. Not working yet. </p>
+    </div>
+
+
+{% endblock %}

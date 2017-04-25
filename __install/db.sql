@@ -166,6 +166,15 @@ CREATE TABLE `favourite_products` (
 
 );
 
+ALTER TABLE `contact` ADD `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE `contact` ADD `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+
+ALTER TABLE `newsletter` ADD `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE `newsletter` ADD `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+
+-- done 25.4.2017
+
+
 CREATE TABLE `product_reviews` (
   `id`  int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `user_id` int(11) NOT NULL,

@@ -49,12 +49,19 @@ $sk = [
     "NUMBER_OF_EMAILS"          =>"Newsletter",
     "NUMBER_OF_MESSAGES"        =>"Počet správ",
 
+    "MESSAGES"                  =>  "Správy",
+    "MESSAGE"                   =>  "Správa",
+    "TO_ANSWER"                 =>  "Odpovedať",
+    "STATE"                     =>  "Stav",
+    "WAITING_FOR_RESPONSE"      =>  "Čaká na odpoveď",
+
 
     "MENU" 						=>"Menu",
     "TITLE" 					=>"Názov",
     "USERS_LIST" 				=>"Zoznam užívateľov",
     "USERNAME" 					=>"Prezývka",
     "NAME"                      =>"Meno",
+    "AUTHOR"                    =>"Autor",
     "FIRST_NAME" 				=>"Krstné meno",
     "LAST_NAME" 				=>"Priezvisko",
     "CONTACT_EMAIL" 			=>"Kontaktný email",

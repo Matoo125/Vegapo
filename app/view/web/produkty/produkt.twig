@@ -60,7 +60,7 @@
 
             </div>
 
-                <div class="fb-comments" data-href="https://vegapo.sk" data-numposts="5"></div>
+                <div class="fb-comments" data-numposts="5"></div>
 
             
           </div>
@@ -79,6 +79,7 @@
     $.fancybox.defaults.hash = false;
 
     $(".fb-like").attr('data-href', window.location.href);
+    $(".fb-comments").attr('data-href', window.location.href);
 
     $("body").on('click', '#heart', function() {
         $(this).toggleClass('active');
