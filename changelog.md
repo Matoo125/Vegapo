@@ -16,7 +16,7 @@ TODO:
 Ver 0.0.8 ALFA
 - add barcode input
 - add product search
-
+- flags
 
 Ver 0.0.7 ALFA
 - add number of users to admin dashboard
