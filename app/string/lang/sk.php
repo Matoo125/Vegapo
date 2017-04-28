@@ -12,7 +12,8 @@ $sk = [
     "WEB" 						=> 	"Web",
     "LOGOUT"					=>	"Odhlásiť sa",
     "LOGIN" 					=>	"Prihlásiť sa",
-    "LOGIN1" 					=>	"Prihlásenie",
+    "LOGIN1"                    =>  "Prihlásenie",
+    "LOGIN_EMAIL"               =>  "Prihlasovacia email adresa",
     "REGISTER" 					=>	"Registrovať sa",
     "REGISTER1" 				=> 	"Registrácia",
     "RECOVER_PASSWORD"          =>  "Obnoviť heslo",
@@ -77,7 +78,8 @@ $sk = [
 
     "PROFILE_EDIT" 				=> "Upraviť profil",
 
-    'PASSWORD' 					=> "Heslo",
+    'PASSWORD'                  => "Heslo",
+    'YOUR_PASSWORD'             => "Tvoje heslo",
     "PASSWORD_CHANGE" 			=>"Zmena hesla",
     "PASSWORD_OLD" 				=>"Staré heslo",
     "PASSWORD_NEW" 				=>"Nové heslo",

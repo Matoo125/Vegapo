@@ -7,10 +7,10 @@ NEW FEATURES TO DO:
 - add note and description to categories, supermarkets and tags
 
 FIX
-- facebook comments not showing on ipad
 - check for barcode while submitting
+- something with lazyloading (maybe fixed)
 
-Maybe: 
+To think about: 
 - add reviews
 - add facebook login
 - voting system
@@ -20,6 +20,8 @@ Ver 0.1.0 BETA
 - quagga code scanner
 - if form is not submitted fill the form with data
 - font fix
+- facebook comments not showing on ipad fix
+- google analytics
 
 Ver 0.0.9 ALFA
 - add 'my product' like / heart

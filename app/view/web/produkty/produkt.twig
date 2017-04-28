@@ -28,7 +28,7 @@
 		  <div class="row justify-content-start">
             <div class="col-lg-6 col-md-8 align-self-start">
                 <a data-fancybox="gallery" href="/uploads/products/{{ cc }}/{{ product.image }}">
-                    <img src="/uploads/products/{{ cc }}/450x450/{{ product.image }}">
+                    <img src="/uploads/products/{{ cc }}/450x450/{{ product.image }}" class="img-fluid">
                 </a>
             </div>
             <div class="col-lg-6 col-md-4">
@@ -55,12 +55,12 @@
                     <p><a data-fancybox="gallery" href="/uploads/products/{{ cc }}/{{ product.image2 }}">{{ lang.INGREDIENTS }}</a></p>
                 {% endif %}
 
-                <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="recommend" data-size="large" data-show-faces="true" data-share="true"></div>
+                <div class="fb-like" data-layout="button" data-action="recommend" data-size="large" data-show-faces="true" data-adapt-container-width="true" data-share="true"></div>
 
+                <div class="fb-comments" mobile="auto-detect" data-numposts="5" width='100%'></div>
 
             </div>
 
-                <div class="fb-comments" data-numposts="5"></div>
 
             
           </div>
