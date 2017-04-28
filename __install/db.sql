@@ -174,6 +174,12 @@ ALTER TABLE `newsletter` ADD `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIM
 
 -- done 25.4.2017
 
+CREATE TABLE `suggestions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `user_id` int(11) NOT NULL,
+  `message` int(11) NOT NULL,
+);
+
 
 CREATE TABLE `product_reviews` (
   `id`  int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,

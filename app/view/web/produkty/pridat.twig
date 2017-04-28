@@ -12,17 +12,24 @@
 
 			        <div class="form-group">
 			            <label for="productName">{{ lang.PRODUCT_NAME }}</label>
-			            <input type="text" class="form-control" name="productName" id="productName" autofocus required>
+			            <input type="text" class="form-control" name="productName" id="productName" value="{{ productName }}" autofocus required>
 			        </div>
 
 			        <div class="form-group">
 			            <label for="productPrice">{{ lang.PRICE }}</label>
-			            <input type="number" class="form-control" name="productPrice" id="productPrice" step="any" required>
+			            <input type="number" class="form-control" name="productPrice" id="productPrice" step="any" value="{{ productPrice }}" required>
 			        </div>
 
-			        <div class="form-group">
+			        <div class="form-group barcode-group">
 			            <label for="barcode">{{ lang.BARCODE }}</label>
-			            <input type="text" class="form-control" name="barcode" id="barcode" >
+						<div class="input-group">
+						    <input type="text" class="form-control isbn" name="barcode" id="barcode" value="{{ barcode }}">
+						    <span class="input-group-btn">
+						        <button class="btn btn-secondary button scan" type="button"><i class="ion-ios-barcode-outline" aria-hidden="true"></i>
+								</button>
+								<input type="file" class="barcodefile" capture hidden>
+						    </span>
+						</div>
 			        </div>
 
 			        {% if categories %}
@@ -31,7 +38,7 @@
 			            <select class="form-control" name="selectCategory" id="selectCategory" required>
 
 			                {% for category in categories %}
-			                    <option value="{{ category.id }}">{{ category.name }}</option>
+			                    <option value="{{ category.id }}" {{ category.id == selectCategory ? 'selected'}}>{{ category.name }}</option>
 			                {% endfor %}
 
 			            </select>
@@ -49,14 +56,13 @@
 			        </div>
 
 			    </div>
-
 			    {% if supermarkets %}
 			    <div class="col-md-3 offset-md-1">
 			        <p>Obchody</p>
 			        {% for supermarket in supermarkets %}
 			            <div class="form-group">
 			                <label class="custom-control custom-checkbox">
-			                    <input type="checkbox" id="supermarket" name="supermarket[]" class="custom-control-input" value="{{ supermarket.id }}">
+			                    <input type="checkbox" id="supermarket" name="supermarket[]" class="custom-control-input" value="{{ supermarket.id }}" {{ (supermarket.id in selectedsupermarkets) ? 'checked' : '' }}>
 			                    <span class="custom-control-indicator"></span>
 			                    <span class="custom-control-description">{{ supermarket.name }}</span>
 			                </label>
@@ -71,7 +77,7 @@
                         {% for tag in tags %}
 							<div class="form-group">
 								<label class="custom-control custom-checkbox">
-									<input type="checkbox" id="tag" name="tag[]" class="custom-control-input" value="{{ tag.id }}">
+									<input type="checkbox" id="tag" name="tag[]" class="custom-control-input" value="{{ tag.id }}" {{ (tag.id in selectedtags) ? 'checked' }}>
 									<span class="custom-control-indicator"></span>
 									<span class="custom-control-description">{{ tag.name }}</span>
 								</label>
@@ -93,4 +99,55 @@
     </div>
 </section>
 
+{% endblock %}
+
+{% block scripts %}
+	<script type="text/javascript" src="https://serratus.github.io/quaggaJS/v1.0.0-beta.1/examples/js/quagga.js"></script>
+	<script type="text/javascript">
+		var Quagga = window.Quagga;
+		var App = {
+		    _scanner: null,
+		    init: function() {
+		        this.attachListeners();
+		    },
+		    decode: function(src) {
+		        Quagga
+		            .decoder({readers: ['ean_reader']})
+		            .locator({patchSize: 'medium'})
+		            .fromSource(src, {size: 800})
+		            .toPromise()
+		            .then(function(result) {
+		                document.querySelector('input.isbn').value = result.codeResult.code;
+		            })
+		            .catch(function() {
+		                document.querySelector('input.isbn').value = "Not Found";
+		            })
+		            .then(function() {
+		                this.attachListeners();
+		            }.bind(this));
+		    },
+		    attachListeners: function() {
+		        var self = this,
+		            button = document.querySelector('.barcode-group .button.scan'),
+		            fileInput = document.querySelector('.barcode-group input[type=file]');
+
+		        button.addEventListener("click", function onClick(e) {
+		            e.preventDefault();
+		            button.removeEventListener("click", onClick);
+		            fileInput.click();
+		        });
+
+		        fileInput.addEventListener("change", function onChange(e) {
+		            e.preventDefault();
+		            fileInput.removeEventListener("change", onChange);
+		            if (e.target.files && e.target.files.length) {
+		                self.decode(e.target.files[0]);
+		            }
+		        });
+		    }
+		};
+		App.init();
+		                
+
+	</script>
 {% endblock %}

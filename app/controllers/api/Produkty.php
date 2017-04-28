@@ -68,6 +68,7 @@ class Produkty extends Controller
             $supermarkets = isset($_POST['supermarket']) ? $_POST['supermarket'] : array();
             $tags = isset($_POST['tag']) ? $_POST['tag'] : array();
 
+
             if(Session::get('user_role') !== null && Session::get('user_role') > 20) {
                 $visibility = 1;
             } else {
@@ -77,6 +78,10 @@ class Produkty extends Controller
             // check for duplicant
             if ($this->model->getProductBySlug(slugify($data['name']))) {
                 Session::setFlash(getString('PRODUCT_ALREADY_EXISTS'), "warning");
+                // to avoid name collision
+                $_POST['selectedsupermarkets'] = $_POST['supermarket']; 
+                $_POST['selectedtags'] = $_POST['tag'];
+                $this->data = $_POST;
 
             } else {
 

@@ -1,24 +1,34 @@
 --------------------------------------
-
-
-TODO:
-- if form is not submitted fill the form with data
+NEW FEATURES TO DO:
 - show messages from contact form in admin panel
+- allow answer to messages and store both
+- user can suggest product edits 
+- add note to product
+- add note and description to categories, supermarkets and tags
+
+FIX
+- facebook comments not showing on ipad
+- check for barcode while submitting
+
+Maybe: 
+- add reviews
+- add facebook login
 - voting system
 - gamification
 
-- add reviews
-- add facebook login
+Ver 0.1.0 BETA
+- quagga code scanner
+- if form is not submitted fill the form with data
+- font fix
 
 Ver 0.0.9 ALFA
 - add 'my product' like / heart
 - add facebook like / share 
-
+- add facebook comments
 
 Ver 0.0.8 ALFA
 - add barcode input
 - add product search
-
 
 Ver 0.0.7 ALFA
 - add number of users to admin dashboard
@@ -31,7 +41,6 @@ Ver 0.0.6 ALFA
 - allow more images per product (main and ingredients)
 - separate images to folders cz and sk
 - separate thumbnails to different folders
- 
 
 Ver 0.0.5 ALFA
 - image lazy loading
@@ -39,7 +48,6 @@ Ver 0.0.5 ALFA
 - contact form (public part)
 - change order for products fetching
 - show products added by author
-
 
 Ver 0.0.4 ALFA
 - Framework migration ( namespaces, core logic )
@@ -100,14 +108,12 @@ Ver 0.0.0.4
 - delete matching tables while deleting store or category
 - delete old image if new is updated
 
-
 ver 0.0.0.3
 - bower component jquery.confirm.js
 - delete function
 - cross site flash messages
 - delete images while deleting
 - adjust admin content tables
-
 
 ver 0.0.0.2
 - image popover
