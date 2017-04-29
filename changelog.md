@@ -8,8 +8,7 @@ NEW FEATURES TO DO:
 
 FIX
 - check for barcode while submitting
-- something with lazyloading (maybe fixed)
-- dropdown on mobile does not work
+
 
 To think about: 
 - add reviews
@@ -23,6 +22,8 @@ Ver 0.1.0 BETA
 - font fix
 - facebook comments not showing on ipad fix
 - google analytics
+- something with lazyloading (kind of fixed)
+- dropdown on mobile does not work (fixed)
 
 Ver 0.0.9 ALFA
 - add 'my product' like / heart
