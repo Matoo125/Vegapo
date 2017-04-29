@@ -5,21 +5,21 @@
 <section id="last">
     <div class="container">
         <div class="row">
-            <div class="col-lg-10 text-center">
+            <div class="col-md-9 text-center">
                 <h2 class="margin-top-0 wow fadeIn">{{ lang.GREETING }} {{session.username}}</h2>
                 <hr class="primary">
                 <p>{{ lang.WELCOME_BACK }}</p>
             </div>
-            	<div class="col-lg-2">
-                            <div>
-                              <a href="/produkty/pridat" class="btn btn-primary">{{ lang.PRODUCT_NEW }}</a> 
-                            </div> <br>
-                            <div>
-                             <a href="/users/update" class="btn btn-primary">{{ lang.PROFILE_EDIT }}</a>
-                            </div><br>
-                            <div>
-                               <a href="/produkty/user/{{ session.user_id }}" class="btn btn-primary">{{ lang.PRODUCTS_MY }}</a>
-                            </div>
+            	<div class="col-md-auto">
+
+                    <div class="list-group">
+                      <a href="/produkty/pridat" class="list-group-item list-group-item-action">{{ lang.PRODUCT_NEW }}</a> 
+                      <a href="/users/update" class="list-group-item list-group-item-action">{{ lang.PROFILE_EDIT }}</a>
+                      <a href="/produkty/oblubene/{{ session.user_id }}" class="list-group-item list-group-item-action">{{ lang.FAVOURITES }}</a>
+                      <a href="/produkty/user/{{ session.user_id }}" class="list-group-item list-group-item-action">{{ lang.PRODUCTS_MY }}</a>
+                    </div>
+
+
                     </div>
             	</div>
 

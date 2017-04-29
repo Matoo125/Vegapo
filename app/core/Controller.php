@@ -24,7 +24,12 @@ class Controller {
     public function view($view) {
 
         // return if no view to render
-        if (!$view && !$this->view) return;
+        if (!$view && !$this->view) {
+
+            echo json_encode($this->data);
+            return;
+
+        };
 
         // if someone wants to render view in different path
         if ($this->view) {

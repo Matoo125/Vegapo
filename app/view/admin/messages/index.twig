@@ -1,0 +1,47 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - {{ lang.MESSAGES }} {% endblock %}
+
+{% block header %} {{ lang.MESSAGES }} {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped sortable">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>#</th>
+                        <th>{{ lang.AUTHOR }}</th>
+                        <th>{{ lang.SUBJECT }}</th>
+                        <th>{{ lang.MESSAGE }}</th>
+                        <th>{{ lang.STATE }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for message in messages %}
+                        <tr>
+                            <td><a href="/admin/messages/read/{{ message.id }}">{{ message.id }}</a></td>
+                            <td>{{ message.author }}</td>
+                            <td>{{ message.subject }}</td>
+                            <td>{{ message.message }}</td>
+                            <td>
+                                {% if message.state == 'new' %}
+                                    {{ lang.WAITING_FOR_RESPONSE}}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        No messages found.
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+
+{% endblock %}

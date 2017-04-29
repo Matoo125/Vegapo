@@ -12,7 +12,8 @@ $sk = [
     "WEB" 						=> 	"Web",
     "LOGOUT"					=>	"Odhlásiť sa",
     "LOGIN" 					=>	"Prihlásiť sa",
-    "LOGIN1" 					=>	"Prihlásenie",
+    "LOGIN1"                    =>  "Prihlásenie",
+    "LOGIN_EMAIL"               =>  "Prihlasovacia email adresa",
     "REGISTER" 					=>	"Registrovať sa",
     "REGISTER1" 				=> 	"Registrácia",
     "RECOVER_PASSWORD"          =>  "Obnoviť heslo",
@@ -49,12 +50,19 @@ $sk = [
     "NUMBER_OF_EMAILS"          =>"Newsletter",
     "NUMBER_OF_MESSAGES"        =>"Počet správ",
 
+    "MESSAGES"                  =>  "Správy",
+    "MESSAGE"                   =>  "Správa",
+    "TO_ANSWER"                 =>  "Odpovedať",
+    "STATE"                     =>  "Stav",
+    "WAITING_FOR_RESPONSE"      =>  "Čaká na odpoveď",
+
 
     "MENU" 						=>"Menu",
     "TITLE" 					=>"Názov",
     "USERS_LIST" 				=>"Zoznam užívateľov",
     "USERNAME" 					=>"Prezývka",
     "NAME"                      =>"Meno",
+    "AUTHOR"                    =>"Autor",
     "FIRST_NAME" 				=>"Krstné meno",
     "LAST_NAME" 				=>"Priezvisko",
     "CONTACT_EMAIL" 			=>"Kontaktný email",
@@ -70,7 +78,8 @@ $sk = [
 
     "PROFILE_EDIT" 				=> "Upraviť profil",
 
-    'PASSWORD' 					=> "Heslo",
+    'PASSWORD'                  => "Heslo",
+    'YOUR_PASSWORD'             => "Tvoje heslo",
     "PASSWORD_CHANGE" 			=>"Zmena hesla",
     "PASSWORD_OLD" 				=>"Staré heslo",
     "PASSWORD_NEW" 				=>"Nové heslo",
@@ -104,6 +113,9 @@ $sk = [
     "PRODUCT_EDIT"              =>"Upraviť Produkt",
     "PRODUCT_NAME"				=>"Názov produktu",
     "PRODUCTS_MY"				=> "Moje produkty",
+    "FAVOURITES"                =>  "Obľúbené",
+    "FAVOURITES_ADD"            =>  "Pridať do obľúbených",
+    "FAVOURITES_REMOVE"         =>  "Odstrániť z obľúbených",
 
     "PRICE" 					=>"Približná cena",
     "BARCODE"                   =>"Čiarový kód",

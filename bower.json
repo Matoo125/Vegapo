@@ -21,6 +21,7 @@
     "jquery-validation": "^1.16.0",
     "jquery-confirm": "^2.7.0",
     "bLazy": "blazy#^1.8.2",
-    "fancybox": "^3.0.47"
+    "fancybox": "^3.0.47",
+    "quagga": "^0.11.6"
   }
 }

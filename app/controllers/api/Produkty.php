@@ -49,6 +49,11 @@ class Produkty extends Controller
     public function produkt($slug = null)
     {
     	$this->data['product'] = $this->model->getProductBySlug($slug);
+
+        if (Session::get('user_id')) {
+
+            $this->data['liked'] = $this->model->isProductFavourite($this->data['product']['id'], Session::get('user_id'))[0];
+        }
     }
 
     public function pridat() {
@@ -63,6 +68,7 @@ class Produkty extends Controller
             $supermarkets = isset($_POST['supermarket']) ? $_POST['supermarket'] : array();
             $tags = isset($_POST['tag']) ? $_POST['tag'] : array();
 
+
             if(Session::get('user_role') !== null && Session::get('user_role') > 20) {
                 $visibility = 1;
             } else {
@@ -72,6 +78,10 @@ class Produkty extends Controller
             // check for duplicant
             if ($this->model->getProductBySlug(slugify($data['name']))) {
                 Session::setFlash(getString('PRODUCT_ALREADY_EXISTS'), "warning");
+                // to avoid name collision
+                $_POST['selectedsupermarkets'] = $_POST['supermarket']; 
+                $_POST['selectedtags'] = $_POST['tag'];
+                $this->data = $_POST;
 
             } else {
 
@@ -134,6 +144,58 @@ class Produkty extends Controller
         $this->data['current_page'] = $current_page;
 
         $this->data['products'] = $this->model->getProducts(null, null, null, $start, 1, null, $term);
+    }
+
+
+    /*
+    *       24.4.2017 
+    *       AJAX function Favourites
+    *       adding and deleting
+    */
+
+    public function favourites()
+    {
+        if (!$_POST) return;
+
+        $action = $_POST['action'];
+
+        if ($action == 1) {
+
+            $user_id = Session::get('user_id');
+            $product_id = $_POST['product_id'];
+
+
+            $this->model->addToFavourites($product_id, $user_id);
+
+            echo 'added';  return;
+
+        } else {
+            $id = $_POST['id'];
+
+            $this->model->removeFromFavourites($id);
+
+            echo 'removed'; return;
+        }
+
+        echo 'error';
+    }
+
+    /*
+     *  25.5.2017 Matej Vrzala
+     *  Showing user's favourites products
+     */
+
+    public function oblubene($user_id, $current_page = 1)
+    {
+        $this->view = 'web/produkty/index';
+        $number_of_products = $this->model->count(null, null, null, null, null, null, $user_id)['numberOfProducts'];
+
+        $number_of_pages = ceil($number_of_products / 20);
+        $start = ($current_page - 1 ) * 20;
+
+        $this->data['number_of_pages'] = $number_of_pages;
+        $this->data['current_page'] = $current_page;
+        $this->data['products'] = $this->model->getProducts(null, null, null, $start, null, null, null, $user_id);
     }
 
 }
