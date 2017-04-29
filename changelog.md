@@ -9,6 +9,7 @@ NEW FEATURES TO DO:
 FIX
 - check for barcode while submitting
 - something with lazyloading (maybe fixed)
+- dropdown on mobile does not work
 
 To think about: 
 - add reviews

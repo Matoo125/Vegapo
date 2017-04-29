@@ -340,6 +340,12 @@ img::-moz-selection {
     }
 }
 
+@media (max-width: 768px) {
+    .flag {
+        padding-left: 0 !important;
+    }
+}
+
 #heart.active {
     color: red;
 }

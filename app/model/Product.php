@@ -105,7 +105,7 @@ class Product extends Model
         }
 
         if ($supermarket_slug) {
-            $$where[] ="s.slug = :supermarket";
+            $where[] ="s.slug = :supermarket";
             $array['supermarket'] = $supermarket_slug;
         }
 

@@ -9,7 +9,7 @@
     new WOW().init();
     
     
-    $('#collapsingNavbar li a').click(function() {
+    $('#collapsingNavbar li .hideOnClick').click(function() {
         /* always close responsive nav after click */
         $('.navbar-toggler:visible').click();
     });
