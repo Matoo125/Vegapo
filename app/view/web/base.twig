@@ -108,7 +108,7 @@
                 {% endif %}
 
                 <li class="nav-item">
-                    <a class="nav-link page-scroll hideOnClick" title="Uživateľské funkcie" href="/users/">{{ session.username }}</a>
+                    <a class="nav-link page-scroll hideOnClick" title="Uživateľské funkcie" href="/users/">{{ session.username ?: 'ja' }}</a>
                 </li>
 
                 <li class="nav-item">

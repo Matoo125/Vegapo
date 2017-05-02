@@ -16,6 +16,9 @@ To think about:
 - voting system
 - gamification
 
+Ver 0.0.1 BETA
+- tag filters front end
+
 Ver 0.1.0 BETA
 - quagga code scanner
 - if form is not submitted fill the form with data
