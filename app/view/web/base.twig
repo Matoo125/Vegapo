@@ -46,7 +46,7 @@
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="/obchody">{{ lang.SUPERMARKETS }}</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         {% for supermarket in supermarkets %}
-                             <a class="dropdown-item hideOnClick" href="/produkty/{{ current_category ? current_category.slug : 0 }}/{{ supermarket.slug }}">{{ supermarket.name }}</a>
+                             <a class="dropdown-item hideOnClick" href="/produkty/{{ current_category ? current_category.slug : 0 }}/{{ supermarket.slug }}/{{ current_tag ? current_tag.slug : 0 }}">{{ supermarket.name }}</a>
                         {% endfor %}
 
                     </div>
@@ -61,7 +61,7 @@
                     <a class="nav-link page-scroll dropdown-toggle" data-toggle="dropdown" href="/kategorie">{{ lang.CATEGORIES }}</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         {% for category in categories %}
-                        <a class="dropdown-item hideOnClick" href="/produkty/{{ category.slug }}/{{ current_supermarket ? current_supermarket.slug : 0 }}">{{ category.name }}</a>
+                        <a class="dropdown-item hideOnClick" href="/produkty/{{ category.slug }}/{{ current_supermarket ? current_supermarket.slug : 0 }}/{{ current_tag ? current_tag.slug : 0 }}">{{ category.name }}</a>
                         {% endfor %}
 
                     </div>
@@ -71,6 +71,24 @@
                         <a class="nav-link page-scroll hideOnClick" href="/kategorie">{{ lang.CATEGORIES }}</a>
                     </li>
                 {% endif %}
+
+
+                {% if tags %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link page-scroll dropdown-toggle" data-toggle="dropdown" href="/kategorie">{{ lang.TAGS }}</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        {% for tag in tags %}
+                        <a class="dropdown-item hideOnClick" href="/produkty/{{ current_category ? current_category.slug : 0 }}/{{ current_supermarket ? current_supermarket.slug : 0 }}/{{ tag.slug }}">{{ tag.name }}</a>
+                        {% endfor %}
+
+                    </div>
+                </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll hideOnClick" href="/tagy">{{ lang.TAGS }}</a>
+                    </li>
+                {% endif %}
+
 
             </ul>
 
