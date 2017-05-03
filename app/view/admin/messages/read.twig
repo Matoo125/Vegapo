@@ -20,24 +20,30 @@
 
 
         <hr>
-        {% if message.state == 'new' %} 
+        {% if message.type == 0 %} 
             <form action="/admin/messages/answer" method="post">
 
                 <div class="form-group">
-                    <textarea class="form-control"></textarea>
+                    <textarea class="form-control" name="answer"></textarea>
                 </div>
-
+                <input type="hidden" name="subject" value="{{ message.subject }}">
+                <input type="hidden" name="author" value="{{ message.author }}">
+                <input type="hidden" name="email" value="{{ message.email }}">
+                <input type="hidden" name="message" value="{{ message.message }}">
+                <input type="hidden" name="message_id" value="{{ message.id }}">
                 <button type="submit" class="btn btn-primary">Answer</button>
             </form>
 
         {% else %}
-            <p>This message has been answered</p>
+            <p>This message has been answered by: {{ answer.username }}</p>
+            <p>At: {{ answer.created_at }}</p>
+            <hr>
+            <p>{{ answer.message }}</p>
         {% endif %}
 
 
         </div>
 
-<p>This page is in progress. Not working yet. </p>
     </div>
 
 

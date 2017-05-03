@@ -53,6 +53,7 @@ $sk = [
     "MESSAGES"                  =>  "Správy",
     "MESSAGE"                   =>  "Správa",
     "TO_ANSWER"                 =>  "Odpovedať",
+    "ANSWERED"                  =>  "Odpovedané",
     "STATE"                     =>  "Stav",
     "WAITING_FOR_RESPONSE"      =>  "Čaká na odpoveď",
 

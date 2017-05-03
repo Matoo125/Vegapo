@@ -10,6 +10,7 @@ class Url
 	'CATEGORY_UPLOADS' => "/uploads/categories/",
 
 	'ADMIN_CATEGORIES' => "/admin/kategorie/",
+	'ADMIN_MESSAGES' => "/admin/messages/",
 	'ADMIN_SUPERMARKETS' => "/admin/obchody/",
 	'ADMIN_TAGS' => "/admin/tagy/",
 	'ADMIN_PRODUCTS' => "/admin/produkty/",

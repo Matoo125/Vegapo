@@ -190,3 +190,19 @@ CREATE TABLE `product_reviews` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+-- TYPE [0 -> waiting for answer; 1 -> answered;]
+ALTER TABLE `contact` DROP `state`
+
+ALTER TABLE `contact` ADD `answer_id` int(11) DEFAULT NULL;
+ALTER TABLE `contact` DROP `answer_id`;
+ALTER TABLE `contact` ADD `type` int(11) NOT NULL DEFAULT 0;
+
+CREATE TABLE `answers` (
+  `id`  int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `user_id` int(11) NOT NULL,
+  `message` TEXT NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  );
+
+ALTER TABLE `answers` ADD `message_id` int(11) NOT NULL;

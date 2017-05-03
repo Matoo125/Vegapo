@@ -27,8 +27,10 @@
                             <td>{{ message.subject }}</td>
                             <td>{{ message.message }}</td>
                             <td>
-                                {% if message.state == 'new' %}
-                                    {{ lang.WAITING_FOR_RESPONSE}}
+                                {% if message.type == 0 %}
+                                    {{ lang.WAITING_FOR_RESPONSE }}
+                                {% elseif message.type == 1 %}
+                                    {{ lang.ANSWERED }}
                                 {% endif %}
                             </td>
                         </tr>

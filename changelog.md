@@ -1,10 +1,9 @@
 --------------------------------------
 NEW FEATURES TO DO:
-- show messages from contact form in admin panel
-- allow answer to messages and store both
 - user can suggest product edits 
 - add note to product
 - add note and description to categories, supermarkets and tags
+- add custom pages
 
 FIX
 - check for barcode while submitting
@@ -18,6 +17,8 @@ To think about:
 
 Ver 0.0.1 BETA
 - tag filters front end
+- show messages from contact form in admin panel
+- allow answer to messages and store both
 
 Ver 0.1.0 BETA
 - quagga code scanner
