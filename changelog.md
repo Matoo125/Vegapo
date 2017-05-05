@@ -15,7 +15,7 @@ To think about:
 - voting system
 - gamification
 
-Ver 0.0.1 BETA
+Ver 0.1.1 BETA
 - tag filters front end
 - show messages from contact form in admin panel
 - allow answer to messages and store both
