@@ -39,13 +39,22 @@ class Controller {
 
         $loader = new \Twig_Loader_Filesystem(APP . DS . 'view');
         $twig = new \Twig_Environment( $loader, array(
-            'debug' => true,
+          //  'debug' => true,
+            'cache' => APP . DS . 'cache' ,
         ) );
         $twig->addExtension(new \Twig_Extension_Debug());
         $twig->addGlobal("session", $_SESSION);
 
         $slugifilter = new \Twig_Filter('slugifilter', 'slugify');
         $twig->addFilter($slugifilter);
+
+        $buildUrl = new \Twig_SimpleFunction('buildUrl', function($params, $key, $value) {
+            // replace old part of params for new
+            $params[$key] = $value;
+            // build url string
+            return '/produkty?' . http_build_query($params, '', '&');
+        });
+        $twig->addFunction($buildUrl);
 
         $this->data['sessionclass'] = new Session;
         $this->data['lang'] = $GLOBALS['lang'];

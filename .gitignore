@@ -6,3 +6,4 @@
 /uploads/tags/*
 /uploads/products/*
 /app/core/Config.php
+/app/cache/*

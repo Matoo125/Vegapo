@@ -33,7 +33,7 @@
                             {% endif %}
                         </td>
                         <td>{{ categories[category.parent - 1].name }}</td>
-                        <td><a href="/admin/produkty/{{ category.slug }}">{{ category.numberOfProducts }}</a></td>
+                        <td><a href="/admin/produkty?kategoria={{ category.slug }}">{{ category.numberOfProducts }}</a></td>
 
 
                     </tr>

@@ -84,12 +84,13 @@ class Produkty extends ProduktyApiController
 
     public function trash($action = null, $id = null, $image = null) {
 
-        if (!check_user_premission(35)) redirect('/');
+        if (!check_user_premission(30)) redirect('/'); // admin at least
 
         if( isset($action) && isset($id) ) {
             if ($action == "recover") {
                 $this->model->setVisibility(2, $id);
             } elseif ($action == "delete") {
+                if (!check_user_premission(35)) redirect('/'); // more than admin
                 $this->model->delete($id, "id", $image);
             } elseif ($action == "move") {
                 $this->model->setVisibility(3, $id);

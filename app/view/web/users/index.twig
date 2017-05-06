@@ -15,8 +15,8 @@
                     <div class="list-group">
                       <a href="/produkty/pridat" class="list-group-item list-group-item-action">{{ lang.PRODUCT_NEW }}</a> 
                       <a href="/users/update" class="list-group-item list-group-item-action">{{ lang.PROFILE_EDIT }}</a>
-                      <a href="/produkty/oblubene/{{ session.user_id }}" class="list-group-item list-group-item-action">{{ lang.FAVOURITES }}</a>
-                      <a href="/produkty/user/{{ session.user_id }}" class="list-group-item list-group-item-action">{{ lang.PRODUCTS_MY }}</a>
+                      <a href="/produkty?oblubene={{ session.user_id }}" class="list-group-item list-group-item-action">{{ lang.FAVOURITES }}</a>
+                      <a href="/produkty?autor={{ session.user_id }}" class="list-group-item list-group-item-action">{{ lang.PRODUCTS_MY }}</a>
                     </div>
 
 

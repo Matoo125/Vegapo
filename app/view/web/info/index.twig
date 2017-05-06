@@ -1,0 +1,16 @@
+{% extends "web/base.twig" %}
+
+{% block title %}VegaPo - {{ title }} {% endblock %}
+
+{% block header %} {{ title }} {% endblock %}
+
+{% block content %}
+
+<section>
+	<div class="container">
+		<div class="wow fadeInUp text-center"><h2>{{ title }}</h2></div>
+		{{ parsedown|raw }}
+	</div>
+</section>
+
+{% endblock %}

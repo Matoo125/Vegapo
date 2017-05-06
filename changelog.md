@@ -1,24 +1,32 @@
 --------------------------------------
-NEW FEATURES TO DO:
+IMPORTANT FEATURES:
 - user can suggest product edits 
+- check for barcode while submitting
+- combined filters (multiple tags, categories)
+- do not store images larger than 1mb
+
+EASY TASKS:
 - add note to product
 - add note and description to categories, supermarkets and tags
-- add custom pages
+- public list of users with the number of products
+
+NICE TO HAVE:
 - add button to administration -> move to cz / move to sk
-- show author name in admin panel
-- disable form for users who are not logged in
-- do not store images larger than 1mb
-- https for cz domain
-
-FIX
-- check for barcode while submitting
-
-
-To think about: 
-- add reviews
+- add product from template (copy product, just for admins)
+- add php cache
 - add facebook login
-- voting system
-- gamification
+
+WAITING FOR ANSWER:
+- https for cz domain not working
+
+
+Ver 0.1.2 BETA -> 6.5.2017
+- use get in product filter queries
+- fix my products pagination
+- disable form for users who are not logged in
+- show author name in admin panel
+- add twig cache
+
 
 Ver 0.1.1 BETA
 - tag filters front end
@@ -26,6 +34,9 @@ Ver 0.1.1 BETA
 - allow answer to messages and store both
 - fix admin requests image path thumbnail
 - active class for current page (frontend)
+- add custom pages
+- show both flags
+
 
 Ver 0.1.0 BETA
 - quagga code scanner

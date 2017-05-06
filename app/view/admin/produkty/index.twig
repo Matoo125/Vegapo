@@ -15,7 +15,9 @@
                  <div class="dropdown-menu" aria-labelledby="supermarketsDropDown">
                  {% for supermarket in supermarkets %}
                     {% if current_supermarket.slug != supermarket.slug %}
-                     <a class="dropdown-item" href="/admin/produkty/{{ current_category ? current_category.slug : 0 }}/{{ supermarket.slug }}/{{ current_tag ? current_tag.slug : 0 }}">{{ supermarket.name }}</a>
+                     <a class="dropdown-item" href="/admin{{ buildUrl(params, 'supermarket', supermarket.slug) }}">
+                        {{ supermarket.name }}
+                    </a>
                     {% endif %}
                    {% endfor %}
               </div>
@@ -27,7 +29,9 @@
                  <div class="dropdown-menu" aria-labelledby="supermarketsDropDown">
                  {% for category in categories %}
                     {% if category.slug != current_category.slug %}
-                      <a class="dropdown-item" href="/admin/produkty/{{ category.slug }}/{{ current_supermarket ? current_supermarket.slug : 0 }}/{{ current_tag ? current_tag.slug : 0 }}">{{ category.name }}</a>
+                      <a class="dropdown-item" href="/admin{{ buildUrl(params, 'kategoria', category.slug) }}">
+                        {{ category.name }}
+                    </a>
                     {% endif %}
                    {% endfor %}
               </div>
@@ -39,7 +43,9 @@
                  <div class="dropdown-menu" aria-labelledby="tagsDropDown">
                  {% for tag in tags %}
                     {% if current_tag.slug != tag.slug %}
-                        <a class="dropdown-item" href="/admin/produkty/{{ current_category ? current_category.slug : 0 }}/{{ current_supermarket ? current_supermarket.slug : 0 }}/{{ tag.slug }}">{{ tag.name }}</a>
+                        <a class="dropdown-item" href="/admin{{ buildUrl(params, 'tag', tag.slug) }}">
+                            {{ tag.name }}
+                        </a>
                     {% endif %}
                    {% endfor %}
               </div>
@@ -97,7 +103,11 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     {% for i in 1..number_of_pages if number_of_pages %}
-                    <li class="page-item"><a class="page-link" href="/admin/produkty/{{ current_category ? current_category.slug : 0 }}/{{ current_supermarket ? current_supermarket.slug : 0 }}/{{ current_tag ? current_tag.slug : 0}}/{{ i }}">{{ i }}</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="/admin{{ buildUrl(params, 'p', i) }}">
+                            {{ i }}
+                        </a>
+                    </li>
 
                     {% endfor %}
                 </ul>

@@ -350,6 +350,10 @@ img::-moz-selection {
     color: red;
 }
 
+.black-and-white {
+    filter: grayscale(100%);
+}
+
 .b-lazy {
     -webkit-transition: opacity 500ms ease-in-out;
        -moz-transition: opacity 500ms ease-in-out;

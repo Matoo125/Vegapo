@@ -35,7 +35,7 @@ function findBySlugInArray($slug, $array)
     }
   }
 
-  return false;
+  return null;
 
 }
 

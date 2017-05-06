@@ -30,7 +30,7 @@
                                     {{ item.name }}
                                 {% endif %}
                             </td>
-                            <td><a href="/admin/produkty/0/0/{{ item.slug }}">{{ item.numberOfProducts }}</a></td>
+                            <td><a href="/admin/produkty?tag={{ item.slug }}">{{ item.numberOfProducts }}</a></td>
 
                         </tr>
                     {% else %}

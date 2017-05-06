@@ -45,8 +45,12 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="/obchody">{{ lang.SUPERMARKETS }}</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item hideOnClick" href="{{ buildUrl(params, 'supermarket', '') }}">Všetky</a>
                         {% for supermarket in supermarkets %}
-                             <a class="dropdown-item hideOnClick" href="/produkty/{{ current_category ? current_category.slug : 0 }}/{{ supermarket.slug }}/{{ current_tag ? current_tag.slug : 0 }}">{{ supermarket.name }}</a>
+                             <a class="dropdown-item hideOnClick" 
+                             href="{{ buildUrl(params, 'supermarket', supermarket.slug)}}">
+                               {{ supermarket.name }}
+                             </a>
                         {% endfor %}
 
                     </div>
@@ -60,8 +64,12 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link page-scroll dropdown-toggle" data-toggle="dropdown" href="/kategorie">{{ lang.CATEGORIES }}</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item hideOnClick" href="{{ buildUrl(params, 'kategoria', '') }}">Všetky</a>
                         {% for category in categories %}
-                        <a class="dropdown-item hideOnClick" href="/produkty/{{ category.slug }}/{{ current_supermarket ? current_supermarket.slug : 0 }}/{{ current_tag ? current_tag.slug : 0 }}">{{ category.name }}</a>
+                            <a class="dropdown-item hideOnClick" 
+                            href="{{ buildUrl(params, 'kategoria', category.slug) }}">
+                                {{ category.name }}
+                            </a>
                         {% endfor %}
 
                     </div>
@@ -77,8 +85,12 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link page-scroll dropdown-toggle" data-toggle="dropdown" href="/kategorie">{{ lang.TAGS }}</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item hideOnClick" href="{{ buildUrl(params, 'tag', '') }}">Všetky</a>
                         {% for tag in tags %}
-                        <a class="dropdown-item hideOnClick" href="/produkty/{{ current_category ? current_category.slug : 0 }}/{{ current_supermarket ? current_supermarket.slug : 0 }}/{{ tag.slug }}">{{ tag.name }}</a>
+                            <a class="dropdown-item hideOnClick" 
+                            href="{{ buildUrl(params, 'tag', tag.slug) }}">
+                                {{ tag.name }}
+                            </a>
                         {% endfor %}
 
                     </div>
@@ -118,15 +130,17 @@
             {% endif %}
             </ul>
 
-            <form class="form-inline" id="searchForm" method="get" action="/produkty/search">
-              <input class="form-control mr-sm-2" style="display: none" type="text" name="search" id="search" placeholder="Search">
+            <form class="form-inline" id="searchForm" method="get" action="/produkty">
+              <input class="form-control mr-sm-2" style="display: none" type="text" name="hladat" id="search" placeholder="Čokoláda">
               <button class="btn btn-outline-success" type="button" id="searchButton"><i class="ion-search"></i></button>
             </form>
 
             {% if cc == 'sk' %}
-                <a class="nav-link page-scroll flag hideOnClick" title="Prejsť na českú verziu" href="http://vegapo.cz"><img src="/images/sk.svg" width="40"></a>
+                <a class="nav-link page-scroll flag hideOnClick" href="http://vegapo.sk"><img src="/images/sk.svg" width="40"></a>
+                <a class="nav-link page-scroll flag hideOnClick pr-0 pl-0" href="http://vegapo.cz"><img src="/images/cz.svg" width="40" class="black-and-white"></a>
             {% else %}
-                <a class="nav-link page-scroll flag hideOnClick" title="Přejít na slovenskou verzi" href="http://vegapo.sk"><img src="/images/cz.svg" width="40"></a>
+                <a class="nav-link page-scroll flag hideOnClick" href="http://vegapo.sk"><img src="/images/sk.svg" width="40" class="black-and-white"></a>
+                <a class="nav-link page-scroll flag hideOnClick pr-0 pl-0" href="http://vegapo.cz"><img src="/images/cz.svg" width="40"></a>
             {% endif %}
 
 
@@ -142,16 +156,16 @@
             <div class="col-6 col-sm-3">
                 <h6 class="text-uppercase">{{ lang.ABOUT }} VegaPo</h6>
                 <ul class="list-unstyled">
-                    <li><a href="#" target="ext">{{ lang.ABOUT_PROJECT }}</a></li>
-                    <li><a href="#" target="ext">{{ lang.ABOUT_AUTHORS }}</a></li>
-                    <li><a href="#" target="ext">{{ lang.ABOUT_HELP }}</a></li>
+                    <li><a href="/info/o-projekte" >{{ lang.ABOUT_PROJECT }}</a></li>
+                    <li><a href="/info/o-autoroch">{{ lang.ABOUT_AUTHORS }}</a></li>
+                    <li><a href="/info/o-tom-ako-pomoct">{{ lang.ABOUT_HELP }}</a></li>
                 </ul>
             </div>
             <div class="col-6 col-sm-3 column">
                 <h6 class="text-uppercase">{{ lang.OTHER }}</h6>
                 <ul class="list-unstyled">
                     <li><a href="/home/kontakt/">{{ lang.CONTACT }}</a></li>
-                    <li><a href="#" target="ext">{{ lang.FAQ }}</a></li>
+                    <li><a href="/info/faq">{{ lang.FAQ }}</a></li>
 
                 </ul>
             </div>

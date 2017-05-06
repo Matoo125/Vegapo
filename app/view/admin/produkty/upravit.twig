@@ -70,6 +70,9 @@
                 </div>
             </div>
 
+            <p>Autor: <a href="/produkty?autor={{ product.user_id }}" target="_blank">{{ product.username }}</a></p>
+
+
             <button type="submit" class="btn btn-primary">{{ lang.SUBMIT }}</button>
             <a href="{{ url.TRASH_MOVE }}{{ product.id }}" class="btn btn-danger" id="deleteConfirm">{{ lang.REMOVE }}</a>
 

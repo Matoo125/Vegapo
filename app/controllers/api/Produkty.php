@@ -13,39 +13,6 @@ class Produkty extends Controller
         $this->model = $this->model('Product');
     }
 
-
-	public function index($category_slug = null, $supermarket_slug = null, $tag_slug = null, $current_page = 1) {
-
-        $categories = $this->model->getCategories();
-        $supermarkets = $this->model->getSupermarkets();
-        $tags = $this->model->getTags();
-
-        $current_category = findBySlugInArray($category_slug, $categories);
-        $current_supermarket = findBySlugInArray($supermarket_slug, $supermarkets);
-        $current_tag = findBySlugInArray($tag_slug, $tags);
-
-        $number_of_products = $this->model->count(
-            isset($current_category['id']) ? $current_category['id'] : null,
-            isset($current_supermarket['id']) ? $current_supermarket['id'] : null,
-            isset($current_tag['id']) ? $current_tag['id'] : null
-        )['numberOfProducts'];
-
-        $number_of_pages = ceil($number_of_products / 20);
-        $start = ($current_page - 1 ) * 20;
-
-        $this->data['supermarkets'] = $supermarkets;
-        $this->data['categories'] = $categories;
-        $this->data['tags'] = $tags;
-        $this->data['current_supermarket'] = $current_supermarket;
-        $this->data['current_category'] = $current_category;
-        $this->data['current_tag'] = $current_tag;
-        $this->data['number_of_pages'] = $number_of_pages;
-        $this->data['current_page'] = $current_page;
-        $this->data['products'] = $this->model->getProducts($category_slug, $supermarket_slug,$tag_slug, $start, 1);
-
-
-    }
-
     public function produkt($slug = null)
     {
     	$this->data['product'] = $this->model->getProductBySlug($slug);
@@ -57,6 +24,10 @@ class Produkty extends Controller
     }
 
     public function pridat() {
+
+        if (!Session::get('user_id')) {
+            redirect('/');
+        }
 
         if ($_POST) {
             $data['name'] = $_POST['productName'];
@@ -114,36 +85,42 @@ class Produkty extends Controller
 
     }
 
-    // get products by user id 
-    public function user($id, $current_page = 1)
+
+    public function index()
     {
-        $this->view = 'web/produkty/index';
-        $number_of_products = $this->model->count(null, null, null, null, $id)['numberOfProducts'];
+        $category_slug = $params['kategoria'] = isset($_GET['kategoria']) ? $_GET['kategoria'] : null;
+        $supermarket_slug = $params['supermarket'] = isset($_GET['supermarket']) ? $_GET['supermarket'] : null;
+        $tag_slug = $params['tag'] = isset($_GET['tag']) ? $_GET['tag'] : null;
+        $favourites_user_id = $params['oblubene'] = isset($_GET['oblubene']) ? $_GET['oblubene'] : null;
+        $search_term = $params['hladat'] = isset($_GET['hladat']) ? $_GET['hladat'] : null;
+        $author_id = $params['autor'] = isset($_GET['autor']) ? $_GET['autor'] : null;
+        $current_page = isset($_GET['p']) ? $_GET['p'] : 1;
+
+        $categories = $this->model->getCategories();
+        $supermarkets = $this->model->getSupermarkets();
+        $tags = $this->model->getTags();
+
+        $current_category = findBySlugInArray($category_slug, $categories);
+        $current_supermarket = findBySlugInArray($supermarket_slug, $supermarkets);
+        $current_tag = findBySlugInArray($tag_slug, $tags);
+
+        $number_of_products = $this->model->count(
+            $current_category['id'], $current_supermarket['id'], $current_tag['id'], 1, $author_id, $search_term, $favourites_user_id
+        )['numberOfProducts'];
 
         $number_of_pages = ceil($number_of_products / 20);
         $start = ($current_page - 1 ) * 20;
 
+        $this->data['params'] = $params;
+        $this->data['supermarkets'] = $supermarkets;
+        $this->data['categories'] = $categories;
+        $this->data['tags'] = $tags;
+        $this->data['current_supermarket'] = $current_supermarket;
+        $this->data['current_category'] = $current_category;
+        $this->data['current_tag'] = $current_tag;
         $this->data['number_of_pages'] = $number_of_pages;
         $this->data['current_page'] = $current_page;
-        $this->data['products'] = $this->model->getProducts(null, null, null, $start, null, $id);
-    }
-
-    public function search($term = null, $current_page = 1)
-    {
-        if ($_GET['search']) {
-            $term = $_GET['search'];
-        }
-
-        $this->view = 'web/produkty/index';
-        $number_of_products = $this->model->count(null, null, null, null, null, $term)['numberOfProducts'];
-
-        $number_of_pages = ceil($number_of_products / 20);
-        $start = ($current_page - 1 ) * 20;
-
-        $this->data['number_of_pages'] = $number_of_pages;
-        $this->data['current_page'] = $current_page;
-
-        $this->data['products'] = $this->model->getProducts(null, null, null, $start, 1, null, $term);
+        $this->data['products'] = $this->model->getProducts($category_slug, $supermarket_slug, $tag_slug, $start, 1, $author_id, $search_term, $favourites_user_id);
     }
 
 
@@ -178,24 +155,6 @@ class Produkty extends Controller
         }
 
         echo 'error';
-    }
-
-    /*
-     *  25.5.2017 Matej Vrzala
-     *  Showing user's favourites products
-     */
-
-    public function oblubene($user_id, $current_page = 1)
-    {
-        $this->view = 'web/produkty/index';
-        $number_of_products = $this->model->count(null, null, null, null, null, null, $user_id)['numberOfProducts'];
-
-        $number_of_pages = ceil($number_of_products / 20);
-        $start = ($current_page - 1 ) * 20;
-
-        $this->data['number_of_pages'] = $number_of_pages;
-        $this->data['current_page'] = $current_page;
-        $this->data['products'] = $this->model->getProducts(null, null, null, $start, null, null, null, $user_id);
     }
 
 }
