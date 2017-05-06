@@ -1,9 +1,6 @@
 --------------------------------------
 IMPORTANT FEATURES:
 - user can suggest product edits 
-- check for barcode while submitting
-- combined filters (multiple tags, categories)
-- do not store images larger than 1mb
 
 EASY TASKS:
 - add note to product
@@ -15,6 +12,9 @@ NICE TO HAVE:
 - add product from template (copy product, just for admins)
 - add php cache
 - add facebook login
+- combined filters (multiple tags, categories)
+- check for barcode while submitting
+- do not store images larger than 1mb
 
 WAITING FOR ANSWER:
 - https for cz domain not working
