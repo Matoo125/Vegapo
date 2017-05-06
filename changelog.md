@@ -4,6 +4,11 @@ NEW FEATURES TO DO:
 - add note to product
 - add note and description to categories, supermarkets and tags
 - add custom pages
+- add button to administration -> move to cz / move to sk
+- show author name in admin panel
+- disable form for users who are not logged in
+- do not store images larger than 1mb
+- https for cz domain
 
 FIX
 - check for barcode while submitting
@@ -19,6 +24,8 @@ Ver 0.1.1 BETA
 - tag filters front end
 - show messages from contact form in admin panel
 - allow answer to messages and store both
+- fix admin requests image path thumbnail
+- active class for current page (frontend)
 
 Ver 0.1.0 BETA
 - quagga code scanner

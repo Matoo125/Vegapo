@@ -31,7 +31,7 @@
                         <td><a href="{{ url.PRODUCT_ADMIN_EDIT }}{{ item.id }}">{{ item.id }}</a></td>
                         <td>
                             {% if item.image != "none" %}
-                                <a rel="popover" data-img="{{ url.PRODUCT_UPLOADS }}{{ item.image }}-thumb">{{ item.name }}</a>
+                              <a rel="popover" data-img="{{ url.PRODUCT_UPLOADS }}/{{ cc }}/150x150/{{ item.image }}">{{ item.name }}</a>
                             {% else %}
                                 {{ item.name }}
                             {% endif %}
@@ -43,7 +43,7 @@
                         <td><a href="{{ url.REQUEST_ACCEPT }}{{ item.id }}">{{ lang.ACCEPT }}</a> | <a href="{{ url.REQUEST_DENY }}{{ item.id }}">{{ lang.REJECT }}</a></td>
 
 
-                    </tr>
+                    </tr> 
 
                       {% endfor %}
                       {% endif %}
