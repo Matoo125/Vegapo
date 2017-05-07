@@ -193,7 +193,7 @@
       }
     })
 
-    $("body").on('click', '#heart', function() {
+    $("body").on('click touchstart', '#heart', function() {
         $(this).toggleClass('active');
         if ($(this).attr('data-active') == 'true') {
 

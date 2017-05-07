@@ -201,7 +201,6 @@ CREATE TABLE `answers` (
 
 ALTER TABLE `answers` ADD `message_id` int(11) NOT NULL;
 
-DROP TABLE `suggestions`;
 
 
 --- 1 - suggest supermarkets
