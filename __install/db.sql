@@ -174,12 +174,6 @@ ALTER TABLE `newsletter` ADD `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIM
 
 -- done 25.4.2017
 
-CREATE TABLE `suggestions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `user_id` int(11) NOT NULL,
-  `message` int(11) NOT NULL,
-);
-
 
 CREATE TABLE `product_reviews` (
   `id`  int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -206,3 +200,28 @@ CREATE TABLE `answers` (
   );
 
 ALTER TABLE `answers` ADD `message_id` int(11) NOT NULL;
+
+DROP TABLE `suggestions`;
+
+
+--- 1 - suggest supermarkets
+--- 2 - suggest category
+--- 3 - suggest tags
+--- 4 - suggest image
+--- 5 - suggest image ingredients
+--- 6 - suggest image another
+--- 7 - suggest note
+--- 8 - suggest barcode 
+--- 9 - report
+--- 10 - something else
+
+CREATE TABLE `suggestions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `state` int(11) NOT NULL, -- accepted 1 / denied 2 / pending 3
+  `type` int(11) NOT NULL, -- 1 - 9
+  `body` TEXT NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);

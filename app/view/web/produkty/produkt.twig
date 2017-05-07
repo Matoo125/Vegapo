@@ -51,11 +51,57 @@
 
 
                 {% if session.user_id %}
-                    {% if liked %}
-                        <i class="icon ion-heart icon-lg active" id="heart" data-active="true"></i>
-                    {% else %}
-                        <i class="icon ion-heart icon-lg" id="heart" data-active="false"></i>
-                    {% endif %}
+                    <div class="row">
+                      <div class="col-6">
+                        {% if liked %}
+                            <i class="icon ion-heart icon-lg active" id="heart" data-active="true"></i>
+                        {% else %}
+                            <i class="icon ion-heart icon-lg" id="heart" data-active="false"></i>
+                        {% endif %}
+                      </div>
+
+                      <div class="col-6">
+                        <button class="btn btn-primary" data-toggle="modal" data-target=".suggestModal">{{ lang.SUGGEST_EDIT }}</button>
+
+                        <div class="modal fade suggestModal" tabindex="-1" role="dialog" aria-hidden="true">
+                          <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                            <div class="container">
+                              <div class="modal-header">
+                                <div class="fadeInUp text-center"><h2>{{ lang.SUGGEST_EDIT }}</h2></div>
+                              </div>
+                              <div class="modal-body">
+                                <form>
+                                  <div class="form-group">
+                                    <select class="form-control" id="suggestReason" reqired>
+                                      <option selected disabled>Dôvod na zmenu</option>
+                                      <option value="1">Upraviť obchody</option>
+                                      <option value="2">Upraviť kategóriu</option>
+                                      <option value="3">Upraviť tagy</option>
+                                      <option value="4">Upraviť hlavný obrázok</option>
+                                      <option value="5">Upraviť obrázok zloženia</option>
+                                      <option value="6">Pridať ďalší obrázok</option>
+                                      <option value="7">Upraviť poznámku</option>
+                                      <option value="8">Upraviť čiarový kód</option>
+                                      <option value="9">Nahlásiť produkt</option>
+                                      <option value="10">Niečo iné</option>
+                                    </select>
+                                  </div> 
+                                  <div class="form-group">
+                                    <label>Obsah</label>
+                                    <textarea class="form-control" id="suggestBody" placeholder=""></textarea>
+                                  </div> 
+                                </form>
+                                </div> 
+                                <div class="modal-footer">
+                                  <button class="btn btn-primary" id="suggestSubmit">Odoslať</button>
+                                </div>                   
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                 {% endif %}
 
                 {% if product.image2 %}
@@ -87,6 +133,65 @@
 
     $(".fb-like").attr('data-href', window.location.href);
     $(".fb-comments").attr('data-href', window.location.href);
+
+    $("#suggestSubmit").click(function () {
+      var data = {
+        reason: $("#suggestReason").val(),
+        body: $("#suggestBody").val(),
+        product_id: '{{ product.id }}',
+        user_id: '{{ session.user_id }}'
+      };
+
+      console.log(data);
+
+      $.post( "/api/suggestions/add/", data)
+      .done(function( data ) {
+        if (JSON.parse(data).result == 1) {
+          alert("Vďaka za návrh. ");
+          $('.suggestModal').modal('hide');
+        };
+      });
+
+    })    
+
+    $("body").on('change','#suggestReason', function () {
+      var textarea = $("#suggestBody");
+      switch(parseInt($(this).val())) {
+        case 1:
+          textarea.attr('placeholder', 'napr. Tento produkt sa nachádza aj v Tescu a Jednote')
+          break;
+        case 2:
+          textarea.attr('placeholder', 'napr. Tento produkt by viac pasoval do kategórie Cestoviny')
+          break;
+        case 3:
+          textarea.attr('placeholder', 'napr. Tento produkt je bez lepku a bez´sóje')
+          break;
+        case 4:
+          textarea.attr('placeholder', 'link k novému obrázku')
+          break;
+        case 5:
+          textarea.attr('placeholder', 'link k obrázku zloženia')
+          break;
+        case 6:
+          textarea.attr('placeholder', 'link k ďalšiemu obrázku')
+          break;
+        case 7:
+          textarea.attr('placeholder', 'napr. Tento produkt obsahuje diskutabilné éčka 342 a 333')
+          break;
+        case 8:
+          textarea.attr('placeholder', '12314567552')
+          break;
+        case 9:
+          textarea.attr('placeholder', 'napr. Tento produkt nieje vegan. / Tento produkt už nieje dostupný')
+          break;
+        case 10:
+          textarea.attr('placeholder', '...')
+          break;
+        default:
+          textarea.attr('placeholder', '')
+          break;
+      }
+    })
 
     $("body").on('click', '#heart', function() {
         $(this).toggleClass('active');

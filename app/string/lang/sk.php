@@ -57,6 +57,7 @@ $sk = [
     "STATE"                     =>  "Stav",
     "WAITING_FOR_RESPONSE"      =>  "Čaká na odpoveď",
 
+    "SUGGEST_EDIT"              =>  "Navrhnúť zmenu",
 
     "MENU" 						=>"Menu",
     "TITLE" 					=>"Názov",

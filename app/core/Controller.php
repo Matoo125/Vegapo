@@ -39,7 +39,7 @@ class Controller {
 
         $loader = new \Twig_Loader_Filesystem(APP . DS . 'view');
         $twig = new \Twig_Environment( $loader, array(
-          //  'debug' => true,
+           // 'debug' => true,
             'cache' => APP . DS . 'cache' ,
         ) );
         $twig->addExtension(new \Twig_Extension_Debug());

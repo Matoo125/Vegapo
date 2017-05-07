@@ -1,6 +1,14 @@
 --------------------------------------
 IMPORTANT FEATURES:
 - user can suggest product edits 
+--- suggest supermarkets
+--- suggest better image
+--- suggest different category
+--- suggest better image
+--- suggest barcode 
+--- suggest tags
+--- suggest note
+--- user can report product if they are not vegan or not exists anymore
 
 EASY TASKS:
 - add note to product
