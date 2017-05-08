@@ -224,3 +224,22 @@ CREATE TABLE `suggestions` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+ALTER TABLE `suggestions` ADD `country` varchar(2) NOT NULL
+
+ALTER TABLE `tags` ADD `value` int(2) DEFAULT NULL;
+ALTER TABLE `supermarkets` ADD `value` int(2) DEFAULT NULL;
+ALTER TABLE `categories` ADD `value` int(2) DEFAULT NULL;
+
+
+
+ALTER TABLE `tags` ADD `note` VARCAHR(255) DEFAULT NULL;
+ALTER TABLE `supermarkets` ADD `note` VARCAHR(255) DEFAULT NULL;
+ALTER TABLE `products` ADD `note` VARCAHR(255) DEFAULT NULL;
+ALTER TABLE `categories` ADD `note` VARCAHR(255) DEFAULT NULL;
+
+ALTER TABLE `tags` ADD `description` VARCAHR(255) DEFAULT NULL;
+ALTER TABLE `supermarkets` ADD `description` VARCAHR(255) DEFAULT NULL;
+ALTER TABLE `categories` ADD `description` VARCAHR(255) DEFAULT NULL;
+
+

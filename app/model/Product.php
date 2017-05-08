@@ -265,6 +265,71 @@ class Product extends Model
         return $this->runQuery("SELECT id FROM favourite_products WHERE product_id = :product_id AND user_id = :user_id", ['product_id' => $product_id, 'user_id' => $user_id], 'get1');
     }
 
+    public function changeCountry($product_id, $country_code)
+    {
+        return $this->runQuery(
+            "UPDATE products SET country = :country where id = :id",
+            ['country' => $country_code, 'id' => $product_id],
+            'post'
+            );
+    }
+
+    public function changeCountryImage($product_id, $country_code)
+    {
+        return $this->runQuery(
+            "UPDATE images SET country = :country where product_id = :id",
+            ['country' => $country_code, 'id' => $product_id],
+            'post'
+            );
+    }
+
+    public function changeCountryCode($table, $id, $cc)
+    {
+        return $this->runQuery(
+            "UPDATE ".$table." SET country = :country where ".key($id)." = :id",
+            ['country' => $cc, 'id' => $id[key($id)]],
+            'post'
+        );
+    }
+
+    public function getMatchers($table, $product_id)
+    {
+        return $this->runQuery("SELECT * FROM matching_".$table." WHERE product_id = :product_id", ['product_id' => $product_id], 'get');
+
+    }
+
+    public function changeMatcherId($table,array $change, $id)
+    {
+        return $this->runQuery(
+            "UPDATE ".$table." SET ".key($change)." = :matcher where id = :id",
+            ['matcher' => $change[key($change)], 'id' => $id],
+            'post'
+        );
+    }
+
+    public function getValue($table, $id)
+    {
+        return $this->runQuery(
+            "SELECT value FROM ".$table." WHERE id = :id",
+            ['id' => $id], 
+            'get1'
+        );
+    }
+
+    public function getNewMatchingId($table, $value, $country)
+    {
+        return $this->runQuery(
+            "SELECT id FROM ".$table." WHERE value = :value AND country = :country",
+            ['value' => $value, 'country' => $country], 
+            'get1'
+        );
+    }
+
+    public function getProductImages($product_id)
+    {
+        return $this->runQuery("SELECT * FROM images WHERE product_id = :product_id", ['product_id' => $product_id], 'get');
+    }
+
 
 
 }

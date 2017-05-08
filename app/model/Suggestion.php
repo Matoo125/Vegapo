@@ -19,13 +19,14 @@ class Suggestion extends Model {
 
     public function save($data)
     {
-        $sql = "INSERT INTO `suggestions`(`user_id`, `product_id`, `state`, `type`, `body`) VALUES (:user_id, :product_id, :state, :type, :body)";
+        $sql = "INSERT INTO `suggestions`(`user_id`, `product_id`, `state`, `type`, `body`, `country`) VALUES (:user_id, :product_id, :state, :type, :body, :country)";
         $args = [
-            'user_id' => $data['author_id'],
+            'user_id'    => $data['author_id'],
             'product_id' => $data['product_id'],
-            'state' => 3,
-            'type' => $data['reason'],
-            'body' =>  $data['body']
+            'state'      => 3,
+            'type'       => $data['reason'],
+            'body'       =>  $data['body'],
+            'country'    => $data['country']
         ];
 
         return $this->runQuery($sql, $args, "post");

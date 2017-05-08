@@ -139,10 +139,11 @@
         reason: $("#suggestReason").val(),
         body: $("#suggestBody").val(),
         product_id: '{{ product.id }}',
-        user_id: '{{ session.user_id }}'
+        user_id: '{{ session.user_id }}', 
+        country: '{{ cc }}'
       };
 
-      console.log(data);
+     // console.log(data);
 
       $.post( "/api/suggestions/add/", data)
       .done(function( data ) {
@@ -150,6 +151,7 @@
           alert("Vďaka za návrh. ");
           $('.suggestModal').modal('hide');
         };
+        console.log(data)
       });
 
     })    

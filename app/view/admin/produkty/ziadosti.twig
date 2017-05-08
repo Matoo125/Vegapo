@@ -40,7 +40,14 @@
                         <td>{{ item.supermarkets }}</td>
                         <td>{{ item.tags }}</td>
                         <td>{{ item.price }}</td>
-                        <td><a href="{{ url.REQUEST_ACCEPT }}{{ item.id }}">{{ lang.ACCEPT }}</a> | <a href="{{ url.REQUEST_DENY }}{{ item.id }}">{{ lang.REJECT }}</a></td>
+                        <td>
+                            <a href="{{ url.REQUEST_ACCEPT }}{{ item.id }}">{{ lang.ACCEPT }}</a> | 
+                            <a href="{{ url.REQUEST_DENY }}{{ item.id }}">{{ lang.REJECT }}</a> | 
+                            <a href="/admin/produkty/move_to/{{ item.id }}/{{ cc == 'sk' ? 'sk/cz' : 'cz/sk' }}">
+                                Presun do {{ cc == 'sk' ? 'CZ' : 'SK' }}
+                            </a>
+                            
+                        </td>
 
 
                     </tr> 
