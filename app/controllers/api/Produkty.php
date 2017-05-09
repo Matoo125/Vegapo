@@ -38,6 +38,7 @@ class Produkty extends Controller
             $data['barcode'] = $_POST['barcode'];
             $supermarkets = isset($_POST['supermarket']) ? $_POST['supermarket'] : array();
             $tags = isset($_POST['tag']) ? $_POST['tag'] : array();
+            $data['note'] = $_POST['note'];
 
 
             if(Session::get('user_role') !== null && Session::get('user_role') > 20) {
@@ -50,8 +51,8 @@ class Produkty extends Controller
             if ($this->model->getProductBySlug(slugify($data['name']))) {
                 Session::setFlash(getString('PRODUCT_ALREADY_EXISTS'), "warning");
                 // to avoid name collision
-                $_POST['selectedsupermarkets'] = $_POST['supermarket']; 
-                $_POST['selectedtags'] = $_POST['tag'];
+                $_POST['selectedsupermarkets'] = isset($_POST['supermarket']) ? $_POST['supermarket'] : []; 
+                $_POST['selectedtags'] = isset($_POST['tag']) ? $_POST['tag'] : [];
                 $this->data = $_POST;
 
             } else {

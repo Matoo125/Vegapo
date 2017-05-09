@@ -16,41 +16,47 @@ class Category extends Model
         $this->db = static::getDB();
     }
 
-    public function insert($categoryName, $categoryParent, $image) {
+    public function insert($data) {
 
-        $slug = slugify($categoryName);
+        $slug = slugify($data['name']);
 
-        $sql = "INSERT INTO categories(name, slug, parent, image, country)
-                VALUES(:cn, :s, :cp, :img, :c)";
+        $sql = "INSERT INTO categories(name, slug, parent, image, country, note, description)
+                VALUES(:cn, :s, :cp, :img, :c, :n, :d)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute(array(
-            ":cn"  => $categoryName,
+            ":cn"  => $data['name'],
             ":s"   => $slug,
-            ":cp"  => $categoryParent,
-            ":img" => $image,
-            ":c"   => COUNTRY_CODE
+            ":cp"  => $data['parent'],
+            ":img" => $data['image'],
+            ":c"   => COUNTRY_CODE,
+            ":n"    =>  $data['note'],
+            ":d"    =>  $data['description']
         ));
 
         return $stmt->rowCount() ? true : null;
     }
 
-    public function update($categoryName, $categoryParent, $image, $id) {
+    public function update($data, $id) {
 
-        $slug = slugify($categoryName);
+        $slug = slugify($data['name']);
 
         $sql = "UPDATE categories
                 SET name   = :cn,
-                    slug            = :s,
+                    slug   = :s,
                     parent = :cp,
-                    image  = :img
+                    image  = :img,
+                    note = :n,
+                    description = :d
                 WHERE id   = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->execute(array(
-            ":cn"    =>  $categoryName,
+            ":cn"    =>  $data['name'],
             ":s"     => $slug,
-            ":cp"    =>  $categoryParent,
-            ":img"   =>  $image,
-            ":id"    =>  $id
+            ":cp"    =>  $data['parent'],
+            ":img"   =>  $data['image'],
+            ":id"    =>  $id,
+            ":n"    =>  $data['note'],
+            ":d"    =>  $data['description']
         ));
 
         return $stmt->rowCount() ? true : null;

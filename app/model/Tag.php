@@ -15,15 +15,36 @@ class Tag extends Model
         $this->db = static::getDB();
     }
 
-    public function insert($name, $image) {
-        $sql = "INSERT INTO tags(name, slug, image, country) VALUES(:name, :slug, :image, :country)";
-        $array = array(":name" => $name, ":slug" => slugify($name), ":image" => $image, ":country" => COUNTRY_CODE);
+    public function insert($data) {
+        $sql = "INSERT INTO tags(name, slug, image, country, note, description) 
+                VALUES(:name, :slug, :image, :country, :note, :description)";
+        $array = array(
+            ":name"         => $data['name'], 
+            ":slug"         => slugify($data['name']), 
+            ":image"        => $data['image'], 
+            ":note"         => $data['note'],
+            ":description"  => $data['description'],
+            ":country"      => COUNTRY_CODE
+        );
         return $this->runQuery($sql, $array, "post");
     }
 
-    public function update($name, $image, $id) {
-        $sql = "UPDATE tags SET name   = :name, slug   = :slug, image  = :image WHERE id   = :id";
-        $args = array(":name"  =>  $name, ":slug"  =>  slugify($name), ":image" =>  $image, ":id"    =>  $id);
+    public function update($data, $id) {
+        $sql = "UPDATE tags 
+                SET name = :name, 
+                    slug = :slug, 
+                    image  = :image,
+                    note = :note,
+                    description = :description
+                WHERE id   = :id";
+        $args = array(
+            ":name"  =>  $data['name'], 
+            ":slug"  =>  slugify($data['name']), 
+            ":image" =>  $data['image'], 
+            ":id"    =>  $id,
+            ":note"  =>  $data['note'],
+            ":description" => $data['description']
+        );
         return $this->runQuery($sql, $args, "post");
     }
 

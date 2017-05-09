@@ -233,13 +233,16 @@ ALTER TABLE `categories` ADD `value` int(2) DEFAULT NULL;
 
 
 
-ALTER TABLE `tags` ADD `note` VARCAHR(255) DEFAULT NULL;
-ALTER TABLE `supermarkets` ADD `note` VARCAHR(255) DEFAULT NULL;
-ALTER TABLE `products` ADD `note` VARCAHR(255) DEFAULT NULL;
-ALTER TABLE `categories` ADD `note` VARCAHR(255) DEFAULT NULL;
+ALTER TABLE `tags` ADD `note` varchar(255) DEFAULT NULL;
+ALTER TABLE `supermarkets` ADD `note` varchar(255) DEFAULT NULL;
+ALTER TABLE `products` ADD `note` varchar(255) DEFAULT NULL;
+ALTER TABLE `categories` ADD `note` varchar(255) DEFAULT NULL;
 
-ALTER TABLE `tags` ADD `description` VARCAHR(255) DEFAULT NULL;
-ALTER TABLE `supermarkets` ADD `description` VARCAHR(255) DEFAULT NULL;
-ALTER TABLE `categories` ADD `description` VARCAHR(255) DEFAULT NULL;
+ALTER TABLE `tags` ADD `description` varchar(255) DEFAULT NULL;
+ALTER TABLE `supermarkets` ADD `description` varchar(255) DEFAULT NULL;
+ALTER TABLE `categories` ADD `description` varchar(255) DEFAULT NULL;
 
+ALTER TABLE `products` CHANGE `expected_price` `expected_price` decimal(5,2) DEFAULT NULL;
+
+-- 9.5.2017
 

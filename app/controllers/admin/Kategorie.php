@@ -18,15 +18,17 @@ class Kategorie extends KategorieApiController
     public function pridat() {
 
         if ($_POST) {
-            $categoryName = $_POST['categoryName'];
-            $categoryParent = $_POST['categoryParent'];
+            $data['name'] = $_POST['categoryName'];
+            $data['parent'] = $_POST['categoryParent'];
             $image = $_FILES['file'];
+            $data['description'] = $_POST['description'];
+            $data['note'] = $_POST['note'];
 
-            if (!$image = $this->model->uploadImage($image, "categories")) {
-                $image = 'none';
+            if (!$data['image'] = $this->model->uploadImage($image, "categories")) {
+                $data['image'] = 'none';
             }
 
-            if ($this->model->insert($categoryName, $categoryParent, $image)) {
+            if ($this->model->insert($data)) {
                 Session::setFlash(getString('CATEGORY_ADD_SUCCESS'), "success");
             }
         }
@@ -40,17 +42,19 @@ class Kategorie extends KategorieApiController
     public function upravit($id) {
 
         if ($_POST) {
-            $categoryName = $_POST['categoryName'];
-            $categoryParent = $_POST['categoryParent'];
+            $data['name'] = $_POST['categoryName'];
+            $data['parent'] = $_POST['categoryParent'];
             $image = $_FILES['file'];
+            $data['description'] = $_POST['description'];
+            $data['note'] = $_POST['note'];
 
-            if (!$image = $this->model->uploadImage($image, "categories")) {
-                $image = $_POST['image_old'];
+            if (!$data['image'] = $this->model->uploadImage($image, "categories")) {
+                $data['image'] = $_POST['image_old'];
             } else {
                 delete_image(ROOT.DS."uploads".DS."categories".DS.$_POST['image_old']);
             }
 
-            if ($this->model->update($categoryName, $categoryParent, $image, $id)) {
+            if ($this->model->update($data, $id)) {
                 Session::setFlash(getString('CATEGORY_UPDATE_SUCCESS'), "success");
             }
         }

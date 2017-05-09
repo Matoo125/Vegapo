@@ -16,14 +16,16 @@ class Tagy extends TagyApiController
     public function pridat() {
 
         if ($_POST) {
-            $name = $_POST['name'];
+            $data['name'] = $_POST['name'];
             $image = $_FILES['file'];
+            $data['description'] = $_POST['description'];
+            $data['note'] = $_POST['note'];
 
-            if (!$image = $this->model->uploadImage($image, "tags")) {
-                $image = 'none';
+            if (!$data['image'] = $this->model->uploadImage($image, "tags")) {
+                $data['image'] = 'none';
             }
 
-            if ($this->model->insert($name, $image)) {
+            if ($this->model->insert($data)) {
                 Session::setFlash("Tag pridany uspesne", 'success');
             }
         }
@@ -34,19 +36,21 @@ class Tagy extends TagyApiController
     public function upravit($id) {
 
         if ($_POST) {
-            $name = $_POST['name'];
+            $data['name'] = $_POST['name'];
             $image = $_FILES['file'];
+            $data['description'] = $_POST['description'];
+            $data['note'] = $_POST['note'];
 
             if ($image['error'] == 4) {
-                $image = $_POST['image_old'];
+                $data['image'] = $_POST['image_old'];
             } elseif ($image['error'] == 0 ){
-                $image = $this->model->uploadImage($image, 'tags');
+                $data['image'] = $this->model->uploadImage($image, 'tags');
                 delete_image(ROOT.DS."uploads".DS."tags".DS.$_POST['image_old']);
             }
 
 
 
-            if ($this->model->update($name, $image, $id)) {
+            if ($this->model->update($data, $id)) {
                 Session::setFlash("Tag zmeneny", 'success');
             } else {
                 Session::setFlash("Nastala chyba", 'danger');

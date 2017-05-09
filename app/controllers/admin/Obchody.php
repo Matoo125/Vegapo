@@ -16,14 +16,16 @@ class Obchody extends ObchodyApiController
     public function pridat() {
 
         if ($_POST) {
-            $supermarketName = $_POST['supermarketName'];
+            $data['name'] = $_POST['supermarketName'];
             $image = $_FILES['file'];
+            $data['description'] = $_POST['description'];
+            $data['note'] = $_POST['note'];
 
-            if (!$image = $this->model->uploadImage($image, "supermarkets")) {
-                $image = 'none';
+            if (!$data['image'] = $this->model->uploadImage($image, "supermarkets")) {
+                $data['image'] = 'none';
             }
 
-            if ($this->model->insert($supermarketName, $image)) {
+            if ($this->model->insert($data)) {
                 Session::setFlash(getString('SUPERMARKET_ADD_SUCCESS'), 'success');
             }
         }
@@ -34,27 +36,28 @@ class Obchody extends ObchodyApiController
     public function upravit($id) {
 
         if ($_POST) {
-            $supermarketName = $_POST['supermarketName'];
+            $data['name'] = $_POST['supermarketName'];
             $image = $_FILES['file'];
+            $data['description'] = $_POST['description'];
+            $data['note'] = $_POST['note'];
 
             if ($image['error'] == 4) {
-                $image = $_POST['image_old'];
+                $data['image'] = $_POST['image_old'];
             } elseif ($image['error'] == 0 ){
-                $image = $this->model->uploadImage($image, 'supermarkets');
+                $data['image'] = $this->model->uploadImage($image, 'supermarkets');
                 delete_image(ROOT.DS."uploads".DS."supermarkets".DS.$_POST['image_old']);
             }
 
-
-
-            if ($this->model->update($supermarketName, $image, $id)) {
+            if ($this->model->update($data, $id)) {
                 Session::setFlash(getString('SUPERMARKET_UPDATE_SUCCESS'), 'success');
             } else {
                 Session::setFlash(getString('SUPERMARKET_UPDATE_FAILED'), 'danger');
             }
         }
 
-        $this->data['supermarkets'] = $this->model->getSupermarkets();
         $this->data['supermarket']  = $this->model->getSupermarketById($id);
+
+        //echo '<pre>'; print_r($this->data); die;
 
         //echo '<pre>';print_r($this->data['supermarket']); die;
 

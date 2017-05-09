@@ -1,29 +1,32 @@
 --------------------------------------
 IMPORTANT FEATURES:
 - show user's suggestions in admin
+- add product from template (copy product, just for admins)
+- public list of users with the number of products
 
-EASY TASKS:
-- add note to product
-- add note and description to categories, supermarkets and tags
 
 NICE TO HAVE:
-- add product from template (copy product, just for admins)
 - add php cache
 - add facebook login
 - combined filters (multiple tags, categories)
 - check for barcode while submitting
 - do not store images larger than 1mb
 - rotate image
-- public list of users with the number of products
 
 
 WAITING FOR ANSWER:
 - https for cz domain not working
 
 
+Ver 0.1.4 BETA -> 9.5.2017
+- add note to product
+- add note and description to categories, supermarkets and tags
+- fix allow higher price for cz (max 999)
+
 Ver 0.1.3 BETA -> 8.5.2017
 - user can suggest product edits 
 - add button to administration -> move to cz / move to sk
+- product detail links fix
 
 
 Ver 0.1.2 BETA -> 6.5.2017

@@ -33,19 +33,19 @@
             </div>
             <div class="col-lg-6 col-md-4">
                 <p>Približná cena: {{ product.price }}</p>
-                <p>Kategória: <a href="/produkty/{{ product.category|slugifilter }}">{{ product.category }}</a></p>
+                <p>Kategória: <a href="/produkty?kategoria={{ product.category|slugifilter }}">{{ product.category }}</a></p>
 
                 {% set supermarkets_array = product.supermarkets|split(',') %}
                 <p>V supermarketoch: 
                      {% for supermarket in supermarkets_array %}
-                        <a href="/produkty/0/{{ supermarket|slugifilter }}">{{ supermarket }}</a>{{ " " }}
+                        <a href="/produkty?supermarket={{ supermarket|slugifilter }}">{{ supermarket }}</a>{{ " " }}
                      {% endfor %}
                 </p>
 
                 {% set tags_array = product.tags|split(',') %}
                 <p>Tagy: 
                      {% for tag in tags_array %}
-                        <a href="/produkty/0/0/{{ tag|slugifilter }}">{{ tag }}</a>{{ " " }}
+                        <a href="/produkty?tag={{ tag|slugifilter }}">{{ tag }}</a>{{ " " }}
                      {% endfor %}
                 </p>
 

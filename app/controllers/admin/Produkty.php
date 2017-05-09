@@ -19,6 +19,7 @@ class Produkty extends ProduktyApiController
             $images['2'] = $_FILES['file2'];
             $data['price'] = $_POST['productPrice'];
             $data['id'] = $id;
+            $data['note'] = $_POST['note'];
 
             // editing supermarkets
             $supermarkets_new = isset($_POST['supermarket']) ? $_POST['supermarket'] : array();
