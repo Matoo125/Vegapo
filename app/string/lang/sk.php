@@ -142,7 +142,7 @@ $sk = [
 
     "WARRNING_MISSING_SUPERMARKET_OR_CATEGORY" => "Prosím vytvorte supermarket a kategóriu skôr ako pridáte produkt",
 
-    "PRODUCT_ADD_SUCCESS"       => "Produkt pridaný úspešne",
+    "PRODUCT_ADD_SUCCESS"       => "Produkt pridaný úspešne (po schválení sa zobrazí)",
     "PRODUCT_UPDATE_SUCCESS"    => "Produkt upravený úspešne",
     "PRODUCT_UPDATE_FAILED"     => "Upravenie produktu neprebehlo úspešne",
     "PRODUCT_ALREADY_EXISTS"    => "Produkt s týmto názvom už existuje",
