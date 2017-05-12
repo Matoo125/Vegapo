@@ -23,6 +23,7 @@ class Home extends ApiHomeController
         $this->data['numberOfUsers'] = $this->model->countTable('users');
         $this->data['numberOfEmails'] = $this->model->countTable('newsletter');
         $this->data['numberOfMessages'] = $this->model->countTable('contact');
+        $this->data['numberOfSuggestions'] = $this->model->countTable('suggestions');
    	}
 
    	public function changelog()

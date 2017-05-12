@@ -49,6 +49,9 @@ $sk = [
     "NUMBER_OF_USERS"           =>"Počet užívateľov",
     "NUMBER_OF_EMAILS"          =>"Newsletter",
     "NUMBER_OF_MESSAGES"        =>"Počet správ",
+    "NUMBER_OF_SUGGESTIONS"     =>"Počet pripomienok",
+
+    "LIST_OF_ACTIVITY"          =>"Rebríček Aktivity Uživateľov",
 
     "MESSAGES"                  =>  "Správy",
     "MESSAGE"                   =>  "Správa",
@@ -79,8 +82,6 @@ $sk = [
     "PERSONAL_INFO" 			=>"Osobné informácie",
     "GENERAL_INFO" 				=>"Všeobecné informácie",
     "BRIEF_DESCRIPTION" 		=>"Stručný popis",
-
-    "PROFILE_EDIT" 				=> "Upraviť profil",
 
     'PASSWORD'                  => "Heslo",
     'YOUR_PASSWORD'             => "Tvoje heslo",
@@ -114,6 +115,7 @@ $sk = [
 
     "PRODUCTS" 					=>"Produkty",
     "PRODUCT_NEW"               =>"Nový Produkt",
+    "PRODUCT_ADD"               =>"Pridať Produkt",
     "PRODUCT_EDIT"              =>"Upraviť Produkt",
     "PRODUCT_NAME"				=>"Názov produktu",
     "PRODUCTS_MY"				=> "Moje produkty",
@@ -163,5 +165,8 @@ $sk = [
     "PROFILE_UPDATED"           => "Profil upravený úspešne",
     "PROFILE_UPDATE_FAILED"     => "Profil sa upraviť nepodarilo",
     "PROFILE_EDIT"              => "Upraviť profil",
+
+    "USER_FUNCTIONS"            => "Užívateľské funkcie",
+
 
  ];

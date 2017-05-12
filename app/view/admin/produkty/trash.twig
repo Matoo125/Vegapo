@@ -40,7 +40,10 @@
                         <td>{{ item.supermarkets }}</td>
                         <td>{{ item.tags }}</td>
                         <td>{{ item.price }}</td>
-                        <td><a href="{{ url.TRASH_RECOVER }}{{ item.id }}">{{ lang.RECOVER }}</a> | <a href="{{ url.TRASH_DELETE }}{{ item.id }}/{{ item.image }}" id="deleteConfirm">{{ lang.REMOVE }}</a></td>
+                        <td>
+                            <a href="{{ url.TRASH_RECOVER }}{{ item.id }}">{{ lang.RECOVER }}</a> 
+
+                        <!--    | <a href="{{ url.TRASH_DELETE }}{{ item.id }}/{{ item.image }}" id="deleteConfirm">{{ lang.REMOVE }}</a></td> -->
 
 
                     </tr>

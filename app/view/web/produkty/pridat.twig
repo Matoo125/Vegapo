@@ -1,10 +1,10 @@
 {% extends "web/base.twig" %}
-
+{% block title %}{{ lang.PRODUCT_ADD }} {% endblock %}
 {% block content %}
 
 <section id="last">
     <div class="container">
-    	<h2 class="text-center">{{ lang.PRODUCT_ADD }}</h2> <br>
+    	<h2 class="text-center fadeInUp wow">{{ lang.PRODUCT_ADD }}</h2> <hr>
         	{% if supermarkets and categories %}
 			<form class="row" enctype="multipart/form-data" method="post">
 			    <div class="col-md-5">

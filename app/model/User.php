@@ -123,4 +123,16 @@ class User extends Model
         return $this->runQuery($sql, $params, 'post');
     }
 
+    public function getList()
+    {
+        $sql = "SELECT u.user_id, u.username, COUNT(p.id) numberOfProducts, u.country from users u 
+                LEFT JOIN products p ON p.author_id = u.user_id
+                WHERE p.visibility = 1
+                GROUP BY u.user_id
+                ORDER BY numberOfProducts DESC
+                ";
+        return $this->runQuery($sql, [], 'get');
+
+    }
+
 }

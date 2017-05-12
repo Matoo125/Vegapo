@@ -6,7 +6,9 @@
 <section>
 	<div class="container">
 		<div class="wow fadeInUp text-center">
-            <h2>{{ lang.PRODUCTS }} 
+            <h2>{{ params.oblubene ? lang.FAVOURITES }}
+                {{ lang.PRODUCTS }} 
+                {{ username ? "| " ~ username }}
                 {{ current_category ? "| " ~ current_category.name }} 
                 {{ current_supermarket ? "| " ~ current_supermarket.name}}
                 {{ current_tag ? "| " ~ current_tag.name}}

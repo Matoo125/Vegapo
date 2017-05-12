@@ -1,0 +1,53 @@
+{% extends "web/base.twig" %}
+{% block title %}{{ lang.LIST_OF_ACTIVITY }}{% endblock %}
+{% block content %}
+
+<section id="listOfUsers">
+    <div class="container">
+        <div class="row">
+            <div class="wow text-center fadeInUp col-12">
+             <h2 class="display-4">{{ lang.LIST_OF_ACTIVITY }}</h2>              <hr> 
+            </div>
+            	<table class="table table-hover table-bordered">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>{{ lang.USERNAME }}</th>
+                    <th>{{ lang.NUMBER_OF_PRODUCTS}}</th>
+                    <th>{{ lang.COUNTRY }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for user in users %}
+                    {% if user.country == 'sk' %}
+                      <tr class="clickable-row" data-href="https://vegapo.sk/produkty?autor={{ user.user_id }}">
+
+                    {% elseif user.country == 'cz' %}
+                      <tr class="clickable-row" data-href="https://vegapo.cz/produkty?autor={{ user.user_id }}">
+                    {% endif %}
+                      <th scope="row">{{ loop.index }}</th>
+                      <td>{{ user.username}}</td>
+                      <td>{{ user.numberOfProducts }}</td>
+                      <td>{{ user.country }}</td>
+                    </tr>
+                 {% endfor %}
+                </tbody>
+              </table>
+
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+</script>
+{% endblock %}

@@ -390,6 +390,11 @@ class Product extends Model
         return $this->runQuery("SELECT * FROM images WHERE product_id = :product_id", ['product_id' => $product_id], 'get');
     }
 
+    public function getUsername($id)
+    {
+        $sql = "SELECT username FROM users WHERE user_id = :id";
+        return $this->runQuery($sql, ['id' => $id], 'get1')['username'];
+    }
 
 
 }

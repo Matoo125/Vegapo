@@ -95,6 +95,11 @@ class Produkty extends Controller
         $favourites_user_id = $params['oblubene'] = isset($_GET['oblubene']) ? $_GET['oblubene'] : null;
         $search_term = $params['hladat'] = isset($_GET['hladat']) ? $_GET['hladat'] : null;
         $author_id = $params['autor'] = isset($_GET['autor']) ? $_GET['autor'] : null;
+        if ($author_id) {
+            // get author username
+
+            $this->data['username'] = $this->model->getUsername($author_id);            
+        }
         $current_page = isset($_GET['p']) ? $_GET['p'] : 1;
 
         $categories = $this->model->getCategories();
