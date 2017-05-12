@@ -1,9 +1,9 @@
 --------------------------------------
 IMPORTANT FEATURES:
-- show user's suggestions in admin
 - add product from template (copy product, just for admins)
 - public list of users with the number of products
-
+- user profiles public
+- show to user his suggestions and not products which are not yet confirmed
 
 NICE TO HAVE:
 - add php cache
@@ -16,6 +16,9 @@ NICE TO HAVE:
 
 WAITING FOR ANSWER:
 - https for cz domain not working
+
+Ver 0.1.5 BETA -> 12.5.2017
+- show user's suggestions in admin
 
 
 Ver 0.1.4 BETA -> 9.5.2017

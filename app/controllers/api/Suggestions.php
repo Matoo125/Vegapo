@@ -37,4 +37,5 @@ class Suggestions extends Controller
        return;
     }
 
+
 }

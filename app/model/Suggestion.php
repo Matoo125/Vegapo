@@ -32,4 +32,21 @@ class Suggestion extends Model {
         return $this->runQuery($sql, $args, "post");
     }
 
+    public function getAll()
+    {
+      $sql = "SELECT s.id, u.user_id, u.username, s.product_id, s.type, s.body, s.created_at
+              FROM suggestions s
+              INNER JOIN users u ON u.user_id = s.user_id
+              WHERE s.country = :country AND s.state = 3";
+      $args = ['country' => COUNTRY_CODE];
+      return $this->runQuery($sql, $args, 'get');
+    }
+
+    public function updateState($id, $state)
+    {
+        $sql = "UPDATE `suggestions` SET `state` = :state WHERE id = :id";
+        return $this->runQuery($sql, ['id' => $id, 'state' => $state], 'post');
+    }
+
+
 }

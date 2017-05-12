@@ -38,10 +38,17 @@ class Controller {
 
 
         $loader = new \Twig_Loader_Filesystem(APP . DS . 'view');
-        $twig = new \Twig_Environment( $loader, array(
-           // 'debug' => true,
-            'cache' => APP . DS . 'cache' ,
-        ) );
+
+        if (DEVELOPMENT) {
+            $twig = new \Twig_Environment( $loader, array(
+                'debug' => true,
+            ) );
+        } else {
+            $twig = new \Twig_Environment( $loader, array(
+                'cache' => APP . DS . 'cache' ,
+            ) );
+        }
+
         $twig->addExtension(new \Twig_Extension_Debug());
         $twig->addGlobal("session", $_SESSION);
 

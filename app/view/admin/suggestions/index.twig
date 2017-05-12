@@ -1,0 +1,48 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - {{ lang.SUGGESTIONS }} {% endblock %}
+
+{% block header %} {{ lang.SUGGESTIONS }} {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped sortable">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>#</th>
+                        <th>Typ</th>
+                        <th>Obsah</th>
+                        <th>Užívateľ</th>
+                        <th>Čas</th>
+                        <th>Akcia</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in suggestions %}
+                        <tr>
+                            <td><a href="{{ url.PRODUCT_ADMIN_EDIT }}{{ item.product_id }}" target="_blank">{{ item.product_id }}</a></td>
+                            <td>{{ matchingType[item.type] }}</td>
+                            <td>{{ item.body }}</td>
+                            <td>{{ item.username }}</td>
+                            <td>{{ item.created_at }}</td>
+                            <td>
+                                <a href="/admin/suggestions/solved/accepted/{{ item.id }}">Spravené</a>
+                                <a href="/admin/suggestions/solved/denied/{{ item.id }}">Zamietnuté</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        No suggestions found
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+
+{% endblock %}
