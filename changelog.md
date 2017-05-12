@@ -4,13 +4,15 @@ IMPORTANT FEATURES:
 - public list of users with the number of products
 - user profiles public
 - show to user his suggestions and not products which are not yet confirmed
+- check for barcode while submitting
+- do not store images larger than 1mb, use image library
+
+THAN: 
+- combined filters (multiple tags, categories)
 
 NICE TO HAVE:
 - add php cache
 - add facebook login
-- combined filters (multiple tags, categories)
-- check for barcode while submitting
-- do not store images larger than 1mb
 - rotate image
 
 
