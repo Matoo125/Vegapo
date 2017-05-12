@@ -16,6 +16,7 @@ class Url
 	'ADMIN_PRODUCTS' => "/admin/produkty/",
 	'ADMIN_TRASH' => "/admin/produkty/trash/",
 	'ADMIN_REQUESTS' => "/admin/produkty/ziadosti/",
+	'ADMIN_SUGGESTIONS' => "/admin/suggestions/",
 
 	'ADMIN_ACCOUNT_UPDATE' => "/admin/users/update",
 	'ADMIN_USERS' => "/admin/users/",

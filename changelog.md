@@ -1,11 +1,15 @@
 --------------------------------------
 IMPORTANT FEATURES:
-- add product from template (copy product, just for admins)
-- public list of users with the number of products
-- user profiles public
-- show to user his suggestions and not products which are not yet confirmed
-- check for barcode while submitting
-- do not store images larger than 1mb, use image library
+- add product from template (copy product, just for admins) -> 6
+- public list of users with the number of products -> 1
+- user profiles public -> 2
+- show to user his suggestions and not products which are not yet confirmed -> 3
+- check for barcode while submitting -> 4
+- do not store images larger than 1mb, use image library -> 5
+
+--> pick the most active slovak user and ofer him/her admin post
+--> think about native comments instead of fb comments
+--> create some voting -> https://github.com/antennaio/jquery-bar-rating
 
 THAN: 
 - combined filters (multiple tags, categories)
@@ -16,11 +20,9 @@ NICE TO HAVE:
 - rotate image
 
 
-WAITING FOR ANSWER:
-- https for cz domain not working
-
 Ver 0.1.5 BETA -> 12.5.2017
 - show user's suggestions in admin
+- https for cz domain not working
 
 
 Ver 0.1.4 BETA -> 9.5.2017
