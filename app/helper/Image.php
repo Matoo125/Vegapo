@@ -11,7 +11,14 @@ class Image
   }
   public static function upload($image, $folder)
   {
-    I::configure(array('driver' => 'imagick'));
+    if (!extension_loaded('imagick')) {
+      I::configure(array('driver' => 'gd'));
+    }
+    else {
+        I::configure(array('driver' => 'imagick'));
+    }
+
+
     $name = rand(100, 1000) . "-" . $image['name'];
     $name = slugifyImage($name);
     $tmp = $image['tmp_name'];

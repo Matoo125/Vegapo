@@ -1,24 +1,24 @@
 --------------------------------------
 IMPORTANT FEATURES:
-- add product from template (copy product, just for admins) -> 3
 
---> pick the most active slovak user and ofer him/her admin post
---> think about native comments instead of fb comments
---> create some voting -> https://github.com/antennaio/jquery-bar-rating
---> minify your files
+- think about native comments instead of fb comments
 
 THAN:
 - combined filters (multiple tags, categories)
 
 NICE TO HAVE:
-- add php cache
-- add facebook login
+- php cache
+- facebook login
+- minify your files
 - rotate image
+- add product from template (copy product, just for admins) -> 3
+- create some voting -> https://github.com/antennaio/jquery-bar-rating
 
 Ver 0.1.6 BETA -> 13.5.2017
 - check for barcode while submitting
 - show to user his suggestions and also products which are not yet confirmed
 - use image intervention
+- resize all large images and create smaller thumbnails
 
 Ver 0.1.5 BETA -> 12.5.2017
 - show user's suggestions in admin
