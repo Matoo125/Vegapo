@@ -1,8 +1,8 @@
-<?php 
+<?php
 
 namespace app\controllers\api;
 
-use app\core\Controller; 
+use app\core\Controller;
 use app\core\Session;
 use app\helper\Image;
 
@@ -51,7 +51,7 @@ class Produkty extends Controller
             if ($slug = $this->model->checkProduct($data['barcode'], slugify($data['name']))) {
                 Session::setFlash(getString('PRODUCT_ALREADY_EXISTS') . "<a href='/produkty/produkt/$slug'>tu</a>", "warning");
                 // to avoid name collision
-                $_POST['selectedsupermarkets'] = isset($_POST['supermarket']) ? $_POST['supermarket'] : []; 
+                $_POST['selectedsupermarkets'] = isset($_POST['supermarket']) ? $_POST['supermarket'] : [];
                 $_POST['selectedtags'] = isset($_POST['tag']) ? $_POST['tag'] : [];
                 $this->data = $_POST;
 
@@ -61,16 +61,16 @@ class Produkty extends Controller
                     // get last inserted id
                     $this->model->matching_supermarkets($id, $supermarkets);
                     $this->model->matching_tags($id, $tags);
-                    
+
                     // store image in db if it was uploaded
                     if ($images['1'] = Image::upload($images['1'], "products")) {
                         $this->model->insertImage($id, 1, $images['1']);
                     }
 
                     // store ingredients image in db
-                    if ($images['2'] = Image::upload($images['2'], "products")) {
+                    if ($images['2']['error'] == 0 && $images['2'] = Image::upload($images['2'], "products")) {
                         $this->model->insertImage($id, 2, $images['2']);
-                    }                    
+                    }
 
                     Session::setFlash(getString('PRODUCT_ADD_SUCCESS'), "success");
                 }
@@ -100,7 +100,7 @@ class Produkty extends Controller
         if ($author_id) {
             // get author username
 
-            $this->data['username'] = $this->model->getUsername($author_id);            
+            $this->data['username'] = $this->model->getUsername($author_id);
         }
         $current_page = isset($_GET['p']) ? $_GET['p'] : 1;
 
@@ -133,7 +133,7 @@ class Produkty extends Controller
 
 
     /*
-    *       24.4.2017 
+    *       24.4.2017
     *       AJAX function Favourites
     *       adding and deleting
     */

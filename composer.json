@@ -3,7 +3,8 @@
         "erusev/parsedown": "^1.6",
         "twig/twig": "^2.0",
         "phpmailer/phpmailer": "^5.2",
-        "filp/whoops": "^2.1"
+        "filp/whoops": "^2.1",
+        "intervention/image": "^2.3"
     },
 
     "autoload": {

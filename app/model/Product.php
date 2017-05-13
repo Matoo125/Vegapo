@@ -67,35 +67,35 @@ class Product extends Model
         $this->runQuery($sql, $array, "post");
     }
 
-    public function getProductById($id) 
+    public function getProductById($id)
     {
 
-        $sql = "SELECT p.id AS id, 
-                       p.name AS name, 
-                       p.expected_price AS price, 
-                       p.barcode, 
+        $sql = "SELECT p.id AS id,
+                       p.name AS name,
+                       p.expected_price AS price,
+                       p.barcode,
                        p.note,
-                       c.name AS category_name, 
-                       c.id AS category_id, 
-                       GROUP_CONCAT(DISTINCT i.filename) AS image, 
-                       GROUP_CONCAT(DISTINCT i2.filename) AS image2, 
-                       GROUP_CONCAT(DISTINCT i3.filename) AS image3, 
-                       GROUP_CONCAT(DISTINCT s.name) AS supermarket_names, 
-                       GROUP_CONCAT(DISTINCT s.id) AS supermarket_ids, 
-                       GROUP_CONCAT(DISTINCT t.name) AS tag_names, 
-                       GROUP_CONCAT(DISTINCT t.id) AS tag_ids, 
-                       u.username, 
-                       u.user_id 
-                FROM products AS p 
-                INNER JOIN categories AS c ON p.category_id = c.id 
-                LEFT JOIN images AS i ON i.product_id = p.id AND i.role = 1 
-                LEFT JOIN images AS i2 ON i2.product_id = p.id AND i2.role = 2 
-                LEFT JOIN images AS i3 ON i3.product_id = p.id AND i3.role = 3 
-                LEFT JOIN matching_supermarkets AS ms ON ms.product_id = p.id 
-                LEFT JOIN supermarkets AS s ON s.id = ms.supermarket_id 
-                LEFT JOIN matching_tags AS mt ON mt.product_id = p.id 
-                LEFT JOIN tags AS t ON t.id = mt.tag_id 
-                LEFT JOIN users AS u ON u.user_id = p.author_id 
+                       c.name AS category_name,
+                       c.id AS category_id,
+                       GROUP_CONCAT(DISTINCT i.filename) AS image,
+                       GROUP_CONCAT(DISTINCT i2.filename) AS image2,
+                       GROUP_CONCAT(DISTINCT i3.filename) AS image3,
+                       GROUP_CONCAT(DISTINCT s.name) AS supermarket_names,
+                       GROUP_CONCAT(DISTINCT s.id) AS supermarket_ids,
+                       GROUP_CONCAT(DISTINCT t.name) AS tag_names,
+                       GROUP_CONCAT(DISTINCT t.id) AS tag_ids,
+                       u.username,
+                       u.user_id
+                FROM products AS p
+                INNER JOIN categories AS c ON p.category_id = c.id
+                LEFT JOIN images AS i ON i.product_id = p.id AND i.role = 1
+                LEFT JOIN images AS i2 ON i2.product_id = p.id AND i2.role = 2
+                LEFT JOIN images AS i3 ON i3.product_id = p.id AND i3.role = 3
+                LEFT JOIN matching_supermarkets AS ms ON ms.product_id = p.id
+                LEFT JOIN supermarkets AS s ON s.id = ms.supermarket_id
+                LEFT JOIN matching_tags AS mt ON mt.product_id = p.id
+                LEFT JOIN tags AS t ON t.id = mt.tag_id
+                LEFT JOIN users AS u ON u.user_id = p.author_id
                 WHERE p.id = :id AND p.country = :cc
 ";
 
@@ -106,43 +106,43 @@ class Product extends Model
 
     public function getProductBySlug($slug)
     {
-          $sql = "SELECT p.id AS id, 
-                         p.name AS name, 
-                         p.slug AS slug, 
-                         p.expected_price AS price, 
+          $sql = "SELECT p.id AS id,
+                         p.name AS name,
+                         p.slug AS slug,
+                         p.expected_price AS price,
                          p.barcode,
                          p.note,
-                         c.name AS category, 
-                         GROUP_CONCAT(DISTINCT i.filename) AS image, 
-                         GROUP_CONCAT(DISTINCT i2.filename) AS image2, 
-                         GROUP_CONCAT(DISTINCT i3.filename) AS image3, 
-                         GROUP_CONCAT(DISTINCT s.name) AS supermarkets, 
-                         GROUP_CONCAT(DISTINCT t.name) AS tags, 
-                         u.username, 
+                         c.name AS category,
+                         GROUP_CONCAT(DISTINCT i.filename) AS image,
+                         GROUP_CONCAT(DISTINCT i2.filename) AS image2,
+                         GROUP_CONCAT(DISTINCT i3.filename) AS image3,
+                         GROUP_CONCAT(DISTINCT s.name) AS supermarkets,
+                         GROUP_CONCAT(DISTINCT t.name) AS tags,
+                         u.username,
                          u.user_id
-                    FROM products AS p 
-                    INNER JOIN categories AS c ON p.category_id = c.id 
-                    LEFT JOIN images AS i ON i.product_id = p.id AND i.role=1 
-                    LEFT JOIN images AS i2 ON i2.product_id = p.id AND i2.role=2 
-                    LEFT JOIN images AS i3 ON i3.product_id = p.id AND i3.role=3 
-                    LEFT JOIN matching_supermarkets AS ms ON ms.product_id = p.id 
-                    LEFT JOIN supermarkets AS s ON s.id = ms.supermarket_id 
-                    LEFT JOIN matching_tags AS mt ON mt.product_id = p.id 
-                    LEFT JOIN tags AS t ON t.id = mt.tag_id 
-                    LEFT JOIN users AS u ON u.user_id = p.author_id 
-                    WHERE p.slug = :slug AND p.country = :cc 
+                    FROM products AS p
+                    INNER JOIN categories AS c ON p.category_id = c.id
+                    LEFT JOIN images AS i ON i.product_id = p.id AND i.role=1
+                    LEFT JOIN images AS i2 ON i2.product_id = p.id AND i2.role=2
+                    LEFT JOIN images AS i3 ON i3.product_id = p.id AND i3.role=3
+                    LEFT JOIN matching_supermarkets AS ms ON ms.product_id = p.id
+                    LEFT JOIN supermarkets AS s ON s.id = ms.supermarket_id
+                    LEFT JOIN matching_tags AS mt ON mt.product_id = p.id
+                    LEFT JOIN tags AS t ON t.id = mt.tag_id
+                    LEFT JOIN users AS u ON u.user_id = p.author_id
+                    WHERE p.slug = :slug AND p.country = :cc
                     GROUP BY p.id LIMIT 1
 ";
 
-        return $this->runQuery($sql, array("slug" => $slug, "cc" => COUNTRY_CODE), "get1");      
+        return $this->runQuery($sql, array("slug" => $slug, "cc" => COUNTRY_CODE), "get1");
     }
 
-    public function getProducts($category_slug = null, $supermarket_slug = null, $tag_slug = null, $current_page, 
+    public function getProducts($category_slug = null, $supermarket_slug = null, $tag_slug = null, $current_page,
                                 $visibility = null, $author_id = null, $searchTerm = null, $favourites = null)
     {
         $array = array();
         $array['country'] = COUNTRY_CODE;
-       
+
 
 
        if ($visibility) {
@@ -210,7 +210,7 @@ class Product extends Model
         $args['country'] = COUNTRY_CODE;
 
         if ($visibility) {
-             $where[] = " p.visibility = :visibility"; 
+             $where[] = " p.visibility = :visibility";
              $args['visibility'] = $visibility;
         }
 
@@ -228,7 +228,7 @@ class Product extends Model
         if ($category) {
             $where[] = " category_id = :category_id";
             $args['category_id'] = $category;
-            
+
         }
 
         if ($tag) {
@@ -308,14 +308,14 @@ class Product extends Model
     public function addToFavourites($product_id, $user_id)
     {
         return $this->runQuery(
-            "INSERT INTO favourite_products (user_id, product_id) VALUES (:user_id, :product_id)", 
+            "INSERT INTO favourite_products (user_id, product_id) VALUES (:user_id, :product_id)",
             ["user_id" => $user_id, "product_id" => $product_id],
             "post"
         );
 
     }
 
-    public function removeFromFavourites($id) 
+    public function removeFromFavourites($id)
     {
         return $this->runQuery("DELETE FROM favourite_products WHERE id = :id", ['id' => $id], "post");
     }
@@ -371,7 +371,7 @@ class Product extends Model
     {
         return $this->runQuery(
             "SELECT value FROM ".$table." WHERE id = :id",
-            ['id' => $id], 
+            ['id' => $id],
             'get1'
         );
     }
@@ -380,7 +380,7 @@ class Product extends Model
     {
         return $this->runQuery(
             "SELECT id FROM ".$table." WHERE value = :value AND country = :country",
-            ['value' => $value, 'country' => $country], 
+            ['value' => $value, 'country' => $country],
             'get1'
         );
     }
@@ -398,8 +398,13 @@ class Product extends Model
 
     public function checkProduct($barcode, $slug)
     {
-        $sql = "SELECT slug FROM products WHERE barcode = :barcode OR slug = :slug";
-        return $this->runQuery($sql, ['barcode' => $barcode, 'slug' => $slug],'get1')['slug'];
+        $sql = "SELECT slug FROM products WHERE slug = :slug";
+        $args = ['slug' => $slug];
+        if ($barcode) {
+          $sql .= "OR barcode = :barcode";
+          $args['barcode'] = $barcode;
+        }
+        return $this->runQuery($sql, $args,'get1')['slug'];
     }
 
 

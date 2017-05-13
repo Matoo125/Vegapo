@@ -2,75 +2,61 @@
 
 namespace app\helper;
 
+use Intervention\Image\ImageManagerStatic as I;
+
 class Image
 {
+  public function __construct()
+  {
+  }
   public static function upload($image, $folder)
   {
+    I::configure(array('driver' => 'imagick'));
     $name = rand(100, 1000) . "-" . $image['name'];
     $name = slugifyImage($name);
     $tmp = $image['tmp_name'];
     $location = ROOT . DS . "uploads" . DS . $folder . DS . COUNTRY_CODE . DS . $name;
-    if(!move_uploaded_file($tmp, $location)){
-      return false;
+
+    $img = I::make($tmp);
+    $size = $img->filesize();
+    $width = $img->width();
+    $height = $img->height();
+
+    if ($size > 500000) {
+      $compress = 75;
+      $img->encode('jpg', $compress);
     }
+
+    if ($width > 1000) {
+      $img->resize(1000, null, function ($constraint) {
+          $constraint->aspectRatio();
+          $constraint->upsize();
+      });
+    }
+
+    if ($height > 1000) {
+        $img->resize(null, 1000, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        });
+    }
+
+    $img->save($location);
     self::generateThumbnail($location, 150, 150, $name);
     self::generateThumbnail($location, 450, 450, $name);
     return $name;
   }
 
-  public static function generateThumbnail($path, $width, $height, $name)
+  public static function generateThumbnail($location, $width, $height, $name)
   {
-    $info = getimagesize($path);
-    $size = array($info[0], $info[1]);
-
-    if ($info['mime'] == 'image/png') {
-        $src = imagecreatefrompng($path);
-    } elseif ($info['mime'] == 'image/jpeg') {
-        $src = imagecreatefromjpeg($path);
-    } elseif ($info['mime'] == 'image/gif') {
-        $src = imagecreatefromgif($path);
-    } else {
-        return false;
-    }
-
-    $thumb = imagecreatetruecolor($width, $height);
-
-    $src_aspect = $size[0] / $size[1];
-    $thumb_aspect = $width / $height;
-
-    if ($src_aspect < $thumb_aspect) {
-        // narrower
-        $scale = $width / $size[0];
-        $new_size = array($width, $width / $src_aspect);
-        $src_pos = array(0, ($size[1] * $scale - $height) / $scale / 2);
-
-    } elseif ($src_aspect > $thumb_aspect) {
-        // wider
-        $scale = $height / $size[1];
-        $new_size = array($height * $src_aspect, $height);
-        $src_pos = array(($size[0] * $scale - $width) / $scale / 2, 0);
-    } else {
-        // same shape
-        $new_size = array($width, $height);
-        $src_pos = array(0, 0);
-    }
-
-    $new_size[0] = max($new_size[0], 1);
-    $new_size[1] = max($new_size[1], 1);
-
-    imagecopyresampled($thumb, $src, 0, 0, $src_pos[0], $src_pos[1], $new_size[0], $new_size[1], $size[0], $size[1]);
-
-
-
-    // example path main  : uploads/produkty/cz/cool-image.jpg
-    // example path thumb : uploads/produkty/cz/450x450/cool-image.jpg
-
-
-    // change images folder for thumbs
-    // add folder for sizes
+    //I::configure(array('driver' => 'imagick'));
     $path = ROOT . DS . "uploads" . DS . 'products' . DS . COUNTRY_CODE . DS . $width . "x" . $height . DS . $name;
 
-    return imagepng($thumb, $path);
+    return $img = I::make($location)
+          ->fit($width, $height, function ($constraint) {
+                $constraint->upsize();
+            })->save($path);
+
   }
 
   public static function delete($filename)

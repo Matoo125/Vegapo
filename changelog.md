@@ -1,14 +1,13 @@
 --------------------------------------
 IMPORTANT FEATURES:
 - add product from template (copy product, just for admins) -> 3
-- do not store images larger than 1mb, use image library -> 4
 
 --> pick the most active slovak user and ofer him/her admin post
 --> think about native comments instead of fb comments
 --> create some voting -> https://github.com/antennaio/jquery-bar-rating
 --> minify your files
 
-THAN: 
+THAN:
 - combined filters (multiple tags, categories)
 
 NICE TO HAVE:
@@ -17,13 +16,14 @@ NICE TO HAVE:
 - rotate image
 
 Ver 0.1.6 BETA -> 13.5.2017
-- check for barcode while submitting 
-- show to user his suggestions and also products which are not yet confirmed 
+- check for barcode while submitting
+- show to user his suggestions and also products which are not yet confirmed
+- use image intervention
 
 Ver 0.1.5 BETA -> 12.5.2017
 - show user's suggestions in admin
 - https for cz domain not working
-- public list of users with the number of products 
+- public list of users with the number of products
 - fix favourites / by author filters (header info)
 - some missing titles added
 
@@ -33,7 +33,7 @@ Ver 0.1.4 BETA -> 9.5.2017
 - fix allow higher price for cz (max 999)
 
 Ver 0.1.3 BETA -> 8.5.2017
-- user can suggest product edits 
+- user can suggest product edits
 - add button to administration -> move to cz / move to sk
 - product detail links fix
 
@@ -67,7 +67,7 @@ Ver 0.1.0 BETA
 
 Ver 0.0.9 ALFA
 - add 'my product' like / heart
-- add facebook like / share 
+- add facebook like / share
 - add facebook comments
 
 Ver 0.0.8 ALFA
@@ -129,7 +129,7 @@ Ver 0.0.0.8
 
 Ver 0.0.0.7
 - code cleanup
-- database cleanup 
+- database cleanup
 - tags
 
 Ver 0.0.0.6
@@ -140,7 +140,7 @@ Ver 0.0.0.6
 - user authority levels
 - product visibility
 
-Ver 0.0.0.5 
+Ver 0.0.0.5
 - add author id to every product
 - add country separator for users
 - create basic front end
