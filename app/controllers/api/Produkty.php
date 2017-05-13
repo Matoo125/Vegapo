@@ -35,7 +35,7 @@ class Produkty extends Controller
             $images['1'] = $_FILES['file'];
             $images['2'] = $_FILES['ingredients'];
             $data['price'] = $_POST['productPrice'];
-            $data['barcode'] = $_POST['barcode'];
+            $data['barcode'] = preg_replace('/\s+/','',$_POST['barcode']);
             $supermarkets = isset($_POST['supermarket']) ? $_POST['supermarket'] : array();
             $tags = isset($_POST['tag']) ? $_POST['tag'] : array();
             $data['note'] = $_POST['note'];
@@ -48,8 +48,8 @@ class Produkty extends Controller
             }
 
             // check for duplicant
-            if ($this->model->getProductBySlug(slugify($data['name']))) {
-                Session::setFlash(getString('PRODUCT_ALREADY_EXISTS'), "warning");
+            if ($slug = $this->model->checkProduct($data['barcode'], slugify($data['name']))) {
+                Session::setFlash(getString('PRODUCT_ALREADY_EXISTS') . "<a href='/produkty/produkt/$slug'>tu</a>", "warning");
                 // to avoid name collision
                 $_POST['selectedsupermarkets'] = isset($_POST['supermarket']) ? $_POST['supermarket'] : []; 
                 $_POST['selectedtags'] = isset($_POST['tag']) ? $_POST['tag'] : [];
@@ -95,6 +95,8 @@ class Produkty extends Controller
         $favourites_user_id = $params['oblubene'] = isset($_GET['oblubene']) ? $_GET['oblubene'] : null;
         $search_term = $params['hladat'] = isset($_GET['hladat']) ? $_GET['hladat'] : null;
         $author_id = $params['autor'] = isset($_GET['autor']) ? $_GET['autor'] : null;
+        $visibility = $params['stav'] = isset($_GET['stav']) ? $_GET['stav'] : null;
+
         if ($author_id) {
             // get author username
 
@@ -126,7 +128,7 @@ class Produkty extends Controller
         $this->data['current_tag'] = $current_tag;
         $this->data['number_of_pages'] = $number_of_pages;
         $this->data['current_page'] = $current_page;
-        $this->data['products'] = $this->model->getProducts($category_slug, $supermarket_slug, $tag_slug, $start, 1, $author_id, $search_term, $favourites_user_id);
+        $this->data['products'] = $this->model->getProducts($category_slug, $supermarket_slug, $tag_slug, $start, $visibility, $author_id, $search_term, $favourites_user_id);
     }
 
 

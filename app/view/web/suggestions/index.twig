@@ -1,0 +1,38 @@
+{% extends "web/base.twig" %}
+
+{% block title %} VegaPo - {{ lang.SUGGESTIONS }} {% endblock %}
+
+{% block content %}
+
+<section>
+	<div class="container">
+		<div class="wow fadeInUp text-center"><h2>{{ lang.SUGGESTIONS }}</h2></div> <br>
+		   <div class="row">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Predmet</th>
+                  <th>Obsah</th>
+                  <th>Stav</th>
+                  <th>Dátum</th>
+                </tr>
+              </thead>
+              <tbody>
+            {% for suggestion in suggestions %}
+                <tr>
+                  <th scope="row">1</th>
+                  <td>{{ matchingType[suggestion.type] }}</td>
+                  <td>{{ suggestion.body }}</td>
+                  <td>{{ matchingState[suggestion.state] }}</td>
+                  <td>{{ suggestion.created_at }}</td>
+                </tr>
+            {% endfor %}
+              </tbody>
+            </table>
+        </div>
+	</div>
+</section>
+
+
+{% endblock %}

@@ -17,6 +17,8 @@
                       <a href="/users/update" class="list-group-item list-group-item-action">{{ lang.PROFILE_EDIT }}</a>
                       <a href="/produkty?oblubene={{ session.user_id }}" class="list-group-item list-group-item-action">{{ lang.FAVOURITES }}</a>
                       <a href="/produkty?autor={{ session.user_id }}" class="list-group-item list-group-item-action">{{ lang.PRODUCTS_MY }}</a>
+                      <a href="/produkty?autor={{ session.user_id }}&stav=2" class="list-group-item list-group-item-action">{{ lang.MY ~ lang.REQUESTS }}</a>
+                      <a href="/suggestions?autor={{ session.user_id }}" class="list-group-item list-group-item-action">{{ lang.MY ~ lang.SUGGESTIONS }}</a>
                     </div>
 
 

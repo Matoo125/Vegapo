@@ -42,6 +42,12 @@ class Suggestion extends Model {
       return $this->runQuery($sql, $args, 'get');
     }
 
+    public function getByUser($id)
+    {
+        $sql = "SELECT * from suggestions where user_id = :id";
+        return $this->runQuery($sql, ['id' => $id], 'get');
+    }
+
     public function updateState($id, $state)
     {
         $sql = "UPDATE `suggestions` SET `state` = :state WHERE id = :id";

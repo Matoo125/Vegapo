@@ -18,19 +18,6 @@ class Suggestions extends SuggestionsApiController
         // list all suggestions
         $this->data['suggestions'] = $this->model->getAll();
 
-        $this->data['matchingType'] = [
-            0 => 'supermarket',
-            1 => 'kategoria',
-            2 => 'tag',
-            3 => 'obrazok',
-            4 => 'ingrediencie obrazok',
-            5 => 'iny obrazok',
-            6 => 'poznamka',
-            7 => 'zlozenie',
-            8 => 'ciarovy kod',
-            9 => 'nahlasenie',
-            10 => 'nieco ine'
-        ];
     }
 
     public function solved($action, $suggestion_id)

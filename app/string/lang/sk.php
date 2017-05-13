@@ -28,6 +28,13 @@ $sk = [
 
     "GREETING"					=> "Zdravím",
     "WELCOME_BACK" 				=> "Vítaj späť",
+    "MY"                        =>  "Moje ",
+
+    "ACCEPTED"                  =>  "Schválené",
+    "DENIED"                    =>  "Zamietnuté",
+    "WAITING"                   =>  "Čaká",
+
+    
 
     'ABOUT' 					=> "O",
     'ABOUT_PROJECT' 			=> "O projekte",
@@ -51,7 +58,7 @@ $sk = [
     "NUMBER_OF_MESSAGES"        =>"Počet správ",
     "NUMBER_OF_SUGGESTIONS"     =>"Počet pripomienok",
 
-    "LIST_OF_ACTIVITY"          =>"Rebríček Aktivity Uživateľov",
+    "LIST_OF_ACTIVITY"          =>"Rebríček Aktivity",
 
     "MESSAGES"                  =>  "Správy",
     "MESSAGE"                   =>  "Správa",
@@ -148,7 +155,7 @@ $sk = [
     "PRODUCT_ADD_SUCCESS"       => "Produkt pridaný úspešne (po schválení sa zobrazí)",
     "PRODUCT_UPDATE_SUCCESS"    => "Produkt upravený úspešne",
     "PRODUCT_UPDATE_FAILED"     => "Upravenie produktu neprebehlo úspešne",
-    "PRODUCT_ALREADY_EXISTS"    => "Produkt s týmto názvom už existuje",
+    "PRODUCT_ALREADY_EXISTS"    => "Tento produkt už existuje ",
 
     "CATEGORY_ADD_SUCCESS"      => "Kategoria pridana úspešne",
     "CATEGORY_UPDATE_SUCCESS"   => "Kategoria upravena úspešne",

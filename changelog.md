@@ -1,8 +1,6 @@
 --------------------------------------
 IMPORTANT FEATURES:
 - add product from template (copy product, just for admins) -> 3
-- show to user his suggestions and also products which are not yet confirmed -> 1
-- check for barcode while submitting -> 2
 - do not store images larger than 1mb, use image library -> 4
 
 --> pick the most active slovak user and ofer him/her admin post
@@ -18,6 +16,9 @@ NICE TO HAVE:
 - add facebook login
 - rotate image
 
+Ver 0.1.6 BETA -> 13.5.2017
+- check for barcode while submitting 
+- show to user his suggestions and also products which are not yet confirmed 
 
 Ver 0.1.5 BETA -> 12.5.2017
 - show user's suggestions in admin

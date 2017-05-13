@@ -9,12 +9,40 @@ class Suggestions extends Controller
 	public function __construct()
     {
         $this->model = $this->model("Suggestion");
+        $this->data['matchingType'] = [
+            0 => 'supermarket',
+            1 => 'kategória',
+            2 => 'tag',
+            3 => 'obrázok',
+            4 => 'ingrediencie obrázok',
+            5 => 'iny obrázok',
+            6 => 'poznámka',
+            7 => 'zloženie',
+            8 => 'čiarovy kód',
+            9 => 'nahlásenie',
+            10 => 'niečo iné'
+        ];
+
+        $this->data['matchingState'] = [
+          1 => getString('ACCEPTED'),
+          2 => getString('DENIED'),
+          3 => getString('WAITING')
+        ];
     }
 
     public function index()
     {
-        $this->data['result'] = '1';
+      if (isset($_GET['autor'])) {
+           $id = $_GET['autor'];
+
+           $this->data['suggestions'] = $this->model->getByUser($id);
+           return;
+      } 
+
+      redirect('/');
     }
+
+
 
     public function add() {
 
@@ -36,6 +64,7 @@ class Suggestions extends Controller
 
        return;
     }
+
 
 
 }

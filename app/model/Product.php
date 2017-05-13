@@ -396,5 +396,11 @@ class Product extends Model
         return $this->runQuery($sql, ['id' => $id], 'get1')['username'];
     }
 
+    public function checkProduct($barcode, $slug)
+    {
+        $sql = "SELECT slug FROM products WHERE barcode = :barcode OR slug = :slug";
+        return $this->runQuery($sql, ['barcode' => $barcode, 'slug' => $slug],'get1')['slug'];
+    }
+
 
 }
