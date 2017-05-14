@@ -57,9 +57,12 @@
                         <input type="file" id="file" name="file" class="form-control-file">
                     </div>
                 </div>
-                <div class="col-md-3 offset-md-3">
-                    <img src="{{ url.PRODUCT_UPLOADS }}{{ cc }}/150x150/{{ product.image }}" alt="" width="100px">
+                <div class="col-md-3 offset-md-2">
+                    <img class="productImageCurrent" src="{{ url.PRODUCT_UPLOADS }}{{ cc }}/150x150/{{ product.image }}" alt="" width="100px">
                     <input type="hidden" value="{{ product.image }}" name="image_old">
+                </div>
+                <div class="col-md-1">
+                  <i class="fa fa-repeat rotateMainImage" aria-hidden="true"></i>
                 </div>
             </div>
             <br>
@@ -136,6 +139,13 @@
     <script type="text/javascript" src="https://serratus.github.io/quaggaJS/v1.0.0-beta.1/examples/js/quagga.js"></script>
     <script type="text/javascript">
 
+        $(".rotateMainImage").click(function (){
+          $.get("/admin/produkty/rotate", {
+            image: "{{ product.image }}"
+          }).done(function (data){
+            $(".productImageCurrent").attr("src", $(".productImageCurrent").attr("src")+"?timestamp=" + new Date().getTime());
+          })
+        });
 
         var Quagga = window.Quagga;
         var App = {
@@ -180,7 +190,7 @@
             }
         };
         App.init();
-                        
+
 
     </script>
 {% endblock %}

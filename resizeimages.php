@@ -19,11 +19,6 @@ foreach ($files as $filename) {
   $width = $img->width();
   $height = $img->height();
 
-  if ($size > 500000) {
-    $compress = 75;
-    $img->encode('jpg', $compress);
-  }
-
   if ($width > 1000) {
     $img->resize(1000, null, function ($constraint) {
         $constraint->aspectRatio();

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace app\controllers\admin;
 
@@ -9,7 +9,7 @@ use app\helper\Image;
 class Produkty extends ProduktyApiController
 {
 
-	public function upravit($id) 
+	public function upravit($id)
     {
         if ($_POST) {
             $data['name'] = $_POST['productName'];
@@ -46,7 +46,7 @@ class Produkty extends ProduktyApiController
                 $this->model->deleteImages(null, $data['id'], 1);
                 $this->model->insertImage($id, 1, $images['1']);
 
-            } 
+            }
 
             // editing image of ingredients2
             if ($images['2'] && $images['2']['error'] === 0) {
@@ -57,7 +57,7 @@ class Produkty extends ProduktyApiController
             }
 
             Session::setFlash(getString('PRODUCT_UPDATE_SUCCESS'), "success");
-            
+
         }
 
         // get product by id, supermarkets and categories
@@ -76,7 +76,7 @@ class Produkty extends ProduktyApiController
                  $this->model->setVisibility(3, $id);
             }
             redirect("/admin/produkty/ziadosti");
-        } 
+        }
 
         $products = $this->model->getProducts(null, null, null, 0, 2);
 
@@ -101,6 +101,12 @@ class Produkty extends ProduktyApiController
 
         $this->data['products'] = $this->model->getProducts(null, null, null, 0, 3);
     }
+
+		public function rotate()
+		{
+			Image::rotate($_GET['image']);
+		  $this->data['result'] = true;
+		}
 
 
     public function vymazat($id, $image) {
@@ -131,7 +137,7 @@ class Produkty extends ProduktyApiController
                // change supermarket matcher id
                 if ($new_id) {
                     $this->model->changeMatcherId(
-                        'matching_supermarkets', 
+                        'matching_supermarkets',
                         ['supermarket_id' => $new_id['id']],
                         $matcher['id']
                     );
@@ -160,7 +166,7 @@ class Produkty extends ProduktyApiController
                // change supermarket matcher id
 
                 $this->model->changeMatcherId(
-                    'matching_tags', 
+                    'matching_tags',
                     ['tag_id' => $new_id['id']],
                     $matcher['id']
                 );
@@ -233,10 +239,10 @@ class Produkty extends ProduktyApiController
                     );
                 }
 
-            } 
+            }
         }
 
         redirect('/admin/produkty/ziadosti');
-             
+
     }
 }

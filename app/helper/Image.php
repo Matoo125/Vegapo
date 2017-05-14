@@ -29,10 +29,6 @@ class Image
     $width = $img->width();
     $height = $img->height();
 
-    if ($size > 500000) {
-      $compress = 75;
-      $img->encode('jpg', $compress);
-    }
 
     if ($width > 1000) {
       $img->resize(1000, null, function ($constraint) {
@@ -63,6 +59,16 @@ class Image
           ->fit($width, $height, function ($constraint) {
                 $constraint->upsize();
             })->save($path);
+
+  }
+
+  public static function rotate($image)
+  {
+    $path = ROOT.DS.'uploads'.DS.'products'.DS.COUNTRY_CODE.DS;
+    I::configure(array('driver' => 'imagick'));
+    $img = I::make($path.$image)->rotate(-90)->save();
+    $img = I::make($path.'450x450'.DS.$image)->rotate(-90)->save();
+    $img = I::make($path.'150x150'.DS.$image)->rotate(-90)->save();
 
   }
 

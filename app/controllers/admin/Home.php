@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace app\controllers\admin;
 
@@ -23,7 +23,9 @@ class Home extends ApiHomeController
         $this->data['numberOfUsers'] = $this->model->countTable('users');
         $this->data['numberOfEmails'] = $this->model->countTable('newsletter');
         $this->data['numberOfMessages'] = $this->model->countTable('contact');
+				$this->data['numberOfMessagesAnswered'] = $this->model->countTable('contact', array('type' => 1));
         $this->data['numberOfSuggestions'] = $this->model->countTable('suggestions');
+				$this->data['numberOfSuggestionsHandled'] = $this->model->countTable('suggestions', array('state' => 1, 'state' => 2));
    	}
 
    	public function changelog()

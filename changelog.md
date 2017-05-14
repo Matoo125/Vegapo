@@ -1,5 +1,7 @@
 --------------------------------------
 IMPORTANT FEATURES:
+- improve product suggestions
+- show product note and barcode
 
 - think about native comments instead of fb comments
 
@@ -10,9 +12,11 @@ NICE TO HAVE:
 - php cache
 - facebook login
 - minify your files
-- rotate image
 - add product from template (copy product, just for admins) -> 3
 - create some voting -> https://github.com/antennaio/jquery-bar-rating
+
+Ver 0.1.7 BETA -> 14.5.2017
+- rotate image
 
 Ver 0.1.6 BETA -> 13.5.2017
 - check for barcode while submitting
