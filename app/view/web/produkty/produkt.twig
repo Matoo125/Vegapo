@@ -2,14 +2,25 @@
 
 {% block title %} VegaPo - {{ product.name }} {% endblock %}
 
-{% block header %} 
+{% block header %}
 <link rel="stylesheet" href="/bower_components/fancybox/dist/jquery.fancybox.min.css" />
+<meta property="fb:app_id" content="1682131928749951" />
+
 {% endblock %}
 
 {% block content %}
 
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
+<script>
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '1682131928749951',
+    xfbml      : true,
+    version    : 'v2.9'
+  });
+  FB.AppEvents.logPageView();
+};
+(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
@@ -20,7 +31,8 @@
      js.src = "//connect.facebook.net/cz_CZ/sdk.js#xfbml=1&version=v2.9";
   }
   fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+}(document, 'script', 'facebook-jssdk'));
+</script>
 
 <section id="white">
 	<div class="container">
@@ -36,14 +48,14 @@
                 <p>Kategória: <a href="/produkty?kategoria={{ product.category|slugifilter }}">{{ product.category }}</a></p>
 
                 {% set supermarkets_array = product.supermarkets|split(',') %}
-                <p>V supermarketoch: 
+                <p>V supermarketoch:
                      {% for supermarket in supermarkets_array %}
                         <a href="/produkty?supermarket={{ supermarket|slugifilter }}">{{ supermarket }}</a>{{ " " }}
                      {% endfor %}
                 </p>
 
                 {% set tags_array = product.tags|split(',') %}
-                <p>Tagy: 
+                <p>Tagy:
                      {% for tag in tags_array %}
                         <a href="/produkty?tag={{ tag|slugifilter }}">{{ tag }}</a>{{ " " }}
                      {% endfor %}
@@ -86,16 +98,16 @@
                                       <option value="9">Nahlásiť produkt</option>
                                       <option value="10">Niečo iné</option>
                                     </select>
-                                  </div> 
+                                  </div>
                                   <div class="form-group">
                                     <label>Obsah</label>
                                     <textarea class="form-control" id="suggestBody" placeholder=""></textarea>
-                                  </div> 
+                                  </div>
                                 </form>
-                                </div> 
+                                </div>
                                 <div class="modal-footer">
                                   <button class="btn btn-primary" id="suggestSubmit">Odoslať</button>
-                                </div>                   
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -115,7 +127,7 @@
             </div>
 
 
-            
+
           </div>
 
 	</div>
@@ -130,16 +142,16 @@
 <script type="text/javascript" src="/bower_components/fancybox/dist/jquery.fancybox.min.js"></script>
 <script type="text/javascript">
     $.fancybox.defaults.hash = false;
-
-    $(".fb-like").attr('data-href', window.location.href);
-    $(".fb-comments").attr('data-href', window.location.href);
+    var url = 'http://vegapo.{{ cc }}/produkty/produkt/{{ product.slug }}'
+    $(".fb-like").attr('data-href', url);
+    $(".fb-comments").attr('data-href', url);
 
     $("#suggestSubmit").click(function () {
       var data = {
         reason: $("#suggestReason").val(),
         body: $("#suggestBody").val(),
         product_id: '{{ product.id }}',
-        user_id: '{{ session.user_id }}', 
+        user_id: '{{ session.user_id }}',
         country: '{{ cc }}'
       };
 
@@ -154,7 +166,7 @@
         console.log(data)
       });
 
-    })    
+    })
 
     $("body").on('change','#suggestReason', function () {
       var textarea = $("#suggestBody");
@@ -220,7 +232,7 @@
             }
             // send AJAX request
             $.post('/produkty/favourites', favData)
-                .done(function(msg){ 
+                .done(function(msg){
 
                     console.log('added to favourites');
                     console.log(msg)

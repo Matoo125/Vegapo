@@ -51,13 +51,14 @@
             <ul class="nav flex-column">
                 <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_REQUESTS }}">{{ lang.REQUESTS }}</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_PRODUCTS }}">{{ lang.PRODUCTS }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_TRASH }}">{{ lang.TRASH }}</a></li>
+               <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_SUGGESTIONS }}">{{ lang.SUGGESTIONS }}</a></li>
+               <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_MESSAGES }}">{{ lang.MESSAGES }}</a></li>
+
                 {% if session.user_role > 35 %}
-                 <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_TRASH }}">{{ lang.TRASH }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_SUGGESTIONS }}">{{ lang.SUGGESTIONS }}</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_TAGS }}">{{ lang.TAGS }}</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_SUPERMARKETS }}">{{ lang.SUPERMARKETS }}</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_CATEGORIES }}">{{ lang.CATEGORIES }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_MESSAGES }}">{{ lang.MESSAGES }}</a></li>
                   {% endif %}
             </ul>
         </div>
@@ -222,4 +223,3 @@
 
 </body>
 </html>
-

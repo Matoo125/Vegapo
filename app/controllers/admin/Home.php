@@ -25,7 +25,7 @@ class Home extends ApiHomeController
         $this->data['numberOfMessages'] = $this->model->countTable('contact');
 				$this->data['numberOfMessagesAnswered'] = $this->model->countTable('contact', array('type' => 1));
         $this->data['numberOfSuggestions'] = $this->model->countTable('suggestions');
-				$this->data['numberOfSuggestionsHandled'] = $this->model->countTable('suggestions', array('state' => 1, 'state' => 2));
+				$this->data['numberOfSuggestionsHandled'] = $this->model->countTable('suggestions', array(), " AND state = 1 OR state = 2");
    	}
 
    	public function changelog()
@@ -35,4 +35,17 @@ class Home extends ApiHomeController
         $this->data['parsedown'] = $Parsedown->text($mdFile);
         $this->data['title'] = "Version Control";
    	}
+
+		public function reloadFBcache()
+		{
+			$sql = "SELECT slug FROM products WHERE country = 'cz'";
+			$slugs = $this->model->runQuery($sql, [], 'get');
+			echo '<pre>';
+			foreach($slugs as $slug) {
+				echo 'https://vegapo.cz/produkty/produkt/' . $slug[0] . '<br>';
+			}
+			die;
+
+
+		}
 }

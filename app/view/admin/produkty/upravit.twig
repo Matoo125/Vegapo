@@ -16,7 +16,7 @@
 
             <div class="form-group">
                 <label for="productPrice">{{ lang.PRICE }}</label>
-                <input type="number" class="form-control" name="productPrice" id="productPrice" min="0.1" max="99" step="any" value="{{ product.price }}" required>
+                <input type="number" class="form-control" name="productPrice" id="productPrice" min="0.1" max="999" step="any" value="{{ product.price }}" required>
             </div>
 
             <div class="form-group barcode-group">
@@ -58,7 +58,9 @@
                     </div>
                 </div>
                 <div class="col-md-3 offset-md-2">
+                    {% if product.image %}
                     <img class="productImageCurrent" src="{{ url.PRODUCT_UPLOADS }}{{ cc }}/150x150/{{ product.image }}" alt="" width="100px">
+                    {% endif %}
                     <input type="hidden" value="{{ product.image }}" name="image_old">
                 </div>
                 <div class="col-md-1">
@@ -74,7 +76,9 @@
                     </div>
                 </div>
                 <div class="col-md-3 offset-md-3">
+                    {% if product.image2 %}
                     <img src="{{ url.PRODUCT_UPLOADS }}{{ cc }}/150x150/{{ product.image2 }}" alt="" width="100px">
+                    {% endif %}
                     <input type="hidden" value="{{ product.image2 }}" name="image2_old">
                 </div>
             </div>

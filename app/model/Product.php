@@ -399,12 +399,12 @@ class Product extends Model
     public function checkProduct($barcode, $slug)
     {
         $sql = "SELECT slug FROM products WHERE slug = :slug";
-        $args = ['slug' => $slug];
+        $args['slug'] = $slug;
         if ($barcode) {
-          $sql .= "OR barcode = :barcode";
+          $sql .= "|| barcode = :barcode";
           $args['barcode'] = $barcode;
         }
-        return $this->runQuery($sql, $args,'get1')['slug'];
+        return $this->runQuery($sql, $args,'get1');
     }
 
 

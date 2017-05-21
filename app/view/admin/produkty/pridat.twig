@@ -18,7 +18,7 @@
 
             <div class="form-group">
                 <label for="productPrice">{{ lang.PRICE }}</label>
-                <input type="number" class="form-control" name="productPrice" id="productPrice" value="{{ productPrice }}" min="0.1" max="99" step="any" required>
+                <input type="number" class="form-control" name="productPrice" id="productPrice" value="{{ productPrice }}" min="0.1" max="999" step="any" required>
             </div>
 
             <div class="form-group barcode-group">
@@ -32,7 +32,7 @@
                     </span>
                 </div>
             </div>
-                    
+
             {% if categories %}
             <div class="form-group">
                 <label for="selectCategory">{{ lang.CATEGORIES }}</label>
@@ -152,7 +152,7 @@
             }
         };
         App.init();
-                        
+
 
     </script>
 {% endblock %}

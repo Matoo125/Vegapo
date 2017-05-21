@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace app\controllers\admin;
 
@@ -10,7 +10,7 @@ class Suggestions extends SuggestionsApiController
     public function __construct()
     {
     	parent::__construct();
-        if (!check_user_premission(35)) redirect('/');
+        if (!check_user_premission(30)) redirect('/');
     }
 
     public function index()

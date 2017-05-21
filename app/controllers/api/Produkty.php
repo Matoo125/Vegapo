@@ -48,7 +48,7 @@ class Produkty extends Controller
             }
 
             // check for duplicant
-            if ($slug = $this->model->checkProduct($data['barcode'], slugify($data['name']))) {
+            if ($slug = $this->model->checkProduct($data['barcode'], slugify($data['name']))['slug']) {
                 Session::setFlash(getString('PRODUCT_ALREADY_EXISTS') . "<a href='/produkty/produkt/$slug'>tu</a>", "warning");
                 // to avoid name collision
                 $_POST['selectedsupermarkets'] = isset($_POST['supermarket']) ? $_POST['supermarket'] : [];

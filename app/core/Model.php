@@ -41,7 +41,7 @@ abstract class Model
         if($type == "get") {
             if ($results = $stmt->fetchAll()) {
                  return $results;
-            }    
+            }
         }
         if ($type == "get1") {
             if ($result = $stmt->fetch()) {
@@ -60,7 +60,7 @@ abstract class Model
         $stmt->execute(array(
             "id"    =>      $id
         ));
-        
+
         // delete image if exists
        $image_path = ROOT . DS . 'uploads' . DS . static::$table . DS . $image;
 
@@ -128,7 +128,7 @@ abstract class Model
         return imagepng($thumb, $path . '-thumb' . $prefix);
     }
 
-    public function countTable( $table, $args = array() ) {
+    public function countTable( $table, $args = array(), $custom = '' ) {
 
         $db = self::getDB();
 
@@ -141,6 +141,9 @@ abstract class Model
             $sql .= " AND " . $key . "=" . ":" . $key;
             $params[$key] = $value;
         }
+
+        $sql .= $custom;
+
         $stmt = $db->prepare($sql);
         $stmt->execute($params);
         $result = $stmt->fetch();

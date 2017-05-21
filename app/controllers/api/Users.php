@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace app\controllers\api;
 
@@ -6,7 +6,7 @@ use app\core\Controller;
 use app\core\Session;
 use app\helper\Redirect;
 
-class Users extends Controller 
+class Users extends Controller
 {
 
     public function __construct()
@@ -52,7 +52,7 @@ class Users extends Controller
     }
 
     public function register() {
-        $this->view = 'public/account/register';
+      //  $this->view = 'public/account/register';
         $this->data = $_POST;
         if($_POST) {
             $data['email'] = $_POST['email'];

@@ -1,19 +1,34 @@
 --------------------------------------
 IMPORTANT FEATURES:
-- improve product suggestions
+- allow user to upload image or ingredients image for existing product
 - show product note and barcode
+- edit footer pages from admin
+- translate to czech from admin
+- errors by email or show errors in admin
 
 - think about native comments instead of fb comments
 
-THAN:
-- combined filters (multiple tags, categories)
 
 NICE TO HAVE:
+- add product from template (copy product, just for admins) -> 3
+- create some voting -> https://github.com/antennaio/jquery-bar-rating
+- filter by price
+- filter by newest / olders
+- combined filters (multiple tags, categories)
+
+HAS TIME:
 - php cache
 - facebook login
 - minify your files
-- add product from template (copy product, just for admins) -> 3
-- create some voting -> https://github.com/antennaio/jquery-bar-rating
+
+
+
+Ver 0.1.8 -> 20.5.2017
+- fix barcode checking bug
+- premission fix
+- unselected flag color 100% -> 65% black-and-white
+- registration error fix
+- number of suggestions fix
 
 Ver 0.1.7 BETA -> 14.5.2017
 - rotate image
