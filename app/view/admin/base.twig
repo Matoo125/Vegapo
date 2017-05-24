@@ -54,6 +54,7 @@
                 <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_TRASH }}">{{ lang.TRASH }}</a></li>
                <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_SUGGESTIONS }}">{{ lang.SUGGESTIONS }}</a></li>
                <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_MESSAGES }}">{{ lang.MESSAGES }}</a></li>
+               <li class="nav-item"><a class="nav-link" href="/admin/info">Info Stránky</a></li>
 
                 {% if session.user_role > 35 %}
                 <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_TAGS }}">{{ lang.TAGS }}</a></li>
@@ -102,12 +103,12 @@
 
 <!--scripts loaded here-->
 
-<script src="/bower_components/jquery/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/bower_components/tether/dist/js/tether.min.js"></script>
 <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/js/sortable.js"></script>
 <script src="/bower_components/jquery-confirm/jquery.confirm.min.js"></script>
-<script src="/bower_components/jquery-validation/jquery.validate.min.js"></script>
+<script src="/bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
 
     {% block scripts %} {% endblock %}
 

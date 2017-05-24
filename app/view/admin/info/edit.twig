@@ -1,0 +1,36 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - {{ page }} {% endblock %}
+{% block css %} 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+{% endblock %}
+{% block header %} {{ page }} {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <textarea>{{ content }}</textarea>
+            <button type="submit">Save</button>
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script type="text/javascript">
+$(function () {
+    var simplemde = new SimpleMDE();
+    $("button[type=submit]").click(function (e) {
+        e.preventDefault();
+        $.post('/admin/info/saveAjax', { content: simplemde.value(), page: '{{ page }}' })
+        .done(function (data) {
+            alert(data.response);
+        })
+    })
+})
+</script>
+{% endblock %}

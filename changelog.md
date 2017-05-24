@@ -21,7 +21,8 @@ HAS TIME:
 - facebook login
 - minify your files
 
-
+Ver 0.1.9 -> 24.5.2017
+- info pages admin edit
 
 Ver 0.1.8 -> 20.5.2017
 - fix barcode checking bug

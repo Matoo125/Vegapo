@@ -22,6 +22,7 @@
     "jquery-confirm": "^2.7.0",
     "bLazy": "blazy#^1.8.2",
     "fancybox": "^3.0.47",
-    "quagga": "^0.11.6"
+    "quagga": "^0.11.6",
+    "simplemde": "^1.11.2"
   }
 }

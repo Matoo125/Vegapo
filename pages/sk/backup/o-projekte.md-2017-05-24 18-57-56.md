@@ -1,4 +1,5 @@
-## O Projekte
+
+##O Projekte
 
 Vegapo je webová aplikácia a komunita s cieľom zmapovať vegánske produkty v bežných slovenských obchodoch. Tento projekt vznikol, ako nezisková voľnočasová aktivita so záujmom o zjednodušenie vegánskeho života. 
 

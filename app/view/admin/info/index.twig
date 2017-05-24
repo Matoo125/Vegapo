@@ -1,0 +1,40 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - Informácie {% endblock %}
+
+{% block header %} Informácie {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped sortable">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>#</th>
+                        <th>Stránka</th>
+                        <th>Akcia</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for index, page in pages %}
+                    <tr>
+
+                        <td>{{ index }}</td>
+                        <td>{{ page }}</td>
+                        <td><a href="/admin/info/edit/{{ page }}">Upraviť</a></td>
+
+                    </tr>
+                    {% else %}
+                        No Category Found
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}
