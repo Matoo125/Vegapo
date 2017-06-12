@@ -75,7 +75,10 @@ window.fbAsyncInit = function() {
                         {% endif %}
                       </div>
 
-                      <div class="col-6">
+                      <div class="col-6">                      
+                        {% if session.user_role > 30 %}
+                        <a href="/admin/produkty/upravit/{{ product.id }}"><button class="btn btn-primary">Upraviť</button></a>
+                        {% else %}
                         <button class="btn btn-primary" data-toggle="modal" data-target=".suggestModal">{{ lang.SUGGEST_EDIT }}</button>
 
                         <div class="modal fade suggestModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -115,12 +118,14 @@ window.fbAsyncInit = function() {
                             </div>
                           </div>
                         </div>
-                      </div>
+                      {% endif %}
+                    </div>
+
                     </div>
                 {% endif %}
 
                 {% if product.image2 %}
-                    <p><a data-fancybox="gallery" href="/uploads/products/{{ cc }}/{{ product.image2 }}">{{ lang.INGREDIENTS }}</a></p>
+                    <p><a class="btn btn-success" data-fancybox="gallery" href="/uploads/products/{{ cc }}/{{ product.image2 }}">{{ lang.INGREDIENTS }}</a></p>
                 {% endif %}
 
                 <div class="fb-like" data-layout="button" data-action="recommend" data-size="large" data-show-faces="true" data-adapt-container-width="true" data-share="true"></div>

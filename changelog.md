@@ -18,11 +18,11 @@ HAS TIME:
 - minify your files
 
 Ver 0.2.0 -> 12.6.2017 
-- edit footer pages from admin
 - show product note and barcode
+- link between products between admin and public
 
 Ver 0.1.9 -> 24.5.2017
-- info pages admin edit
+- edit footer pages from admin
 
 Ver 0.1.8 -> 20.5.2017
 - fix barcode checking bug
