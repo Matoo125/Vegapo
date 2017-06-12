@@ -1,12 +1,8 @@
 --------------------------------------
 IMPORTANT FEATURES:
 - allow user to upload image or ingredients image for existing product
-- show product note and barcode
-- edit footer pages from admin
 - translate to czech from admin
 - errors by email or show errors in admin
-
-- think about native comments instead of fb comments
 
 
 NICE TO HAVE:
@@ -20,6 +16,10 @@ HAS TIME:
 - php cache
 - facebook login
 - minify your files
+
+Ver 0.2.0 -> 12.6.2017 
+- edit footer pages from admin
+- show product note and barcode
 
 Ver 0.1.9 -> 24.5.2017
 - info pages admin edit
