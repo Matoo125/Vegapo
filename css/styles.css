@@ -365,3 +365,21 @@ img::-moz-selection {
 .b-lazy.b-loaded {
                opacity: 1;
 }
+
+
+.carousel-control-prev, .carousel-control-next {
+    color: #007FFF;
+}
+
+.carousel-control-next:focus, .carousel-control-next:hover, .carousel-control-prev:focus, .carousel-control-prev:hover {
+    color: #000;
+}
+
+.testimonials {
+    border: 10px solid black;
+    padding: 2rem;
+}
+
+.testimonial {
+    margin: 0 auto;
+}
