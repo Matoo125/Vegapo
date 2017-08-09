@@ -3,7 +3,7 @@
 {% block title %} VegaPo - {{ lang.PRODUCTS }} {% endblock %}
 
 {% block content %}
-<section>
+<section id="main">
 	<div class="container">
 		<div class="wow fadeInUp text-center">
             <h2>{{ params.oblubene ? lang.FAVOURITES }}
@@ -33,18 +33,75 @@
 
         <br>
         <div class="row">
-            <nav>
-                <ul class="pagination">
-                    {% for i in 1..number_of_pages if number_of_pages %}
-                    <li class="page-item {{ i == current_page ? 'active' }}">
-                        <a class="page-link" href="{{ buildUrl(params, 'p', i) }}">
-                                {{ i }}
-                        </a>
-                    </li>
+                <ul class="pagination justify-content-center" style="width: 100%">
+                    {# classic pagination if nop < 10 #}
+                    {% if number_of_pages and number_of_pages < 10 %}
+                        {% for i in 1..number_of_pages %}
+                            <li class="page-item {{ i == current_page ? 'active' }}">
+                                <a class="page-link" href="{{ buildUrl(params, 'p', i) }}">
+                                        {{ i }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    {# special pagination for nop > 10 #}
+                    {% elseif number_of_pages and number_of_pages >= 10  %}
+                        {# if current page < 5 show all preceding pages #}
+                        {% if current_page < 5 and current_page > 1 %}
+                            {% for i in 1..(current_page - 1) %}
+                                <li class="page-item">
+                                    <a href="{{ buildUrl(params, 'p', i) }}" class="page-link">
+                                        {{ i }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        {% endif %}
+                        {# if current page > 5 show only 3 pages back and 1 #}
+                        {% if current_page >= 5 %}
+                            <li class="page-item">
+                                <a href="{{ buildUrl(params, 'p', 1) }}" class="page-link">1 </a>
+                            </li>
+                            {% for i in (current_page - 3)..(current_page - 1) %}
+                                <li class="page-item">
+                                    <a href="{{ buildUrl(params, 'p', i) }}" class="page-link">
+                                        {{ i }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        {% endif %}
+                        {# always show current page #}
+                        <li class="page-item active">
+                            <a href="{{ buildUrl(params, 'p', current_page) }}" class="page-link">
+                                {{ current_page }}
+                            </a>
+                        </li>
+                        {# show all the next pages#}
+                        {% if (number_of_pages - current_page) < 5 and current_page < number_of_pages %}
+                            {% for i in (current_page + 1)..(number_of_pages)  if number_of_pages > current_page %}
+                                <li class="page-item">
+                                    <a href="{{ buildUrl(params, 'p', i) }}" class="page-link">
+                                        {{ i }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        {# show only 3 next pages and last page  #}
+                        {% elseif current_page != number_of_pages %}
+                            {% for i in (current_page + 1)..(current_page + 3) %}
+                                <li class="page-item">
+                                    <a href="{{ buildUrl(params, 'p', i) }}" class="page-link">
+                                        {{ i }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            <li class="page-item">
+                                <a href="{{ buildUrl(params, 'p', number_of_pages) }}" class="page-link">
+                                   {{ number_of_pages }}
+                                </a>
+                            </li>
+                        {% endif %}
 
-                    {% endfor %}
+                    {% endif %}
+
                 </ul>
-            </nav>
         </div>
 
 	</div>

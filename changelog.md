@@ -16,9 +16,12 @@ NICE TO HAVE:
 - errors by email or show errors in admin
 
 HAS TIME:
-- php cache
 - facebook login
-- minify your files
+
+Ver 0.2.2 -> 8.9.2017
+- stylesheet rewritten to sass with little design changes
+- pagination fixed for big number of pages
+- testimonials (front-end part)
 
 Ver 0.2.1 -> 20.6.2017
 - instagram icon and link

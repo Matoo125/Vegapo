@@ -4,62 +4,62 @@
 
 {% block content %}
 
-    <header id="first">
-    <div class="header-content">
-        <div class="inner">
+    <div id="main">
+      <section class="flex-horizontal-center">
             <h1>{{ lang.PAGE_FULL_NAME }}</h1><br>
             <h5 class="wow fadeIn text-normal wow fadeIn">{{ lang.PAGE_BRIEF_DESCRIPTION }}</h5><br>
-            <a href="/produkty" class="btn btn-primary-outline btn-xl page-scroll wow fadeInUp m-t-3">{{ lang.INDEX_ACTION_BUTTON }}</a>
-        </div>
-    </div>
-</header>
+            <a href="/produkty" class="btn btn-outline-primary btn-lg page-scroll wow fadeInUp m-t-3">{{ lang.INDEX_ACTION_BUTTON }}</a>
+        </section>
 
-<section>
-  <div class="container">
-    <div class="text-center">
-      <h2 class="pb-4">Povedali o nás</h2>
-    </div>
-    <div id="carouselExampleIndicators" class="carousel slide testimonials" data-ride="carousel">
-      <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-      </ol>
-      <div class="carousel-inner" role="listbox">
-        <div class="carousel-item active">
-          <div class="testimonial">
-            <h2>John Muller</h2>
-            <p>This site is amazing</p>
+      
+        <section class="flex-horizontal-center">
+          <div class="container">
+            <div class="text-center">
+              <h2 class="pb-4">Povedali o nás</h2>
+            </div>
+            <div id="carouselTestimonials" class="carousel slide testimonials" data-ride="carousel">
+
+              <div class="carousel-inner" role="listbox">
+                <div class="carousel-item active">
+                  <div class="testimonial">
+                    <blockquote class="blockquote">
+                      <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                      <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                    </blockquote>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="testimonial">
+                      <blockquote class="blockquote">
+                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                        <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                      </blockquote>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="testimonial">
+                      <blockquote class="blockquote">
+                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                        <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                      </blockquote>
+                    </div>
+                </div>
+              </div>
+              <ol class="carousel-indicators">
+                <li data-target="#carouselTestimonials" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselTestimonials" data-slide-to="1"></li>
+                <li data-target="#carouselTestimonials" data-slide-to="2"></li>
+              </ol>
+            </div>
+
           </div>
-        </div>
-        <div class="carousel-item">
-            <div class="testimonial">
-              <h2>Davin Peterson</h2>
-              <p>I like it here</p>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <div class="testimonial">
-              <h2>Samantha Blue</h2>
-              <p>Life is good</p>
-            </div>
-        </div>
-      </div>
-      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        <i class="ion-arrow-left-a icon-lg"></i>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-        <i class="ion-arrow-right-a icon-lg"></i>
-        <span class="sr-only">Next</span>
-      </a>
-    </div>
+        </section>
 
-  </div>
-</section>
 
-<script>
-</script>
+
+</div>
+
+
 
 {% endblock %}
 

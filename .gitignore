@@ -7,3 +7,4 @@
 /uploads/products/*
 /app/core/Config.php
 /app/cache/*
+/css/styles.css.map
