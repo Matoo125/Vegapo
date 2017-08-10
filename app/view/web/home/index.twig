@@ -12,6 +12,7 @@
         </section>
 
       
+      {% if testimonials %}
         <section class="flex-horizontal-center">
           <div class="container">
             <div class="text-center">
@@ -20,30 +21,16 @@
             <div id="carouselTestimonials" class="carousel slide testimonials" data-ride="carousel">
 
               <div class="carousel-inner" role="listbox">
-                <div class="carousel-item active">
+                {% for testimonial in testimonials %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}">
                   <div class="testimonial">
                     <blockquote class="blockquote">
-                      <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                      <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                      <p class="mb-0">{{ testimonial.message }}</p>
+                      <footer class="blockquote-footer"> <cite title="Source Title">{{ testimonial.name }}</cite></footer>
                     </blockquote>
                   </div>
                 </div>
-                <div class="carousel-item">
-                    <div class="testimonial">
-                      <blockquote class="blockquote">
-                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                        <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                      </blockquote>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="testimonial">
-                      <blockquote class="blockquote">
-                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                        <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                      </blockquote>
-                    </div>
-                </div>
+                {% endfor %}
               </div>
               <ol class="carousel-indicators">
                 <li data-target="#carouselTestimonials" data-slide-to="0" class="active"></li>
@@ -54,6 +41,8 @@
 
           </div>
         </section>
+
+      {% endif %}
 
 
 

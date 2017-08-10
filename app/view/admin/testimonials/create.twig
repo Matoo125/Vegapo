@@ -1,0 +1,29 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - Pridať Ohlas {% endblock %}
+
+{% block header %} Pridať Ohlas {% endblock %}
+
+{% block content %}
+
+
+    <form class="row" enctype="multipart/form-data" method="post">
+        <div class="col-md-6">
+
+            <div class="form-group">
+                <label for="name">Meno</label>
+                <input type="text" class="form-control" name="name" id="name" autofocus required>
+            </div>
+
+            <div class="form-group">
+                <label for="note">Obsah</label>
+                <textarea name="message" id="message" cols="30" rows="10" class="form-control"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">{{ lang.SUBMIT }}</button>
+
+        </div>
+
+    </form>
+
+{% endblock %}

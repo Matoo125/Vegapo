@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="/bower_components/Ionicons/css/ionicons.min.css" />
 
     {% block header %}{% endblock %}
-    <link rel="stylesheet" href="/css/styles.css?v=1.0" /> 
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
+    <link rel="stylesheet" href="/css/public/styles.css?v=1.0" /> 
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   </head>
   <body class="bg-faded">
 <script>
@@ -127,19 +127,21 @@
             {% endif %}
             </ul>
 
-            <form class="form-inline" id="searchForm" method="get" action="/produkty">
-              <input class="form-control mr-sm-2" style="display: none" type="text" name="hladat" id="search" placeholder="Čokoláda">
+            <form class="form-inline navbar-nav" id="searchForm" method="get" action="/produkty">
+              <input class="form-control mr-sm-2" style="display: none" type="text" name="hladat" id="search" placeholder="...">
               <button class="btn btn-outline-success" type="button" id="searchButton"><i class="ion-search"></i></button>
             </form>
 
-            {% if cc == 'sk' %}
-                <a class="nav-link page-scroll flag hideOnClick" href="http://vegapo.sk"><img src="/images/sk.svg" width="40"></a>
-                <a class="nav-link page-scroll flag hideOnClick pr-0 pl-0" href="http://vegapo.cz"><img src="/images/cz.svg" width="40" class="black-and-white"></a>
-            {% else %}
-                <a class="nav-link page-scroll flag hideOnClick" href="http://vegapo.sk"><img src="/images/sk.svg" width="40" class="black-and-white"></a>
-                <a class="nav-link page-scroll flag hideOnClick pr-0 pl-0" href="http://vegapo.cz"><img src="/images/cz.svg" width="40"></a>
-            {% endif %}
-
+            <span class="navbar-nav">
+                
+                {% if cc == 'sk' %}
+                    <a class="nav-link page-scroll flag hideOnClick" href="http://vegapo.sk"><img src="/images/sk.svg" width="40"></a>
+                    <a class="nav-link page-scroll flag hideOnClick pr-0 pl-0" href="http://vegapo.cz"><img src="/images/cz.svg" width="40" class="black-and-white"></a>
+                {% else %}
+                    <a class="nav-link page-scroll flag hideOnClick" href="http://vegapo.sk"><img src="/images/sk.svg" width="40" class="black-and-white"></a>
+                    <a class="nav-link page-scroll flag hideOnClick pr-0 pl-0" href="http://vegapo.cz"><img src="/images/cz.svg" width="40"></a>
+                {% endif %}
+            </span>
 
         </div>
     </div>
@@ -172,7 +174,7 @@
                 <h6 class="text-uppercase">{{ lang.STAY_IN_TOUCH }}</h6>
                 <form method="post" id="subscribe" action="/home/subscribe/">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="email" title="No spam, we promise!" placeholder="Daj nám tvoj email">
+                        <input type="text" class="form-control" name="email" title="No spam, we promise!" placeholder="Nebudeme ťa spamovať">
                     </div>
                     <div class="form-group">
                         <input class="btn btn-primary" type="submit" value="{{ lang.SUBSCRIBE }}">

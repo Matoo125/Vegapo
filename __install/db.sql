@@ -246,3 +246,11 @@ ALTER TABLE `products` CHANGE `expected_price` `expected_price` decimal(5,2) DEF
 
 -- 9.5.2017
 
+
+CREATE TABLE testimonials (
+  `id` int AUTO_INCREMENT PRIMARY KEY,
+  `name` varchar(255) NOT NULL,
+  `message` TEXT NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);

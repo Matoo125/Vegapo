@@ -17,7 +17,9 @@ class Home extends Controller
 
     public function index()
     {
-    	
+    	$testimonial = $this->model('Testimonial');
+        $this->data['testimonials'] = $testimonial->getAll();
+        
     }
 
     public function test(){}

@@ -1,0 +1,43 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - Ohlasy {% endblock %}
+
+{% block header %} Ohlasy {% endblock %}
+
+{% block button %} <a class="btn btn-primary" href="/admin/testimonials/create">Pridať Ohlas</a> {% endblock %}
+
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped sortable">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>#</th>
+                        <th>Menu</th>
+                        <th>Obsah</th>
+                        <th>Čas</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in testimonials %}
+                        <tr>
+                            <td><a href="/admin/testimonials/update/{{ item.id }}">{{ item.id }}</a></td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.message }}</td>
+                            <td>{{ item.created_at }}</td>
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+
+{% endblock %}

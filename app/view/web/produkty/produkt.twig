@@ -125,7 +125,7 @@ window.fbAsyncInit = function() {
                 {% endif %}
 
                 {% if product.image2 %}
-                    <p><a class="btn btn-success" data-fancybox="gallery" href="/uploads/products/{{ cc }}/{{ product.image2 }}">{{ lang.INGREDIENTS }}</a></p>
+                    <p><a data-fancybox="gallery" href="/uploads/products/{{ cc }}/{{ product.image2 }}"><button class="btn btn-primary">{{ lang.INGREDIENTS }}</button></a></p>
                 {% endif %}
 
                 <div class="fb-like" data-layout="button" data-action="recommend" data-size="large" data-show-faces="true" data-adapt-container-width="true" data-share="true"></div>

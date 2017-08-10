@@ -18,7 +18,13 @@ NICE TO HAVE:
 HAS TIME:
 - facebook login
 
-Ver 0.2.2 -> 8.9.2017
+Ver 0.2.3 -> 10.8.2017
+- testimonials (backend)
+- little design fixes after css rewritting
+- navbar css fixed
+- colors changed
+
+Ver 0.2.2 -> 9.8.2017
 - stylesheet rewritten to sass with little design changes
 - pagination fixed for big number of pages
 - testimonials (front-end part)

@@ -1,0 +1,38 @@
+html,
+body
+  height: 100%
+
+body
+  background-color: $primary-color-faded !important
+  display: flex
+  flex-direction: column
+  color: $primary-color-dark
+  font-family: 'Montserrat', 'Roboto', Arial, sans-serif
+
+a
+  color: $primary-color-dark
+  &:hover, &:focus, &:active
+    text-decoration: none
+    color: $primary-color
+
+.blockquote
+  border-color: $primary-color-dark
+
+::-moz-selection
+  text-shadow: none
+  color: #fff
+  background: $primary-color
+
+::selection 
+  text-shadow: none
+  color: #fff
+  background: $primary-color
+
+
+/* page content */
+#main
+  flex: 1 0 auto
+  padding: 100px 0 40px 0
+  display: flex
+  flex-direction: column
+  justify-content: space-around
