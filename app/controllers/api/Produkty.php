@@ -91,7 +91,7 @@ class Produkty extends Controller
     {
         $category_slug = $params['kategoria'] = isset($_GET['kategoria']) ? $_GET['kategoria'] : null;
         $supermarket_slug = $params['supermarket'] = isset($_GET['supermarket']) ? $_GET['supermarket'] : null;
-        $tag_slug = $params['tag'] = isset($_GET['tag']) ? $_GET['tag'] : null;
+        $tag_slugs = $params['tag'] = isset($_GET['tag']) ? $_GET['tag'] : null;
         $favourites_user_id = $params['oblubene'] = isset($_GET['oblubene']) ? $_GET['oblubene'] : null;
         $search_term = $params['hladat'] = isset($_GET['hladat']) ? $_GET['hladat'] : null;
         $author_id = $params['autor'] = isset($_GET['autor']) ? $_GET['autor'] : null;
@@ -110,10 +110,17 @@ class Produkty extends Controller
 
         $current_category = findBySlugInArray($category_slug, $categories);
         $current_supermarket = findBySlugInArray($supermarket_slug, $supermarkets);
-        $current_tag = findBySlugInArray($tag_slug, $tags);
+
+        $current_tags = [];
+        if($tag_slugs) {
+          if(!is_array($tag_slugs)) $tag_slugs = [$tag_slugs];
+          foreach ($tag_slugs as $tag_slug) {
+            $current_tags[] = findBySlugInArray($tag_slug, $tags);
+          }
+        }
 
         $number_of_products = $this->model->count(
-            $current_category['id'], $current_supermarket['id'], $current_tag['id'], 1, $author_id, $search_term, $favourites_user_id
+            $current_category['id'], $current_supermarket['id'], $current_tags, 1, $author_id, $search_term, $favourites_user_id
         )['numberOfProducts'];
 
         $number_of_pages = ceil($number_of_products / 20);
@@ -125,10 +132,10 @@ class Produkty extends Controller
         $this->data['tags'] = $tags;
         $this->data['current_supermarket'] = $current_supermarket;
         $this->data['current_category'] = $current_category;
-        $this->data['current_tag'] = $current_tag;
+        $this->data['current_tags'] = $current_tags;
         $this->data['number_of_pages'] = $number_of_pages;
         $this->data['current_page'] = $current_page;
-        $this->data['products'] = $this->model->getProducts($category_slug, $supermarket_slug, $tag_slug, $start, $visibility, $author_id, $search_term, $favourites_user_id);
+        $this->data['products'] = $this->model->getProducts($category_slug, $supermarket_slug, $tag_slugs, $start, $visibility, $author_id, $search_term, $favourites_user_id);
     }
 
 

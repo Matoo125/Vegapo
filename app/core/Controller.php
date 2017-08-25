@@ -57,12 +57,55 @@ class Controller {
         $twig->addFilter($slugifilter);
 
         $buildUrl = new \Twig_SimpleFunction('buildUrl', function($params, $key, $value) {
+          if ($key == "tag" && $value && $params[$key]) {
+            //allow multiple 'tag' values
+            if(is_array($params[$key])) {
+              // new tag
+              if (!in_array($value, $params[$key])) {
+                $params[$key][] = $value;
+              }
+            } else {
+              // new tag
+              if($params[$key] !=  $value) {
+                $params[$key] = [$params[$key]];
+                $params[$key][] = $value;
+              }
+            }
+          } else {
             // replace old part of params for new
             $params[$key] = $value;
-            // build url string
-            return '/produkty?' . http_build_query($params, '', '&');
+          }
+          return '/produkty?' . http_build_query($params, '', '&');
         });
         $twig->addFunction($buildUrl);
+
+        // removes $params[$remKey] (or $params[$remKey][$remValue]) from $params list
+        $stripUrlParam = new \Twig_SimpleFunction('stripUrlParam', function($params, $remKey, $remValue = null) {
+          $newParams = [];
+          foreach ($params as $key => $value) {
+            if ($key != $remKey) {
+              // leave param in list
+              $newParams[$key] = $value;
+            } else {
+              if($remValue) {
+                if (is_array($value)) {
+                  foreach($value as $v) {
+                    if ($v != $remValue) {
+                      $newParams[$key][] = $v;
+                    }
+                  }
+                } else {
+                  if ($value != $remValue) {
+                    // leave param and value in list
+                    $newParams[$key] = $value;
+                  }
+                }
+              }
+            }
+          }
+          return '/produkty?' . http_build_query($newParams, '', '&');
+        });
+        $twig->addFunction($stripUrlParam);
 
         $this->data['sessionclass'] = new Session;
         $this->data['lang'] = $GLOBALS['lang'];
