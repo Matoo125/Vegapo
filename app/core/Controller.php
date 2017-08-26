@@ -3,6 +3,7 @@
 namespace app\core;
 
 use app\string\Url;
+use app\model\OauthProvider;
 
 
 class Controller {
@@ -106,6 +107,11 @@ class Controller {
           return '/produkty?' . http_build_query($newParams, '', '&');
         });
         $twig->addFunction($stripUrlParam);
+
+        $fburl = new \Twig_SimpleFunction('fbLoginUrl', function($c) {
+          return OauthProvider::fbLoginUrl($c);
+        });
+        $twig->addFunction($fburl);
 
         $this->data['sessionclass'] = new Session;
         $this->data['lang'] = $GLOBALS['lang'];

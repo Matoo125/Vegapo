@@ -26,6 +26,7 @@ class Url
 	'LOGIN' => "/users/login",
 	'ADMIN' => "/admin/",
 	'INDEX' => "/",
+  'REGISTER' => "/users/register",
 
 
 	'SUPERMARKET_ADMIN_DELETE' => "/admin/obchody/vymazat/",
