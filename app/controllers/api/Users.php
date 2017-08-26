@@ -17,8 +17,7 @@ class Users extends Controller
 
     public function logout()
     {
-        Session::destroy();
-        Redirect::toURL("LOGIN");
+      $this->model->logoutUser();
     }
 
     public function login()
@@ -35,11 +34,7 @@ class Users extends Controller
                 }
 
                 if ( password_verify($mPass, $user['password']) ) {
-                    Session::set('user_id', $user['user_id']);
-                    Session::set('user_role', $user['role']);
-                    Session::set('user_country', $user['country']);
-                    Session::set('username', $user['username']);
-                    $this->model->runQuery("UPDATE `users` SET last_activity = now() WHERE user_id=:id", array("id" => $user['user_id']), "post");
+                    $this->model->loginUser($user);
                     redirect('/users');
                 } else {
                     Session::setFlash(getString('CREDENTIALS_NOT_MATCH'), "warning", 1);
@@ -47,7 +42,7 @@ class Users extends Controller
             } else {
                 Session::setFlash("No input received", "danger");
             }
-
+            redirect('/users');
         }
     }
 
@@ -73,7 +68,10 @@ class Users extends Controller
             $data['password'] = password_hash($data['password1'], PASSWORD_DEFAULT);
 
             if($this->model->register($data)){
-                Session::setFlash(getString('REGISTRATION_SUCCESS'), "success", 1);
+              $this->model->loginUser($this->model->getByEmail($data['email']));
+
+              Session::setFlash(getString('REGISTRATION_SUCCESS'), "success", 1);
+              redirect('/users/update');
             }
         }
     }
