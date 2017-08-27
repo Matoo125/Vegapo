@@ -45,7 +45,7 @@
                 <button type="submit" name="change-details" class="btn btn-primary">{{ lang.SUBMIT }}</button>
             </form>
             <br>
-            <a href="{{ fbLoginUrl('fb_connect_callback') }}">connect facebook</a>
+            <a class="btn btn-primary" href="{{ fbLoginUrl('fb_connect_callback') }}">connect facebook</a>
         </div>
         {# facebook registered users can not change their password - for now #}
         {% if not user.facebook_id %}
