@@ -17,6 +17,7 @@ class Users extends Controller
 
     public function logout()
     {
+      // funkcionality login/logout prenesene do vlastnych User metod
       $this->model->logoutUser();
     }
 
@@ -34,7 +35,9 @@ class Users extends Controller
                 }
 
                 if ( password_verify($mPass, $user['password']) ) {
+                    // funkcionalita log in tajk isto prenesena do vlastnej User metody
                     $this->model->loginUser($user);
+                    // zjednotil som "landing" stranky pre login/logout modalne aj kalsicke
                     redirect('/users');
                 } else {
                     Session::setFlash(getString('CREDENTIALS_NOT_MATCH'), "warning", 1);
