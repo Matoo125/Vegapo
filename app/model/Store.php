@@ -7,13 +7,8 @@ use app\core\Session;
 
 class Store extends Model
 {
-    private $db;
     public static $table = "supermarkets";
 
-    function __construct()
-    {
-        $this->db = static::getDB();
-    }
 
     public function insert($data) {
         $sql = "INSERT INTO supermarkets(name, slug, image, country, note, description) 

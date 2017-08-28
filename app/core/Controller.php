@@ -2,10 +2,11 @@
 
 namespace app\core;
 
+use m4\m4mvc\core\Controller as FrameworkController;
 use app\string\Url;
 
 
-class Controller {
+class Controller extends FrameworkController {
 
     protected $data = [];
     protected $model;
@@ -112,7 +113,7 @@ class Controller {
         $this->data['url']  = Url::getAll();
         $this->data['cc'] = COUNTRY_CODE;
 
-        echo $twig->render($view.".twig", $this->data);
+        echo $twig->render($view."", $this->data);
     }
 
 }

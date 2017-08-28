@@ -2,20 +2,22 @@
 
 namespace app\core;
 
+use m4\m4mvc\core\App as FrameworkApp;
+
 use app\helper\Redirect;
 
-class App
+class App extends FrameworkApp
 {
-    protected $controller = 'Home';
-    protected $method = 'index';
-    protected $module = 'web';
-    protected $params = [];
-    protected $view;
+  /*  public $controller = 'Home';
+    public $method = 'index';
+    public $module = 'web';
+    public $params = [];
+    public $view;
 
     /**
      * App constructor.
      */
-    public function __construct()
+ /*   public function __construct()
     {
         // create array from and clean the url
         $url = $this->parseURL();
@@ -86,5 +88,5 @@ class App
 
         return null;
     }
-
+*/
 }

@@ -10,12 +10,6 @@ use app\core\Model;
 
 class Message extends Model {
 
-    private $db;
-
-    function __construct()
-    {
-        $this->db = static::getDB();
-    }
 
     public function getAll()
     {

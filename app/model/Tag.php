@@ -7,13 +7,7 @@ use app\core\Session;
 
 class Tag extends Model
 {
-    private $db;
     public static $table = "tags";
-
-    function __construct()
-    {
-        $this->db = static::getDB();
-    }
 
     public function insert($data) {
         $sql = "INSERT INTO tags(name, slug, image, country, note, description) 

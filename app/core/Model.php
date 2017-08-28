@@ -1,35 +1,24 @@
 <?php
 
 namespace app\core;
+use m4\m4mvc\core\Model as FrameworkModel;
 
 /*
  * Core Model
  * is extended by other models
  */
 
-abstract class Model
+abstract class Model extends FrameworkModel
 {
-    protected static function getDB()
+
+    public function __call ($name, $arguments)
     {
-        static $db = null;
-
-        if ($db === null) {
-            try {
-                $dns = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8';
-                $db = new \PDO($dns, DB_USER, DB_PASSWORD);
-                $db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-                return $db;
-            } catch (\PDOException $e) {
-                echo $e->getMessage();
-                return null;
-            }
-        } else{
-            return $db;
-        }
-
+        if ($name === 'runQuery') {
+            call_user_func(self::runQuery, $arguments);
+        } 
     }
 
-    public function runQuery($query, $args, $type) {
+    public static function runQuery($query, $args, $type) {
         $stmt = self::getDB()->prepare($query);
 
         try {

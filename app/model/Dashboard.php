@@ -6,13 +6,6 @@ use app\core\Model;
 
 class Dashboard extends Model {
 
-    private $db;
-
-    function __construct()
-    {
-        $this->db = static::getDB();
-    }
-
     public function findEmailInNewsletterList($email)
     {
         $sql = "SELECT * FROM newsletter WHERE email = :email AND country = :country LIMIT 1";

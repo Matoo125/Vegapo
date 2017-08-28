@@ -7,12 +7,6 @@ use app\core\Session;
 
 class User extends Model
 {
-    private $db;
-
-    function __construct()
-    {
-        $this->db = static::getDB();
-    }
 
     public function getAll() {
         $stmt = $this->db->prepare("select * from users");
