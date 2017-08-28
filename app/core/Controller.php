@@ -65,6 +65,7 @@ class Controller {
         });
         $twig->addFunction($buildUrl);
 
+        // generate facebook oauth url
         $fburl = new \Twig_SimpleFunction('fbLoginUrl', function($c) {
           return OauthProvider::fbLoginUrl($c);
         });
