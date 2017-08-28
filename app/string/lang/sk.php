@@ -34,7 +34,7 @@ $sk = [
     "DENIED"                    =>  "Zamietnuté",
     "WAITING"                   =>  "Čaká",
 
-    
+
 
     'ABOUT' 					=> "O",
     'ABOUT_PROJECT' 			=> "O projekte",
@@ -175,5 +175,18 @@ $sk = [
 
     "USER_FUNCTIONS"            => "Užívateľské funkcie",
 
+    "FACEBOOK_LOGIN"            => "pomocou Facebook účtu",
+    "FACEBOOK_LOGIN_SUCCESS"    => "Prihlásenie pomocou Facebook účtu úspešné",
+    "FACEBOOK_LOGIN_ERROR"      => "Chyba prihlásenia pomocou Facebook účtu",
+    "FACEBOOK_REGISTER"         => "pomocou Facebook účtu",
+    "FACEBOOK_REGISTER_SUCCESS" => "Registrácia pomocou Facebook účtu úspešná",
+    "FACEBOOK_REGISTER_ERROR"   => "Chyba registrácie pomocou Facebook účtu",
+    "FACEBOOK_CONNECT"          => "Pripoj Facebook účet",
+    "FACEBOOK_CONNECT_SUCCESS" => "Pripojenie Facebook účtu úspešné",
+    "FACEBOOK_CONNECT_ERROR"    => "Chyba pripojenie Facebook účtu",
+    "FACEBOOK_DISCONNECT"       => "Odpoj Facebook účet",
+    "FACEBOOK_DISCONNECT_SUCCESS" => "Odpojenie Facebook účtu úspešné",
+
+    "MISSING_PASSWORD"        => "Pre Váš účet nie je zadané heslo. Ak sa chcete prihlásiť aj pomocou emailu prosím zadajte heslo.",
 
  ];

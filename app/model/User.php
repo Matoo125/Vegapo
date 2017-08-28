@@ -4,6 +4,7 @@ namespace app\model;
 
 use app\core\Model;
 use app\core\Session;
+use app\helper\Redirect;
 
 class User extends Model
 {
@@ -41,10 +42,36 @@ class User extends Model
         return null;
     }
 
+    public function getByFacebookId($id) {
+        $stmt = $this->db->prepare("select * from users where facebook_id = :id LIMIT 1");
+        $stmt->execute(array(':id' => $id));
+        if ($results = $stmt->fetch()) {
+            return $results;
+        }
+        return null;
+    }
+
     public function register($data) {
         $sql = "INSERT INTO users (username, email, password, country, role) VALUES(:username,:email,:password,:country,:role)";
         $params = array("username" => $data['username'], "email" => $data['email'], "password" => $data['password'], "country" => COUNTRY_CODE, "role" => 4 );
         return $this->runQuery($sql, $params, "post");
+    }
+
+    // user session login
+    public function loginUser($user)
+    {
+      Session::set('user_id', $user['user_id']);
+      Session::set('user_role', $user['role']);
+      Session::set('user_country', $user['country']);
+      Session::set('username', $user['username']);
+      $this->runQuery("UPDATE `users` SET last_activity = now() WHERE user_id=:id", array("id" => $user['user_id']), "post");
+    }
+
+    // user session logout
+    public static function logoutUser()
+    {
+        Session::destroy();
+        Redirect::toURL("LOGIN");
     }
 
     public function getUserPassword(){
@@ -59,7 +86,8 @@ class User extends Model
     public function updatePassword($password, $session = null) {
 
         if (!$session) {
-            Session::get('user_id');
+            // bug?
+            $session = Session::get('user_id');
         }
         $stmt = $this->db->prepare("UPDATE users SET password = :password, updated_at = now() WHERE user_id = :id");
         $stmt->execute(array(
@@ -107,7 +135,7 @@ class User extends Model
         $sql = "DELETE FROM `forgotten_password` WHERE `created_at` < ADDDATE(NOW(), INTERVAL -1 HOUR)";
         $this->runQuery($sql, [], 'post');
 
-        // check token 
+        // check token
         $sql = "SELECT * FROM forgotten_password WHERE user_id = :user_id AND token = :token";
         $params = array(
             'user_id'   =>      $user_id,
@@ -125,7 +153,7 @@ class User extends Model
 
     public function getList()
     {
-        $sql = "SELECT u.user_id, u.username, COUNT(p.id) numberOfProducts, u.country from users u 
+        $sql = "SELECT u.user_id, u.username, COUNT(p.id) numberOfProducts, u.country from users u
                 LEFT JOIN products p ON p.author_id = u.user_id
                 WHERE p.visibility = 1
                 GROUP BY u.user_id

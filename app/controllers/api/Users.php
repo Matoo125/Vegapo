@@ -17,8 +17,8 @@ class Users extends Controller
 
     public function logout()
     {
-        Session::destroy();
-        Redirect::toURL("LOGIN");
+      // funkcionality login/logout prenesene do vlastnych User metod
+      $this->model->logoutUser();
     }
 
     public function login()
@@ -35,11 +35,9 @@ class Users extends Controller
                 }
 
                 if ( password_verify($mPass, $user['password']) ) {
-                    Session::set('user_id', $user['user_id']);
-                    Session::set('user_role', $user['role']);
-                    Session::set('user_country', $user['country']);
-                    Session::set('username', $user['username']);
-                    $this->model->runQuery("UPDATE `users` SET last_activity = now() WHERE user_id=:id", array("id" => $user['user_id']), "post");
+                    // funkcionalita log in tajk isto prenesena do vlastnej User metody
+                    $this->model->loginUser($user);
+                    // zjednotil som "landing" stranky pre login/logout modalne aj kalsicke
                     redirect('/users');
                 } else {
                     Session::setFlash(getString('CREDENTIALS_NOT_MATCH'), "warning", 1);
@@ -47,7 +45,7 @@ class Users extends Controller
             } else {
                 Session::setFlash("No input received", "danger");
             }
-
+            redirect('/users');
         }
     }
 
@@ -73,7 +71,10 @@ class Users extends Controller
             $data['password'] = password_hash($data['password1'], PASSWORD_DEFAULT);
 
             if($this->model->register($data)){
-                Session::setFlash(getString('REGISTRATION_SUCCESS'), "success", 1);
+              $this->model->loginUser($this->model->getByEmail($data['email']));
+
+              Session::setFlash(getString('REGISTRATION_SUCCESS'), "success", 1);
+              redirect('/users/update');
             }
         }
     }
@@ -93,7 +94,8 @@ class Users extends Controller
             } elseif(isset($_POST['change-password'])) {
                 $current_password = $this->model->getUserPassword();
 
-                if ( password_verify($_POST['old-password'], $current_password[0]) ) {
+                // dont demand old password for facebook registered user (until he changes it to valid)
+                if ( $current_password[0] == "no password" || password_verify($_POST['old-password'], $current_password[0]) ) {
                     if ($_POST['new-password'] == $_POST['new-password2']) {
                         if ( $this->model->updatePassword( password_hash($_POST['new-password'], PASSWORD_DEFAULT) ) ) {
                             Session::setFlash(getString('PASSWORD_CHANGED'), 'success');
