@@ -53,5 +53,4 @@ class Message extends Model {
         return $this->runQuery($sql, ['id' => $message_id], 'post');
     }
 
-
 }

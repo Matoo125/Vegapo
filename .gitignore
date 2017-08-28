@@ -8,3 +8,4 @@
 /app/core/Config.php
 /app/cache/*
 /css/styles.css.map
+composer.lock

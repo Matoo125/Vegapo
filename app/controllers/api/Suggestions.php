@@ -56,6 +56,11 @@ class Suggestions extends Controller
        $data['product_id'] = $_POST['product_id'];
        $data['country'] = $_POST['country'];
 
+       if ($this->model->checkForDuplicate($data)) {
+        $this->data['result'] = 'this is duplicate';
+        return;
+       }
+
        if ($this->model->save($data)) {
         $this->data['result'] = '1';
        } else {

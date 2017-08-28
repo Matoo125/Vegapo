@@ -36,17 +36,5 @@ class Home extends ApiHomeController
         $this->data['title'] = "Version Control";
    	}
 
-		public function reloadFBcache()
-		{
-			$sql = "SELECT slug FROM products WHERE country = 'cz'";
-			$slugs = $this->model->runQuery($sql, [], 'get');
-			echo '<pre>';
-			foreach($slugs as $slug) {
-				echo 'https://vegapo.cz/produkty/produkt/' . $slug[0] . '<br>';
-			}
-			die;
-
-		}
-
 
 }

@@ -48,6 +48,12 @@ class Suggestion extends Model {
         return $this->runQuery($sql, ['id' => $id], 'get');
     }
 
+    public function checkForDuplicate ($data)
+    {
+        $sql = "SELECT * FROM suggestions WHERE user_id = :author_id and product_id = :product_id and body = :body and type = :reason and country = :country";
+        return $this->runQuery($sql, $data, 'get');
+    }
+
     public function updateState($id, $state)
     {
         $sql = "UPDATE `suggestions` SET `state` = :state WHERE id = :id";
