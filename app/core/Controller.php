@@ -80,6 +80,7 @@ class Controller {
         });
         $twig->addFunction($buildUrl);
 
+<<<<<<< HEAD
         // removes $params[$remKey] (or $params[$remKey][$remValue]) from $params list
         $stripUrlParam = new \Twig_SimpleFunction('stripUrlParam', function($params, $remKey, $remValue = null) {
           $newParams = [];
@@ -108,6 +109,7 @@ class Controller {
         });
         $twig->addFunction($stripUrlParam);
 
+        // generate facebook oauth url
         $fburl = new \Twig_SimpleFunction('fbLoginUrl', function($c) {
           return OauthProvider::fbLoginUrl($c);
         });
