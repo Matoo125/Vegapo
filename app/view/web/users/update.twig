@@ -47,17 +47,18 @@
             <br>
             <a class="btn btn-primary" href="{{ fbLoginUrl('fb_connect_callback') }}">connect facebook</a>
         </div>
-        {# facebook registered users can not change their password - for now #}
-        {% if not user.facebook_id %}
+
         <div class="col-md-5 offset-md-1">
             <h3 class="h3 text-center">{{ lang.PASSWORD_CHANGE }}</h3>
             <hr>
             <form method="post" action="" id="password-update">
+                {# facebook registered user does not initially have a valid password #}
+                {% if user.password != "no password" %}
                 <div class="form-group">
                     <label for="old-password">{{ lang.PASSWORD_OLD }}</label>
                     <input type="password" class="form-control" id="old-password" name="old-password" >
                 </div>
-
+                {% endif %}
                 <div class="form-group">
                     <label for="new-password">{{ lang.PASSWORD_NEW }}</label>
                     <input type="password" class="form-control" id="new-password" name="new-password" >
@@ -71,7 +72,6 @@
                 <button type="submit" name="change-password" class="btn btn-primary">{{ lang.SUBMIT }}</button>
             </form>
         </div>
-        {% endif %}
 
     </div>
 </div>

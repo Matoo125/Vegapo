@@ -86,7 +86,8 @@ class User extends Model
     public function updatePassword($password, $session = null) {
 
         if (!$session) {
-            Session::get('user_id');
+            // bug?
+            $session = Session::get('user_id');
         }
         $stmt = $this->db->prepare("UPDATE users SET password = :password, updated_at = now() WHERE user_id = :id");
         $stmt->execute(array(

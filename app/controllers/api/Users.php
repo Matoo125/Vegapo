@@ -91,7 +91,8 @@ class Users extends Controller
             } elseif(isset($_POST['change-password'])) {
                 $current_password = $this->model->getUserPassword();
 
-                if ( password_verify($_POST['old-password'], $current_password[0]) ) {
+                // dont demand old password for facebook registered user (until he changes it to valid)
+                if ( $current_password[0] == "no password" || password_verify($_POST['old-password'], $current_password[0]) ) {
                     if ($_POST['new-password'] == $_POST['new-password2']) {
                         if ( $this->model->updatePassword( password_hash($_POST['new-password'], PASSWORD_DEFAULT) ) ) {
                             Session::setFlash(getString('PASSWORD_CHANGED'), 'success');
