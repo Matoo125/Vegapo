@@ -46,6 +46,7 @@ class Home extends ApiHomeController
 			}
 			die;
 
-
 		}
+
+
 }

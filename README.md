@@ -88,7 +88,7 @@ define("DB_USER", "phpmyadmin");
 define("DB_PASSWORD", "123456");
 define("SHOW_ERRORS", true);
 ```
-Hotovo, aplikácia je nainštalovaná.
+Hotovo, aplikácia je nainštalovaná. Obrázky k demo databáze sa dajú stiahnuť [na tomto odkaze](https://drive.google.com/file/d/0B8Do53AIinx0dHI4MFFqbTZ6aEk/view?usp=sharing)
 
 ## Ako sa zapojiť
 
