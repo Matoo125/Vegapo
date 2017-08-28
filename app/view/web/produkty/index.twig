@@ -7,15 +7,28 @@
 	<div class="container">
 		<div class="wow fadeInUp text-center">
             <h2>{{ params.oblubene ? lang.FAVOURITES }}
-                {{ lang.PRODUCTS }} 
+                {{ lang.PRODUCTS }}
                 {{ username ? "| " ~ username }}
-                {{ current_category ? "| " ~ current_category.name }} 
-                {{ current_supermarket ? "| " ~ current_supermarket.name}}
-                {{ current_tag ? "| " ~ current_tag.name}}
+                {# search phrase #}
+                {% if params['hladat']|length %}
+                  | <a href="{{ stripUrlParam(params, 'hladat') }}">"{{ params['hladat'] }}"</a>
+                {% endif %}
+                {# category #}
+                {% if current_category|length %}
+                  | <a href="{{ stripUrlParam(params, 'kategoria') }}">{{ current_category.name }}</a>
+                {% endif %}
+                {# supermarket #}
+                {% if current_supermarket|length %}
+                  | <a href="{{ stripUrlParam(params, 'supermarket') }}">{{ current_supermarket.name }}</a>
+                {% endif %}
+                {# tags #}
+                {% for current_tag in current_tags %}
+                  | <a href="{{ stripUrlParam(params, 'tag', current_tag.slug) }}">{{ current_tag.name }}</a>
+                {% endfor %}
             </h2>
         </div>
         <br>
-	
+
             <div class="flex-row row">
 
                 {% for product in products %}

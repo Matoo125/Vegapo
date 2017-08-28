@@ -137,7 +137,7 @@ class Product extends Model
         return $this->runQuery($sql, array("slug" => $slug, "cc" => COUNTRY_CODE), "get1");
     }
 
-    public function getProducts($category_slug = null, $supermarket_slug = null, $tag_slug = null, $current_page,
+    public function getProducts($category_slug = null, $supermarket_slug = null, $tag_slugs = null, $current_page,
                                 $visibility = null, $author_id = null, $searchTerm = null, $favourites = null)
     {
         $array = array();
@@ -169,9 +169,17 @@ class Product extends Model
             $array['supermarket'] = $supermarket_slug;
         }
 
-        if ($tag_slug) {
-            $where[]  ="t.slug = :tag_slug";
-            $array['tag_slug'] = $tag_slug;
+        if ($tag_slugs) {
+          if(!is_array($tag_slugs)) $tag_slugs = [$tag_slugs];
+          $id = 0;
+          foreach ($tag_slugs as $tag_slug) {
+              // get name for slug parameter in where clause
+              $id++;
+              $ts_id = "tag_slug".$id;
+              // bez exists to nezobrazí všetky tagy pri produkte, iba jeden.
+              $where[]  ="exists (select 1 from matching_tags w, tags e where w.product_id = p.id and w.country = p.country and  w.tag_id = e.id and w.country = e.country and e.slug = :".$ts_id.")";
+              $array[$ts_id] = $tag_slug;
+            }
         }
 
         if ($author_id) {
@@ -199,7 +207,7 @@ class Product extends Model
 
     }
 
-    public function count($category = null, $supermarket = null, $tag = null, $visibility = 1, $author_id = null, $searchTerm = null, $favourites = null)
+    public function count($category = null, $supermarket = null, $tags = null, $visibility = 1, $author_id = null, $searchTerm = null, $favourites = null)
     {
         $sql = "SELECT COUNT(p.id) AS numberOfProducts FROM products AS p";
 
@@ -231,10 +239,16 @@ class Product extends Model
 
         }
 
-        if ($tag) {
-            $sql .= " LEFT JOIN matching_tags AS mt ON p.id = mt.product_id";
-            $where[] = " mt.tag_id = :tag_id";
-            $args['tag_id'] = $tag;
+        if ($tags) {
+          if(!is_array($tags)) $tags = [$tags];
+          $id = 0;
+          foreach ($tags as $tag) {
+              $id++;
+              $tg_id = "tag_id".$id;
+              // detto ako getProducts
+              $where[]  ="exists (select 1 from matching_tags w where w.product_id = p.id and w.country = p.country and w.tag_id = :".$tg_id.")";
+              $args[$tg_id] = $tag['id'];
+            }
         }
 
         if ($searchTerm) {
