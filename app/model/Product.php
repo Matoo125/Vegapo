@@ -176,8 +176,7 @@ class Product extends Model
               // get name for slug parameter in where clause
               $id++;
               $ts_id = "tag_slug".$id;
-              // nechcel som zasiahnut do hodnot vracanych funkciou getProducts - hlavne som chcel aby do tagov vracal vsetky ktore produkt ma, nie len tie ktore su vo filtry
-              // preto som podmienku upravil takto, cez vnoreny exists check
+              // bez exists to nezobrazí všetky tagy pri produkte, iba jeden.
               $where[]  ="exists (select 1 from matching_tags w, tags e where w.product_id = p.id and w.country = p.country and  w.tag_id = e.id and w.country = e.country and e.slug = :".$ts_id.")";
               $array[$ts_id] = $tag_slug;
             }
