@@ -35,6 +35,8 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: space-around; }
+  #main.index {
+    min-height: 100%; }
 
 .btn-primary {
   background-color: #5cb85c;
@@ -145,24 +147,40 @@ footer#footer {
     border-color: #5cb85c;
     cursor: pointer; }
 
-@media (max-width: 768px) {
-  .card {
-    max-width: 450px; }
-
-  nav .flag {
-    padding-left: 0 !important; } }
 @media (max-width: 992px) {
   .container {
     width: auto !important;
     max-width: 100%; }
 
   nav .container {
-    margin: 0; } }
+    margin: 0; }
+
+  #searchForm input {
+    position: fixed;
+    z-index: 1;
+    top: 60px;
+    right: 10px; } }
+@media (max-width: 768px) {
+  .card {
+    max-width: 450px; }
+
+  nav .flag {
+    padding-left: 0 !important; }
+
+  #searchForm input {
+    position: initial; } }
 /* other */
 .testimonial {
   margin: 0 auto; }
 
 #heart.active {
   color: #5cb85c; }
+
+.productFilterBox {
+  background-color: transparent;
+  border: transparent;
+  margin: 20px auto 30px auto; }
+  .productFilterBox .card-body .row {
+    justify-content: space-evenly; }
 
 /*# sourceMappingURL=styles.css.map */

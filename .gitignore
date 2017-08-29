@@ -7,5 +7,6 @@
 /uploads/products/*
 /app/core/Config.php
 /app/cache/*
-/css/styles.css.map
+/css/public/styles.css.map
 composer.lock
+/css/public/.sass-cache
