@@ -96,6 +96,7 @@ class Produkty extends Controller
         $search_term = $params['hladat'] = isset($_GET['hladat']) ? $_GET['hladat'] : null;
         $author_id = $params['autor'] = isset($_GET['autor']) ? $_GET['autor'] : null;
         $visibility = $params['stav'] = isset($_GET['stav']) ? $_GET['stav'] : null;
+        $sorting = $params['sort'] = isset($_GET['sort']) ? $_GET['sort'] : null;
 
         if ($author_id) {
             // get author username
@@ -135,7 +136,8 @@ class Produkty extends Controller
         $this->data['current_tags'] = $current_tags;
         $this->data['number_of_pages'] = $number_of_pages;
         $this->data['current_page'] = $current_page;
-        $this->data['products'] = $this->model->getProducts($category_slug, $supermarket_slug, $tag_slugs, $start, $visibility, $author_id, $search_term, $favourites_user_id);
+        $this->data['sorting'] = $sorting;
+        $this->data['products'] = $this->model->getProducts($category_slug, $supermarket_slug, $tag_slugs, $start, $visibility, $author_id, $search_term, $favourites_user_id, $sorting);
     }
 
 

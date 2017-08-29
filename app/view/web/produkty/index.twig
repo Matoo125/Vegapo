@@ -29,6 +29,32 @@
         </div>
         <br>
 
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ lang.PRODUCTS_SORT }}
+            {% if sorting %}
+              {% if sorting == 'name' %}
+                {{ lang.SORT ~ lang.PRODUCTS_SORT_NAME}}
+              {% elseif sorting == 'pricea' %}
+                {{ lang.SORT ~ lang.PRODUCTS_SORT_PRICEA}}
+              {% elseif sorting == 'priced' %}
+                {{ lang.SORT ~ lang.PRODUCTS_SORT_PRICED}}
+              {% elseif sorting == 'datea' %}
+                {{ lang.SORT ~ lang.PRODUCTS_SORT_DATEA}}
+              {% elseif sorting == 'dated' %}
+                {{ lang.SORT ~ lang.PRODUCTS_SORT_DATED}}
+              {% endif %}
+            {% endif %}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="{{ buildUrl(params, 'sort', 'name') }}">{{ lang.PRODUCTS_SORT_NAME}}</a>
+            <a class="dropdown-item" href="{{ buildUrl(params, 'sort', 'pricea') }}">{{ lang.PRODUCTS_SORT_PRICEA}}</a>
+            <a class="dropdown-item" href="{{ buildUrl(params, 'sort', 'priced') }}">{{ lang.PRODUCTS_SORT_PRICED}}</a>
+            <a class="dropdown-item" href="{{ buildUrl(params, 'sort', 'datea') }}">{{ lang.PRODUCTS_SORT_DATEA}}</a>
+            <a class="dropdown-item" href="{{ buildUrl(params, 'sort', 'dated') }}">{{ lang.PRODUCTS_SORT_DATED}}</a>
+          </div>
+        </div>
+
             <div class="flex-row row">
 
                 {% for product in products %}

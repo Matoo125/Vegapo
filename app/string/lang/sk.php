@@ -188,5 +188,13 @@ $sk = [
     "FACEBOOK_DISCONNECT_SUCCESS" => "Odpojenie Facebook účtu úspešné",
 
     "MISSING_PASSWORD"        => "Pre Váš účet nie je zadané heslo. Ak sa chcete prihlásiť aj pomocou emailu prosím zadajte heslo.",
+    
+    "PRODUCTS_SORT"  => "Zoraď",
+    "PRODUCTS_SORT_NAME"  => "podľa názvu",
+    "PRODUCTS_SORT_PRICEA"  => "od najlacnejšieho",
+    "PRODUCTS_SORT_PRICED"  => "od najdrahšieho",
+    "PRODUCTS_SORT_DATEA"  => "od najstaršieho",
+    "PRODUCTS_SORT_DATED"  => "od najnovšieho",
+
 
  ];
