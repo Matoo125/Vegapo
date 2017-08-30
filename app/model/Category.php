@@ -8,13 +8,8 @@ use app\core\Session;
 class Category extends Model
 {
 
-    private $db;
     public static $table = "categories";
 
-    function __construct()
-    {
-        $this->db = static::getDB();
-    }
 
     public function insert($data) {
 

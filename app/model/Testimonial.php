@@ -10,12 +10,6 @@ use app\core\Model;
 
 class Testimonial extends Model {
 
-    private $db;
-
-    function __construct()
-    {
-        $this->db = static::getDB();
-    }
 
     public function create ($data)
     {

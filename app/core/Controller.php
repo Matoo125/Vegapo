@@ -2,26 +2,17 @@
 
 namespace app\core;
 
+use m4\m4mvc\core\Controller as FrameworkController;
 use app\string\Url;
 use app\model\OauthProvider;
 
 
-class Controller {
+class Controller extends FrameworkController {
 
-    protected $data = [];
-    protected $model;
-    protected $view;
-
-    /**
-     * @param $model String
-     * @return mixed new instance of model
-     */
-    public function model($model) {
-        require_once APP . DS . 'model' . DS . $model . '.php';
-        $model = "app\\model\\" . $model;
-        return new $model;
+    public function model ($name) {
+      return $this->getModel($name);
     }
-
+    
     public function view($view) {
 
         // return if no view to render
@@ -119,7 +110,7 @@ class Controller {
         $this->data['url']  = Url::getAll();
         $this->data['cc'] = COUNTRY_CODE;
 
-        echo $twig->render($view.".twig", $this->data);
+        echo $twig->render($view."", $this->data);
     }
 
 }

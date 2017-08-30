@@ -13,13 +13,7 @@ use app\core\Session;
 
 class Product extends Model
 {
-    private $db;
     public static $table = "products";
-
-    function __construct()
-    {
-        $this->db = static::getDB();
-    }
 
     public function insert($data, $last_inserted_id = null, $visibility) {
 
