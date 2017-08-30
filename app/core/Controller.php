@@ -61,9 +61,9 @@ class Controller extends FrameworkController {
 
         /*
          * add buildURL function
-         * @param   params  array             Array of parameters to join
-         * @param   key     string || array   Key to change in params
-         * @param   value   string            Value of key in params to be set 
+         * @param   $params  array             Array of parameters to join
+         * @param   $key     string || array   Key to change in params
+         * @param   $value   string            Value of key in params to be set 
          * @return          string            Http Query String
          */ 
         $buildUrl = new \Twig_SimpleFunction('buildUrl', function($params, $key, $value) {
@@ -92,10 +92,10 @@ class Controller extends FrameworkController {
          /*
           * add stripUrlParam function
           * removes $params[$remKey] (or $params[$remKey][$remValue]) from $params list
-          * @param  params    array             Array of parameters to join
-          * @param  remKey    string || array   Key to remove or array to remove from
-          * @param  remValue  string            Value to remove from key array
-          * @return           string            Http Query String
+          * @param  $params    array             Array of parameters to join
+          * @param  $remKey    string || array   Key to remove or array to remove from
+          * @param  $remValue  string            Value to remove from key array
+          * @return           string             Http Query String
           */
         $stripUrlParam = new \Twig_SimpleFunction('stripUrlParam', function($params, $remKey, $remValue = null) {
           $newParams = [];

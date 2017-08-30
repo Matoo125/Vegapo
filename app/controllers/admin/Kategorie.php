@@ -14,7 +14,6 @@ class Kategorie extends KategorieApiController
         if (!check_user_premission(35)) redirect('/');
     }
 
-
     public function pridat() {
 
         if ($_POST) {
