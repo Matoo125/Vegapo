@@ -1,5 +1,10 @@
 <?php
 
+/*
+  This should be updated to handle 
+  all images not only product related
+ */
+
 namespace app\helper;
 
 use Intervention\Image\ImageManagerStatic as I;
