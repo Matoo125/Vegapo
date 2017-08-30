@@ -6,13 +6,22 @@ use m4\m4mvc\core\Controller as FrameworkController;
 use app\string\Url;
 use app\model\OauthProvider;
 
-
 class Controller extends FrameworkController {
 
+   /*
+    * function model
+    * @param    $name  string   Name of model, i.e: Dashboard
+    * @return          object   Model Instance
+    */
     public function model ($name) {
       return $this->getModel($name);
     }
     
+    /*
+     * Function view - Renders twig view
+     * @param    $view    string   Path to view
+     * @return            void
+     */
     public function view($view) {
 
         // return if no view to render
@@ -21,7 +30,6 @@ class Controller extends FrameworkController {
           header("access-control-allow-origin: *");
             echo json_encode($this->data);
             return;
-
         };
 
         // if someone wants to render view in different path
@@ -29,25 +37,35 @@ class Controller extends FrameworkController {
             $view = $this->view;
         }
 
-
-        $loader = new \Twig_Loader_Filesystem(APP . DS . 'view');
-
+        // set debug or cache
         if (DEVELOPMENT) {
-            $twig = new \Twig_Environment( $loader, array(
-                'debug' => true,
-            ) );
+            $environment =  array('debug' => true);
         } else {
-            $twig = new \Twig_Environment( $loader, array(
-                'cache' => APP . DS . 'cache' ,
-            ) );
+            $environment = array('cache' => APP . DS . 'cache');
         }
 
-        $twig->addExtension(new \Twig_Extension_Debug());
+        // load folder
+        $loader = new \Twig_Loader_Filesystem(APP . DS . 'view');
+
+        // create twig instance
+        $twig = new \Twig_Environment($loader, $environment);
+
+        if (DEVELOPMENT) $twig->addExtension(new \Twig_Extension_Debug());
+
+        // add session global variable
         $twig->addGlobal("session", $_SESSION);
 
-        $slugifilter = new \Twig_Filter('slugifilter', 'slugify');
+        // add slugify filter
+        $slugifilter = new \Twig_Filter('slugify', 'slugify');
         $twig->addFilter($slugifilter);
 
+        /*
+         * add buildURL function
+         * @param   params  array             Array of parameters to join
+         * @param   key     string || array   Key to change in params
+         * @param   value   string            Value of key in params to be set 
+         * @return          string            Http Query String
+         */ 
         $buildUrl = new \Twig_SimpleFunction('buildUrl', function($params, $key, $value) {
           if ($key == "tag" && $value && $params[$key]) {
             //allow multiple 'tag' values
@@ -71,7 +89,14 @@ class Controller extends FrameworkController {
         });
         $twig->addFunction($buildUrl);
 
-         // removes $params[$remKey] (or $params[$remKey][$remValue]) from $params list
+         /*
+          * add stripUrlParam function
+          * removes $params[$remKey] (or $params[$remKey][$remValue]) from $params list
+          * @param  params    array             Array of parameters to join
+          * @param  remKey    string || array   Key to remove or array to remove from
+          * @param  remValue  string            Value to remove from key array
+          * @return           string            Http Query String
+          */
         $stripUrlParam = new \Twig_SimpleFunction('stripUrlParam', function($params, $remKey, $remValue = null) {
           $newParams = [];
           foreach ($params as $key => $value) {
@@ -99,17 +124,20 @@ class Controller extends FrameworkController {
         });
         $twig->addFunction($stripUrlParam);
 
-        // generate facebook oauth url
+        // add function to generate facebook oauth url
         $fburl = new \Twig_SimpleFunction('fbLoginUrl', function($c) {
           return OauthProvider::fbLoginUrl($c);
         });
         $twig->addFunction($fburl);
 
+        // add som other variables
+        // sessionclass, lang, url, cc
         $this->data['sessionclass'] = new Session;
         $this->data['lang'] = $GLOBALS['lang'];
         $this->data['url']  = Url::getAll();
         $this->data['cc'] = COUNTRY_CODE;
 
+        // render the view
         echo $twig->render($view."", $this->data);
     }
 

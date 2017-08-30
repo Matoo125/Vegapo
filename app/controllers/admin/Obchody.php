@@ -57,20 +57,16 @@ class Obchody extends ObchodyApiController
 
         $this->data['supermarket']  = $this->model->getSupermarketById($id);
 
-        //echo '<pre>'; print_r($this->data); die;
-
-        //echo '<pre>';print_r($this->data['supermarket']); die;
-
     }
 
     public function vymazat($id, $image) {
-
+        return false; // do not delete supermarket
         if ($this->model->delete($id, "id", $image)) {
             // delete all matching tables
             $this->model->runQuery("DELETE FROM matching_supermarkets WHERE id = :id", array("id" => $id), "post");
-            Session::setFlash("Supermarket vymazany uspesne", 'success', 1);
+            Session::setFlash(getString('SUPERMARKET_DELETE_SUCCESS'), 'success', 1);
         } else {
-            Session::setFlash("Supermarket sa nepodarilo vymazat", 'danger', 1);
+            Session::setFlash(getString('SUPERMARKET_DELETE_FAILED'), 'danger', 1);
         }
 
         redirect('/admin/obchody');

@@ -67,7 +67,7 @@ class Kategorie extends KategorieApiController
     }
 
     public function vymazat($id, $image) {
-
+        return false; // do not delete category
         if ($this->model->delete($id, "id", $image)) {
             Session::setFlash("Kategória vymazany uspesne", 'success', 1);
         } else {

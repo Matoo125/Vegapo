@@ -96,7 +96,7 @@ Ako prvé je najlepšie si prezrieť issues a prípadne založiť nový. Po vytv
 
 ## Vývojová konvencia
 
-Viem, že zatiaľ to tak nieje, ale bolo by dobré písať kód s 4 medzerami namiesto tabu (je možné si to nastaviť v editore) a taktiež aj preformátovať súbor na ktorom zrovna robíťe zmeny ak sú v ňom klasické taby.
+Viem, že zatiaľ to tak nieje všade ale bolo by dobré písať kód s 4 alebo 2 medzerami namiesto tabu (je možné si to nastaviť v editore) a taktiež aj preformátovať súbor na ktorom zrovna robíťe zmeny ak sú v ňom klasické taby.
 
 Zo začiatku som používal slovenské slová, ako názvy tried a metód, bolo by však dobré písať v angličtine.
 

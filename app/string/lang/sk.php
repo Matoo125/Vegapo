@@ -164,6 +164,8 @@ $sk = [
     "SUPERMARKET_ADD_SUCCESS"   => "Supermarket pridany úspešne",
     "SUPERMARKET_UPDATE_SUCCESS"=> "Supermarket upraveny úspešne",
     "SUPERMARKET_UPDATE_FAILED" => "Prosim zmente niektory udaj",
+    "SUPERMARKET_DELETE_FAILED" => "Supermarket sa nepodarilo vymazať",
+    "SUPERMARKET_DELETE_SUCCESS" => "Supermarket vymazaný úspešne. ",
 
     "PASSWORDS_DO_NOT_MATCH"    => "Heslá sa nezhodujú",
     "PASSWORD_CHANGED"          => "Heslo bolo úspešne zmenené",
