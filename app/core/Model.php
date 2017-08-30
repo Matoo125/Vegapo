@@ -117,7 +117,7 @@ abstract class Model extends FrameworkModel
         return imagepng($thumb, $path . '-thumb' . $prefix);
     }
 
-    public function countTable( $table, $args = array(), $custom = '' ) {
+    public function countTableCS( $table, $args = array(), $custom = '' ) {
 
         $db = self::getDB();
 

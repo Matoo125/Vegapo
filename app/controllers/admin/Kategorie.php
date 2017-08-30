@@ -36,7 +36,6 @@ class Kategorie extends KategorieApiController
         $categories = $this->model->getCategories();
         $this->data['categories'] = $categories;
 
-
     }
 
     public function upravit($id) {

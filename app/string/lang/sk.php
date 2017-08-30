@@ -198,5 +198,6 @@ $sk = [
     "PRODUCTS_SORT_DATEA"  => "od najstaršieho",
     "PRODUCTS_SORT_DATED"  => "od najnovšieho",
 
+    "TESTIMONIALS"  =>  "Ohlasy",
 
  ];

@@ -17,7 +17,7 @@ class Kategorie extends Controller
         if ($this->data['categories']) {
             $x = 0;
             foreach ($this->data['categories'] as $category) {
-                $this->data['categories'][$x]['numberOfProducts'] = $this->model->countTable("products", array("category_id" => $category['id']) );
+                $this->data['categories'][$x]['numberOfProducts'] = $this->model->countTableCS("products", array("category_id" => $category['id']) );
                 $x++;
             }
         }

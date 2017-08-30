@@ -18,27 +18,24 @@ class Home extends Controller
     public function index()
     {
     	$testimonial = $this->model('Testimonial');
-        $this->data['testimonials'] = $testimonial->getAll();
+      $this->data['testimonials'] = $testimonial->getAll();
         
     }
 
-
     public function contactAjax()
     {
-        if ($_POST) {
-            if ($this->model->insertMessage($_POST)) {
-                echo "Your message has been send. ";
-            } else {
-                echo "There was problem with your message. Please try again. ";
-            }
-        }
+        if (!$_POST) return;
 
+        if ($this->model->insertMessage($_POST)) {
+            echo "Your message has been send. ";
+        } else {
+            echo "There was problem with your message. Please try again. ";
+        }
+        
     }
 
     public function subscribe()
     {
-
-        //print_r($_POST);
         if ($_POST) {
             // insert email to database
             $email = $_POST['email'];
@@ -58,6 +55,5 @@ class Home extends Controller
 
         }
     }
-
 
 }
