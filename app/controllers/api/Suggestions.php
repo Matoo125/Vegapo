@@ -61,7 +61,7 @@ class Suggestions extends Controller
         return;
        }
 
-       if ($this->model->save($data)) {
+       if ($this->model->create($data)) {
         $this->data['result'] = '1';
        } else {
         $this->data['result'] = 'something wrong';

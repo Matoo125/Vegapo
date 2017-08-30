@@ -7,6 +7,7 @@ use m4\m4mvc\core\Module;
 
 $app = new app\core\App;
 
+
 $app->settings = [
   'namespace' =>  'app',
   'modules'   =>  true, // if you want co use modules

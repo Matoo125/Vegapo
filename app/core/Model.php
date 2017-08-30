@@ -11,6 +11,12 @@ use m4\m4mvc\core\Model as FrameworkModel;
 abstract class Model extends FrameworkModel
 {
 
+    /*
+     * runQuery function is static 
+     * but I already call is as non static
+     * from many places
+     * so this fixes it
+     */
     public function __call ($name, $arguments)
     {
         if ($name === 'runQuery') {
@@ -18,28 +24,22 @@ abstract class Model extends FrameworkModel
         } 
     }
 
+
     public static function runQuery($query, $args, $type) {
-        $stmt = self::getDB()->prepare($query);
 
-        try {
-            $stmt->execute($args);
-        } catch(Exception $e) {
-            echo "SQL ERROR";
-        }
-
-        if($type == "get") {
-            if ($results = $stmt->fetchAll()) {
-                 return $results;
+        if (is_string($type)) {
+            if($type == "get") {
+                $type = 2;
+            }
+            if ($type == "get1") {
+                $type = 1;
+            }
+            if($type == "post"){
+                $type = 3;
             }
         }
-        if ($type == "get1") {
-            if ($result = $stmt->fetch()) {
-                return $result;
-            }
-        }
-        if($type == "post"){
-            return $stmt->rowCount() ? true : false;
-        }
+
+        return parent::runQuery($query, $args, $type);
     }
 
     public function delete($id, $column_name = "id", $image = null) {

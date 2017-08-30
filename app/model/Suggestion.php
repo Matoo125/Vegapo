@@ -10,7 +10,7 @@ use app\core\Model;
 
 class Suggestion extends Model {
 
-    public function save($data)
+    public function create($data)
     {
         $sql = "INSERT INTO `suggestions`(`user_id`, `product_id`, `state`, `type`, `body`, `country`) VALUES (:user_id, :product_id, :state, :type, :body, :country)";
         $args = [
