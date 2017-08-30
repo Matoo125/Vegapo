@@ -132,7 +132,7 @@ class Product extends Model
     }
 
     public function getProducts($category_slug = null, $supermarket_slug = null, $tag_slugs = null, $current_page,
-                                $visibility = null, $author_id = null, $searchTerm = null, $favourites = null)
+                                $visibility = null, $author_id = null, $searchTerm = null, $favourites = null, $sorting = null)
     {
         $array = array();
         $array['country'] = COUNTRY_CODE;
@@ -194,7 +194,25 @@ class Product extends Model
 
         $sql = $sql . " WHERE" . implode(" AND ", $where);
 
-        $sql .= " GROUP BY p.id, p.name ORDER BY p.id DESC";
+        $sql .= " GROUP BY p.id, p.name ";
+        switch($sorting) {
+          case "name":
+            $sql.= "ORDER BY p.name ASC";
+            break;
+          case "priced":
+            $sql.= "ORDER BY p.expected_price DESC";
+            break;
+          case "pricea":
+            $sql.= "ORDER BY p.expected_price ASC";
+            break;
+          case "dated":
+            $sql.= "ORDER BY p.id DESC";
+            break;
+          case "datea":
+            $sql.= "ORDER BY p.id ASC";
+            break;
+        }
+
 
         $sql = paginate($sql, $current_page, 20);
         return $this->runQuery($sql, $array, "get");

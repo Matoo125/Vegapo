@@ -101,4 +101,18 @@ $cz = [
 
     "WARRNING_MISSING_SUPERMARKET_OR_CATEGORY" => "Prosím, vytvořte obchod a kategorii před přidáním produktu",
 
+    "FACEBOOK_LOGIN"            => "pomocí Facebook účtu",
+    "FACEBOOK_REGISTER"         => "pomocí Facebook účtu",
+    "FACEBOOK_CONNECT"          => "Připoj Facebook účet",
+    "FACEBOOK_DISCONNECT"       => "Odpoj Facebook účet",
+
+    "MISSING_PASSWORD"        => "Pro Váš účet není zadáno žádné heslo. Pokud se chcete přihlásit emailem, zadejte prosím heslo.",
+    
+    "PRODUCTS_SORT"  => "Seřaď",
+    "PRODUCTS_SORT_NAME"  => "podle názvu",
+    "PRODUCTS_SORT_PRICEA"  => "od nejlevnějšího",
+    "PRODUCTS_SORT_PRICED"  => "od nejdražšího",
+    "PRODUCTS_SORT_DATEA"  => "od nejstaršího",
+    "PRODUCTS_SORT_DATED"  => "od nejnovějšího",
+
     ];

@@ -4,6 +4,7 @@ namespace app\core;
 
 use m4\m4mvc\core\Controller as FrameworkController;
 use app\string\Url;
+use app\model\OauthProvider;
 
 
 class Controller extends FrameworkController {
@@ -70,7 +71,7 @@ class Controller extends FrameworkController {
         });
         $twig->addFunction($buildUrl);
 
-        // removes $params[$remKey] (or $params[$remKey][$remValue]) from $params list
+         // removes $params[$remKey] (or $params[$remKey][$remValue]) from $params list
         $stripUrlParam = new \Twig_SimpleFunction('stripUrlParam', function($params, $remKey, $remValue = null) {
           $newParams = [];
           foreach ($params as $key => $value) {
@@ -97,6 +98,12 @@ class Controller extends FrameworkController {
           return '/produkty?' . http_build_query($newParams, '', '&');
         });
         $twig->addFunction($stripUrlParam);
+
+        // generate facebook oauth url
+        $fburl = new \Twig_SimpleFunction('fbLoginUrl', function($c) {
+          return OauthProvider::fbLoginUrl($c);
+        });
+        $twig->addFunction($fburl);
 
         $this->data['sessionclass'] = new Session;
         $this->data['lang'] = $GLOBALS['lang'];
