@@ -11,7 +11,6 @@ class Info extends Controller
     {
         $pages = array_slice(scandir(ROOT.DS.'pages'.DS.COUNTRY_CODE), 3);
         $this->data['pages'] = $pages;
-
     }
 
     public function edit($page)

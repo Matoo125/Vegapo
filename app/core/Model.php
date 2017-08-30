@@ -4,7 +4,7 @@ namespace app\core;
 use m4\m4mvc\core\Model as FrameworkModel;
 
 /*
- * Core Model
+ * Core Model extends Framework Model
  * is extended by other models
  */
 
@@ -13,7 +13,7 @@ abstract class Model extends FrameworkModel
 
     /*
      * runQuery function is static 
-     * but I already call is as non static
+     * but I already call it as non static
      * from many places
      * so this fixes it
      */
@@ -26,7 +26,7 @@ abstract class Model extends FrameworkModel
 
 
     public static function runQuery($query, $args, $type) {
-
+        // little compatibility helper
         if (is_string($type)) {
             if($type == "get") {
                 $type = 2;
@@ -42,12 +42,20 @@ abstract class Model extends FrameworkModel
         return parent::runQuery($query, $args, $type);
     }
 
-    public function delete($id, $column_name = "id", $image = null) {
+    /*
+     * delete function used with categories / tags / supermarkets
+     * but better if not used.
+     * @params string   Target to be deleted       
+     * @params string   Column name to delete from 
+     * @params string   Image name to delete     
+     * @return boolean  
+     */
+    public function delete($target, $column_name = "id", $image = null) {
         if (!check_user_premission(35)) redirect('');
-        $sql = "DELETE FROM " . static::$table . " WHERE " . $column_name ." = :id";
+        $sql = "DELETE FROM " . static::$table . " WHERE " . $column_name ." = :target";
         $stmt = self::getDB()->prepare($sql);
         $stmt->execute(array(
-            "id"    =>      $id
+            "target"    =>      $target
         ));
 
         // delete image if exists
@@ -58,6 +66,7 @@ abstract class Model extends FrameworkModel
         return $stmt->rowCount() ? true : false;
     }
 
+    /* this should be removed and replaced with method in Image helper */
     public function uploadImage($image, $folder) {
         $name = rand(100, 1000) . "-" . $image['name'];
         $name = slugifyImage($name);
@@ -73,6 +82,7 @@ abstract class Model extends FrameworkModel
 
     }
 
+    /* this should be removed and replaced with method in Image helper */
     public function generateThumbnail($path, $width, $height, $prefix = "") {
         $info = getimagesize($path);
         $size = array($info[0], $info[1]);
@@ -117,7 +127,8 @@ abstract class Model extends FrameworkModel
         return imagepng($thumb, $path . '-thumb' . $prefix);
     }
 
-    public function countTable( $table, $args = array(), $custom = '' ) {
+    // count table country specific
+    public function countTableCS( $table, $args = array(), $custom = '' ) {
 
         $db = self::getDB();
 
@@ -139,6 +150,7 @@ abstract class Model extends FrameworkModel
         return $result ? $result[0] : null;
     }
 
+    /* should be moved to Store model */
     public function matching_supermarkets($id, $added_supermarkets, $deleted_supermarkets = array()) {
 
         foreach ($deleted_supermarkets as $supermarket_id) {
@@ -166,6 +178,7 @@ abstract class Model extends FrameworkModel
 
     }
 
+    /* should be moved to Tag model */
     public function matching_tags($product_id, $added_tags, $deleted_tags = array()) {
 
         foreach ($deleted_tags as $tag_id) {

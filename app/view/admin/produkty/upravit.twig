@@ -88,7 +88,7 @@
 
             <button type="submit" class="btn btn-primary">{{ lang.SUBMIT }}</button>
             <a href="{{ url.TRASH_MOVE }}{{ product.id }}" class="btn btn-danger" id="deleteConfirm">{{ lang.REMOVE }}</a>
-            <a href="/produkty/produkt/{{ product.name|slugifilter }}" class="btn btn-success">Web</a>
+            <a href="/produkty/produkt/{{ product.name|slugify }}" class="btn btn-success">Web</a>
         </div>
 
         <div class="col-md-3 offset-md-1">

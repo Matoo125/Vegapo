@@ -1,7 +1,11 @@
 <?php
 
 namespace app\helper;
-
+/*
+  This will be also removed
+  because there is String helper in framework
+  with the same methods
+ */
 class Slug
 {
   public static function create()

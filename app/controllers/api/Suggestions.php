@@ -42,8 +42,6 @@ class Suggestions extends Controller
       redirect('/');
     }
 
-
-
     public function add() {
 
       if (!$_POST) return;
@@ -69,7 +67,5 @@ class Suggestions extends Controller
 
        return;
     }
-
-
 
 }

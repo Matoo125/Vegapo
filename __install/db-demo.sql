@@ -549,11 +549,11 @@ CREATE TABLE IF NOT EXISTS `users` (
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`user_id`, `username`, `password`, `first_name`, `last_name`, `about_me`, `email`, `role`, `created_at`, `updated_at`, `last_activity`, `country`) VALUES
 	(239, 'Developer', '$2y$10$tlqS8gyw/j1P2whVtMZRfO/JbPVJKpcv5bnInj6B8tgliC.VnE/ui', NULL, NULL, NULL, 'developer@test.sk', '450', '2017-08-28 09:27:43', '2017-08-28 09:27:43', '2017-08-28 09:27:43', 'sk'),
-	(240, 'AdminSK', '$10$tlqS8gyw/j1P2whVtMZRfO/JbPVJKpcv5bnInj6B8tgliC.VnE/ui', NULL, NULL, NULL, 'admin@test.sk', '34', '2017-08-28 09:29:52', '2017-08-28 09:29:53', '2017-08-28 09:29:54', 'sk'),
-	(241, 'SuperAdminSK', '$10$tlqS8gyw/j1P2whVtMZRfO/JbPVJKpcv5bnInj6B8tgliC.VnE/ui', NULL, NULL, NULL, 'superadmin@test.sk', '74', '2017-08-28 09:29:52', '2017-08-28 09:29:53', '2017-08-28 09:29:54', 'sk'),
-	(242, 'AdminCZ', '$10$tlqS8gyw/j1P2whVtMZRfO/JbPVJKpcv5bnInj6B8tgliC.VnE/ui', NULL, NULL, NULL, 'admin@test.cz', '34', '2017-08-28 09:29:52', '2017-08-28 09:29:53', '2017-08-28 09:29:54', 'cz'),
-	(243, 'SuperAdminCZ', '$10$tlqS8gyw/j1P2whVtMZRfO/JbPVJKpcv5bnInj6B8tgliC.VnE/ui', NULL, NULL, NULL, 'superadmin@test.cz', '74', '2017-08-28 09:29:52', '2017-08-28 09:29:53', '2017-08-28 09:29:54', 'cz'),
-	(244, 'User', '$10$tlqS8gyw/j1P2whVtMZRfO/JbPVJKpcv5bnInj6B8tgliC.VnE/ui', NULL, NULL, NULL, 'user@test.sk', '4', '2017-08-28 09:31:54', '2017-08-28 09:31:54', '2017-08-28 09:31:55', 'sk');
+	(240, 'AdminSK', '$2y$10$tlqS8gyw/j1P2whVtMZRfO/JbPVJKpcv5bnInj6B8tgliC.VnE/ui', NULL, NULL, NULL, 'admin@test.sk', '34', '2017-08-28 09:29:52', '2017-08-28 09:29:53', '2017-08-28 09:29:54', 'sk'),
+	(241, 'SuperAdminSK', '$2y$10$tlqS8gyw/j1P2whVtMZRfO/JbPVJKpcv5bnInj6B8tgliC.VnE/ui', NULL, NULL, NULL, 'superadmin@test.sk', '74', '2017-08-28 09:29:52', '2017-08-28 09:29:53', '2017-08-28 09:29:54', 'sk'),
+	(242, 'AdminCZ', '$2y$10$tlqS8gyw/j1P2whVtMZRfO/JbPVJKpcv5bnInj6B8tgliC.VnE/ui', NULL, NULL, NULL, 'admin@test.cz', '34', '2017-08-28 09:29:52', '2017-08-28 09:29:53', '2017-08-28 09:29:54', 'cz'),
+	(243, 'SuperAdminCZ', '$2y$10$tlqS8gyw/j1P2whVtMZRfO/JbPVJKpcv5bnInj6B8tgliC.VnE/ui', NULL, NULL, NULL, 'superadmin@test.cz', '74', '2017-08-28 09:29:52', '2017-08-28 09:29:53', '2017-08-28 09:29:54', 'cz'),
+	(244, 'User', '$2y$10$tlqS8gyw/j1P2whVtMZRfO/JbPVJKpcv5bnInj6B8tgliC.VnE/ui', NULL, NULL, NULL, 'user@test.sk', '4', '2017-08-28 09:31:54', '2017-08-28 09:31:54', '2017-08-28 09:31:55', 'sk');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

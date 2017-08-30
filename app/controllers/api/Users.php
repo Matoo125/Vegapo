@@ -12,76 +12,77 @@ class Users extends Controller
     public function __construct()
     {
         $this->model = $this->model('User');
-
     }
 
     public function logout()
     {
-      // funkcionality login/logout prenesene do vlastnych User metod
       $this->model->logoutUser();
     }
 
     public function login()
     {
-        if ($_POST) {
-            $mEmail = $_POST['loginEmail'];
-            $mPass = $_POST['loginPassword'];
+        if (!$_POST) return;
+        $mEmail = $_POST['loginEmail'];
+        $mPass = $_POST['loginPassword'];
 
-            if ($mEmail && $mPass) {
-
-                if (!$user = $this->model->getByEmail($mEmail)) {
-                    Session::setFlash("User not found.", "danger");
-                    return;
-                }
-
-                if ( password_verify($mPass, $user['password']) ) {
-                    // funkcionalita log in tajk isto prenesena do vlastnej User metody
-                    $this->model->loginUser($user);
-                    // zjednotil som "landing" stranky pre login/logout modalne aj kalsicke
-                    redirect('/users');
-                } else {
-                    Session::setFlash(getString('CREDENTIALS_NOT_MATCH'), "warning", 1);
-                }
-            } else {
-                Session::setFlash("No input received", "danger");
+        if ($mEmail && $mPass) {
+            // check if user exists
+            if (!$user = $this->model->getByEmail($mEmail)) {
+                Session::setFlash("User not found.", "danger");
+                return;
             }
-            redirect('/users');
+            // verify password
+            if ( password_verify($mPass, $user['password']) ) {
+=                $this->model->loginUser($user);
+=                redirect('/users');
+            } else {
+                Session::setFlash(getString('CREDENTIALS_NOT_MATCH'), "warning", 1);
+            }
+        } else {
+            Session::setFlash("No input received", "danger");
         }
+        redirect('/users');
     }
 
-    public function register() {
-      //  $this->view = 'public/account/register';
+    public function register() 
+    {
+        if (!$_POST) return;
+
+        // it will return data if it fails
+        // so user does not have to type again
         $this->data = $_POST;
-        if($_POST) {
-            $data['email'] = $_POST['email'];
-            $data['username'] = $_POST['username'];
-            $data['password1'] = $_POST['password1'];
-            $data['password2'] = $_POST['password2'];
 
-            if($this->model->getByEmail($data['email'])) {
-                Session::setFlash(getString('EMAIL_ALREADY_EXISTS'), "warning", 1);
-                return;
-            }
+        $data['email'] = $_POST['email'];
+        $data['username'] = $_POST['username'];
+        $data['password1'] = $_POST['password1'];
+        $data['password2'] = $_POST['password2'];
 
-            if($data['password1'] != $data['password2']) {
-                Session::setFlash(getString('PASSWORDS_DO_NOT_MATCH'), "warning", 1);
-                return;
-            }
+        // check if user already exists
+        if($this->model->getByEmail($data['email'])) {
+            Session::setFlash(getString('EMAIL_ALREADY_EXISTS'), "warning", 1);
+            return;
+        }
 
-            $data['password'] = password_hash($data['password1'], PASSWORD_DEFAULT);
+        // check if passwords are the same
+        if($data['password1'] != $data['password2']) {
+            Session::setFlash(getString('PASSWORDS_DO_NOT_MATCH'), "warning", 1);
+            return;
+        }
 
-            if($this->model->register($data)){
-              $this->model->loginUser($this->model->getByEmail($data['email']));
+        // create password hash
+        $data['password'] = password_hash($data['password1'], PASSWORD_DEFAULT);
 
-              Session::setFlash(getString('REGISTRATION_SUCCESS'), "success", 1);
-              redirect('/users/update');
-            }
+        // register user
+        if($this->model->register($data)){
+          // login user
+          $this->model->loginUser($this->model->getByEmail($data['email']));
+          Session::setFlash(getString('REGISTRATION_SUCCESS'), "success", 1);
+          redirect('/users/update');
         }
     }
 
     public function update()
     {
-
          if ($_POST) {
             if (isset($_POST['change-details'])){
 
@@ -110,8 +111,6 @@ class Users extends Controller
                     Session::setFlash(getString('PASSWORDS_DO_NOT_MATCH'), 'danger');
                     return;
                 }
-
-
             }
         }
 
@@ -121,9 +120,6 @@ class Users extends Controller
     public function list()
     {
         $this->data['users'] = $this->model->getList();
-
     }
-
-
 
 }

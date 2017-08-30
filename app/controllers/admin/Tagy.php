@@ -65,7 +65,7 @@ class Tagy extends TagyApiController
     }
 
     public function vymazat($id, $image) {
-
+        return false; // do not delete tag
         if ($this->model->delete($id, "id", $image)) {
             // delete all matching tables
             $this->model->runQuery("DELETE FROM matching_tags WHERE id = :id", array("id" => $id), "post");

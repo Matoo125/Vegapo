@@ -83,7 +83,8 @@ class Produkty extends ProduktyApiController
         $this->data['products'] = $products;
     }
 
-    public function trash($action = null, $id = null, $image = null) {
+    public function trash($action = null, $id = null, $image = null) 
+    {
 
         if (!check_user_premission(30)) redirect('/'); // admin at least
 
@@ -102,15 +103,15 @@ class Produkty extends ProduktyApiController
         $this->data['products'] = $this->model->getProducts(null, null, null, 0, 3);
     }
 
-		public function rotate()
-		{
-			Image::rotate($_GET['image']);
-		  $this->data['result'] = true;
-		}
+	public function rotate()
+	{
+		Image::rotate($_GET['image']);
+	    $this->data['result'] = true;
+	}
 
-
-    public function vymazat($id, $image) {
-
+/*
+    public function vymazat($id, $image) 
+    {
         if ($this->model->delete($id, "id", $image)) {
             Session::setFlash("Produkt vymazany uspesne", 'success', 1);
         } else {
@@ -119,11 +120,10 @@ class Produkty extends ProduktyApiController
 
         redirect('/admin/produkty');
     }
-
+*/
+    /* move from sk to cz or the other way around */
     public function move_to($product_id, $from, $to)
     {
-        /* move from sk to cz or the other way around */
-
         // change supermarket matchers country code
         $this->model->changeCountryCode('matching_supermarkets', ['product_id' => $product_id], $to);
         // get array of supermarket matchers

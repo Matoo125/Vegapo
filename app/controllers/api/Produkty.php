@@ -76,8 +76,6 @@ class Produkty extends Controller
                 }
             }
 
-
-
         }
 
         $this->data['categories'] = $this->model->getCategories();
@@ -85,7 +83,6 @@ class Produkty extends Controller
         $this->data['tags'] = $this->model->getTags();
 
     }
-
 
     public function index()
     {

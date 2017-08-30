@@ -14,7 +14,6 @@ class Kategorie extends KategorieApiController
         if (!check_user_premission(35)) redirect('/');
     }
 
-
     public function pridat() {
 
         if ($_POST) {
@@ -35,7 +34,6 @@ class Kategorie extends KategorieApiController
 
         $categories = $this->model->getCategories();
         $this->data['categories'] = $categories;
-
 
     }
 
@@ -67,7 +65,7 @@ class Kategorie extends KategorieApiController
     }
 
     public function vymazat($id, $image) {
-
+        return false; // do not delete category
         if ($this->model->delete($id, "id", $image)) {
             Session::setFlash("Kategória vymazany uspesne", 'success', 1);
         } else {
