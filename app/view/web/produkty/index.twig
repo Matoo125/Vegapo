@@ -110,11 +110,24 @@
                         <a class="dropdown-item" href="{{ buildUrl(params, 'sort', 'dated') }}">{{ lang.PRODUCTS_SORT_DATED}}</a>
                       </div>
                     </span>
+
+                    <!-- SEARCH FORM -->
+                    <form class="form-inline" method="get" action="/produkty">
+                        <div class="input-group">
+                          <input class="form-control"  name="hladat" placeholder="...">
+                          <span class="input-group-btn">
+                            <button class="btn btn-secondary" type="button">
+                                <i class="ion-search"></i>
+                            </button>
+                          </span>
+                        </div>
+
+                    </form>
+
                 </div>
             </div>
         </div>
       
-
             <div class="flex-row row">
 
                 {% for product in products %}

@@ -177,10 +177,12 @@ footer#footer {
   color: #5cb85c; }
 
 .productFilterBox {
-  background-color: transparent;
-  border: transparent;
+  padding: 20px 0;
   margin: 20px auto 30px auto; }
   .productFilterBox .card-body .row {
-    justify-content: space-evenly; }
+    justify-content: space-evenly;
+    /* search box */ }
+    .productFilterBox .card-body .row form input[name=hladat] {
+      max-width: 150px; }
 
 /*# sourceMappingURL=styles.css.map */
