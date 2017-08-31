@@ -27,14 +27,13 @@
                         <td><a href="/admin/kategorie/upravit/{{ category.id }}">{{ category.id }}</a></td>
                         <td>
                             {% if category.image != "none" %}
-                            <a rel="popover" data-img="{{ constant("UPLOADS") }}categories/{{ category.image }}-thumb">{{ category.name }}</a>
+                            <a rel="popover" data-img="{{ constant("UPLOADS") }}categories/150x150/{{ category.image }}">{{ category.name }}</a>
                             {% else %}
                             {{ category.name }}
                             {% endif %}
                         </td>
                         <td>{{ categories[category.parent - 1].name }}</td>
                         <td><a href="/admin/produkty?kategoria={{ category.slug }}">{{ category.numberOfProducts }}</a></td>
-
 
                     </tr>
                     {% else %}
@@ -44,8 +43,6 @@
                 </table>
             </div>
         </div>
-
     </div>
-
 
 {% endblock %}

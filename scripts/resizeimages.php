@@ -1,12 +1,12 @@
 <?php
 use Intervention\Image\ImageManagerStatic as I;
-require_once 'vendor/autoload.php';
+require_once '../vendor/autoload.php';
 $whoops = new \Whoops\Run;
 $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
 $whoops->register();
 I::configure(array('driver' => 'imagick'));
 
-$path = 'uploads/products/cz/';
+$path = '../uploads/products/cz/';
 
 $files = scandir($path);
 $files = array_diff($files, ['..', '.', '450x450', '150x150']);
@@ -42,7 +42,6 @@ foreach ($files as $filename) {
 // resize images
 
 function generateThumbnail($path, $width, $height, $filename) {
-
 
       return $img = I::make($path.$filename)
             ->fit($width, $height, function ($constraint) {

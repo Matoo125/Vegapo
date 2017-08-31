@@ -25,7 +25,7 @@
                         <td><a href="{{ url.SUPERMARKET_ADMIN_EDIT }}{{ item.id }}">{{ item.id }}</a></td>
                         <td>
                             {% if item.image != "none" %}
-                            <a rel="popover" data-img="{{ url.SUPERMARKET_UPLOADS }}{{ item.image }}-thumb">{{ item.name }}</a>
+                            <a rel="popover" data-img="{{ url.SUPERMARKET_UPLOADS }}150x150/{{ item.image }}">{{ item.name }}</a>
                             {% else %}
                             <p> {{ item.name }}</p>
                             {% endif %}
