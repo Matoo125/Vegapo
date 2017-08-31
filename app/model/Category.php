@@ -3,7 +3,8 @@
 namespace app\model;
 
 use app\core\Model;
-use app\core\Session;
+use m4\m4mvc\helper\Session;
+use m4\m4mvc\helper\Str;
 
 class Category extends Model
 {
@@ -13,7 +14,7 @@ class Category extends Model
 
     public function insert($data) {
 
-        $slug = slugify($data['name']);
+        $slug = Str::slugify($data['name']);
 
         $sql = "INSERT INTO categories(name, slug, parent, image, country, note, description)
                 VALUES(:cn, :s, :cp, :img, :c, :n, :d)";
@@ -33,7 +34,7 @@ class Category extends Model
 
     public function update($data, $id) {
 
-        $slug = slugify($data['name']);
+        $slug = Str::slugify($data['name']);
 
         $sql = "UPDATE categories
                 SET name   = :cn,

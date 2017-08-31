@@ -56,7 +56,7 @@ class Controller extends FrameworkController {
         $twig->addGlobal("session", $_SESSION);
 
         // add slugify filter
-        $slugifilter = new \Twig_Filter('slugify', 'slugify');
+        $slugifilter = new \Twig_Filter('slugify', 'm4\m4mvc\helper\Str::slugify');
         $twig->addFilter($slugifilter);
 
         /*
@@ -132,7 +132,7 @@ class Controller extends FrameworkController {
 
         // add som other variables
         // sessionclass, lang, url, cc
-        $this->data['sessionclass'] = new Session;
+        $this->data['sessionclass'] = new \m4\m4mvc\helper\Session;
         $this->data['lang'] = $GLOBALS['lang'];
         $this->data['url']  = Url::getAll();
         $this->data['cc'] = COUNTRY_CODE;

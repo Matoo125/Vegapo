@@ -3,8 +3,8 @@
 namespace app\controllers\admin;
 
 use app\core\Controller; 
-use app\core\Session;
-use app\helper\Redirect;
+use m4\m4mvc\helper\Session;
+use m4\m4mvc\helper\Redirect;
 
 /*
  *  25.4.2017 Matej Vrzala

@@ -3,7 +3,8 @@
 namespace app\model;
 
 use app\core\Model;
-use app\core\Session;
+use m4\m4mvc\helper\Session;
+use m4\m4mvc\helper\Str;
 
 class Tag extends Model
 {
@@ -14,7 +15,7 @@ class Tag extends Model
                 VALUES(:name, :slug, :image, :country, :note, :description)";
         $array = array(
             ":name"         => $data['name'], 
-            ":slug"         => slugify($data['name']), 
+            ":slug"         => Str::slugify($data['name']), 
             ":image"        => $data['image'], 
             ":note"         => $data['note'],
             ":description"  => $data['description'],
@@ -33,7 +34,7 @@ class Tag extends Model
                 WHERE id   = :id";
         $args = array(
             ":name"  =>  $data['name'], 
-            ":slug"  =>  slugify($data['name']), 
+            ":slug"  =>  Str::slugify($data['name']), 
             ":image" =>  $data['image'], 
             ":id"    =>  $id,
             ":note"  =>  $data['note'],

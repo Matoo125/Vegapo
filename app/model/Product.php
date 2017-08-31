@@ -9,7 +9,8 @@
 namespace app\model;
 
 use app\core\Model;
-use app\core\Session;
+use m4\m4mvc\helper\Session;
+use m4\m4mvc\helper\Str;
 
 class Product extends Model
 {
@@ -22,7 +23,7 @@ class Product extends Model
         $stmt = $this->db->prepare($sql);
         $stmt->execute(array(
             ":pn" => $data['name'],
-            ":s"  => slugify($data['name']),
+            ":s"  => Str::slugify($data['name']),
             ":ci" => $data['category_id'],
             ":ep" => $data['price'],
             ":ai" => Session::get("user_id"),
@@ -43,7 +44,7 @@ class Product extends Model
      $sql = "UPDATE products SET name = :name, slug = :slug, barcode = :barcode ,category_id = :c_id, expected_price = :price, note = :note WHERE id = :id";
      $args = array(
         "name"      => $data['name'],
-        "slug"      => slugify($data['name']),
+        "slug"      => Str::slugify($data['name']),
         "barcode"   => $data['barcode'],
         "c_id"      => $data['category_id'],
         "price"     => $data['price'],
@@ -214,7 +215,7 @@ class Product extends Model
         }
 
 
-        $sql = paginate($sql, $current_page, 20);
+        $sql = self::paginate($sql, $current_page, 20);
         return $this->runQuery($sql, $array, "get");
 
     }
@@ -433,5 +434,58 @@ class Product extends Model
         return $this->runQuery($sql, $args,'get1');
     }
 
+    public function matching_supermarkets($id, $added_supermarkets, $deleted_supermarkets = array()) {
+
+        foreach ($deleted_supermarkets as $supermarket_id) {
+                $sql = "DELETE from matching_supermarkets WHERE product_id=:product_id AND supermarket_id=:supermarket_id";
+                $params = array(
+                    ":product_id"       =>  $id,
+                    ":supermarket_id"               =>  $supermarket_id
+                );
+                $this->runQuery($sql, $params, "post");
+
+            }
+
+             foreach ($added_supermarkets as $supermarket) {
+                $sql = "INSERT INTO matching_supermarkets (product_id, supermarket_id, country) VALUES (:product_id,:supermarket_id,:country)";
+                   $params = array(
+                    ":product_id"       =>  $id,
+                     ":supermarket_id"   =>  $supermarket,
+                     ":country"         => COUNTRY_CODE
+                );
+                $this->runQuery($sql, $params, "post");
+
+                }
+
+                return true;
+
+    }
+
+    public function matching_tags($product_id, $added_tags, $deleted_tags = array()) {
+
+        foreach ($deleted_tags as $tag_id) {
+            $sql = "DELETE from matching_tags WHERE product_id=:product_id AND tag_id=:tag_id";
+            $params = array(
+                ":product_id"       =>  $product_id,
+                ":tag_id"               =>  $tag_id
+            );
+            $this->runQuery($sql, $params, "post");
+
+        }
+
+        foreach ($added_tags as $tag_id) {
+            $sql = "INSERT INTO matching_tags (product_id, tag_id, country) VALUES (:product_id,:tag_id,:country)";
+            $params = array(
+                ":product_id"       =>  $product_id,
+                ":tag_id"   =>  $tag_id,
+                ":country"         => COUNTRY_CODE
+            );
+            $this->runQuery($sql, $params, "post");
+
+        }
+
+        return true;
+
+    }
 
 }

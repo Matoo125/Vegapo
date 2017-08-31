@@ -3,19 +3,19 @@
 namespace app\model;
 
 use app\core\Model;
-use app\core\Session;
+use m4\m4mvc\helper\Session;
+use m4\m4mvc\helper\Str;
 
 class Store extends Model
 {
     public static $table = "supermarkets";
-
 
     public function insert($data) {
         $sql = "INSERT INTO supermarkets(name, slug, image, country, note, description) 
                 VALUES(:name, :slug, :image, :country, :note, :description)";
         $array = array(
             ":name"         => $data['name'], 
-            ":slug"         => slugify($data['name']), 
+            ":slug"         => Str::slugify($data['name']), 
             ":image"        => $data['image'], 
             ":country"      => COUNTRY_CODE,
             ":note"         =>  $data['note'],
@@ -34,7 +34,7 @@ class Store extends Model
                 WHERE id = :id";
         $args = array(
             ":name"         =>  $data['name'], 
-            ":slug"         =>  slugify($data['name']), 
+            ":slug"         =>  Str::slugify($data['name']), 
             ":image"        =>  $data['image'], 
             ":id"           =>  $id,
             ":note"         =>  $data['note'],

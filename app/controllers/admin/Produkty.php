@@ -3,8 +3,9 @@
 namespace app\controllers\admin;
 
 use app\controllers\api\Produkty as ProduktyApiController;
-use app\core\Session;
+use m4\m4mvc\helper\Session;
 use app\helper\Image;
+use app\controllers\api\Users;
 
 class Produkty extends ProduktyApiController
 {
@@ -42,7 +43,7 @@ class Produkty extends ProduktyApiController
             if ($images['1'] && $images['1']['error'] === 0) {
 
                 $images['1'] = Image::upload($images['1'], "products");
-                Image::delete($_POST['image_old']);
+                Image::delete($_POST['image_old'], 'products');
                 $this->model->deleteImages(null, $data['id'], 1);
                 $this->model->insertImage($id, 1, $images['1']);
 
@@ -51,7 +52,7 @@ class Produkty extends ProduktyApiController
             // editing image of ingredients2
             if ($images['2'] && $images['2']['error'] === 0) {
                 $images['2'] = Image::upload($images['2'], 'products');
-                Image::delete($_POST['image2_old']);
+                Image::delete($_POST['image2_old'], 'products');
                 $this->model->deleteImages(null, $data['id'], 2);
                 $this->model->insertImage($id, 2, $images['2']);
             }
@@ -86,13 +87,13 @@ class Produkty extends ProduktyApiController
     public function trash($action = null, $id = null, $image = null) 
     {
 
-        if (!check_user_premission(30)) redirect('/'); // admin at least
+        if (!Users::check_premission(30)) redirect('/'); // admin at least
 
         if( isset($action) && isset($id) ) {
             if ($action == "recover") {
                 $this->model->setVisibility(2, $id);
             } elseif ($action == "delete") {
-                if (!check_user_premission(35)) redirect('/'); // more than admin
+                if (!Users::check_premission(35)) redirect('/'); // more than admin
                 $this->model->delete($id, "id", $image);
             } elseif ($action == "move") {
                 $this->model->setVisibility(3, $id);

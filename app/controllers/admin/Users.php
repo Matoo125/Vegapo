@@ -16,9 +16,9 @@ class Users extends UsersApiController
     {
         // only superadmin and developer can change role
         // nobody can add role higher than 74
-        if(!check_user_premission(74) || $role > 75) return;
+        if(!self::check_premission(74) || $role > 75) return;
         // only developer can add superadmins
-        if($role > 70 && !check_user_premission(75) ) return;
+        if($role > 70 && !self::check_premission(75) ) return;
 
         $this->model->changeRole($id, $role);
 

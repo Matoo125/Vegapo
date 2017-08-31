@@ -3,8 +3,8 @@
 namespace app\controllers\web;
 
 use app\controllers\api\Users as UsersApiController;
-use app\core\Session;
-use app\helper\Redirect;
+use m4\m4mvc\helper\Session;
+use m4\m4mvc\helper\Redirect;
 
 
 class Users extends UsersApiController

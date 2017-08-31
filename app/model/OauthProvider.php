@@ -3,7 +3,7 @@
 namespace app\model;
 
 use app\core\Model;
-use app\core\Session;
+use m4\m4mvc\helper\Session;
 
 class OauthProvider extends Model
 {

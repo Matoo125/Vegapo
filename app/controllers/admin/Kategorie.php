@@ -3,15 +3,16 @@
 namespace app\controllers\admin;
 
 use app\controllers\api\Kategorie as KategorieApiController;
-use app\core\Session;
-
+use m4\m4mvc\helper\Session;
+use app\controllers\api\Users;
+use app\helper\Image;
 
 class Kategorie extends KategorieApiController
 {
     public function __construct()
     {
     	parent::__construct();
-        if (!check_user_premission(35)) redirect('/');
+        if (!Users::check_premission(35)) redirect('/');
     }
 
     public function pridat() {
@@ -23,7 +24,7 @@ class Kategorie extends KategorieApiController
             $data['description'] = $_POST['description'];
             $data['note'] = $_POST['note'];
 
-            if (!$data['image'] = $this->model->uploadImage($image, "categories")) {
+            if (!$data['image'] = Image::upload($image, "categories")) {
                 $data['image'] = 'none';
             }
 
@@ -46,10 +47,10 @@ class Kategorie extends KategorieApiController
             $data['description'] = $_POST['description'];
             $data['note'] = $_POST['note'];
 
-            if (!$data['image'] = $this->model->uploadImage($image, "categories")) {
+            if (!$data['image'] = Image::upload($image, "categories")) {
                 $data['image'] = $_POST['image_old'];
             } else {
-                delete_image(ROOT.DS."uploads".DS."categories".DS.$_POST['image_old']);
+                Image::delete($_POST['image_old'], 'categories');
             }
 
             if ($this->model->update($data, $id)) {

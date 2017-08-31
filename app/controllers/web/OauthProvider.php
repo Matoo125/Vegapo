@@ -4,7 +4,7 @@ namespace app\controllers\web;
 
 use app\controllers\api\OauthProvider as OauthProviderAPIController;
 
-use app\core\Session;
+use m4\m4mvc\helper\Session;
 
 class OauthProvider extends OauthProviderAPIController
 {

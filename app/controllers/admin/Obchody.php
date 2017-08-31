@@ -3,14 +3,16 @@
 namespace app\controllers\admin;
 
 use app\controllers\api\Obchody as ObchodyApiController;
-use app\core\Session;
+use m4\m4mvc\helper\Session;
+use app\controllers\api\Users;
+use app\helper\Image;
 
 class Obchody extends ObchodyApiController
 {
     public function __construct()
     {
     	parent::__construct();
-        if (!check_user_premission(35)) redirect('/');
+        if (!Users::check_premission(35)) redirect('/');
     }
 
     public function pridat() {
@@ -21,7 +23,7 @@ class Obchody extends ObchodyApiController
             $data['description'] = $_POST['description'];
             $data['note'] = $_POST['note'];
 
-            if (!$data['image'] = $this->model->uploadImage($image, "supermarkets")) {
+            if (!$data['image'] = Image::upload($image, "supermarkets")) {
                 $data['image'] = 'none';
             }
 
@@ -44,8 +46,8 @@ class Obchody extends ObchodyApiController
             if ($image['error'] == 4) {
                 $data['image'] = $_POST['image_old'];
             } elseif ($image['error'] == 0 ){
-                $data['image'] = $this->model->uploadImage($image, 'supermarkets');
-                delete_image(ROOT.DS."uploads".DS."supermarkets".DS.$_POST['image_old']);
+                $data['image'] = Image::upload($image, 'supermarkets');
+                Image::delete($_POST['image_old'], 'supermarkets');
             }
 
             if ($this->model->update($data, $id)) {

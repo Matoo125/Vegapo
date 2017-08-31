@@ -2,10 +2,18 @@
 
 namespace app\string;
 
+use m4\m4mvc\helper\Str;
+
 class Url
 {
+
+  public function __construct ()
+  {
+    Str::$url = self::$url;
+  }
+
   protected static $url = [
-    'CATEGORY_ADMIN_DELETE' => "/admin/kategorie/vymazat/",
+  'CATEGORY_ADMIN_DELETE' => "/admin/kategorie/vymazat/",
 	'CATEGORY_ADMIN_ADD' => "/admin/kategorie/pridat/",
 	'CATEGORY_UPLOADS' => "/uploads/categories/",
 
@@ -24,10 +32,9 @@ class Url
 	'ADMIN_CHANGELOG' => "/admin/home/changelog",
 	'LOGOUT' => "/users/logout/",
 	'LOGIN' => "/users/login",
-	'ADMIN' => "/admin/",
+	'ADMIN' => "/admin",
 	'INDEX' => "/",
   'REGISTER' => "/users/register",
-
 
 	'SUPERMARKET_ADMIN_DELETE' => "/admin/obchody/vymazat/",
 	'SUPERMARKET_ADMIN_EDIT' => "/admin/obchody/upravit/",

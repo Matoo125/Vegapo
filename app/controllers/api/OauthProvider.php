@@ -4,8 +4,8 @@ namespace app\controllers\api;
 
 use app\model\User;
 use app\core\Controller;
-use app\core\Session;
-use app\helper\Redirect;
+use m4\m4mvc\helper\Session;
+use m4\m4mvc\helper\Redirect;
 
 class OauthProvider extends Controller
 {

@@ -3,25 +3,27 @@
 namespace app\controllers\admin;
 
 use app\controllers\api\Tagy as TagyApiController;
-use app\core\Session;
+use m4\m4mvc\helper\Session;
+use app\controllers\api\Users;
+use app\helper\Image;
 
 class Tagy extends TagyApiController
 {
     public function __construct()
     {
     	parent::__construct();
-        if (!check_user_premission(35)) redirect('/');
+        if (!Users::check_premission(35)) redirect('/');
     }
 
-    public function pridat() {
-
+    public function pridat() 
+    {
         if ($_POST) {
             $data['name'] = $_POST['name'];
             $image = $_FILES['file'];
             $data['description'] = $_POST['description'];
             $data['note'] = $_POST['note'];
 
-            if (!$data['image'] = $this->model->uploadImage($image, "tags")) {
+            if (!$data['image'] = Image::upload($image, "tags")) {
                 $data['image'] = 'none';
             }
 
@@ -33,8 +35,8 @@ class Tagy extends TagyApiController
         $this->data['tags'] = $this->model->getTags();
     }
 
-    public function upravit($id) {
-
+    public function upravit($id) 
+    {
         if ($_POST) {
             $data['name'] = $_POST['name'];
             $image = $_FILES['file'];
@@ -44,11 +46,9 @@ class Tagy extends TagyApiController
             if ($image['error'] == 4) {
                 $data['image'] = $_POST['image_old'];
             } elseif ($image['error'] == 0 ){
-                $data['image'] = $this->model->uploadImage($image, 'tags');
-                delete_image(ROOT.DS."uploads".DS."tags".DS.$_POST['image_old']);
+                $data['image'] = Image::upload($image, 'tags');
+                Image::delete($_POST['image_old'], 'tags');
             }
-
-
 
             if ($this->model->update($data, $id)) {
                 Session::setFlash("Tag zmeneny", 'success');
@@ -60,11 +60,10 @@ class Tagy extends TagyApiController
         $this->data['tags'] = $this->model->getTags();
         $this->data['tag']  = $this->model->getTagById($id);
 
-        //echo '<pre>';print_r($this->data['supermarket']); die;
-
     }
 
-    public function vymazat($id, $image) {
+    public function vymazat($id, $image) 
+    {
         return false; // do not delete tag
         if ($this->model->delete($id, "id", $image)) {
             // delete all matching tables
@@ -75,4 +74,5 @@ class Tagy extends TagyApiController
         }
 
         redirect('/admin/tagy');
-    }}
+    }
+}

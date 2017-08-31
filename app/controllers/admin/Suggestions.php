@@ -3,14 +3,15 @@
 namespace app\controllers\admin;
 
 use app\controllers\api\Suggestions as SuggestionsApiController;
-use app\core\Session;
+use m4\m4mvc\helper\Session;
+use app\controllers\api\Users;
 
 class Suggestions extends SuggestionsApiController
 {
     public function __construct()
     {
     	parent::__construct();
-        if (!check_user_premission(30)) redirect('/');
+        if (!Users::check_premission(30)) redirect('/');
     }
 
     public function index()

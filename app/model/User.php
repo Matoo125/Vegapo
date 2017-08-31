@@ -3,8 +3,8 @@
 namespace app\model;
 
 use app\core\Model;
-use app\core\Session;
-use app\helper\Redirect;
+use m4\m4mvc\helper\Session;
+use m4\m4mvc\helper\Redirect;
 
 class User extends Model
 {

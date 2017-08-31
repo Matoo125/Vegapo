@@ -3,7 +3,7 @@
 namespace app\controllers\api;
 
 use app\core\Controller;
-use app\core\Session;
+use m4\m4mvc\helper\Session;
 use app\helper\Redirect;
 
 class Users extends Controller
@@ -33,8 +33,8 @@ class Users extends Controller
             }
             // verify password
             if ( password_verify($mPass, $user['password']) ) {
-=                $this->model->loginUser($user);
-=                redirect('/users');
+                $this->model->loginUser($user);
+                redirect('/users');
             } else {
                 Session::setFlash(getString('CREDENTIALS_NOT_MATCH'), "warning", 1);
             }
@@ -120,6 +120,30 @@ class Users extends Controller
     public function list()
     {
         $this->data['users'] = $this->model->getList();
+    }
+
+    public static function check_premission ($premission_level)
+    {
+        $id = Session::get('user_id');
+        $country = Session::get('user_country');
+        $role = Session::get('user_role');
+
+        if (!$id) {
+          Session::setFlash("Please login. ", "warning", 1);
+          return false;
+        }
+
+        elseif($premission_level > $role) {
+          Session::setFlash("You do not have premission for this action. ", "danger", 1);
+          return false; 
+        }
+
+        elseif($role < 400 && COUNTRY_CODE != $country) {
+          Session::setFlash("Please login to the administration of your country ", "danger", 1);
+          return false;
+        }
+
+        return true;
     }
 
 }
