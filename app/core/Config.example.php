@@ -31,6 +31,10 @@ else {
    define("SALT", "***");
 
 }
+
+define("HOSTING_API_KEY", false);
+define("PATH_TO_LOGS", false);
+
 // facebook credentials
 define("FACEBOOK_APP_ID", '***');
 define("FACEBOOK_APP_SECRET", '***');

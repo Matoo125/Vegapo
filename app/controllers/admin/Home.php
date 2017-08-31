@@ -28,6 +28,8 @@ class Home extends ApiHomeController
 				$this->data['numberOfMessagesAnswered'] = $this->model->countTableCS('contact', array('type' => 1));
         $this->data['numberOfSuggestions'] = $this->model->countTableCS('suggestions');
 				$this->data['numberOfSuggestionsHandled'] = $this->model->countTableCS('suggestions', array(), " AND (state = 1 OR state = 2)");
+
+
    	}
 
    	public function changelog()
@@ -37,6 +39,25 @@ class Home extends ApiHomeController
         $this->data['parsedown'] = $Parsedown->text($mdFile);
         $this->data['title'] = "Version Control";
    	}
+
+    public function hosting()
+    {
+      if (PATH_TO_LOGS and file_exists(PATH_TO_LOGS)) {
+        $this->data['log'] = file_get_contents(PATH_TO_LOGS);
+      } else {
+        $this->data['log'] = 'I cannot access log file';
+      }
+
+      if (HOSTING_API_KEY) {
+        $c = curl_init();
+        curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($c, CURLOPT_URL, 'https://webadmin.endora.cz/api/xml/key/'.HOSTING_API_KEY);
+        $result = curl_exec($c);
+        curl_close($c);
+        $this->data['hosting'] = json_decode($result, true);
+      }
+    }
 
 
 }

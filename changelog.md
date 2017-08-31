@@ -1,22 +1,18 @@
---------------------------------------
-NEXT TO DO:
-- filter by price
-- filter by newest / olders
-
-KNOWN BUGS:
-- opera mini / safari dropdown menu does not scrool
-- older smartphones does not show navbar button
-
 NICE TO HAVE:
 - add product from template (copy product, just for admins) -> 3
-- combined filters (multiple tags, categories)
 - translate to czech from admin
-- create some voting -> https://github.com/antennaio/jquery-bar-rating
 - allow user to upload image or ingredients image for existing product
-- errors by email or show errors in admin
 
-HAS TIME:
+Ver 1.0
 - facebook login
+- multiple tags
+- framework separation
+- code cleanup
+- admin error logs page
+- duplicate suggestions fix
+- new dashboard stats added
+- filters: price, age, alphabet
+- technical documentation created
 
 Ver 0.2.3 -> 10.8.2017
 - testimonials (backend)
@@ -31,7 +27,6 @@ Ver 0.2.2 -> 9.8.2017
 
 Ver 0.2.1 -> 20.6.2017
 - instagram icon and link
-
 
 Ver 0.2.0 -> 12.6.2017 
 - show product note and barcode

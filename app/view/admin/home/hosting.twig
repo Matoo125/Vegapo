@@ -1,0 +1,25 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - Hosting info {% endblock %}
+
+{% block header %} Hosting Info {% endblock %}
+
+{% block content %}
+
+  <div class="card">
+    <div class="row">
+      <div class="col-md-4">Miesto na disku - {{ hosting.diskspace.current }}/{{ hosting.diskspace.limit }}</div> 
+      <div class="col-md-4">Súborov - {{ hosting.files.current }}/{{ hosting.files.limit }}</div> 
+      <div class="col-md-4">Premávka - {{ hosting.traffic.current }}/{{ hosting.traffic.limit }}</div> 
+
+      <div class="col-md-4">Program - {{ hosting.variant.program }}</div>
+      <div class="col-md-4">Expiruje - {{ hosting.variant.expire }}</div>
+    </div>
+  </div>
+<br>
+  <h2>Error log (only from today)</h2>
+<pre>
+  {{ log }}  
+</pre>
+
+{% endblock %}
