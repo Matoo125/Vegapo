@@ -38,7 +38,7 @@ class OauthProvider extends Controller
     if ($fbUser['email']) {
       if ($userData = $user->getByEmail($fbUser['email'])) {
         // update user facebook_id
-        $this->model->runQuery("UPDATE `users` SET updated_at = now(), facebook_id = :facebook_id WHERE user_id=:id", array("id" => $userData['user_id'], "facebook_id" => $fbUser['id']), "post");
+        $user->changeFacebookId($userData['user_id'], $fbUser['id']);
 
         $user->loginUser($userData);
 
@@ -75,7 +75,7 @@ class OauthProvider extends Controller
     }
     if ($userData = $user->getByEmail($fbUser['email'])) {
       // update user facebook_id
-      $this->model->runQuery("UPDATE `users` SET updated_at = now(), facebook_id = :facebook_id WHERE user_id=:id", array("id" => $userData['user_id'], "facebook_id" => $fbUser['id']), "post");
+      $user->changeFacebookId($userData['user_id'], $fbUser['id']);
 
       $user->loginUser($userData);
       Session::setFlash(getString('FACEBOOK_REGISTER_SUCCESS'), "success", 1);
@@ -93,17 +93,7 @@ class OauthProvider extends Controller
     $userData['last_name'] = $name[1];
 
     //register
-    $this->model->runQuery("INSERT INTO users (username, first_name, last_name, email, password, country, role, facebook_id) VALUES(:username, :first_name, :last_name, :email, :password, :country, :role, :facebook_id)",
-     array(
-       "username" => $userData['username'],
-       "first_name" => $userData['first_name'],
-       "last_name" => $userData['last_name'],
-       "email" => $userData['email'],
-       "password" => $userData['password'],
-       "country" => COUNTRY_CODE,
-       "role" => 4,
-       "facebook_id" =>  $userData['facebook_id']
-     ), "post");
+    $user->registerFacebookUser($userData);
 
     //refresh user
     $userData = $user->getByFacebookId($userData['facebook_id']);
@@ -132,9 +122,8 @@ class OauthProvider extends Controller
         redirect('/users/update');
       }
     }
-
     // update users facebook_id
-    $this->model->runQuery("UPDATE `users` SET updated_at = now(), facebook_id = :facebook_id WHERE user_id=:id", array("id" => Session::get('user_id'), "facebook_id" => $fbUser['id']), "post");
+    $user->changeFacebookId(Session::get('user_id'), $fbUser['id']);
 
     Session::setFlash(getString('FACEBOOK_CONNECT_SUCCESS'), "success", 1);
     redirect('/users');
