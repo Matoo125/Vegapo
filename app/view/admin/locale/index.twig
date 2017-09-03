@@ -1,8 +1,8 @@
 {% extends "admin/base.twig" %}
 
-{% block title %}VegaPo - {{ lang.PREKLAD }} {% endblock %}
+{% block title %}VegaPo - {{ lang.LOCALE }} {% endblock %}
 
-{% block header %} {{ lang.PREKLAD }}{% endblock %}
+{% block header %} {{ lang.LOCALE }}{% endblock %}
 
 {% block content %}
     <div class="text-center">
@@ -29,7 +29,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for key, val in transl %}
+                    {% for key, val in locale %}
                         {% if not val.sk or not val.cz %}
                         <tr class="table-danger">
                         {% else %}

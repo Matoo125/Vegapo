@@ -17,11 +17,11 @@ CREATE TABLE `edits` (
 COMMENT='table for storing of user/admin data edits\r\n* object_id - id of object that was edited\r\n* object - edited object (products table etc)\r\n* action - type of edit\r\n* diff - textual diff between current and previous object version\r\n* comment - user comment for this edit'
 COLLATE='utf8_general_ci' ENGINE=MyISAM;
 
-CREATE TABLE `changes` (
+CREATE TABLE `edit_changes` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`edit_id` INT(11) NOT NULL,
-	`object_type` VARCHAR(20) NULL DEFAULT NULL,
-	`object_id` INT(11) NOT NULL,
+	`object_type` VARCHAR(20) not NULL,
+	`object_id` INT(11) NULL,
 	PRIMARY KEY (`id`),
 	INDEX `edit_id` (`edit_id`),
 	INDEX `changes_object_type_idx` (`object_type`),

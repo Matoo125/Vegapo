@@ -4,9 +4,9 @@ namespace app\model;
 
 use app\core\Model;
 use app\model\Edit;
-use app\core\Session;
+use m4\m4mvc\helper\Session;
 
-// use app\helper\SDiff;
+use mrkovec\sdiff\SDiff;
 
 
 class Locale extends Model
@@ -18,80 +18,88 @@ class Locale extends Model
       $this->edit = new Edit();
     }
 
+    // load localization texts from json file
     public static function loadLang($lang)
     {
       return json_decode(file_get_contents(APP . DS . 'string/lang/'.$lang.'.json'), True);
     }
 
-    public function saveLang($lang, $data)
+    // save localization data
+    public static function saveLang($lang, $data)
     {
+      ksort($data);
       file_put_contents(APP . DS . 'string/lang/'.$lang.'.json', json_encode($data, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT));
     }
 
+    // merges localization data into one
     public function compareLocale()
     {
       $sk = self::loadLang("sk");
       $cz = self::loadLang("cz");
-      array_walk($sk, function(&$item1, $key) {
-        $item1 = ['sk' => $item1];
+      array_walk($sk, function(&$item, $key) {
+        $item = ['sk' => $item];
       });
-      array_walk($cz, function(&$item1, $key) {
-        $item1 = ['cz' => $item1];
+      array_walk($cz, function(&$item, $key) {
+        $item = ['cz' => $item];
       });
       $a = array_merge_recursive($sk, $cz);
       ksort($a);
       return $a;
     }
 
-    public function treatChange($post)
+    // processeslocale changes from POST request
+    public function processChange($post)
     {
       $sk = [];
       $cz = [];
-      foreach ($_POST as $key => $value) {
-        if (substr( $key, 0, 2 ) === "sk") {
-           $sk[substr( $key, 2, strlen($key))] = $value;
-         }elseif (substr( $key, 0, 2 ) === "cz") {
-           $cz[substr( $key, 2, strlen($key))] = $value;
+      // divide POST keys by language preffixes
+      foreach ($post as $key => $value) {
+        if($value) {
+        if (substr($key, 0, 2 ) === "sk") {
+           $sk[substr($key, 2, strlen($key))] = $value;
+         }elseif (substr($key, 0, 2 ) === "cz") {
+           $cz[substr($key, 2, strlen($key))] = $value;
          }
+       }
       }
 
-      // $from_text_utf8 = json_encode(self::loadLang("sk"), JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
-      // $to_text_utf8 = json_encode($sk, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
-      // $diff_opcodes = \FineDiff::getDiffOpcodes($from_text_utf8, $to_text_utf8);
-      // $diff = _format_json(html_entity_decode(\FineDiff::renderDiffToHTMLFromOpcodes($from_text_utf8, $diff_opcodes)), True);
+      // compute diffs from old and new localization data
+      $diff_sk = SDiff::getObjectDiff(self::loadLang("sk"),$sk, False);
+      $diff_cz = SDiff::getObjectDiff(self::loadLang("cz"),$cz, False);
+      $diff = $diff_sk;
+      if($diff && $diff_cz) $diff .="\n";
+      $diff .= $diff_cz;
 
-      var_dump($diff);
-      exit;
-      $this->saveLang("sk", $sk);
-      $this->saveLang("cz", $cz);
+      //save new locale
+      self::saveLang("sk", $sk);
+      self::saveLang("cz", $cz);
 
-      $this->closeEdit($diff);
+      $this->closeEdit(null, $diff);
     }
 
-
+    // checks if localization data is updated by another user
     public function isLocked()
     {
-       return !empty($this->edit->getEditsByObject("locale", null, "opened")) && !$this->haveLock();
-      // return !empty($this->runQuery("select * from edits where type = 'lang' and state = 'opened' and user_id != :user_id",
-      // [":user_id" => Session::get("user_id")], "get"));
+      return !empty($this->edit->getEditsByObject("locale", null, "opened")) && !$this->haveLock();
     }
 
+    // checks if current user has lock on localization
     public function haveLock()
     {
       return !empty($this->edit->getUserEditsByObject("locale", null, "opened"));
-      // return !empty($this->runQuery("select * from edits where type = 'lang' and state = 'opened' and user_id = :user_id",
-      // [":user_id" => Session::get("user_id")], "get"));
     }
 
+    // creates new edit along with locking localisation for current user
     public function startEdit()
     {
       $this->edit->newLocaleEdit();
     }
 
+    // closes edit and frees lock
     public function closeEdit($comment = null, $diff = null)
     {
       if($edit = $this->edit->getUserEditsByObject("locale", null, "opened")) {
-        $this->edit->closeEdit($e[0]['id'], $comment, $diff);
+        $this->edit->closeEdit($edit[0]['id'], $comment, $diff);
       }
     }
 
