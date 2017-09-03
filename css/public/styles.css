@@ -167,8 +167,8 @@ footer#footer {
   nav .flag {
     padding-left: 0 !important; }
 
-  #searchForm input {
-    position: initial; } }
+  .productFilterBox > .nav > li > a {
+    padding: 5px 0; } }
 /* other */
 .testimonial {
   margin: 0 auto; }
@@ -177,14 +177,19 @@ footer#footer {
   color: #5cb85c; }
 
 .productFilterBox {
-  background-color: #fafafa;
-  border: #242729 1px solid;
-  padding: 20px 0;
-  margin: 20px auto 30px auto; }
-  .productFilterBox .card-body .row {
-    justify-content: space-evenly;
-    /* search box */ }
-    .productFilterBox .card-body .row form input[name=hladat] {
-      max-width: 150px; }
+  background-color: transparent;
+  border: transparent;
+  padding: 0.5rem 0;
+  margin: 1.5rem auto; }
+  .productFilterBox .nav .searchWrapper {
+    height: 24px; }
+    .productFilterBox .nav .searchWrapper input {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid black;
+      border-radius: 0; }
+    .productFilterBox .nav .searchWrapper button {
+      background: transparent;
+      border: none; }
 
 /*# sourceMappingURL=styles.css.map */
