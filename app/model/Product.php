@@ -425,12 +425,14 @@ class Product extends Model
 
     public function checkProduct($barcode, $slug)
     {
-        $sql = "SELECT slug FROM products WHERE slug = :slug";
+        $sql = "SELECT slug FROM products WHERE (slug = :slug";
         $args['slug'] = $slug;
         if ($barcode) {
-          $sql .= "|| barcode = :barcode";
+          $sql .= " || barcode = :barcode";
           $args['barcode'] = $barcode;
         }
+        $sql .= ") and country = :country";
+        $args['country'] = COUNTRY_CODE;
         return $this->runQuery($sql, $args,'get1');
     }
 
