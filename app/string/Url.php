@@ -9,7 +9,7 @@ class Url
 
   public function __construct ()
   {
-    Str::$url = self::$url;
+    Str::$url = (object) self::$url;
   }
 
   protected static $url = [
