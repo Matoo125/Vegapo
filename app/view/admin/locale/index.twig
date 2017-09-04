@@ -1,0 +1,49 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - {{ lang.LOCALE }} {% endblock %}
+
+{% block header %} {{ lang.LOCALE }}{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+      {{ include('web/modules/flash.twig') }}
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+              <form method="post">
+                {% if state != "locked" %}
+                  {% if state == "view" %}
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                  {% endif %}
+                  {% if state == "edit" %}
+                    <button type="submit" class="btn btn-primary">Save</button>
+                  {% endif %}
+                {% endif %}
+                <table class="table table-striped sortable table-sm">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>Param</th>
+                        <th>SK</th>
+                        <th>CZ</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for key, val in locale %}
+                        {% if not val.sk or not val.cz %}
+                        <tr class="table-danger">
+                        {% else %}
+                        <tr>
+                        {% endif %}
+                          <th scope="row" width="100px">{{ key }}</th>
+                          <td><textarea {% if state != "edit" %}readonly{% endif %} type="text" class="form-control" name="sk{{ key }}">{{ val.sk }}</textarea></td>
+                          <td><textarea {% if state != "edit" %}readonly{% endif %} type="text" class="form-control" name="cz{{ key }}">{{ val.cz }}</textarea></td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                </table>
+              </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

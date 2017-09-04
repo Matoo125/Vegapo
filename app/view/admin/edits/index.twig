@@ -1,0 +1,56 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - {{ lang.EDITS }} {% endblock %}
+
+{% block header %} {{ lang.EDITS }}{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+      {{ include('web/modules/flash.twig') }}
+    </div>
+    <div class="row">
+
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link {% if not state %} active {% endif %}" href="/admin/edits">Vsetky</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if state == 'opened' %} active {% endif %}" href="/admin/edits/opened">Aktivne</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if state == 'closed' %} active {% endif %}" href="/admin/edits/closed">Uzavrete</a>
+        </li>
+      </ul>
+
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped sortable table-sm">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>#</th>
+                        <th>stav</th>
+                        <th>typ</th>
+                        <th>co</th>
+                        <th>uzivatel</th>
+                        <th>vytvorena</th>
+                        <th>naposledy menena</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for key, val in edits %}
+                        <tr>
+                          <th scope="row"><a href="/admin/edits/edit/{{ val['id'] }}">{{ val['id'] }}</a></th>
+                          <td>{{ val['state'] }}</td>
+                          <td>{{ val['type'] }}</td>
+                          <td>{{ val['object_type'] }}</td>
+                          <td>{{ val['user_id'] }}</td>
+                          <td>{{ val['created_at'] }}</td>
+                          <td>{{ val['updated_at'] }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
