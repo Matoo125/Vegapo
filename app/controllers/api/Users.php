@@ -5,6 +5,7 @@ namespace app\controllers\api;
 use app\core\Controller;
 use m4\m4mvc\helper\Session;
 use app\helper\Redirect;
+use app\model\Newsletter;
 
 class Users extends Controller
 {
@@ -56,6 +57,12 @@ class Users extends Controller
         $data['username'] = $_POST['username'];
         $data['password1'] = $_POST['password1'];
         $data['password2'] = $_POST['password2'];
+        $data['newsletter'] = isset($_POST['newsletter']);
+
+        // add email to newsletter
+        if ($data['newsletter']) {
+            Newsletter::insert($data['email']);
+        }
 
         // check if user already exists
         if($this->model->getByEmail($data['email'])) {
@@ -115,6 +122,7 @@ class Users extends Controller
         }
 
         $this->data['user'] = $this->model->getById(Session::get('user_id'));
+        $this->data['user']['newsletter'] = \app\model\Newsletter::findByEmail($this->data['user']['email']);
     }
 
     public function list()

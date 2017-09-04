@@ -91,7 +91,13 @@ class User extends Model
         return $stmt->rowCount() ? true : null;
     }
 
-    public function update($data) {
+    public function update($data) 
+    {
+        if (isset($data['newsletter'])) {
+            Newsletter::insert($data['email']);
+        } else {
+            Newsletter::remove($data['email']);
+        }
 
         $sql = "UPDATE users SET email = :email, username = :username, about_me = :about_me, first_name = :first_name, last_name = :last_name, updated_at = now() WHERE user_id = :user_id";
         $stmt = $this->db->prepare($sql);
