@@ -68,9 +68,9 @@ class Newsletter extends Controller
     // get those who has not received email
     $this->data['notReceived'] = Model::notReceived($newsletter);
     // get html of an email
-    foreach ($this->path as $key => $folder) {
-      if (file_exists($folder . DS . $newsletter)) {
-        $this->data['newsletter'] = '/uploads/newsletter/' . $key . '/' . $newsletter;
+    foreach ($this->path as $state => $path) {
+      if (file_exists($path . DS . $newsletter)) {
+        $this->data['link'] = $state . '/' . $newsletter;
       }
     }
   }
@@ -81,13 +81,16 @@ class Newsletter extends Controller
     if (!$recipients) {  echo 'no recipients';die; }
 
     if (file_exists($this->path['new'] . DS . $newsletter)) {
-      $content = file_get_contents($this->path['new'] . DS . $newsletter);
-      rename($this->path['new'] . DS . $newsletter, $this->path['processing'] . DS . $newsletter);
+      rename(
+        $this->path['new'] . DS . $newsletter, 
+        $this->path['processing'] . DS . $newsletter
+      );
+    } 
+    
+    if (file_exists($p = $this->path['processing'] . DS . $newsletter)) {
+      $content = file_get_contents($p);
+    } 
 
-    } 
-    else if (file_exists($this->path['processing'] . DS . $newsletter)) {
-      $content = file_get_contents($this->path['processing'] . DS . $newsletter);
-    } 
     else {
       Session::setFlash('File does not exists', 'danger', 1);
       Redirect::to('/admin/newsletter/index');
@@ -110,8 +113,9 @@ class Newsletter extends Controller
       if ($products) {
         // get products
         $product = new \app\model\Product;
-        $parameters['products'] = $product->getProducts(
-          null, null, null, 0, null,null, null, null, null, $recipient['country']);
+        $parameters['products'] = $product->list(
+          'country' => $recipient['country']
+        );
       }
 
       $subject  = $template->renderBlock('subject',   $parameters);
@@ -125,7 +129,10 @@ class Newsletter extends Controller
       Model::addToHistory($newsletter, $recipient['email']);
     }
 
-    rename($this->path['processing'] . DS . $newsletter, $this->path['send'] . DS . $newsletter);
+    rename(
+      $this->path['processing'] . DS . $newsletter, 
+      $this->path['send'] . DS . $newsletter
+    );
 
     Session::setFlash('Newsletter has been sent to everyone.', "success", 1);
     Redirect::to('/admin/newsletter/detail/' . $newsletter);
