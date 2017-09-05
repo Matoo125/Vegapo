@@ -10,12 +10,14 @@ m4\m4mvc\core\Model::$credentials = [
 ];
 
 $model = new User;
-$users = $model->fetchAll('select email, country from users');
+$users = $model->fetchAll('select email, country, user_id from users');
 
 
 foreach ($users as $user) {
   if (!$model->fetchAll('select * from newsletter where email = :email', ['email' => $user['email']])) {
-    $model->save("insert into newsletter (email, country) values(:email, :country)", $user);
+    $model->save("insert into newsletter (email, country, user_id) values(:email, :country, :user_id)", $user);
+  } else {
+    $model->save('update newsletter set user_id = :user_id WHERE email = :email', ['email' => $user['email'], 'user_id' => $user['user_id']]);
   }
 }
 

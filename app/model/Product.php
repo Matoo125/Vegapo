@@ -132,13 +132,13 @@ class Product extends Model
         return $this->runQuery($sql, array("slug" => $slug, "cc" => COUNTRY_CODE), "get1");
     }
 
-    public function getProducts($category_slug = null, $supermarket_slug = null, $tag_slugs = null, $current_page,
-                                $visibility = null, $author_id = null, $searchTerm = null, $favourites = null, $sorting = null)
+    public function getProducts($category_slug = null, $supermarket_slug = null, $tag_slugs = null, $current_page = 0,
+                                $visibility = null, $author_id = null, $searchTerm = null, $favourites = null, $sorting = null, $country = null)
     {
         $array = array();
         $array['country'] = COUNTRY_CODE;
 
-
+        if ($country) { $array['country'] = $country; }
 
        if ($visibility) {
             $array['visibility'] = $visibility;
