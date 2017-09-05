@@ -100,7 +100,7 @@ class Newsletter extends Controller
 
       $template = $twig->loadTemplate($newsletter);
       $parameters = [
-        'user' => ['name' => 'testman'],
+        'user' => ['name' => ''],
         'email' => $recipient['email'],
         'id'    => $recipient['id'],
         'country' =>  $recipient['country'],
