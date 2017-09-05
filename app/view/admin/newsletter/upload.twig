@@ -1,0 +1,27 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - Upload Newsletter {% endblock %}
+
+{% block header %} Upload Newsletter {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+           <form action="/admin/newsletter/upload" method="post" enctype="multipart/form-data">
+               <div class="form-group">
+                   <label for="newsletter">Newsletter</label>
+                   <input type="file" id="newsletter" name="newsletter" class="form-control-file">
+               </div>
+
+               <button type="submit" class="btn btn-primary">{{ lang.SUBMIT }}</button>
+
+           </form>
+        </div>
+
+
+
+    </div>
+
+
+{% endblock %}

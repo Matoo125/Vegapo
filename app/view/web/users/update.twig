@@ -42,6 +42,15 @@
                     <textarea class="form-control" id="about-me" name="about-me" rows="3">{{ user.about_me }}</textarea>
                 </div>
 
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="checkbox" name="newsletter" class="form-check-input" {{ user.newsletter ? 'checked' : '' }}>
+                    Newsletter
+                  </label>
+                </div>
+
+                <br>
+
                 <button type="submit" name="change-details" class="btn btn-primary">{{ lang.SUBMIT }}</button>
             </form>
             <br>

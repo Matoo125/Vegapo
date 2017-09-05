@@ -105,6 +105,9 @@ class OauthProvider extends Controller
        "facebook_id" =>  $userData['facebook_id']
      ), "post");
 
+    // add email to newsletter
+    \app\model\Newsletter::insert($userData['email']);
+
     //refresh user
     $userData = $user->getByFacebookId($userData['facebook_id']);
 

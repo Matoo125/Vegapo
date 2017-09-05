@@ -24,7 +24,8 @@ class Url
 	'ADMIN_PRODUCTS' => "/admin/produkty/",
 	'ADMIN_TRASH' => "/admin/produkty/trash/",
 	'ADMIN_REQUESTS' => "/admin/produkty/ziadosti/",
-	'ADMIN_SUGGESTIONS' => "/admin/suggestions/",
+  'ADMIN_SUGGESTIONS' => "/admin/suggestions/",
+  'ADMIN_NEWSLETTER' => "/admin/newsletter/",
 
 	'ADMIN_ACCOUNT_UPDATE' => "/admin/users/update",
 	'ADMIN_USERS' => "/admin/users/",
@@ -35,6 +36,8 @@ class Url
 	'ADMIN' => "/admin",
 	'INDEX' => "/",
   'REGISTER' => "/users/register",
+
+  'USER_UPDATE' => '/users/update',
 
 	'SUPERMARKET_ADMIN_DELETE' => "/admin/obchody/vymazat/",
 	'SUPERMARKET_ADMIN_EDIT' => "/admin/obchody/upravit/",
@@ -48,7 +51,8 @@ class Url
 
 	'PRODUCT_ADMIN_DELETE' => "/admin/produkty/vymazat/",
 	'PRODUCT_ADMIN_EDIT' => "/admin/produkty/upravit/",
-	'PRODUCT_ADMIN_ADD' => "/admin/produkty/pridat/",
+  'PRODUCT_ADMIN_ADD' => "/admin/produkty/pridat/",
+  'PRODUCT_ADD' => "/produkty/pridat/",
 	'PRODUCT_UPLOADS' => "/uploads/products/",
 
 	'TRASH_DELETE' => "/admin/produkty/trash/delete/",

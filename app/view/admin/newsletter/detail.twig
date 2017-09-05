@@ -1,0 +1,33 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - Newsletter Detail {% endblock %}
+
+{% block header %} Newsletter Detail {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-4">
+          <h4>History</h4>
+          <ul>
+            {% for user in history %}
+              <li>{{ user.email }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h4>Not Received</h4>
+          <ul>
+            {% for user in notReceived %}
+              <li>{{ user.email }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <a class="btn btn-primary" href="{{ newsletter }}">View</a>
+        </div>
+
+    </div>
+
+
+{% endblock %}

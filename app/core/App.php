@@ -15,6 +15,10 @@ class App extends FrameworkApp
            if (!Users::check_premission(30)) redirect('/users/login'); // if not admin redirect
         } 
 
+        else if (isset($_GET['url']) && substr($_GET['url'], 0, 3) == 'api') {
+          $this->response = 'json';
+        }
+
         new \app\string\Url(); 
     }
 

@@ -1,0 +1,57 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - Newsletter {% endblock %}
+
+{% block header %} Newsletter {% endblock %}
+
+{% block button %} <a class="btn btn-primary" href="/admin/newsletter/upload">Upload</a> {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped sortable">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>State</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for newsletter in newsletters %}
+                    <tr>
+
+                        <td>{{ loop.index }}</td>
+                        <td>{{ newsletter.name }}</td>
+                        <td>{{ newsletter.state }}</td>
+
+                        {% if newsletter.state == 'new' %}
+                        <td>
+                            <a href="/admin/newsletter/send/{{ newsletter.name }}">Send </a>
+                            <a href="/admin/newsletter/send/{{ newsletter.name }}/true">Send With Products</a>
+                        </td>
+                        {% elseif newsletter.state == 'send' %}
+                        <td><a href="/admin/newsletter/detail/{{ newsletter.name }}">Details</a></td>
+                        {% elseif newsletter.state == 'processing' %}
+                        <td>
+                            <a href="/admin/newsletter/send/{{ newsletter.name }}">Try Again</a>
+                            <a href="/admin/newsletter/details/{{ newsletter.name }}">Details</a>
+                        </td>
+                        {% endif %}
+
+                    </tr>
+                    {% else %}
+                        No newsletter found
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}

@@ -59,10 +59,10 @@
             <ul class="nav navbar-nav ml-auto">
             {% if not session.user_id %}
                 <li class="nav-item">
-                    <a class="nav-link page-scroll hideOnClick" data-toggle="modal" title="Chcem sa prihlásiť" href="#loginModal">{{ lang.LOGIN1 }}</a>
+                    <a class="nav-link page-scroll hideOnClick" title="Chcem sa prihlásiť" href="/users/login">{{ lang.LOGIN1 }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link page-scroll hideOnClick" data-toggle="modal" title="Rád by som sa zaregistroval" href="#registerModal">{{ lang.REGISTER1 }}</a>
+                    <a class="nav-link page-scroll hideOnClick" title="Rád by som sa zaregistroval" href="/users/register">{{ lang.REGISTER1 }}</a>
                 </li>
             {% else %}
                 {% if session.user_role > 30 %}
@@ -145,9 +145,6 @@
         <span class="float-right text-muted small">VegaPo 2017</span>
     </div>
 </footer>
-
-{{ include('web/modal/register.twig') }}
-{{ include('web/modal/login.twig') }}
 
     <!--scripts loaded here-->
 

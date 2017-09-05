@@ -17,7 +17,7 @@ $app->settings = [
 ];
 
 // register modules
-Module::register(['web', 'admin']);
+Module::register(['web', 'admin', 'api']);
 
 $app->paths = [
   'controllers' =>  'controllers',

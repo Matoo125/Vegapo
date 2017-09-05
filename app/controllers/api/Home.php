@@ -3,6 +3,7 @@
 namespace app\controllers\api; 
 
 use app\core\Controller;
+use app\model\Newsletter;
 /*
  * Home API Controller
  * extends base Controller
@@ -32,28 +33,28 @@ class Home extends Controller
             echo "There was problem with your message. Please try again. ";
         }
         
+        exit;
     }
 
     public function subscribe()
     {
-        if ($_POST) {
-            // insert email to database
-            $email = $_POST['email'];
-           
-           if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-               echo "Sorry, but this email is not valid";
-               return;
-           }           
-           if ($this->model->findEmailInNewsletterList($email)) {
-               echo "This email is already in our subscribtion list. ";
-               return;
-           }
+       if (!$_POST) return;
 
-           if ($this->model->insertEmailToNewsletter($email)) {
-               echo "Thank you!";
-           }
+       $email = $_POST['email'];
+       
+       if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+           echo "Sorry, but this email is not valid";
+           return;
+       }           
 
-        }
+       if (Newsletter::insert($email)) {
+           echo "Thank you!";
+       } else {
+           echo "This email is already in our subscribtion list. ";
+       }
+
+       exit;
+
     }
 
 }
