@@ -1,8 +1,8 @@
 {% extends "admin/base.twig" %}
 
-{% block title %}VegaPo - Edits {% endblock %}
+{% block title %}VegaPo - {{ lang.EDIT }} {% endblock %}
 
-{% block header %} Edits {% endblock %}
+{% block header %} {{ lang.EDIT }} {% endblock %}
 
 {% block content %}
 <style type="text/css">
@@ -14,15 +14,17 @@
     <div class="container">
         <div class="row">
           <div class="col-lg-8 offset-lg-2 text-left">
-            <h1>Edit #{{ data['id'] }} {{ data['state'] }} - by {{ data['user_id']}}</h1>
+            <h1>{{ "#" ~ data['edit_id'] ~ " " ~ data['object_type'] ~ " "~ data['edit_state'] }}</h1>
+            <h2><a href ="">{{ data['edit_user_id'] }}</a></h2>
+            <p>{{ lang.EDITS_EDIT_CREATED_AT ~ " " ~ data['edit_created_at'] }} {% if data['edit_created_at'] != data['edit_updated_at'] %} ({{ data['edit_updated_at'] }}) {% endif %}</p>
           </div>
           <div class="col-lg-10 offset-lg-1 text-left">
-            <p>Komentar:</p>
-            <p>{{ data['comment'] }}<p>
+            <p>{{ lang.EDITS_EDIT_COMMENT}}:</p>
+            <p>{{ data['edit_comment'] }}<p>
           </div>
           <div class="col-lg-10 offset-lg-1 text-left">
-            <p>Zmeny:</p>
-            {{ data['diff']|raw }}
+            <p>{{ lang.EDITS_EDIT_DIFF}}:</p>
+            {{ data['edit_diff']|raw }}
           </div>
       </div>
   </div>

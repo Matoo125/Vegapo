@@ -43,4 +43,10 @@ class Locale extends LocaleApiController
     // fill localization data for view
     $this->data['locale'] = $this->model->compareLocale();
   }
+
+  // closes user locale edit without processing
+  public function forceclose()
+  {
+    $this->model->closeEdit();
+  }
 }

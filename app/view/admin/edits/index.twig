@@ -12,13 +12,13 @@
 
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link {% if not state %} active {% endif %}" href="/admin/edits">Vsetky</a>
+          <a class="nav-link {% if not state %} active {% endif %}" href="/admin/edits">{{ lang.EDITS_ALL }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if state == 'opened' %} active {% endif %}" href="/admin/edits/opened">Aktivne</a>
+          <a class="nav-link {% if state == 'opened' %} active {% endif %}" href="/admin/edits/opened">{{ lang.EDITS_OPENED }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if state == 'closed' %} active {% endif %}" href="/admin/edits/closed">Uzavrete</a>
+          <a class="nav-link {% if state == 'closed' %} active {% endif %}" href="/admin/edits/closed">{{ lang.EDITS_CLOSED }}</a>
         </li>
       </ul>
 
@@ -28,24 +28,22 @@
                     <thead class="thead-inverse">
                     <tr>
                         <th>#</th>
-                        <th>stav</th>
-                        <th>typ</th>
-                        <th>co</th>
-                        <th>uzivatel</th>
-                        <th>vytvorena</th>
-                        <th>naposledy menena</th>
+                        <th>{{ lang.EDITS_EDIT_STATE }}</th>
+                        <th>{{ lang.EDITS_EDIT_TYPE }}</th>
+                        <th>{{ lang.EDITS_EDIT_USER_ID }}</th>
+                        <th>{{ lang.EDITS_OBJECT_TYPE }}</th>
+                        <th>{{ lang.EDITS_EDIT_CREATED_AT }}</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for key, val in edits %}
                         <tr>
-                          <th scope="row"><a href="/admin/edits/edit/{{ val['id'] }}">{{ val['id'] }}</a></th>
-                          <td>{{ val['state'] }}</td>
-                          <td>{{ val['type'] }}</td>
-                          <td>{{ val['object_type'] }}</td>
-                          <td>{{ val['user_id'] }}</td>
-                          <td>{{ val['created_at'] }}</td>
-                          <td>{{ val['updated_at'] }}</td>
+                          <th scope="row"><a href="/admin/edits/edit/{{ val['edit_id'] }}">{{ val['edit_id'] }}</a></th>
+                          <td>{{ val['edit_state'] }}</td>
+                          <td>{{ val['edit_type'] }}</td>
+                          <td><a href ="">{{ val['edit_user_id'] }}</a></td>
+                          <td><a href ="">{{ val['object_type'] }}</a></td>
+                          <td>{{ val['edit_created_at'] }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
