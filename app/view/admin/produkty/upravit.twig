@@ -34,7 +34,7 @@
             <div class="form-group">
                 <label for="selectCategory">{{ lang.CATEGORY }}</label>
                 <select class="form-control" name="selectCategory" id="selectCategory" required>
-                    <option value="{{ product.category_id }}" >{{ product.category_name }}</option>
+                    <option value="{{ product.category_id }}" >{{ product.category }}</option>
                     {% for category in categories %}
                         {% if category.id != product.category_id %}
                     <option value="{{ category.id }}">{{ category.name }}</option>
@@ -102,7 +102,7 @@
                            name="supermarket[]"
                            class="custom-control-input"
                            value="{{ supermarket.id }}"
-                           {% if supermarket.name in product.supermarket_names %} checked {% endif %} >
+                           {% if supermarket.name in product.supermarkets %} checked {% endif %} >
 
                     <span class="custom-control-indicator"></span>
                     <span class="custom-control-description">{{ supermarket.name }}</span>
@@ -124,7 +124,7 @@
                                name="tag[]"
                                class="custom-control-input"
                                value="{{ tag.id }}"
-                                {% if tag.name in product.tag_names %} checked {% endif %} >
+                                {% if tag.name in product.tags %} checked {% endif %} >
 
                         <span class="custom-control-indicator"></span>
                         <span class="custom-control-description">{{ tag.name }}</span>

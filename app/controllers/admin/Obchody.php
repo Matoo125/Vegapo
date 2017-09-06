@@ -32,7 +32,7 @@ class Obchody extends ObchodyApiController
             }
         }
 
-        $this->data['supermarkets'] = $this->model->getSupermarkets();
+        $this->data['supermarkets'] = $this->model->list();
     }
 
     public function upravit($id) {

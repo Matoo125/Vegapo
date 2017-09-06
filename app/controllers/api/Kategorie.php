@@ -13,7 +13,7 @@ class Kategorie extends Controller
 
     public function index() {
 
-        $this->data['categories'] = $this->model->getCategories();
+        $this->data['categories'] = $this->model->list();
         if ($this->data['categories']) {
             $x = 0;
             foreach ($this->data['categories'] as $category) {

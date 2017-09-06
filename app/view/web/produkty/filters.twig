@@ -57,8 +57,10 @@
               <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{ lang.PRODUCTS_SORT }}
                 {% if sorting %}
-                  {% if sorting == 'name' %}
+                  {% if sorting == 'namea' %}
                     {{ lang.SORT ~ lang.PRODUCTS_SORT_NAME}}
+                  {% elseif sorting == 'named' %}
+                    {{ lang.SORT ~ lang.PRODUCTS_SORT_NAME}} Z-A
                   {% elseif sorting == 'pricea' %}
                     {{ lang.SORT ~ lang.PRODUCTS_SORT_PRICEA}}
                   {% elseif sorting == 'priced' %}
@@ -67,15 +69,19 @@
                     {{ lang.SORT ~ lang.PRODUCTS_SORT_DATEA}}
                   {% elseif sorting == 'dated' %}
                     {{ lang.SORT ~ lang.PRODUCTS_SORT_DATED}}
+                  {% elseif sorting == 'rand' %}
+                    {{ lang.SORT ~ 'random'}}
                   {% endif %}
                 {% endif %}
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="{{ buildUrl(params, 'sort', 'name') }}">{{ lang.PRODUCTS_SORT_NAME}}</a>
+                <a class="dropdown-item" href="{{ buildUrl(params, 'sort', 'namea') }}">{{ lang.PRODUCTS_SORT_NAME}}</a>
+                <a class="dropdown-item" href="{{ buildUrl(params, 'sort', 'named') }}">{{ lang.PRODUCTS_SORT_NAME}} Z-A</a>
                 <a class="dropdown-item" href="{{ buildUrl(params, 'sort', 'pricea') }}">{{ lang.PRODUCTS_SORT_PRICEA}}</a>
                 <a class="dropdown-item" href="{{ buildUrl(params, 'sort', 'priced') }}">{{ lang.PRODUCTS_SORT_PRICED}}</a>
                 <a class="dropdown-item" href="{{ buildUrl(params, 'sort', 'datea') }}">{{ lang.PRODUCTS_SORT_DATEA}}</a>
                 <a class="dropdown-item" href="{{ buildUrl(params, 'sort', 'dated') }}">{{ lang.PRODUCTS_SORT_DATED}}</a>
+                <a class="dropdown-item" href="{{ buildUrl(params, 'sort', 'rand') }}">random</a>
               </div>
             </li>
 

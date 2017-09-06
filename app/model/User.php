@@ -9,34 +9,25 @@ use m4\m4mvc\helper\Redirect;
 class User extends Model
 {
 
-    public function getAll() {
-        $stmt = $this->db->prepare("select * from users");
-        $stmt->execute();
-        if ($results = $stmt->fetchAll()) {
-            return $results;
-        }
-        return null;
+    public function getAll() 
+    {
+        return $this->fetchAll("select * from users");
     }
 
-    public function getByEmail($email) {
-        $stmt = $this->db->prepare("select * from users where email = :email LIMIT 1");
-        $stmt->execute(array(':email' => $email));
-        if ($results = $stmt->fetch()) {
-            return $results;
-        }
-        return null;
+    public function getByEmail($email) 
+    {
+        $query = "select * from users where email = :email LIMIT 1";
+        return $this->save($sql, array(':email' => $email));
     }
 
-    public function getById($id) {
-        $stmt = $this->db->prepare("select * from users where user_id = :id LIMIT 1");
-        $stmt->execute(array(':id' => $id));
-        if ($results = $stmt->fetch()) {
-            return $results;
-        }
-        return null;
+    public function getById($id, $columns = '*') 
+    {
+        $sql = "select ".$columns." from users where user_id = :id LIMIT 1";
+        return $this->fetch($sql, [':id' => $id]);
     }
 
-    public function getByFacebookId($id) {
+    public function getByFacebookId($id) 
+    {
         $stmt = $this->db->prepare("select * from users where facebook_id = :id LIMIT 1");
         $stmt->execute(array(':id' => $id));
         if ($results = $stmt->fetch()) {
@@ -45,7 +36,8 @@ class User extends Model
         return null;
     }
 
-    public function register($data) {
+    public function register($data) 
+    {
         $sql = "INSERT INTO users (username, email, password, country, role) VALUES(:username,:email,:password,:country,:role)";
         $params = array("username" => $data['username'], "email" => $data['email'], "password" => $data['password'], "country" => COUNTRY_CODE, "role" => 4 );
         return $this->runQuery($sql, $params, "post");
@@ -89,7 +81,8 @@ class User extends Model
         Redirect::toURL("LOGIN");
     }
 
-    public function getUserPassword(){
+    public function getUserPassword()
+    {
         $stmt = $this->db->prepare("select password from users where user_id = :id LIMIT 1");
         $stmt->execute(array(':id' => Session::get('user_id')));
         if ($results = $stmt->fetch()) {
@@ -98,7 +91,8 @@ class User extends Model
         return null;
     }
 
-    public function updatePassword($password, $session = null) {
+    public function updatePassword($password, $session = null) 
+    {
 
         if (!$session) {
             // bug?
@@ -174,13 +168,14 @@ class User extends Model
 
     public function getList()
     {
-        $sql = "SELECT u.user_id, u.username, COUNT(p.id) numberOfProducts, u.country from users u
+        $sql = "SELECT u.user_id, u.username, COUNT(p.id) numberOfProducts, 
+                       u.country from users u
                 LEFT JOIN products p ON p.author_id = u.user_id
                 WHERE p.visibility = 1
                 GROUP BY u.user_id
                 ORDER BY numberOfProducts DESC
                 ";
-        return $this->runQuery($sql, [], 'get');
+        return $this->fetchAll($sql);
 
     }
 
