@@ -13,13 +13,32 @@
             <div class="table-responsive">
               <form method="post">
                 {% if state != "locked" %}
+
                   {% if state == "view" %}
                     <button type="submit" class="btn btn-primary">Edit</button>
-                  {% endif %}
-                  {% if state == "edit" %}
-                    <button type="submit" class="btn btn-primary">Save</button>
+
+                  {% elseif state == "edit" %}
+                    {# ugly but working #}
+                    <script>
+                      window.forceclose = true;
+
+                      window.onbeforeunload = function(e){
+                        if (window.forceclose === true) {
+                        var request = new XMLHttpRequest();
+                        request.open("POST","locale/forceclose",false);
+                        request.send();
+                        return "";
+                        }
+                      };
+
+                      function skipforceclose() {
+                          window.forceclose = false;
+                      };
+                    </script>
+                    <button type="submit" class="btn btn-primary" onclick="skipforceclose()">Save</button>
                   {% endif %}
                 {% endif %}
+
                 <table class="table table-striped sortable table-sm">
                     <thead class="thead-inverse">
                     <tr>

@@ -54,21 +54,22 @@ class Locale extends Model
       $cz = [];
       // divide POST keys by language preffixes
       foreach ($post as $key => $value) {
-        if($value) {
         if (substr($key, 0, 2 ) === "sk") {
            $sk[substr($key, 2, strlen($key))] = $value;
          }elseif (substr($key, 0, 2 ) === "cz") {
            $cz[substr($key, 2, strlen($key))] = $value;
          }
-       }
       }
 
       // compute diffs from old and new localization data
       $diff_sk = SDiff::getObjectDiff(self::loadLang("sk"),$sk, False);
       $diff_cz = SDiff::getObjectDiff(self::loadLang("cz"),$cz, False);
-      $diff = $diff_sk;
-      if($diff && $diff_cz) $diff .="\n";
-      $diff .= $diff_cz;
+      $diff = "";
+      if($diff_sk) $diff .= "SK: ".$diff_sk;
+      if($diff_cz) {
+        if($diff) $diff .="<br>";
+        $diff .= "CZ: ".$diff_cz;
+      }
 
       //save new locale
       self::saveLang("sk", $sk);

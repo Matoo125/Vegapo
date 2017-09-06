@@ -17,8 +17,7 @@ class Edits extends EditsApiController
   public function edit($id = null)
   {
     if($id) {
-      $this->data['data'] = $this->model->getEditbyId($id);
-      $this->data['data']['diff'] = SDiff::formatHtml($this->data['data']['diff']);
+      $this->data['data'] = $this->model->getEditDetailsById($id);
     }
   }
 
