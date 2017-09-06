@@ -1,0 +1,54 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - {{ lang.EDITS }} {% endblock %}
+
+{% block header %} {{ lang.EDITS }}{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+      {{ include('web/modules/flash.twig') }}
+    </div>
+    <div class="row">
+
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link {% if not state %} active {% endif %}" href="/admin/edits">{{ lang.EDITS_ALL }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if state == 'opened' %} active {% endif %}" href="/admin/edits/opened">{{ lang.EDITS_OPENED }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if state == 'closed' %} active {% endif %}" href="/admin/edits/closed">{{ lang.EDITS_CLOSED }}</a>
+        </li>
+      </ul>
+
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped sortable table-sm">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>#</th>
+                        <th>{{ lang.EDITS_EDIT_STATE }}</th>
+                        <th>{{ lang.EDITS_EDIT_TYPE }}</th>
+                        <th>{{ lang.EDITS_EDIT_USER_ID }}</th>
+                        <th>{{ lang.EDITS_OBJECT_TYPE }}</th>
+                        <th>{{ lang.EDITS_EDIT_CREATED_AT }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for key, val in edits %}
+                        <tr>
+                          <th scope="row"><a href="/admin/edits/edit/{{ val['edit_id'] }}">{{ val['edit_id'] }}</a></th>
+                          <td>{{ val['edit_state'] }}</td>
+                          <td>{{ val['edit_type'] }}</td>
+                          <td><a href ="">{{ val['edit_username'] }}</a></td>
+                          <td><a href ="">{{ val['object_type'] }}</a></td>
+                          <td>{{ val['edit_created_at'] }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

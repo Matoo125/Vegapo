@@ -1,0 +1,32 @@
+{% extends "admin/base.twig" %}
+
+{% block title %}VegaPo - {{ lang.EDIT }} {% endblock %}
+
+{% block header %} {{ lang.EDIT }} {% endblock %}
+
+{% block content %}
+<style type="text/css">
+      ins { background-color: LIGHTGREEN; }
+      del { background-color: LIGHTCORAL; }
+ </style>
+
+<section id="main">
+    <div class="container">
+        <div class="row">
+          <div class="col-lg-8 offset-lg-2 text-left">
+            <h1>{{ "#" ~ data['edit_id'] ~ " " ~ data['object_type'] ~ " "~ data['edit_state'] }}</h1>
+            <h2><a href ="">{{ data['edit_username'] }}</a></h2>
+            <p>{{ lang.EDITS_EDIT_CREATED_AT ~ " " ~ data['edit_created_at'] }} {% if data['edit_created_at'] != data['edit_updated_at'] %} ({{ data['edit_updated_at'] }}) {% endif %}</p>
+          </div>
+          <div class="col-lg-10 offset-lg-1 text-left">
+            <p>{{ lang.EDITS_EDIT_COMMENT}}:</p>
+            <p>{{ data['edit_comment'] }}<p>
+          </div>
+          <div class="col-lg-10 offset-lg-1 text-left">
+            <p>{{ lang.EDITS_EDIT_DIFF}}:</p>
+            {{ data['edit_diff']|raw }}
+          </div>
+      </div>
+  </div>
+</section>
+{% endblock %}

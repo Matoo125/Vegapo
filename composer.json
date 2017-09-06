@@ -6,7 +6,8 @@
         "filp/whoops": "^2.1",
         "intervention/image": "^2.3",
         "m4/m4mvc": "0.2",
-        "facebook/graph-sdk": "^5.6"
+        "facebook/graph-sdk": "^5.6",
+        "mrkovec/sdiff": "^0.9"
     },
 
     "autoload": {

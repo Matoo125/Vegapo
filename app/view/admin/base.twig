@@ -50,6 +50,7 @@
     <div class="row row-offcanvas row-offcanvas-left">
         <div class="col-md-3 col-lg-2 sidebar-offcanvas" id="sidebar" role="navigation">
             <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link" href="/admin/edits">{{ lang.EDITS }}</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_REQUESTS }}">{{ lang.REQUESTS }}</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_PRODUCTS }}">{{ lang.PRODUCTS }}</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_TRASH }}">{{ lang.TRASH }}</a></li>
@@ -64,6 +65,8 @@
                 <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_CATEGORIES }}">{{ lang.CATEGORIES }}</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_NEWSLETTER }}">Newsletter</a></li>
                   {% endif %}
+                <li class="nav-item"><a class="nav-link" href="/admin/locale">{{ lang.LOCALE }}</a></li>
+
             </ul>
         </div>
         <!--/col-->
