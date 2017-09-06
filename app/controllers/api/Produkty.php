@@ -26,7 +26,8 @@ class Produkty extends Controller
     }
   }
 
-  public function pridat() {
+  public function pridat() 
+  {
 
     if (!Session::get('user_id')) {
       redirect('/');
@@ -40,7 +41,7 @@ class Produkty extends Controller
       $data['price']        = $_POST['productPrice'];
       $data['barcode']      = preg_replace('/\s+/','',$_POST['barcode']);
       $supermarkets         = $_POST['supermarket'] ?? array();
-      $tags                 =  $_POST['tag'] ?? array();
+      $tags                 = $_POST['tag'] ?? array();
       $data['note']         = $_POST['note'];
 
       if(Session::get('user_role') !== null && Session::get('user_role') > 20) {
@@ -68,7 +69,6 @@ class Produkty extends Controller
       } else {
 
         if ( $id = $this->model->insert($data, true, $visibility) ){
-          // get last inserted id
           $this->model->matching_supermarkets($id, $supermarkets);
           $this->model->matching_tags($id, $tags);
 
@@ -104,101 +104,91 @@ class Produkty extends Controller
 
   public function index()
   {
-    $category_slug = $params['kategoria'] = $_GET['kategoria'] ?? null;
-    $supermarket_slug = $params['supermarket'] = $_GET['supermarket'] ?? null;
-    $tag_slugs = $params['tag'] = $_GET['tag'] ?? null;
-    $favourites_user_id = $params['oblubene'] = $_GET['oblubene'] ?? null;
-    $search_term = $params['hladat'] = $_GET['hladat'] ?? null;
-    $author_id = $params['autor'] = $_GET['autor'] ?? null;
-    $visibility = $params['stav'] = $_GET['stav'] ?? null;
-    $sorting = $params['sort'] = $_GET['sort'] ?? null;
+    $params['kategoria']    = $_GET['kategoria']    ?? null;
+    $params['supermarket']  = $_GET['supermarket']  ?? null;
+    $params['tag']          = $_GET['tag']          ?? null;
+    $params['oblubene']     = $_GET['oblubene']     ?? null;
+    $params['hladat']       = $_GET['hladat']       ?? null;
+    $params['autor']        = $_GET['autor']        ?? null;
+    $params['stav']         = $_GET['stav']         ?? null;
+    $params['sort']         = $_GET['sort']         ?? null;
 
-    if ($author_id) {
-      $this->data['username'] = $this->model->getUsername($author_id);
+    if ($params['autor']) {
+      $this->data['username'] = $this->model->getUsername($params['autor']);
     }
     
-    $current_page = isset($_GET['p']) ? $_GET['p'] : 1;
+    $current_page = $_GET['p'] ?? 1;
 
     $this->listFilters();
 
-    $current_category = findBySlugInArray($category_slug, $categories);
-    $current_supermarket = findBySlugInArray($supermarket_slug, $supermarkets);
+    $current_category = findBySlugInArray(
+      $params['kategoria'], 
+      $this->data['categories']
+    );
+
+    $current_supermarket = findBySlugInArray(
+      $params['supermarket'], 
+      $this->data['supermarkets']
+    );
 
     $current_tags = [];
+    $tag_slugs = $params['tag'];
     if($tag_slugs) {
       if(!is_array($tag_slugs)) $tag_slugs = [$tag_slugs];
       foreach ($tag_slugs as $tag_slug) {
-      $current_tags[] = findBySlugInArray($tag_slug, $tags);
+      $current_tags[] = findBySlugInArray($tag_slug, $this->data['tags']);
       }
     }
 
     $number_of_products = $this->model->count([
-        'category' => $current_category['id'],
+        'category'    => $current_category['id'],
         'supermarket' => $current_supermarket['id'],
-        'tags'  =>  $current_tags,
-        'author'  =>  $author_id,
-        'search'  =>  $search_term,
-        'favourite' => $favourites_user_id,
-        'visibility' => 1
+        'tags'        =>  $current_tags,
+        'author'      =>  $params['autor'],
+        'search'      =>  $params['hladat'],
+        'favourite'   => $params['oblubene'],
+        'visibility'  => 1
       ]
     )['numberOfProducts'];
 
     $number_of_pages = ceil($number_of_products / 20);
     $start = ($current_page - 1 ) * 20;
 
-    $this->data['params'] = $params;
-    $this->data['supermarkets'] = $supermarkets;
-    $this->data['categories'] = $categories;
-    $this->data['tags'] = $tags;
-    $this->data['current_supermarket'] = $current_supermarket;
-    $this->data['current_category'] = $current_category;
-    $this->data['current_tags'] = $current_tags;
-    $this->data['number_of_pages'] = $number_of_pages;
-    $this->data['current_page'] = $current_page;
-    $this->data['sorting'] = $sorting;
+    $this->data['params']               = $params;
+    $this->data['current_supermarket']  = $current_supermarket;
+    $this->data['current_category']     = $current_category;
+    $this->data['current_tags']         = $current_tags;
+    $this->data['number_of_pages']      = $number_of_pages;
+    $this->data['current_page']         = $current_page;
+    $this->data['sorting']              = $params['sort'];
+
     $this->data['products'] = $this->model->list([
-      'category'      =>  $category_slug, 
-      'supermarket'   =>  $supermarket_slug, 
+      'category'      =>  $params['kategoria'], 
+      'supermarket'   =>  $params['supermarket'], 
       'tags'          =>  $tag_slugs, 
       'start'         =>  $start, 
-      'visibility'    =>  $visibility, 
-      'author'        =>  $author_id, 
-      'search'        =>  $search_term, 
-      'favourites'    =>  $favourites_user_id, 
-      'sort'          =>  $sorting]);
+      'visibility'    =>  $params['stav'], 
+      'author'        =>  $params['autor'], 
+      'search'        =>  $params['hladat'], 
+      'favourites'    =>  $params['oblubene'], 
+      'sort'          =>  $params['sort']]);
   }
-
-
-  /*
-  *       AJAX function Favourites
-  *       adding and deleting
-  */
 
   public function favourites()
   {
     if (!$_POST) return;
 
-    $action = $_POST['action'];
-
-    if ($action == 1) {
-
+    if ($_POST['action'] == 1) {
       $user_id = Session::get('user_id');
       $product_id = $_POST['product_id'];
-
-
       $this->model->addToFavourites($product_id, $user_id);
-
       echo 'added';  return;
-
-    } else {
+    } 
+    else {
       $id = $_POST['id'];
-
       $this->model->removeFromFavourites($id);
-
       echo 'removed'; return;
     }
-
-    echo 'error';
   }
 
 }

@@ -317,7 +317,7 @@ class Product extends Model
       ['id' => $id, 
        'name' => $filename, 
        'role' => $role, 
-       'country' => COUNTRY_CODE],
+       'country' => COUNTRY_CODE]
     );
   }
 
