@@ -9,14 +9,15 @@ class Locale extends LocaleApiController
 {
   public function index()
   {
-      $this->data['state'] = "view";
+    $this->data['state'] = "view";
 
-      // check lock
-      if($this->model->isLocked()) {
-        // locked - can not edit
-        $this->data['state'] = "locked";
-        Session::setFlash(getString('EDIT_LOCKED'), "danger", 1);
-    } elseif ($this->model->haveLock()) {
+    // check lock
+    if($this->model->isLocked()) {
+      // locked - can not edit
+      $this->data['state'] = "locked";
+      Session::setFlash(getString('EDIT_LOCKED'), "danger", 1);
+    } 
+    elseif ($this->model->haveLock()) {
       $this->data['state'] = "edit";
     }
 

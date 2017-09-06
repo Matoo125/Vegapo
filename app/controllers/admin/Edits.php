@@ -10,8 +10,8 @@ class Edits extends EditsApiController
 {
   public function index($state = null)
   {
-      $this->data['state'] = $state;
-      $this->data['edits'] = $this->model->getEdits($state);
+    $this->data['state'] = $state;
+    $this->data['edits'] = $this->model->getEdits($state);
   }
 
   public function edit($id = null)

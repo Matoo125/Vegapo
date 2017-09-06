@@ -2,13 +2,6 @@
 
 use app\model\Locale;
 
-// require_once APP . DS . 'string/lang/sk.php';
-// require_once APP . DS . 'string/lang/cz.php';
-// //
-// Locale::saveLang("sk", $sk);
-// Locale::saveLang("cz", $cz);
-// exit;
-
 $sk = Locale::loadLang("sk");
 
 if (COUNTRY_CODE == 'cz') {
