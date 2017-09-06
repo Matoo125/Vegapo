@@ -51,6 +51,27 @@ class User extends Model
         return $this->runQuery($sql, $params, "post");
     }
 
+    // create new user from Facebook data
+    public function registerFacebookUser($data)
+    {
+      $this->save("INSERT INTO users (username, first_name, last_name, email, password, country, role, facebook_id) VALUES (:username, :first_name, :last_name, :email, :password, :country, :role, :facebook_id)",
+        ["username" => $data['username'],
+         "first_name" => $data['first_name'],
+         "last_name" => $data['last_name'],
+         "email" => $data['email'],
+         "password" => $data['password'],
+         "country" => COUNTRY_CODE,
+         "role" => 4,
+         "facebook_id" =>  $data['facebook_id']]);
+    }
+
+    // update users Facebook id
+    public function changeFacebookId($userId, $facebookId)
+    {
+      $this->save("UPDATE `users` SET updated_at = now(), facebook_id = :facebook_id WHERE user_id=:id",
+      ["id" => $userId, "facebook_id" => $facebookId]);
+    }
+
     // user session login
     public function loginUser($user)
     {
