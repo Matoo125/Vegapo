@@ -32,7 +32,7 @@ class Tagy extends TagyApiController
             }
         }
 
-        $this->data['tags'] = $this->model->getTags();
+        $this->data['tags'] = $this->model->list();
     }
 
     public function upravit($id) 
@@ -57,7 +57,7 @@ class Tagy extends TagyApiController
             }
         }
 
-        $this->data['tags'] = $this->model->getTags();
+        $this->data['tags'] = $this->model->list();
         $this->data['tag']  = $this->model->getTagById($id);
 
     }

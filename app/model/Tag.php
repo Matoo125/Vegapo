@@ -48,10 +48,10 @@ class Tag extends Model
         return $this->runQuery($sql, array(":id" => $id), "get1");
     }
 
-    public function getTags() {
+    public function list() {
         $sql = "select * from tags WHERE country = :country";
         $args = array(':country'  => COUNTRY_CODE);
-        return $this->runQuery($sql, $args, "get");
+        return $this->fetchAll($sql, $args);
     }
 
 }

@@ -171,15 +171,14 @@ class Product extends Model
       $params['supermarket'] = $supermarket;
     }
 
-  /* not working yet
- if ($tags) {
-      $tags = "'" . implode('\", \"', $tags)  . '\"';
-      $where[]  ="t.slug IN(:tags)";
-      $params['tags'] = $tags;
-    }*/
-
-    if ($tags) {
-      print_r($tags);die;
+  /* shows only selected tag */
+  if ($tags) {
+    $tags = implode(', ', $tags) ;
+    $where[]  ="t.slug IN(:tags)";
+    $params['tags'] = $tags;
+  }
+    /* show all tags, not needed yet */
+    /*if ($tags) {
       if(!is_array($tags)) $tags = [$tags];
       $id = 0;
       foreach ($tags as $tag) {
@@ -198,8 +197,9 @@ class Product extends Model
                       AND e.slug = :".$ts_id.")";
         $params[$ts_id] = $tag;
       }
-    
-
+    }   
+    */
+   
     if ($author) {
       $where[] = "p.author_id = :author";
       $params['author'] = $author;
@@ -247,8 +247,16 @@ class Product extends Model
 
   }
 
-  public function count($category = null, $supermarket = null, $tags = null, $visibility = 1, $author_id = null, $searchTerm = null, $favourites = null)
+  public function count($filters)
   {
+    $category     =  $filters['category']     ?? null;
+    $supermarket  =  $filters['supermarket']  ?? null;
+    $tags         =  $filters['tags']         ?? null;
+    $visibility   =  $filters['visibility']   ?? 1;
+    $author       =  $filters['author']       ?? null;
+    $search       =  $filters['search']       ?? null;
+    $favourite    =  $filters['favourite']    ?? null;
+
     $sql = "SELECT COUNT(p.id) AS numberOfProducts FROM products AS p";
 
     $where[] = " p.country = :country";
@@ -259,9 +267,9 @@ class Product extends Model
        $args['visibility'] = $visibility;
     }
 
-    if ($author_id) {
+    if ($author) {
       $where[] = " p.author_id = :author_id";
-      $args['author_id'] = $author_id;
+      $args['author_id'] = $author;
     }
 
     if ($supermarket) {
@@ -276,22 +284,22 @@ class Product extends Model
 
     }
 
-    if ($tags) { // not working
+    if ($tags) { 
       $sql .= " LEFT JOIN matching_tags AS mt ON p.id = mt.product_id";
-      $tags = "'" . implode("', '", array_column($tags, 'id'))  . "'";
+      $tags = implode(",", array_column($tags, 'id'));
       $where[]  ="mt.tag_id IN(:ids)";
       $args['ids'] = $tags;
     }
 
-    if ($searchTerm) {
+    if ($search) {
       $where[] = " p.name LIKE :searchTerm";
-      $args['searchTerm'] = "%".$searchTerm."%";
+      $args['searchTerm'] = "%".$search."%";
     }
 
-    if ($favourites) {
+    if ($favourite) {
       $sql .= " INNER JOIN favourite_products fp ON p.id = fp.product_id";
       $where[] = "fp.user_id = :user_id";
-      $args['user_id'] = $favourites;
+      $args['user_id'] = $favourite;
     }
 
     $sql = $sql . " WHERE" . implode(" AND ", $where);
@@ -300,15 +308,20 @@ class Product extends Model
 
   }
 
+  /* this function will be replaced */
   public function insertImage($id, $role, $filename)
   {
-    $this->runQuery(
-      "INSERT INTO images(product_id, filename, role, country) VALUES(:id, :name, :role, :country)",
-      ['id' => $id, 'name' => $filename, 'role' => $role, 'country' => COUNTRY_CODE],
-      'post'
+    $this->save(
+      "INSERT INTO images(product_id, filename, role, country) 
+       VALUES(:id, :name, :role, :country)",
+      ['id' => $id, 
+       'name' => $filename, 
+       'role' => $role, 
+       'country' => COUNTRY_CODE],
     );
   }
 
+  /* this function will be replaced */
   public function deleteImages($id = null, $product_id = null, $role = null)
   {
     $sql = "DELETE FROM images WHERE country = :country";
@@ -329,114 +342,7 @@ class Product extends Model
       $params['role'] = $role;
     }
 
-    return $this->runQuery($sql, $params, 'post');
-  }
-
-  public function getCategories()
-  {
-    return $this->runQuery("SELECT * FROM categories WHERE country = :country", array("country" => COUNTRY_CODE) , "get");
-  }
-
-  public function getSupermarkets()
-  {
-    return $this->runQuery("SELECT * FROM supermarkets WHERE country = :country", array("country" => COUNTRY_CODE) , "get");
-  }
-
-  public function getTags()
-  {
-    return $this->runQuery("SELECT * FROM tags WHERE country = :country", array("country" => COUNTRY_CODE), "get");
-  }
-
-
-  public function addToFavourites($product_id, $user_id)
-  {
-    return $this->runQuery(
-      "INSERT INTO favourite_products (user_id, product_id) VALUES (:user_id, :product_id)",
-      ["user_id" => $user_id, "product_id" => $product_id],
-      "post"
-    );
-
-  }
-
-  public function removeFromFavourites($id)
-  {
-    return $this->runQuery("DELETE FROM favourite_products WHERE id = :id", ['id' => $id], "post");
-  }
-
-  public function isProductFavourite($product_id, $user_id)
-  {
-    return $this->runQuery("SELECT id FROM favourite_products WHERE product_id = :product_id AND user_id = :user_id", ['product_id' => $product_id, 'user_id' => $user_id], 'get1');
-  }
-
-  public function changeCountry($product_id, $country_code)
-  {
-    return $this->runQuery(
-      "UPDATE products SET country = :country where id = :id",
-      ['country' => $country_code, 'id' => $product_id],
-      'post'
-      );
-  }
-
-  public function changeCountryImage($product_id, $country_code)
-  {
-    return $this->runQuery(
-      "UPDATE images SET country = :country where product_id = :id",
-      ['country' => $country_code, 'id' => $product_id],
-      'post'
-      );
-  }
-
-  public function changeCountryCode($table, $id, $cc)
-  {
-    return $this->runQuery(
-      "UPDATE ".$table." SET country = :country where ".key($id)." = :id",
-      ['country' => $cc, 'id' => $id[key($id)]],
-      'post'
-    );
-  }
-
-  public function getMatchers($table, $product_id)
-  {
-    return $this->runQuery("SELECT * FROM matching_".$table." WHERE product_id = :product_id", ['product_id' => $product_id], 'get');
-
-  }
-
-  public function changeMatcherId($table,array $change, $id)
-  {
-    return $this->runQuery(
-      "UPDATE ".$table." SET ".key($change)." = :matcher where id = :id",
-      ['matcher' => $change[key($change)], 'id' => $id],
-      'post'
-    );
-  }
-
-  public function getValue($table, $id)
-  {
-    return $this->runQuery(
-      "SELECT value FROM ".$table." WHERE id = :id",
-      ['id' => $id],
-      'get1'
-    );
-  }
-
-  public function getNewMatchingId($table, $value, $country)
-  {
-    return $this->runQuery(
-      "SELECT id FROM ".$table." WHERE value = :value AND country = :country",
-      ['value' => $value, 'country' => $country],
-      'get1'
-    );
-  }
-
-  public function getProductImages($product_id)
-  {
-    return $this->runQuery("SELECT * FROM images WHERE product_id = :product_id", ['product_id' => $product_id], 'get');
-  }
-
-  public function getUsername($id)
-  {
-    $sql = "SELECT username FROM users WHERE user_id = :id";
-    return $this->runQuery($sql, ['id' => $id], 'get1')['username'];
+    return $this->save($sql, $params);
   }
 
   public function checkProduct($barcode, $slug)
@@ -449,56 +355,106 @@ class Product extends Model
     }
     $sql .= ") and country = :country";
     $args['country'] = COUNTRY_CODE;
-    return $this->runQuery($sql, $args,'get1');
+    return $this->fetch($sql, $args);
   }
 
-  public function matching_supermarkets($id, $added_supermarkets, $deleted_supermarkets = array()) {
 
-    foreach ($deleted_supermarkets as $supermarket_id) {
-        $sql = "DELETE from matching_supermarkets WHERE product_id=:product_id AND supermarket_id=:supermarket_id";
-        $params = array(
+  /* favourites related methods */
+  public function addToFavourites($product_id, $user_id)
+  {
+    $sql = "INSERT INTO favourite_products (user_id, product_id) 
+            VALUES                        (:user_id, :product_id)";
+
+    $bind = ["user_id" => $user_id, "product_id" => $product_id];
+
+    return $this->save($sql, $bind);
+
+  }
+
+  public function removeFromFavourites($id)
+  {
+    return $this->save(
+      "DELETE FROM favourite_products WHERE id = :id", 
+      ['id' => $id]
+    );
+  }
+
+  public function isProductFavourite($product_id, $user_id)
+  {
+    $sql = "SELECT id 
+            FROM favourite_products 
+            WHERE product_id = :product_id 
+              AND user_id = :user_id";
+
+    $bind = ['product_id' => $product_id, 'user_id' => $user_id];
+
+    return $this->fetch($sql, $bind);
+  }
+
+  /* most of the code below this should be in different files */
+
+  public function getUsername($id)
+  {
+    $sql = "SELECT username FROM users WHERE user_id = :id";
+    return $this->runQuery($sql, ['id' => $id], 'get1')['username'];
+  }
+
+
+  public function matching_supermarkets($id, $added, $removed = []) 
+  {
+    foreach ($removed as $supermarket_id) {
+        $sql = "DELETE FROM matching_supermarkets 
+                WHERE product_id=:product_id 
+                AND supermarket_id=:supermarket_id";
+
+        $bind = array(
           ":product_id"       =>  $id,
-          ":supermarket_id"               =>  $supermarket_id
+          ":supermarket_id"   =>  $supermarket_id
         );
-        $this->runQuery($sql, $params, "post");
+
+        $this->save($sql, $bind);
 
       }
 
-       foreach ($added_supermarkets as $supermarket) {
-        $sql = "INSERT INTO matching_supermarkets (product_id, supermarket_id, country) VALUES (:product_id,:supermarket_id,:country)";
-           $params = array(
-          ":product_id"       =>  $id,
-           ":supermarket_id"   =>  $supermarket,
-           ":country"         => COUNTRY_CODE
-        );
-        $this->runQuery($sql, $params, "post");
+    foreach ($added as $supermarket) {
+      $sql = "INSERT INTO matching_supermarkets (product_id, supermarket_id, country) 
+              VALUES (:product_id,:supermarket_id,:country)";
 
-        }
-
-        return true;
-
-  }
-
-  public function matching_tags($product_id, $added_tags, $deleted_tags = array()) {
-
-    foreach ($deleted_tags as $tag_id) {
-      $sql = "DELETE from matching_tags WHERE product_id=:product_id AND tag_id=:tag_id";
-      $params = array(
-        ":product_id"       =>  $product_id,
-        ":tag_id"               =>  $tag_id
+      $bind = array(
+        ":product_id"       =>  $id,
+        ":supermarket_id"   =>  $supermarket,
+        ":country"          =>  COUNTRY_CODE
       );
-      $this->runQuery($sql, $params, "post");
+
+      $this->save($sql, $bind);
 
     }
 
-    foreach ($added_tags as $tag_id) {
+      return true;
+
+  }
+
+  public function matching_tags($product_id, $added, $removed = []) 
+  {
+
+    foreach ($removed as $tag_id) {
+      $sql = "DELETE from matching_tags WHERE product_id=:product_id AND tag_id=:tag_id";
+      $bind = array(
+        ":product_id"       =>  $product_id,
+        ":tag_id"               =>  $tag_id
+      );
+      $this->save($sql, $bind);
+
+    }
+
+    foreach ($added as $tag_id) {
       $sql = "INSERT INTO matching_tags (product_id, tag_id, country) VALUES (:product_id,:tag_id,:country)";
-      $params = array(
+      $bind = array(
         ":product_id"       =>  $product_id,
         ":tag_id"   =>  $tag_id,
         ":country"         => COUNTRY_CODE
       );
-      $this->runQuery($sql, $params, "post");
+      $this->save($sql, $bind);
 
     }
 

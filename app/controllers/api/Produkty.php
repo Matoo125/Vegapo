@@ -88,10 +88,18 @@ class Produkty extends Controller
 
     }
 
-    $this->data['categories'] = $this->model->getCategories();
-    $this->data['supermarkets'] = $this->model->getSupermarkets();
-    $this->data['tags'] = $this->model->getTags();
+    $this->listFilters();
 
+  }
+
+  public function listFilters ()
+  {
+    $c = new \app\model\Category;
+    $s = new \app\model\Store;
+    $t = new \app\model\Tag;
+    $this->data['categories']   = $c->list();
+    $this->data['supermarkets'] = $s->list();
+    $this->data['tags']         = $t->list();
   }
 
   public function index()
@@ -111,9 +119,7 @@ class Produkty extends Controller
     
     $current_page = isset($_GET['p']) ? $_GET['p'] : 1;
 
-    $categories = $this->model->getCategories();
-    $supermarkets = $this->model->getSupermarkets();
-    $tags = $this->model->getTags();
+    $this->listFilters();
 
     $current_category = findBySlugInArray($category_slug, $categories);
     $current_supermarket = findBySlugInArray($supermarket_slug, $supermarkets);
@@ -126,8 +132,15 @@ class Produkty extends Controller
       }
     }
 
-    $number_of_products = $this->model->count(
-      $current_category['id'], $current_supermarket['id'], $current_tags, 1, $author_id, $search_term, $favourites_user_id
+    $number_of_products = $this->model->count([
+        'category' => $current_category['id'],
+        'supermarket' => $current_supermarket['id'],
+        'tags'  =>  $current_tags,
+        'author'  =>  $author_id,
+        'search'  =>  $search_term,
+        'favourite' => $favourites_user_id,
+        'visibility' => 1
+      ]
     )['numberOfProducts'];
 
     $number_of_pages = ceil($number_of_products / 20);

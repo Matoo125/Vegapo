@@ -33,7 +33,7 @@ class Kategorie extends KategorieApiController
             }
         }
 
-        $categories = $this->model->getCategories();
+        $categories = $this->model->list();
         $this->data['categories'] = $categories;
 
     }
@@ -61,7 +61,7 @@ class Kategorie extends KategorieApiController
         $category = $this->model->getCategoryById($id);
         $this->data['category'] = $category;
 
-        $categories = $this->model->getCategories();
+        $categories = $this->model->list();
         $this->data['categories'] = $categories;
     }
 

@@ -14,7 +14,7 @@ class Tagy extends Controller
 
     public function index() 
     {
-        $this->data['tags'] = $this->model->getTags();
+        $this->data['tags'] = $this->model->list();
 
         if ($this->data['tags']) {
             $x = 0;

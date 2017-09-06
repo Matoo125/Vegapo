@@ -74,9 +74,7 @@ class Produkty extends ProduktyApiController
 
     // get product by id, supermarkets and categories
     $this->data['product'] = $this->model->single('id', $id);
-    $this->data['categories'] = $this->model->getCategories();
-    $this->data['supermarkets'] = $this->model->getSupermarkets();
-    $this->data['tags'] = $this->model->getTags();
+    $this->listFilters();
 
   }
 
@@ -136,129 +134,6 @@ class Produkty extends ProduktyApiController
   /* move from sk to cz or the other way around */
   public function move_to($product_id, $from, $to)
   {
-    // change supermarket matchers country code
-    $this->model->changeCountryCode(
-      'matching_supermarkets', ['product_id' => $product_id], $to
-    );
-
-    // get array of supermarket matchers
-    $matchers = $this->model->getMatchers('supermarkets', $product_id);
-
-    if ($matchers) {
-      // get new supermarket matcher ids
-      foreach ($matchers as $matcher){
-        // get value from supermarket id
-        $value = $this->model->getValue('supermarkets', $matcher['supermarket_id']);
-        $new_id = $this->model->getNewMatchingId('supermarkets', $value['value'], $to);
-         // change supermarket matcher id
-        if ($new_id) {
-          $this->model->changeMatcherId(
-            'matching_supermarkets',
-            ['supermarket_id' => $new_id['id']],
-            $matcher['id']
-          );
-        } else {
-          $this->model->runQuery(
-            "DELETE FROM matching_supermarkets WHERE id = :id",
-            ['id' => $matcher['id']],
-            'post'
-          );
-        }
-
-      }
-    }
-
-
-    // change tags matchers ids
-    $this->model->changeCountryCode('matching_tags', ['product_id' => $product_id], $to);
-    // get array of supermarket matchers
-    $matchers = $this->model->getMatchers('tags', $product_id);
-    if ($matchers) {
-      // get new supermarket matcher ids
-      foreach ($matchers as $matcher){
-        // get value from supermarket id
-        $value = $this->model->getValue('tags', $matcher['tag_id']);
-        $new_id = $this->model->getNewMatchingId('tags', $value['value'], $to);
-         // change supermarket matcher id
-
-        $this->model->changeMatcherId(
-          'matching_tags',
-          ['tag_id' => $new_id['id']],
-          $matcher['id']
-        );
-      }
-    }
-
-    // change category id
-
-    // get current category id
-    $category_id = $this->model->runQuery(
-      "SELECT category_id FROM products WHERE id=:id",
-      ['id' => $product_id],
-      'get1'
-    )['category_id'];
-
-    // get current category value
-    $category_value = $this->model->runQuery(
-      "SELECT value FROM categories WHERE id = :id",
-      ['id' => $category_id],
-      'get1'
-    )['value'];
-
-    // get new category id
-    $new_category_id = $this->model->runQuery(
-      "SELECT id FROM categories WHERE country = :country AND value = :value",
-      ['country' => $to, 'value' => $category_value],
-      'get1'
-    )['id'];
-
-    // set new category id
-    $this->model->runQuery(
-      "UPDATE products SET category_id = :category_id WHERE id = :product_id",
-      ['category_id' => $new_category_id, 'product_id' => $product_id],
-      'post'
-    );
-
-    // change country in products
-    $this->model->runQuery(
-      "UPDATE products SET country = :country WHERE id = :product_id",
-      ['country' => $to, 'product_id' => $product_id],
-      'post'
-    );
-
-    // change country in images
-    $this->model->runQuery(
-      "UPDATE images SET country = :country WHERE product_id = :product_id",
-      ['country' => $to, 'product_id' => $product_id],
-      'post'
-    );
-
-    // change country in image table
-    $this->model->changeCountryImage($product_id, $to);
-    // get image names
-    $images = $this->model->getProductImages($product_id);
-    // move images
-    if ($images) {
-      foreach ($images as $image) {
-        if (file_exists(ROOT.UPLOADS.DS.'products'.DS. $from . DS .  $image['filename'])) {
-           rename(
-            ROOT.UPLOADS.DS.'products'.DS. $from . DS .  $image['filename'],
-            ROOT.UPLOADS.DS.'products'.DS. $to . DS . $image['filename']
-          );
-          rename(
-            ROOT.UPLOADS.DS.'products'.DS.$from . DS . '450x450' . DS . $image['filename'],
-            ROOT.UPLOADS.DS.'products'.DS.$to . DS . '450x450' . DS . $image['filename']
-          );
-          rename(
-            ROOT.UPLOADS.DS.'products'.DS.$from . DS . '150x150' . DS . $image['filename'],
-            ROOT.UPLOADS.DS.'products'.DS.$to . DS . '150x150' . DS . $image['filename']
-          );
-        }
-
-      }
-    }
-
-    redirect('/admin/produkty/ziadosti');
-
+    new app\helper\Move($product_id, $from, $to);
   }
 }

@@ -66,16 +66,10 @@ class Category extends Model
 
     }
 
-    public function getCategories() {
-        $stmt = $this->db->prepare("select * from categories WHERE country = :country");
-        $stmt->execute(array(
-            ":country"  => COUNTRY_CODE
-        ));
-        if ($results = $stmt->fetchAll()) {
-            return $results;
-        }
-
-        return null;
+    public function list() 
+    {
+        $sql = "select * from categories WHERE country = :country";
+        return $this->fetchAll($sql, ['country' => COUNTRY_CODE]);
     }
 
 }

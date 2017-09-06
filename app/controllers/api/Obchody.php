@@ -13,7 +13,7 @@ class Obchody extends Controller
 
     public function index() {
 
-        $this->data['stores'] = $this->model->getSupermarkets();
+        $this->data['stores'] = $this->model->list();
 
         if ($this->data['stores']) {
             $x = 0;
