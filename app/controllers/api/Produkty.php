@@ -114,7 +114,10 @@ class Produkty extends Controller
     $params['sort']         = $_GET['sort']         ?? null;
 
     if ($params['autor']) {
-      $this->data['username'] = $this->model->getUsername($params['autor']);
+      $user = new \app\model\User;
+      $this->data['username'] = $user->getById(
+        $params['autor'], 'username'
+      )['username'];
     }
     
     $current_page = $_GET['p'] ?? 1;
@@ -141,13 +144,13 @@ class Produkty extends Controller
     }
 
     $number_of_products = $this->model->count([
-        'category'    => $current_category['id'],
-        'supermarket' => $current_supermarket['id'],
+        'category'    =>  $current_category['id'],
+        'supermarket' =>  $current_supermarket['id'],
         'tags'        =>  $current_tags,
         'author'      =>  $params['autor'],
         'search'      =>  $params['hladat'],
-        'favourite'   => $params['oblubene'],
-        'visibility'  => 1
+        'favourite'   =>  $params['oblubene'],
+        'visibility'  =>  1
       ]
     )['numberOfProducts'];
 

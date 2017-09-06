@@ -127,7 +127,7 @@ class Product extends Model
     $category      =  $filters['category']     ??  null;
     $supermarket   =  $filters['supermarket']  ??  null;
     $tags          =  $filters['tags']         ??  null;
-    $page          =  $filters['page']         ??  0;
+    $start         =  $filters['start']        ??  0;
     $visibility    =  $filters['visibility']   ??  1;
     $author        =  $filters['author']       ??  null;
     $search        =  $filters['search']       ??  null;
@@ -221,24 +221,33 @@ class Product extends Model
     $sql .= " GROUP BY p.id, p.name ";
 
     switch($sort) {
-      case "name":
-      $sql.= "ORDER BY p.name ASC";
-      break;
+      case "namea":
+        $sql.= "ORDER BY p.name ASC";
+        break;
+      case "named":
+        $sql .= "ORDER BY p.name DESC";
+        break;
       case "priced":
-      $sql.= "ORDER BY p.expected_price DESC";
-      break;
+        $sql.= "ORDER BY p.expected_price DESC";
+        break;
       case "pricea":
-      $sql.= "ORDER BY p.expected_price ASC";
-      break;
+        $sql.= "ORDER BY p.expected_price ASC";
+        break;
       case "dated":
-      $sql.= "ORDER BY p.id DESC";
-      break;
+        $sql.= "ORDER BY p.id DESC";
+        break;
       case "datea":
-      $sql.= "ORDER BY p.id ASC";
-      break;
+        $sql.= "ORDER BY p.id ASC";
+        break;
+      case "rand":
+        $sql .= "ORDER BY rand()";
+        break;
+      default :
+        $sql .= "ORDER BY p.updated_at DESC";
+        break;
     }
 
-    $sql = self::paginate($sql, $page, 20);
+    $sql = self::paginate($sql, $start, 20);
     return $this->fetchAll($sql, $params);
 
   }
@@ -388,13 +397,6 @@ class Product extends Model
   }
 
   /* most of the code below this should be in different files */
-
-  public function getUsername($id)
-  {
-    $sql = "SELECT username FROM users WHERE user_id = :id";
-    return $this->runQuery($sql, ['id' => $id], 'get1')['username'];
-  }
-
 
   public function matching_supermarkets($id, $added, $removed = []) 
   {
