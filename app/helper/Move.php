@@ -66,37 +66,37 @@ class Move extends Model
     // get current category id
     $category_id = $this->fetch(
       "SELECT category_id FROM products WHERE id=:id",
-      ['id' => $product_id],
+      ['id' => $product_id]
     )['category_id'];
 
     // get current category value
     $category_value = $this->fetch(
       "SELECT value FROM categories WHERE id = :id",
-      ['id' => $category_id],
+      ['id' => $category_id]
     )['value'];
 
     // get new category id
     $new_category_id = $this->fetch(
       "SELECT id FROM categories WHERE country = :country AND value = :value",
-      ['country' => $to, 'value' => $category_value],
+      ['country' => $to, 'value' => $category_value]
     )['id'];
 
     // set new category id
     $this->save(
       "UPDATE products SET category_id = :category_id WHERE id = :product_id",
-      ['category_id' => $new_category_id, 'product_id' => $product_id],
+      ['category_id' => $new_category_id, 'product_id' => $product_id]
     );
 
     // change country in products
     $this->save(
       "UPDATE products SET country = :country WHERE id = :product_id",
-      ['country' => $to, 'product_id' => $product_id],
+      ['country' => $to, 'product_id' => $product_id]
     );
 
     // change country in images
     $this->save(
       "UPDATE images SET country = :country WHERE product_id = :product_id",
-      ['country' => $to, 'product_id' => $product_id],
+      ['country' => $to, 'product_id' => $product_id]
     );
 
     // change country in image table
@@ -134,7 +134,7 @@ class Move extends Model
   {
     return $this->save(
       "UPDATE products SET country = :country where id = :id",
-      ['country' => $country_code, 'id' => $product_id],
+      ['country' => $country_code, 'id' => $product_id]
     );
   }
 
@@ -142,7 +142,7 @@ class Move extends Model
   {
     return $this->save(
       "UPDATE images SET country = :country where product_id = :id",
-      ['country' => $country_code, 'id' => $product_id],
+      ['country' => $country_code, 'id' => $product_id]
     );
   }
 
@@ -150,7 +150,7 @@ class Move extends Model
   {
     return $this->save(
       "UPDATE ".$table." SET country = :country where ".key($id)." = :id",
-      ['country' => $cc, 'id' => $id[key($id)]],
+      ['country' => $cc, 'id' => $id[key($id)]]
     );
   }
 
@@ -166,7 +166,7 @@ class Move extends Model
   {
     return $this->save(
       "UPDATE ".$table." SET ".key($change)." = :matcher where id = :id",
-      ['matcher' => $change[key($change)], 'id' => $id],
+      ['matcher' => $change[key($change)], 'id' => $id]
     );
   }
 
@@ -174,7 +174,7 @@ class Move extends Model
   {
     return $this->fetch(
       "SELECT value FROM ".$table." WHERE id = :id",
-      ['id' => $id],
+      ['id' => $id]
     );
   }
 
@@ -182,7 +182,7 @@ class Move extends Model
   {
     return $this->fetch(
       "SELECT id FROM ".$table." WHERE value = :value AND country = :country",
-      ['value' => $value, 'country' => $country],
+      ['value' => $value, 'country' => $country]
     );
   }
 

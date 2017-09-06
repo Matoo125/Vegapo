@@ -238,10 +238,6 @@ class Product extends Model
       break;
     }
 
-    print_r($this->runQuery($sql, $params, 'get'));die;
-    echo $sql;
-    echo '<pre>';print_r($params);die;
-
     $sql = self::paginate($sql, $page, 20);
     return $this->fetchAll($sql, $params);
 

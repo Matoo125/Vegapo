@@ -1,12 +1,9 @@
+composer.lock
 /vendor
 /.idea
 /bower_components
-/uploads/categories/*
-/uploads/supermarkets/*
-/uploads/tags/*
-/uploads/products/*
+/uploads
 /app/core/Config.php
 /app/cache/*
 /css/public/styles.css.map
-composer.lock
 /css/public/.sass-cache
