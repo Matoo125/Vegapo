@@ -8,7 +8,7 @@
 		<div class="wow fadeInUp text-center">
             <h2>{{ params.oblubene ? lang.FAVOURITES }}
                 {{ lang.PRODUCTS }}
-                {{ username ? "| " ~ username : 'aaa' }}
+                {{ username ? "| " ~ username }}
                 {# search phrase #}
                 {% if params['hladat']|length %}
                   | <a href="{{ stripUrlParam(params, 'hladat') }}">"{{ params['hladat'] }}"</a>
