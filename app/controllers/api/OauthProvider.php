@@ -27,7 +27,7 @@ class OauthProvider extends Controller
     $user = new User();
     // search user by facebook id
     if ($fbUser['id']) {
-      if ($userData = $user->getByFacebookId($fbUser['id'])) {
+      if ($userData = $user->find('facebook_id', $fbUser['id'])) {
         $user->loginUser($userData);
         Session::setFlash(getString('FACEBOOK_LOGIN_SUCCESS'), "success", 1); //not yet used - maybe sometimes
         redirect('/users');
@@ -36,7 +36,7 @@ class OauthProvider extends Controller
 
     // try to look up user by facebook email
     if ($fbUser['email']) {
-      if ($userData = $user->getByEmail($fbUser['email'])) {
+      if ($userData = $user->find('email', $fbUser['email'])) {
         // update user facebook_id
         $user->changeFacebookId($userData['user_id'], $fbUser['id']);
 
@@ -68,12 +68,12 @@ class OauthProvider extends Controller
 
     $user = new User();
     // check if user already exists
-    if ($userData = $user->getByFacebookId($fbUser['id'])) {
+    if ($userData = $user->find('facebook_id', $fbUser['id'])) {
       $user->loginUser($userData);
       Session::setFlash(getString('FACEBOOK_REGISTER_SUCCESS'), "success", 1);
       redirect('/users');
     }
-    if ($userData = $user->getByEmail($fbUser['email'])) {
+    if ($userData = $user->find('email', $fbUser['email'])) {
       // update user facebook_id
       $user->changeFacebookId($userData['user_id'], $fbUser['id']);
 
@@ -99,7 +99,7 @@ class OauthProvider extends Controller
     \app\model\Newsletter::insert($userData['email']);
 
     //refresh user
-    $userData = $user->getByFacebookId($userData['facebook_id']);
+    $userData = $user->find('facebook_id', $userData['facebook_id']);
 
     $user->loginUser($userData);
 
@@ -118,7 +118,7 @@ class OauthProvider extends Controller
     $user = new User();
 
     // search user by facebook_id
-    if ($userData = $user->getByFacebookId($fbUser['id'])) {
+    if ($userData = $user->find('facebook_id', $fbUser['id'])) {
       // if user exist and is diferent from logend user - then error
       if($userData['user_id'] != Session::get('user_id')) {
         Session::setFlash(getString('FACEBOOK_CONNECT_ERROR')." Facebook user already exists.", "danger",1);

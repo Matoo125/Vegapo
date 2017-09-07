@@ -17,6 +17,8 @@ class Users extends UsersApiController
 		}
 	}
 
+	/* all this should be moved to API controller */
+
 	public function zabudnute_heslo()
 	{
 		if (!$_POST) {
@@ -24,7 +26,7 @@ class Users extends UsersApiController
 		}
 
 		// check email in database
-		if (!$user = $this->model->getByEmail($_POST['email'])) {
+		if (!$user = $this->model->find('email', $_POST['email'])) {
             Session::setFlash(getString('EMAIL_NOT_FOUND'), "warning");
             return;
 		}
