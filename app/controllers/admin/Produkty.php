@@ -27,12 +27,12 @@ class Produkty extends ProduktyApiController
       $supermarkets_old = explode(",", $_POST['supermarkets_old']);
 
       $added_supermarkets = array_diff(
-        $supermarkets_new, 
+        $supermarkets_new,
         $supermarkets_old
       );
 
       $deleted_supermarkets = array_diff(
-        $supermarkets_old, 
+        $supermarkets_old,
         $supermarkets_new
       );
 
@@ -43,12 +43,15 @@ class Produkty extends ProduktyApiController
       $added_tags = array_diff($tags_new, $tags_old);
       $deleted_tags = array_diff($tags_old, $tags_new);
 
+      $old_product = $this->model->getProductById($id);
+
       $this->model->update($data);
       $this->model->matching_supermarkets(
         $id, $added_supermarkets, $deleted_supermarkets
       );
       $this->model->matching_tags($id, $added_tags, $deleted_tags);
 
+      $this->model->createEdit($id, $reason ?? "update", $reason_id, SDiff::getObjectDiff($old_product,$this->model->getProductById($id), False), $_POST['edit_comment']);
 
       // editing main image
       if ($images['1'] && $images['1']['error'] === 0) {
@@ -76,6 +79,11 @@ class Produkty extends ProduktyApiController
     $this->data['product'] = $this->model->single('id', $id);
     $this->listFilters();
 
+    $edit = new Edit();
+    if($e = $edit->getObjectEdits("product", $id)) {
+      $this->data['last_edit'] = $e[0];
+    }
+
   }
 
   public function ziadosti($action = null, $id = null) {
@@ -85,6 +93,8 @@ class Produkty extends ProduktyApiController
       } elseif ($action == "deny") {
          $this->model->setVisibility(3, $id);
       }
+      $this->model->createEdit($id, $action);
+
       redirect("/admin/produkty/ziadosti");
     }
 
@@ -93,7 +103,7 @@ class Produkty extends ProduktyApiController
     $this->data['products'] = $products;
   }
 
-  public function trash($action = null, $id = null, $image = null) 
+  public function trash($action = null, $id = null, $image = null)
   {
 
     if (!Users::check_premission(30)) redirect('/'); // admin at least
@@ -107,6 +117,8 @@ class Produkty extends ProduktyApiController
       } elseif ($action == "move") {
         $this->model->setVisibility(3, $id);
       }
+      $this->model->createEdit($id, $action);
+      
       redirect("/admin/produkty/trash");
     }
 
@@ -120,7 +132,7 @@ class Produkty extends ProduktyApiController
   }
 
 /*
-  public function vymazat($id, $image) 
+  public function vymazat($id, $image)
   {
     if ($this->model->delete($id, "id", $image)) {
       Session::setFlash("Produkt vymazany uspesne", 'success', 1);

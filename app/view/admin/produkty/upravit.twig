@@ -85,10 +85,18 @@
 
             <p>Autor: <a href="/produkty?autor={{ product.user_id }}" target="_blank">{{ product.username }}</a></p>
 
+            <label for="edit_comment">{{ lang.EDITS_NOTE }}</label>
+            <textarea name="edit_comment" id="edit_comment" cols="30" rows="2" class="form-control"></textarea>
 
             <button type="submit" class="btn btn-primary">{{ lang.SUBMIT }}</button>
             <a href="{{ url.TRASH_MOVE }}{{ product.id }}" class="btn btn-danger" id="deleteConfirm">{{ lang.REMOVE }}</a>
             <a href="/produkty/produkt/{{ product.name|slugify }}" class="btn btn-success">Web</a>
+
+            {% if last_edit['edit_id'] %}
+              <br>
+              <br>
+              <a class="btn btn-info" href="/admin/edits/edit/{{ last_edit['edit_id'] }}" role="button" target="_blank"> {{ lang.EDITS_LAST }}</a>
+            {% endif %}
         </div>
 
         <div class="col-md-3 offset-md-1">

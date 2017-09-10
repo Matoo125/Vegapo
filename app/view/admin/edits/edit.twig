@@ -2,7 +2,7 @@
 
 {% block title %}VegaPo - {{ lang.EDIT }} {% endblock %}
 
-{% block header %} {{ lang.EDIT }} {% endblock %}
+{% block header %} {{ lang.EDIT ~ " #" ~ data['edit_id'] }} {% endblock %}
 
 {% block content %}
 <style type="text/css">
@@ -11,22 +11,72 @@
  </style>
 
 <section id="main">
-    <div class="container">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-left align-self-start">
         <div class="row">
-          <div class="col-lg-8 offset-lg-2 text-left">
-            <h1>{{ "#" ~ data['edit_id'] ~ " " ~ data['object_type'] ~ " "~ data['edit_state'] }}</h1>
-            <h2><a href ="">{{ data['edit_username'] }}</a></h2>
+          <div class="col-lg-10">
+            <h3><a href ="">{{ data['edit_username'] }}</a></h3>
+            <h1>{{  data['lang_object_type'] ~ " " ~ data['lang_edit_type'] ~ " " ~ data['lang_edit_sub_type'] }}</h1>
+            <h2><a href="{{ url.PRODUCT_ADMIN_EDIT ~ data['object_id'] }}" target="_blank">{{ data['object_name'] }}</a></h2>
             <p>{{ lang.EDITS_EDIT_CREATED_AT ~ " " ~ data['edit_created_at'] }} {% if data['edit_created_at'] != data['edit_updated_at'] %} ({{ data['edit_updated_at'] }}) {% endif %}</p>
+
+            {% if data['edit_type'] == "suggestion" %}
+            <div>
+              <h4>{{ lang.SUGGESTION ~ " #" ~ suggestion_data['id'] }}
+                -
+                {% if suggestion_data['state'] == 1 %}
+                  {{ lang.ACCEPTED }}
+                 {% elseif suggestion_data['state'] == 2 %}
+                  {{ lang.DENIED }}
+                 {% else %}
+                  {{ lang.EDITS_OPENED }}
+                {% endif %}
+              </h4>
+              <p><a href="">{{ data['object_username'] }}</a>: {{ suggestion_data['body'] }}</p>
+            </div>
+            {% endif %}
+            {% if data['edit_comment'] %}
+            <div>
+              <h4>{{ lang.EDITS_EDIT_COMMENT}}:</h4>
+              <p>{{ data['edit_comment'] }}</p>
+            </div>
+            {% endif %}
+            {% if data['edit_diff'] %}
+            <div>
+              <h4>{{ lang.EDITS_EDIT_DIFF}}:</h4>
+              <p>{{ data['edit_diff']|raw }}</p>
+            </div>
+            {% endif %}
           </div>
-          <div class="col-lg-10 offset-lg-1 text-left">
-            <p>{{ lang.EDITS_EDIT_COMMENT}}:</p>
-            <p>{{ data['edit_comment'] }}<p>
+
+          <div class="col-lg-2">
+            {% if object_edits %}
+            <table class="table table-striped table-sm">
+                <thead class="thead-inverse">
+                <tr>
+                    <th>{{ lang.EDITS_ALL }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for e in object_edits %}
+                    <tr>
+                      <td>
+                        {% if e['edit_id'] ==  data['edit_id'] %}
+                          <b>#{{ e['edit_id'] }}</b>
+                        {% else %}
+                          <a href="/admin/edits/edit/{{ e['edit_id'] }}">#{{ e['edit_id'] }}</a>
+                        {% endif %}
+                      </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
           </div>
-          <div class="col-lg-10 offset-lg-1 text-left">
-            <p>{{ lang.EDITS_EDIT_DIFF}}:</p>
-            {{ data['edit_diff']|raw }}
-          </div>
+        </div>
       </div>
+    </div>
   </div>
 </section>
 {% endblock %}
