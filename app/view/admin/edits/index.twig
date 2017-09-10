@@ -28,10 +28,10 @@
                     <thead class="thead-inverse">
                     <tr>
                         <th>#</th>
-                        <th>{{ lang.EDITS_EDIT_STATE }}</th>
                         <th>{{ lang.EDITS_EDIT_TYPE }}</th>
-                        <th>{{ lang.EDITS_EDIT_USER_ID }}</th>
                         <th>{{ lang.EDITS_OBJECT_TYPE }}</th>
+                        <th>{{ lang.EDITS_EDIT_USER_ID }}</th>
+                        <th>{{ lang.EDITS_EDIT_STATE }}</th>
                         <th>{{ lang.EDITS_EDIT_CREATED_AT }}</th>
                     </tr>
                     </thead>
@@ -39,15 +39,17 @@
                     {% for key, val in edits %}
                         <tr>
                           <th scope="row"><a href="/admin/edits/edit/{{ val['edit_id'] }}">{{ val['edit_id'] }}</a></th>
+                          <td>{{ val['lang_edit_type'] ~ " " ~ val['lang_edit_sub_type'] }}</td>
+                          <td>{{ val['lang_object_type'] ~ " " ~ val['object_name'] }}</a></td>
+                          <td>{{ val['edit_username'] }}</td>
                           <td>{{ val['edit_state'] }}</td>
-                          <td>{{ val['edit_type'] }}</td>
-                          <td><a href ="">{{ val['edit_username'] }}</a></td>
-                          <td><a href ="">{{ val['object_type'] }}</a></td>
                           <td>{{ val['edit_created_at'] }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
+
+                <a class="btn btn-primary" href="/admin/edits/{{ limit + 20 }}" role="button"> >> </a>
             </div>
         </div>
     </div>

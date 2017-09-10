@@ -13,11 +13,11 @@
       <label for="productName">
         {{ lang.PRODUCT_NAME }}
       </label>
-      <input type="text" 
-             class="form-control" 
-             name="productName" 
-             id="productName" 
-             value="{{ product.name }}" 
+      <input type="text"
+             class="form-control"
+             name="productName"
+             id="productName"
+             value="{{ product.name }}"
              required>
     </div>
 
@@ -25,14 +25,14 @@
       <label for="productPrice">
         {{ lang.PRICE }}
       </label>
-      <input type="number" 
-             class="form-control" 
-             name="productPrice" 
-             id="productPrice" 
-             min="0.1" 
-             max="999" 
-             step="any" 
-             value="{{ product.price }}" 
+      <input type="number"
+             class="form-control"
+             name="productPrice"
+             id="productPrice"
+             min="0.1"
+             max="999"
+             step="any"
+             value="{{ product.price }}"
              required>
     </div>
 
@@ -41,20 +41,20 @@
         {{ lang.BARCODE }}
       </label>
       <div class="input-group">
-        <input type="text" 
-               class="form-control isbn" 
-               name="barcode" 
-               id="barcode" 
+        <input type="text"
+               class="form-control isbn"
+               name="barcode"
+               id="barcode"
                value="{{ product.barcode }}">
         <span class="input-group-btn">
-          <button class="btn btn-secondary button scan" 
+          <button class="btn btn-secondary button scan"
                   type="button">
-            <i class="fa fa-barcode" 
+            <i class="fa fa-barcode"
                aria-hidden="true"></i>
           </button>
-          <input type="file" 
-                 class="barcodefile" 
-                 capture 
+          <input type="file"
+                 class="barcodefile"
+                 capture
                  hidden>
         </span>
       </div>
@@ -64,9 +64,9 @@
       <label for="selectCategory">
         {{ lang.CATEGORY }}
       </label>
-      <select class="form-control" 
-              name="selectCategory" 
-              id="selectCategory" 
+      <select class="form-control"
+              name="selectCategory"
+              id="selectCategory"
               required>
         <option value="{{ product.category_id }}" >
           {{ product.category }}
@@ -86,10 +86,10 @@
       <label for="note">
         {{ lang.NOTE }}
       </label>
-      <textarea name="note" 
-                id="note" 
-                cols="30" 
-                rows="2" 
+      <textarea name="note"
+                id="note"
+                cols="30"
+                rows="2"
                 class="form-control">{{ product.note }}</textarea>
     </div>
 
@@ -99,25 +99,25 @@
           <label for="file">
             {{ lang.IMAGE }}
           </label>
-          <input type="file" 
-                 id="file" 
-                 name="file" 
+          <input type="file"
+                 id="file"
+                 name="file"
                  class="form-control-file">
         </div>
       </div>
       <div class="col-md-3 offset-md-2">
         {% if product.image %}
           {% set src = url.PRODUCT_UPLOADS ~ cc ~ '/150x150/' ~ product.image %}
-          <img class="productImageCurrent" 
-               src="{{ src }}" 
+          <img class="productImageCurrent"
+               src="{{ src }}"
                width="100px">
         {% endif %}
-        <input type="hidden" 
-               value="{{ product.image }}" 
+        <input type="hidden"
+               value="{{ product.image }}"
                name="image_old">
       </div>
       <div class="col-md-1">
-        <i class="fa fa-repeat rotateMainImage" 
+        <i class="fa fa-repeat rotateMainImage"
            aria-hidden="true"></i>
       </div>
     </div>
@@ -131,47 +131,60 @@
           <label for="file2">
             {{ lang.INGREDIENTS }}
           </label>
-          <input type="file" 
-                 id="file2" 
-                 name="file2" 
+          <input type="file"
+                 id="file2"
+                 name="file2"
                  class="form-control-file">
         </div>
       </div>
 
       <div class="col-md-3 offset-md-3">
         {% if product.image2 %}
-          <img src="{{ url.PRODUCT_UPLOADS }}{{ cc }}/150x150/{{ product.image2 }}" 
+          <img src="{{ url.PRODUCT_UPLOADS }}{{ cc }}/150x150/{{ product.image2 }}"
              width="100px">
         {% endif %}
-        <input type="hidden" 
-               value="{{ product.image2 }}" 
+        <input type="hidden"
+               value="{{ product.image2 }}"
                name="image2_old">
       </div>
 
     </div> <!-- end row -->
 
     <p>
-      Autor: <a href="/produkty?autor={{ product.user_id }}" 
+      Autor: <a href="/produkty?autor={{ product.user_id }}"
                 target="_blank">
         {{ product.username }}
       </a>
     </p>
 
+    <label for="edit_comment">
+      {{ lang.EDITS_NOTE }}
+    </label>
+    <textarea name="edit_comment" id="edit_comment" cols="30" rows="2" class="form-control">
+    </textarea>
 
     <button type="submit" class="btn btn-primary">
       {{ lang.SUBMIT }}
     </button>
 
-    <a href="{{ url.TRASH_MOVE }}{{ product.id }}" 
-       class="btn btn-danger" 
+    <a href="{{ url.TRASH_MOVE }}{{ product.id }}"
+       class="btn btn-danger"
        id="deleteConfirm">
        {{ lang.REMOVE }}
      </a>
 
-    <a href="/produkty/produkt/{{ product.name|slugify }}" 
+    <a href="/produkty/produkt/{{ product.name|slugify }}"
        class="btn btn-success">
       Web
     </a>
+
+    {% if last_edit['edit_id'] %}
+      <br>
+      <br>
+      <a class="btn btn-info" href="/admin/edits/edit/{{ last_edit['edit_id'] }}" role="button" target="_blank">
+        {{ lang.EDITS_LAST }}
+      </a>
+    {% endif %}
 
   </div>
 
@@ -187,8 +200,8 @@
                name="supermarket[]"
                class="custom-control-input"
                value="{{ supermarket.id }}"
-               {% if supermarket.name in product.supermarkets %} 
-                 checked 
+               {% if supermarket.name in product.supermarkets %}
+                 checked
                {% endif %} >
 
         <span class="custom-control-indicator"></span>
@@ -198,8 +211,8 @@
       </label>
     </div>
     {% endfor %}
-    <input type="hidden" 
-           name="supermarkets_old" 
+    <input type="hidden"
+           name="supermarkets_old"
            value="{{ product.supermarket_ids }}">
   </div>
 
@@ -223,17 +236,17 @@
         </label>
       </div>
     {% endfor %}
-    <input type="hidden" 
-           name="tags_old" 
+    <input type="hidden"
+           name="tags_old"
            value="{{ product.tag_ids }}">
 
     <div class="form-group">
       <label>Typ</label>
       <div class="form-check">
       <label class="form-check-label">
-        <input class="form-check-input" 
+        <input class="form-check-input"
                type="radio"
-               name="type" 
+               name="type"
                value="1"
                {{ product.type == 1 ? 'checked'}}>
         100% Vegan
@@ -241,19 +254,19 @@
       </div>
       <div class="form-check">
       <label class="form-check-label">
-        <input class="form-check-input" 
-               type="radio" 
-               name="type" 
-               value="2" 
+        <input class="form-check-input"
+               type="radio"
+               name="type"
+               value="2"
                {{ product.type == 2 ? 'checked'}}>
         Pravdepodobne Vegan
       </label>
       </div>
       <div class="form-check">
       <label class="form-check-label">
-        <input class="form-check-input" 
-               type="radio" 
-               name="type" 
+        <input class="form-check-input"
+               type="radio"
+               name="type"
                value="3"
                {{ product.type == 3 ? 'checked'}}>
         Živočíšne éčka

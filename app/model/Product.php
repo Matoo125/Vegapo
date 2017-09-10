@@ -19,7 +19,7 @@ class Product extends Model
   public function insert($data, $last_inserted_id = null, $visibility) {
 
     $sql = "INSERT INTO products(
-            name, slug, category_id, expected_price, 
+            name, slug, category_id, expected_price,
             author_id, visibility, country, barcode, note, type)
             VALUES(:pn, :s, :ci, :ep, :ai, :vi, :c, :b, :n, :t)";
     $binder = [
@@ -41,12 +41,12 @@ class Product extends Model
 
   public function update($data) {
 
-   $sql = "UPDATE products 
-           SET name = :name, 
-               slug = :slug, 
+   $sql = "UPDATE products
+           SET name = :name,
+               slug = :slug,
                barcode = :barcode,
-               category_id = :c_id, 
-               expected_price = :price, 
+               category_id = :c_id,
+               expected_price = :price,
                note = :note,
                type = :type
            WHERE id = :id";
@@ -65,7 +65,7 @@ class Product extends Model
 
   }
 
-  public function setVisibility($action, $id) 
+  public function setVisibility($action, $id)
   {
     $sql = "UPDATE products SET visibility = :visibility WHERE id = :id";
     $binder = array("visibility" => $action, "id" => $id);
@@ -112,7 +112,7 @@ class Product extends Model
         $sql .= "WHERE p.slug = :slug";
         $params['slug'] = $value;
         break;
-      
+
       default:
         $sql .= "WHERE p.id = :id";
         $params['id'] = $value;
@@ -275,7 +275,7 @@ class Product extends Model
 
     if ($type) {
       $types = array_filter($type, function ($n) { return $n; });
-      if (!$types)  return null; 
+      if (!$types)  return null;
       $where[] = "p.type IN(".implode(',',array_keys($types)).")";
     }
 
@@ -301,7 +301,7 @@ class Product extends Model
 
     }
 
-    if ($tags) { 
+    if ($tags) {
       $sql .= " LEFT JOIN matching_tags AS mt ON p.id = mt.product_id";
       $tags = implode(",", array_column($tags, 'id'));
       $where[]  ="mt.tag_id IN(:ids)";
@@ -329,11 +329,11 @@ class Product extends Model
   public function insertImage($id, $role, $filename)
   {
     $this->save(
-      "INSERT INTO images(product_id, filename, role, country) 
+      "INSERT INTO images(product_id, filename, role, country)
        VALUES(:id, :name, :role, :country)",
-      ['id' => $id, 
-       'name' => $filename, 
-       'role' => $role, 
+      ['id' => $id,
+       'name' => $filename,
+       'role' => $role,
        'country' => COUNTRY_CODE]
     );
   }
@@ -379,7 +379,7 @@ class Product extends Model
   /* favourites related methods */
   public function addToFavourites($product_id, $user_id)
   {
-    $sql = "INSERT INTO favourite_products (user_id, product_id) 
+    $sql = "INSERT INTO favourite_products (user_id, product_id)
             VALUES                        (:user_id, :product_id)";
 
     $bind = ["user_id" => $user_id, "product_id" => $product_id];
@@ -391,16 +391,16 @@ class Product extends Model
   public function removeFromFavourites($id)
   {
     return $this->save(
-      "DELETE FROM favourite_products WHERE id = :id", 
+      "DELETE FROM favourite_products WHERE id = :id",
       ['id' => $id]
     );
   }
 
   public function isProductFavourite($product_id, $user_id)
   {
-    $sql = "SELECT id 
-            FROM favourite_products 
-            WHERE product_id = :product_id 
+    $sql = "SELECT id
+            FROM favourite_products
+            WHERE product_id = :product_id
               AND user_id = :user_id";
 
     $bind = ['product_id' => $product_id, 'user_id' => $user_id];
@@ -413,11 +413,11 @@ class Product extends Model
 
   /* most of the code below this should be in different files */
 
-  public function matching_supermarkets($id, $added, $removed = []) 
+  public function matching_supermarkets($id, $added, $removed = [])
   {
     foreach ($removed as $supermarket_id) {
-        $sql = "DELETE FROM matching_supermarkets 
-                WHERE product_id=:product_id 
+        $sql = "DELETE FROM matching_supermarkets
+                WHERE product_id=:product_id
                 AND supermarket_id=:supermarket_id";
 
         $bind = array(
@@ -430,8 +430,8 @@ class Product extends Model
       }
 
     foreach ($added as $supermarket) {
-      $sql = "INSERT INTO matching_supermarkets 
-                     (product_id, supermarket_id, country) 
+      $sql = "INSERT INTO matching_supermarkets
+                     (product_id, supermarket_id, country)
               VALUES (:product_id,:supermarket_id,:country)";
 
       $bind = array(
@@ -448,11 +448,11 @@ class Product extends Model
 
   }
 
-  public function matching_tags($product_id, $added, $removed = []) 
+  public function matching_tags($product_id, $added, $removed = [])
   {
 
     foreach ($removed as $tag_id) {
-      $sql = "DELETE from matching_tags 
+      $sql = "DELETE from matching_tags
               WHERE product_id = :product_id AND tag_id = :tag_id";
       $bind = array(
         ":product_id"       =>  $product_id,
@@ -463,7 +463,7 @@ class Product extends Model
     }
 
     foreach ($added as $tag_id) {
-      $sql = "INSERT INTO matching_tags (product_id, tag_id, country) 
+      $sql = "INSERT INTO matching_tags (product_id, tag_id, country)
               VALUES (:product_id,:tag_id,:country)";
       $bind = array(
         ":product_id"       =>  $product_id,
@@ -476,6 +476,20 @@ class Product extends Model
 
     return true;
 
+  }
+
+  public function createEdit($product_id, $reason = null, $reason_id = null, $diff = null, $comment = null)
+  {
+    $edit = new Edit();
+    $data['type'] = $reason;
+    $data['object_type'] = "product";
+    $data['object_id'] = $product_id;
+    if($reason == "suggestion") {
+      $data['object_type'] = "suggestion";
+      $data['object_id'] = $reason_id;
+    }
+    $edit_id = $edit->newEdit($data);
+    $edit->closeEdit($edit_id, $comment, $diff);
   }
 
 }

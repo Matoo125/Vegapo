@@ -4,7 +4,7 @@ namespace app\model;
 
 use app\core\Model;
 
-/* 
+/*
  * Created by Matej Vrzala 07.5.2017
  */
 
@@ -23,6 +23,14 @@ class Suggestion extends Model {
         ];
 
         return $this->runQuery($sql, $args, "post");
+    }
+
+    public function getById($id)
+    {
+      return $this->fetch(
+        "select * from suggestions where id = :id limit 1",
+        [":id" => $id]
+      );
     }
 
     public function getAll()
@@ -49,9 +57,25 @@ class Suggestion extends Model {
 
     public function updateState($id, $state)
     {
-        $sql = "UPDATE `suggestions` SET `state` = :state WHERE id = :id";
-        return $this->runQuery($sql, ['id' => $id, 'state' => $state], 'post');
+      $this->createEdit($id);
+
+      $sql = "UPDATE `suggestions` SET `state` = :state WHERE id = :id";
+      return $this->runQuery($sql, ['id' => $id, 'state' => $state], 'post');
     }
 
+    public function createEdit($suggestion_id)
+    {
+      $edit = new Edit();
 
+      if(!$edit->getUserEditsByObject("suggestion", $suggestion_id)) {
+        $data['type'] = "suggestion";
+        $data['object_type'] = "suggestion";
+        $data['object_id'] = $suggestion_id;
+
+        $edit_id = $edit->newEdit($data);
+        $edit->closeEdit($edit_id);
+      }
+    }
+
+    
 }
