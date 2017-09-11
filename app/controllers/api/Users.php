@@ -6,6 +6,7 @@ use app\core\Controller;
 use m4\m4mvc\helper\Session;
 use app\helper\Redirect;
 use app\model\Newsletter;
+use app\helper\Email;
 
 class Users extends Controller
 {
@@ -17,7 +18,12 @@ class Users extends Controller
 
   public function logout()
   {
-    $this->model->logoutUser();
+    Session::destroy();
+    if (isset($_COOKIE['auth_token'])) {
+      $this->delete_token($_COOKIE['auth_token']);
+      unset($_COOKIE['auth_token']);
+    }
+    Redirect::toURL("LOGIN");
   }
 
   public function login()
@@ -26,6 +32,7 @@ class Users extends Controller
 
     if (!$_POST['loginEmail'] || !$_POST['loginPassword']) {
       Session::setFlash("No input received", "danger");
+      return;
     }
 
     if (!$user = $this->model->find('email', $_POST['loginEmail'])) {
@@ -33,23 +40,41 @@ class Users extends Controller
       return;
     }
 
-    if (password_verify($_POST['loginPassword'], $user['password'])) {
-      $this->model->loginUser($user);
-      redirect('/users');
-    } 
-    else {
+    if (!password_verify($_POST['loginPassword'], $user['password'])) {
       Session::setFlash(getString('CREDENTIALS_NOT_MATCH'), "warning", 1);
-    }
-  
+      return;
+    } 
+
+    $this->model->login($user);
+    isset($_POST['remember-me']) ? $this->create_cookie() : '';
     redirect('/users');
+  
+  }
+
+  public function generateToken ($user_id, $expire)
+  {
+    $selector = base64_encode(random_bytes(9));
+    $authenticator = random_bytes(33);
+    $token = $selector.':'.base64_encode($authenticator);
+    $expire = time() + $expire;
+
+    $this->model->add_token($selector, $authenticator, $expire, $user_id);
+
+    return $token;
+  }
+
+  public function create_cookie ()
+  {
+    $expire = 5184000; // 60 days
+    $token = $this->generateToken(Session::get('user_id'), $expire); 
+    setcookie('auth_token', $token, $expire, '/');
   }
 
   public function register() 
   {
     if (!$_POST) return;
 
-    // it will return data if it fails
-    // so user does not have to type again
+    // if fail, return post data
     $this->data = $_POST;
 
     $data['email'] = $_POST['email'];
@@ -75,53 +100,14 @@ class Users extends Controller
     $data['password'] = password_hash($data['password1'], PASSWORD_DEFAULT);
 
     if($this->model->register($data)){
-      $this->model->loginUser($this->model->find('email', $data['email']));
+      $this->model->login($this->model->find('email', $data['email']));
       Session::setFlash(getString('REGISTRATION_SUCCESS'), "success", 1);
       redirect('/users/update');
     }
   }
 
-  public function update()
+  public function userInfo ()
   {
-     if ($_POST) {
-      if (isset($_POST['change-details'])){
-
-        if ($this->model->update($_POST)) {
-          Session::setFlash(getString('PROFILE_UPDATED'), 'success');
-        } else {
-          Session::setFlash(getString('PROFILE_UPDATE_FAILED'), 'danger');
-        }
-
-      } elseif(isset($_POST['change-password'])) {
-        $current_password = $this->model->find(
-          'user_id', Session::get('user_id'), 'password'
-        )['password'];
-
-        // fb registered users have no password
-        if ($current_password == "no password" || 
-            password_verify($_POST['old-password'], $current_password)) 
-        {
-          if ($_POST['new-password'] == $_POST['new-password2']) {
-            if ( $this->model->updatePassword(
-              password_hash($_POST['new-password'], PASSWORD_DEFAULT) ) ) {
-              Session::setFlash(getString('PASSWORD_CHANGED'), 'success');
-            } 
-            else {
-              Session::setFlash(getString('PASSWORD_UPDATE_ERROR'), 'danger');
-            }
-          } 
-          else {
-            Session::setFlash(getString('PASSWORDS_DO_NOT_MATCH'), 'warning');
-          }
-
-        } 
-        else {
-          Session::setFlash(getString('PASSWORDS_DO_NOT_MATCH'), 'danger');
-          return;
-        }
-      }
-    }
-
     $this->data['user'] = $this->model->find(
         'user_id', Session::get('user_id')
       );
@@ -129,6 +115,82 @@ class Users extends Controller
     $this->data['user']['newsletter'] = Newsletter::findByEmail(
         $this->data['user']['email']
       );
+  }
+
+  public function updateDetails ()
+  {
+    $set = [
+      'email'         =>  $_POST['email'],
+      'username'      =>  $_POST['username'],
+      'about_me'      =>  $_POST['about-me'],
+      'first_name'    =>  $_POST['first-name'],
+      'last_name'     =>  $_POST['last-name']
+    ];
+
+    if (isset($_POST['newsletter'])) {
+      $set['newsletter'] = $_POST['newsletter'];
+    }
+
+    $where = ['user_id' => Session::get('user_id')];
+
+    if ($this->model->update($set, $where)) {
+      Session::setFlash(getString('PROFILE_UPDATED'), 'success');
+    } else {
+      Session::setFlash(getString('PROFILE_UPDATE_FAILED'), 'danger');
+    }
+  }
+
+  public function updatePassword ()
+  {
+    if ($_POST['new-password'] != $_POST['new-password2']) {
+      return Session::setFlash(getString('PASSWORDS_DO_NOT_MATCH'), 'warning');
+    }
+
+    $current_password = $this->model->find(
+      'user_id', Session::get('user_id'), 'password'
+    )['password'];
+
+    $correctPassword = password_verify(
+      $_POST['old-password'], 
+      $current_password
+    );
+
+    // fb registered users have no password
+    $havePassword = !($current_password == "no password");
+
+    if ($havePassword && !$correctPassword) {
+      return Session::setFlash(getString('PASSWORDS_DO_NOT_MATCH'), 'danger');
+    }
+
+    $hash = password_hash($_POST['new-password'], PASSWORD_DEFAULT);
+
+    $update = $this->model->update(
+      ['password' => $hash], 
+      ['user_id'  => Session::get('user_id')]
+    );
+
+    if ($update) {
+      Session::setFlash(getString('PASSWORD_CHANGED'), 'success');
+    } 
+    else {
+      Session::setFlash(getString('PASSWORD_UPDATE_ERROR'), 'danger');
+    }
+  }
+
+  public function update()
+  {
+
+    $this->userInfo();
+
+    if (isset($_POST['change-details'])) {
+      $this->updateDetails();
+      $this->userInfo();
+    }
+
+    elseif(isset($_POST['change-password'])) {
+      $this->updatePassword();
+    } 
+
   }
 
   public function list()
@@ -162,6 +224,79 @@ class Users extends Controller
     }
 
     return true;
+  }
+
+  public function forgotten_password ()
+  {
+    if (!$_POST) return;
+
+    // check for email in database
+    if (!$user = $this->model->find('email', $_POST['email'])) {
+      Session::setFlash(getString('EMAIL_NOT_FOUND'), "warning");
+      return;
+    }
+
+    // create token
+    $token = $this->generateToken($user['user_id'], 3600); // 1 hour
+
+    // send token
+    $link = "http://vegapo." . COUNTRY_CODE . 
+            "/users/password_recovery/" . $token;
+
+    $subject = getString("RECOVER_PASSWORD");
+
+    $b =  getString("GREETING") . " " . $user['username'] . " " . getString("RECOVER_PASSWORD_MESSAGE") . " ";
+
+    $body = [
+      'text'  =>  $b . "Link: {$link}",
+      'html'  =>  $b . "<a href='{$link}'>Zmeniť heslo<a>"
+    ];
+
+    $recipient = [
+        'email'   =>  $user['email'],
+        'name'    =>  $user['username']
+    ];
+
+    if(!Email::send($subject, $body, $recipient)) {
+      Session::setFlash($mail->ErrorInfo, 'danger');
+    } 
+
+    else {
+      Session::setFlash(getString('RECOVERY_EMAIL_SENT'), 'success');
+    }
+  }
+
+  public function password_recovery ($token)
+  {
+    $user = $this->model->find_by_token($token);
+
+    if (!$user) {
+      Session::setFlash(getString('INVALID_TOKEN'), 'danger');
+      return;
+    }
+
+    $this->data['token'] = true;
+
+    if (!$_POST) return;
+
+    if ($_POST['password'] != $_POST['password2']) {
+      Session::setFlash(getString('PASSWORDS_DO_NOT_MATCH'), 'warning');
+      return;
+    }
+
+    $update = $this->model->update(
+      ['password' => password_hash($_POST['password'], PASSWORD_DEFAULT)],
+      ['user_id' =>  $user['user_id']]
+    );
+
+    if (!$update) {
+      Session::setFlash(getString('PASSWORD_UPDATE_ERROR'), 'danger');
+      return;
+    }
+
+    Session::setFlash(getString('PASSWORD_CHANGED'), 'success');
+    $this->model->delete_token($token);
+
   }
 
 }

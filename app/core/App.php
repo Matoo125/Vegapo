@@ -7,6 +7,7 @@ use m4\m4mvc\core\App as FrameworkApp;
 use app\helper\Redirect;
 use app\controllers\api\Users;
 
+
 class App extends FrameworkApp
 {
     public function __construct ()
@@ -20,6 +21,7 @@ class App extends FrameworkApp
         }
 
         new \app\string\Url(); 
+
     }
 
 }

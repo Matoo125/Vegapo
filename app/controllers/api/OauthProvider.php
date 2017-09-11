@@ -2,8 +2,9 @@
 
 namespace app\controllers\api;
 
-use app\model\User;
 use app\core\Controller;
+use app\model\User;
+use app\model\Newsletter;
 use m4\m4mvc\helper\Session;
 use m4\m4mvc\helper\Redirect;
 
@@ -20,7 +21,9 @@ class OauthProvider extends Controller
     try {
       $fbUser = $this->model->fbCheckUserLogin();
     } catch(\Exception $e) {
-      Session::setFlash(getString('FACEBOOK_LOGIN_ERROR')." ".$e->getMessage(), "danger",1);
+      Session::setFlash(
+        getString('FACEBOOK_LOGIN_ERROR')." ".$e->getMessage(), "danger",1
+      );
       Redirect::toURL('LOGIN');
     }
 
@@ -28,8 +31,10 @@ class OauthProvider extends Controller
     // search user by facebook id
     if ($fbUser['id']) {
       if ($userData = $user->find('facebook_id', $fbUser['id'])) {
-        $user->loginUser($userData);
-        Session::setFlash(getString('FACEBOOK_LOGIN_SUCCESS'), "success", 1); //not yet used - maybe sometimes
+        $user->login($userData);
+        Session::setFlash(
+          getString('FACEBOOK_LOGIN_SUCCESS'), "success", 1
+        ); //not yet used - maybe sometimes
         redirect('/users');
       }
     }
@@ -38,16 +43,23 @@ class OauthProvider extends Controller
     if ($fbUser['email']) {
       if ($userData = $user->find('email', $fbUser['email'])) {
         // update user facebook_id
-        $user->changeFacebookId($userData['user_id'], $fbUser['id']);
+        $user->update(
+          ['facebook_id' =>  $fbUser['id']],
+          ['user_id'     =>  $userData['user_id']]
+        );
 
-        $user->loginUser($userData);
+        $user->login($userData);
 
-        Session::setFlash(getString('FACEBOOK_LOGIN_SUCCESS'), "success", 1); //not yet used - maybe sometimes
+        Session::setFlash(
+          getString('FACEBOOK_LOGIN_SUCCESS'), "success", 1
+        ); //not yet used - maybe sometimes
         redirect('/users');
       }
     }
 
-    Session::setFlash(getString('FACEBOOK_LOGIN_ERROR')." User not found.", "danger",1);
+    Session::setFlash(
+      getString('FACEBOOK_LOGIN_ERROR')." User not found.", "danger",1
+    );
     Redirect::toURL('LOGIN');
   }
 
@@ -56,28 +68,35 @@ class OauthProvider extends Controller
     try {
       $fbUser = $this->model->fbCheckUserLogin();
     } catch(\Exception $e) {
-      Session::setFlash(getString('FACEBOOK_REGISTER_ERROR')." ".$e->getMessage(), "danger",1);
+      Session::setFlash(
+        getString('FACEBOOK_REGISTER_ERROR')." ".$e->getMessage(), "danger",1
+      );
       Redirect::toURL('REGISTER');
     }
 
     // not enough data
     if (!$fbUser['email'] || !$fbUser['name']) {
-      Session::setFlash(getString('FACEBOOK_REGISTER_ERROR')." Not enough data", "danger",1);
+      Session::setFlash(
+        getString('FACEBOOK_REGISTER_ERROR')." Not enough data", "danger",1
+      );
       Redirect::toURL('REGISTER');
     }
 
     $user = new User();
     // check if user already exists
     if ($userData = $user->find('facebook_id', $fbUser['id'])) {
-      $user->loginUser($userData);
+      $user->login($userData);
       Session::setFlash(getString('FACEBOOK_REGISTER_SUCCESS'), "success", 1);
       redirect('/users');
     }
     if ($userData = $user->find('email', $fbUser['email'])) {
       // update user facebook_id
-      $user->changeFacebookId($userData['user_id'], $fbUser['id']);
+      $user->update(
+        ['facebook_id' =>  $fbUser['id']],
+        ['user_id'     =>  $userData['user_id']]
+      );
 
-      $user->loginUser($userData);
+      $user->login($userData);
       Session::setFlash(getString('FACEBOOK_REGISTER_SUCCESS'), "success", 1);
       redirect('/users');
     }
@@ -93,15 +112,15 @@ class OauthProvider extends Controller
     $userData['last_name'] = $name[1];
 
     //register
-    $user->registerFacebookUser($userData);
+    $user->register($userData);
 
     // add email to newsletter
-    \app\model\Newsletter::insert($userData['email']);
+    Newsletter::insert($userData['email']);
 
     //refresh user
     $userData = $user->find('facebook_id', $userData['facebook_id']);
 
-    $user->loginUser($userData);
+    $user->login($userData);
 
     Session::setFlash(getString('FACEBOOK_REGISTER_SUCCESS'), "success", 1);
     redirect('/users/update');
@@ -112,7 +131,9 @@ class OauthProvider extends Controller
     try {
       $fbUser = $this->model->fbCheckUserLogin();
     } catch(\Exception $e) {
-      Session::setFlash(getString('FACEBOOK_CONNECT_ERROR')." ".$e->getMessage(), "danger",1);
+      Session::setFlash(
+        getString('FACEBOOK_CONNECT_ERROR')." ".$e->getMessage(), "danger",1
+      );
       redirect('/users');
     }
     $user = new User();
@@ -121,12 +142,20 @@ class OauthProvider extends Controller
     if ($userData = $user->find('facebook_id', $fbUser['id'])) {
       // if user exist and is diferent from logend user - then error
       if($userData['user_id'] != Session::get('user_id')) {
-        Session::setFlash(getString('FACEBOOK_CONNECT_ERROR')." Facebook user already exists.", "danger",1);
+        Session::setFlash(
+          getString('FACEBOOK_CONNECT_ERROR')." Facebook user already exists.", 
+          "danger",
+          1
+        );
         redirect('/users/update');
       }
     }
+
     // update users facebook_id
-    $user->changeFacebookId(Session::get('user_id'), $fbUser['id']);
+    $user->update(
+      ['facebook_id' =>  $fbUser['id']],
+      ['user_id'     =>  Session::get('user_id')
+    );
 
     Session::setFlash(getString('FACEBOOK_CONNECT_SUCCESS'), "success", 1);
     redirect('/users');
