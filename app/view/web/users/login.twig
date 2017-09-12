@@ -24,6 +24,12 @@
                                 <input type="password" class="form-control" id="loginPassword" name="loginPassword" placeholder="{{ lang.YOUR_PASSWORD}}" required>
                             </div>
                         </div>
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="checkbox" name="remember-me" class="form-check-input">
+                            Remember me
+                          </label>
+                        </div>
                         <br>
                         <div class="row">
                             <div class="col-12">
@@ -31,7 +37,7 @@
                                 <a class="btn btn-primary" href="{{ fbLoginUrl('fb_login_callback') }}">{{ lang.FACEBOOK_LOGIN }}</a>
                             </div>
                             <div class="col-4 offset-8">
-                                <a href="/users/zabudnute_heslo" class="text-muted">{{ lang.FORGOTTEN_PASSWORD }}</a>
+                                <a href="/users/forgotten_password" class="text-muted">{{ lang.FORGOTTEN_PASSWORD }}</a>
                             </div>
                         </div>
                     </form>
