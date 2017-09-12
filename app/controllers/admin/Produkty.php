@@ -49,7 +49,6 @@ class Produkty extends ProduktyApiController
       );
       $this->model->matching_tags($id, $added_tags, $deleted_tags);
 
-
       // editing main image
       if ($images['1'] && $images['1']['error'] === 0) {
 
