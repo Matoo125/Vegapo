@@ -16,8 +16,10 @@ class User extends Model
     Session::set('user_country', $user['country']);
     Session::set('username', $user['username']);
 
-    $this->update(
-      ['last_activity'  =>  now()],
+    $this->save(
+      "UPDATE users 
+       SET last_activity = now()
+       WHERE user_id = :user_id",
       ['user_id' =>  $user['user_id']]
     );
   }

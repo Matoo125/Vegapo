@@ -69,35 +69,38 @@ class Controller extends FrameworkController
     $slugifilter = new \Twig_Filter('slugify', 'm4\m4mvc\helper\Str::slugify');
     $twig->addFilter($slugifilter);
 
-     /*
-     * add buildURL function
-     * @param   $params  array             Array of parameters to join
-     * @param   $key     string || array   Key to change in params
-     * @param   $value   string            Value of key in params to be set 
-     * @return          string            Http Query String
-     */ 
-    $buildUrl = new \Twig_SimpleFunction('buildUrl', function($params, $key, $value) {
-      if ($key == "tag" && $value && $params[$key]) {
-        //allow multiple 'tag' values
-        if(is_array($params[$key])) {
-          // new tag
-          if (!in_array($value, $params[$key])) {
-            $params[$key][] = $value;
-          }
-        } else {
-          // new tag
-          if($params[$key] !=  $value) {
-            $params[$key] = [$params[$key]];
-            $params[$key][] = $value;
-          }
-        }
-      } else {
-        // replace old part of params for new
+    // change key in params
+    $changeParam = new \Twig_SimpleFunction(
+      'changeParam', 
+      function($params, $key, $value) {
         $params[$key] = $value;
+        return '/produkty?' . http_build_query($params, '', '&');
       }
-      return '/produkty?' . http_build_query($params, '', '&');
+    );
+    $twig->addFunction($changeParam);
+
+    $addParam = new \Twig_SimpleFunction(
+      'addParam', 
+      function($params, $key, $value) {
+        if (!isset($params[$key])) {
+          $params[$key] = $value;
+        }
+        else {
+          if (!is_array($params[$key])) $params[$key] = [$params[$key]];
+          $params[$key][] = $value;
+        }
+        return '/produkty?' . http_build_query($params, '', '&');
     });
-    $twig->addFunction($buildUrl);
+    $twig->addFunction($addParam);
+
+    $toggleUrlParam = new \Twig_SimpleFunction(
+      'toggleUrlParam', 
+      function($params, $key, $value) {
+        $params[$key] = !$value;
+        return '/produkty?' . http_build_query($params, '', '&');
+      }
+    );
+    $twig->addFunction($toggleUrlParam);
 
     /*
     * add stripUrlParam function

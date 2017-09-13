@@ -43,6 +43,7 @@ class Produkty extends Controller
       $supermarkets         = $_POST['supermarket'] ?? array();
       $tags                 = $_POST['tag'] ?? array();
       $data['note']         = $_POST['note'];
+      $data['type']         = $_POST['type'];
 
       if(Session::get('user_role') !== null && Session::get('user_role') > 20) {
         $visibility = 1;
@@ -113,6 +114,23 @@ class Produkty extends Controller
     $params['stav']         = $_GET['stav']         ?? null;
     $params['sort']         = $_GET['sort']         ?? null;
 
+    if (isset($_GET['type1']) and $_GET['type1'] == 0) { 
+      $params['type1'] = 0; 
+    }
+
+    if (isset($_GET['type2']) and $_GET['type2'] == 0) { 
+      $params['type2'] = 0; 
+    }
+    if (isset($_GET['type3']) and $_GET['type3'] == 1) { 
+      $params['type3'] = 1; 
+    }
+
+    $type = [
+      1 =>  $params['type1'] ?? 1,
+      2 =>  $params['type2'] ?? 1,
+      3 =>  $params['type3'] ?? 0
+    ];
+
     if ($params['autor']) {
       $user = new \app\model\User;
       $this->data['username'] = $user->getById(
@@ -150,7 +168,8 @@ class Produkty extends Controller
         'author'      =>  $params['autor'],
         'search'      =>  $params['hladat'],
         'favourite'   =>  $params['oblubene'],
-        'visibility'  =>  1
+        'visibility'  =>  1,
+        'type'        =>  $type
       ]
     )['numberOfProducts'];
 
@@ -170,6 +189,7 @@ class Produkty extends Controller
       'supermarket'   =>  $params['supermarket'], 
       'tags'          =>  $tag_slugs, 
       'start'         =>  $start, 
+      'type'          =>  $type,
       'visibility'    =>  $params['stav'], 
       'author'        =>  $params['autor'], 
       'search'        =>  $params['hladat'], 

@@ -15,7 +15,7 @@
                  <div class="dropdown-menu" aria-labelledby="supermarketsDropDown">
                  {% for supermarket in supermarkets %}
                     {% if current_supermarket.slug != supermarket.slug %}
-                     <a class="dropdown-item" href="/admin{{ buildUrl(params, 'supermarket', supermarket.slug) }}">
+                     <a class="dropdown-item" href="/admin{{ changeParam(params, 'supermarket', supermarket.slug) }}">
                         {{ supermarket.name }}
                     </a>
                     {% endif %}
@@ -29,7 +29,7 @@
                  <div class="dropdown-menu" aria-labelledby="supermarketsDropDown">
                  {% for category in categories %}
                     {% if category.slug != current_category.slug %}
-                      <a class="dropdown-item" href="/admin{{ buildUrl(params, 'kategoria', category.slug) }}">
+                      <a class="dropdown-item" href="/admin{{ changeParam(params, 'kategoria', category.slug) }}">
                         {{ category.name }}
                     </a>
                     {% endif %}
@@ -43,7 +43,7 @@
                  <div class="dropdown-menu" aria-labelledby="tagsDropDown">
                  {% for tag in tags %}
                     {% if current_tag.slug != tag.slug %}
-                        <a class="dropdown-item" href="/admin{{ buildUrl(params, 'tag', tag.slug) }}">
+                        <a class="dropdown-item" href="/admin{{ changeParam(params, 'tag', tag.slug) }}">
                             {{ tag.name }}
                         </a>
                     {% endif %}
@@ -104,7 +104,7 @@
                 <ul class="pagination">
                     {% for i in 1..number_of_pages if number_of_pages %}
                     <li class="page-item">
-                        <a class="page-link" href="/admin{{ buildUrl(params, 'p', i) }}">
+                        <a class="page-link" href="/admin{{ changeParam(params, 'p', i) }}">
                             {{ i }}
                         </a>
                     </li>

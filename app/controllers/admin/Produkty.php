@@ -21,6 +21,7 @@ class Produkty extends ProduktyApiController
       $data['price']        = $_POST['productPrice'];
       $data['id']           = $id;
       $data['note']         = $_POST['note'];
+      $data['type']         = $_POST['type'];
 
       // editing supermarkets
       $supermarkets_new = $_POST['supermarket'] ?? array();
@@ -48,7 +49,6 @@ class Produkty extends ProduktyApiController
         $id, $added_supermarkets, $deleted_supermarkets
       );
       $this->model->matching_tags($id, $added_tags, $deleted_tags);
-
 
       // editing main image
       if ($images['1'] && $images['1']['error'] === 0) {

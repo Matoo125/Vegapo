@@ -20,8 +20,8 @@ class Product extends Model
 
     $sql = "INSERT INTO products(
             name, slug, category_id, expected_price, 
-            author_id, visibility, country, barcode, note)
-            VALUES(:pn, :s, :ci, :ep, :ai, :vi, :c, :b, :n)";
+            author_id, visibility, country, barcode, note, type)
+            VALUES(:pn, :s, :ci, :ep, :ai, :vi, :c, :b, :n, :t)";
     $binder = [
       ":pn" => $data['name'],
       ":s"  => Str::slugify($data['name']),
@@ -31,7 +31,8 @@ class Product extends Model
       ":vi" => $visibility,
       ":c"  => COUNTRY_CODE,
       ":b"  => $data['barcode'],
-      ":n"  => $data['note']
+      ":n"  => $data['note'],
+      ":t"  => $data['type']
     ];
 
     return $this->save($sql, $binder, $last_inserted_id);
@@ -46,7 +47,8 @@ class Product extends Model
                barcode = :barcode,
                category_id = :c_id, 
                expected_price = :price, 
-               note = :note 
+               note = :note,
+               type = :type
            WHERE id = :id";
    $binder = array(
     "name"      => $data['name'],
@@ -55,7 +57,8 @@ class Product extends Model
     "c_id"      => $data['category_id'],
     "price"     => $data['price'],
     "id"        => $data['id'],
-    "note"      => $data['note']
+    "note"      => $data['note'],
+    "type"      => $data['type']
   );
 
    return $this->save($sql, $binder);
@@ -78,6 +81,7 @@ class Product extends Model
              p.expected_price AS price,
              p.barcode,
              p.note,
+             p.type,
              c.name AS category,
              c.id AS category_id,
              GROUP_CONCAT(DISTINCT i.filename) AS image,
@@ -133,6 +137,7 @@ class Product extends Model
     $search        =  $filters['search']       ??  null;
     $favourites    =  $filters['favourites']   ??  null;
     $sort          =  $filters['sort']         ??  null;
+    $type          =  $filters['type']         ??  null;
     $country       =  $filters['country']      ??  COUNTRY_CODE;
 
     $sql = "SELECT p.id AS id,
@@ -161,6 +166,12 @@ class Product extends Model
       ' p.visibility = :visibility'
     ];
 
+    if ($type) {
+      $types = array_filter($type, function ($n) { return $n; });
+      if (!$types)  $types = [0];
+      $where[] = "p.type IN(".implode(',',array_keys($types)).")";
+    }
+
     if($category){
       $where[] = "c.slug = :category";
       $params['category'] = $category;
@@ -171,35 +182,13 @@ class Product extends Model
       $params['supermarket'] = $supermarket;
     }
 
-  /* shows only selected tag */
-  if ($tags) {
-    $tags = implode(', ', $tags) ;
-    $where[]  ="t.slug IN(:tags)";
-    $params['tags'] = $tags;
-  }
-    /* show all tags, not needed yet */
-    /*if ($tags) {
-      if(!is_array($tags)) $tags = [$tags];
-      $id = 0;
-      foreach ($tags as $tag) {
-        // get name for slug parameter in where clause
-        $id++;
-        $ts_id = "tag_slug".$id;
-        // bez exists to nezobrazí všetky tagy pri produkte, iba jeden.
-        $where[]  ="EXISTS (
-                    SELECT 1
-                    FROM matching_tags w,
-                         tags e
-                    WHERE w.product_id = p.id
-                      AND w.country = p.country
-                      AND w.tag_id = e.id
-                      AND w.country = e.country
-                      AND e.slug = :".$ts_id.")";
-        $params[$ts_id] = $tag;
-      }
-    }   
-    */
-   
+    /* shows only selected tag */
+    if ($tags) {
+      $tags = implode(', ', $tags) ;
+      $where[]  ="t.slug IN(:tags)";
+      $params['tags'] = $tags;
+    }
+
     if ($author) {
       $where[] = "p.author_id = :author";
       $params['author'] = $author;
@@ -261,11 +250,18 @@ class Product extends Model
     $author       =  $filters['author']       ?? null;
     $search       =  $filters['search']       ?? null;
     $favourite    =  $filters['favourite']    ?? null;
+    $type         =  $filters['type']         ?? null;
 
     $sql = "SELECT COUNT(p.id) AS numberOfProducts FROM products AS p";
 
     $where[] = " p.country = :country";
     $args['country'] = COUNTRY_CODE;
+
+    if ($type) {
+      $types = array_filter($type, function ($n) { return $n; });
+      if (!$types)  return null; 
+      $where[] = "p.type IN(".implode(',',array_keys($types)).")";
+    }
 
     if ($visibility) {
        $where[] = " p.visibility = :visibility";
@@ -415,7 +411,8 @@ class Product extends Model
       }
 
     foreach ($added as $supermarket) {
-      $sql = "INSERT INTO matching_supermarkets (product_id, supermarket_id, country) 
+      $sql = "INSERT INTO matching_supermarkets 
+                     (product_id, supermarket_id, country) 
               VALUES (:product_id,:supermarket_id,:country)";
 
       $bind = array(
@@ -436,7 +433,8 @@ class Product extends Model
   {
 
     foreach ($removed as $tag_id) {
-      $sql = "DELETE from matching_tags WHERE product_id=:product_id AND tag_id=:tag_id";
+      $sql = "DELETE from matching_tags 
+              WHERE product_id = :product_id AND tag_id = :tag_id";
       $bind = array(
         ":product_id"       =>  $product_id,
         ":tag_id"               =>  $tag_id
@@ -446,7 +444,8 @@ class Product extends Model
     }
 
     foreach ($added as $tag_id) {
-      $sql = "INSERT INTO matching_tags (product_id, tag_id, country) VALUES (:product_id,:tag_id,:country)";
+      $sql = "INSERT INTO matching_tags (product_id, tag_id, country) 
+              VALUES (:product_id,:tag_id,:country)";
       $bind = array(
         ":product_id"       =>  $product_id,
         ":tag_id"   =>  $tag_id,
