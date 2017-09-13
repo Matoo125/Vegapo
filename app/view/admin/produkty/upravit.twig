@@ -132,7 +132,35 @@
                 </div>
             {% endfor %}
             <input type="hidden" name="tags_old" value="{{ product.tag_ids }}">
-
+            <div class="form-group">
+              <label>Typ</label>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio"
+                         {{ product.type == 1 ? 'checked'}} 
+                         name="type" value="1">
+                  100% Vegan
+                </label>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" 
+                         name="type" value="2" {{ product.type == 2 ? 'checked'}}>
+                  Pravdepodobne Vegan
+                </label>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" 
+                         {{ product.type == 3 ? 'checked'}}
+                         name="type" value="3">
+                  Živočíšne éčka
+                </label>
+              </div>
+              <small  class="form-text text-muted">
+                Viac info <a href="#">tu</a>
+              </small>
+            </div>
         </div>
 
     </form>

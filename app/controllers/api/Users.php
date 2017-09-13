@@ -4,9 +4,9 @@ namespace app\controllers\api;
 
 use app\core\Controller;
 use m4\m4mvc\helper\Session;
-use app\helper\Redirect;
 use app\model\Newsletter;
 use app\helper\Email;
+use m4\m4mvc\helper\Redirect;
 
 class Users extends Controller
 {
@@ -20,7 +20,7 @@ class Users extends Controller
   {
     Session::destroy();
     if (isset($_COOKIE['auth_token'])) {
-      $this->delete_token($_COOKIE['auth_token']);
+      $this->model->delete_token($_COOKIE['auth_token']);
       unset($_COOKIE['auth_token']);
     }
     Redirect::toURL("LOGIN");

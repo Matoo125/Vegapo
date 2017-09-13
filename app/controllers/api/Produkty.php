@@ -43,6 +43,7 @@ class Produkty extends Controller
       $supermarkets         = $_POST['supermarket'] ?? array();
       $tags                 = $_POST['tag'] ?? array();
       $data['note']         = $_POST['note'];
+      $data['type']         = $_POST['type'];
 
       if(Session::get('user_role') !== null && Session::get('user_role') > 20) {
         $visibility = 1;
@@ -130,8 +131,6 @@ class Produkty extends Controller
       3 =>  $params['type3'] ?? 0
     ];
 
-
-
     if ($params['autor']) {
       $user = new \app\model\User;
       $this->data['username'] = $user->getById(
@@ -169,7 +168,8 @@ class Produkty extends Controller
         'author'      =>  $params['autor'],
         'search'      =>  $params['hladat'],
         'favourite'   =>  $params['oblubene'],
-        'visibility'  =>  1
+        'visibility'  =>  1,
+        'type'        =>  $type
       ]
     )['numberOfProducts'];
 
@@ -189,6 +189,7 @@ class Produkty extends Controller
       'supermarket'   =>  $params['supermarket'], 
       'tags'          =>  $tag_slugs, 
       'start'         =>  $start, 
+      'type'          =>  $type,
       'visibility'    =>  $params['stav'], 
       'author'        =>  $params['autor'], 
       'search'        =>  $params['hladat'], 

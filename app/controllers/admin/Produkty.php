@@ -21,6 +21,7 @@ class Produkty extends ProduktyApiController
       $data['price']        = $_POST['productPrice'];
       $data['id']           = $id;
       $data['note']         = $_POST['note'];
+      $data['type']         = $_POST['type'];
 
       // editing supermarkets
       $supermarkets_new = $_POST['supermarket'] ?? array();
