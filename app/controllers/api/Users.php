@@ -115,6 +115,11 @@ class Users extends Controller
     $this->data['user']['newsletter'] = Newsletter::findByEmail(
         $this->data['user']['email']
       );
+
+    $this->data['user']['avatar'] =  UPLOADS . DS .'users' . DS . 
+                                    $this->data['user']['user_id'] . '.svg';
+
+    //echo $this->data['user']['avatar'];die;
   }
 
   public function updateDetails ()
