@@ -79,9 +79,7 @@
           <textarea class="form-control" 
                     id="about-me" 
                     name="about-me" 
-                    rows="3">
-            {{ user.about_me }}
-          </textarea>
+                    rows="3">{{ user.about_me }}</textarea>
         </div>
 
         <div class="form-check">
@@ -175,15 +173,15 @@
         </h3>
         <hr>
         <div>
-          <button class="btn btn-secondary">
+          <button onclick="selectAvatar()" class="btn btn-secondary">
             Vybrať iný avatar
           </button>
-          <button class="btn btn-secondary">
+          <button onclick="uploadAvatar()" class="btn btn-secondary">
             Nahrať obrázok
           </button>
         </div>
         <br>
-        <div>
+        <div class="user-avatar">
           <img src="{{ user.avatar }}" alt="">
         </div>
       </div>
@@ -192,5 +190,68 @@
   </div> <!-- end of row -->
 </div> <!-- end of container -->
 </section>
+
+<div class="uploadAvatar" style="display: none">
+  <button class="upload-btn btn btn-primary">Choose</button>
+</div>
+
+<script>
+var selectAvatar = function () {
+  console.log('select avatar')
+  $.get('/api/users/avatarList')
+  .done(function(r) {
+    var avatarArea = document.querySelector('.user-avatar');
+    var original = avatarArea.innerHTML;
+    avatarArea.innerHTML = '';
+
+    for (var i = Object.keys(r.avatars).length - 1; i >= 0; i--) {
+      var el = document.createElement('img')
+      var avatar = r.avatars[i+2]
+      el.setAttribute('style', 'width: 100px; height: 100px');
+      el.setAttribute('data-filename', avatar)
+      el.src = '/images/avatars/' + avatar
+      el.onclick = function () {
+        console.log('el ' + this.getAttribute('data-filename') + ' was choosen')
+        $.post({
+          url: '/api/users/avatarChange',
+          data: {
+            avatar: this.getAttribute('data-filename')
+          }
+        })
+        .done(function (r) {
+          //console.log(r)
+          if (r.status === 'SUCCESS') {
+            console.log('success')
+            avatarArea.innerHTML = original
+            document.querySelector('.user-avatar img').src +='?a'
+            console.log(original)
+          }
+        }).fail(function (e, xhr) {
+          console.log(e)
+          console.log(xhr)
+        })
+      }
+      avatarArea.appendChild(el)
+    }
+  })
+  .fail(function(e) { console.log(e) })
+  
+}
+
+var uploadAvatar = function () {
+  console.log('upload avatar')
+  var avatarArea = document.querySelector('.user-avatar')
+  var original = avatarArea.innerHTML;
+
+  avatarArea.innerHTML = document.querySelector('.uploadAvatar').innerHTML
+  var uploader = new ss.SimpleUpload({
+    button: document.querySelector('.upload-btn'),
+    url: '/PathTo/UploadHandler', // URL of server-side upload handler
+    name: 'uploadfile' // Parameter name of the uploaded file
+  });
+}
+</script>
+
+
 
 {% endblock %}

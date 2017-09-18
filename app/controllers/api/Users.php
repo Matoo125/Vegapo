@@ -3,10 +3,12 @@
 namespace app\controllers\api;
 
 use app\core\Controller;
-use m4\m4mvc\helper\Session;
 use app\model\Newsletter;
 use app\helper\Email;
+use m4\m4mvc\helper\Session;
 use m4\m4mvc\helper\Redirect;
+use m4\m4mvc\helper\Response;
+use m4\m4mvc\helper\Request;
 
 class Users extends Controller
 {
@@ -117,9 +119,43 @@ class Users extends Controller
       );
 
     $this->data['user']['avatar'] =  UPLOADS . DS .'users' . DS . 
-                                    $this->data['user']['user_id'] . '.svg';
+                                    $this->data['user']['user_id'] . '.svg' .
+                                    '?'.date('ms');
 
     //echo $this->data['user']['avatar'];die;
+  }
+
+  public function avatarList ()
+  {
+    $dir = ROOT  . DS . 'images' . DS . 'avatars';
+    if (!file_exists($dir)) {
+      echo 'file does not exists';
+      die;
+    } 
+
+    $list['avatars'] = array_diff(scandir($dir), ['.','..']);
+
+    Response::success('Avatars has been loaded', $list);
+  }
+
+  public function avatarChange ()
+  {
+    Request::forceMethod('post');
+    Request::required('avatar');
+    $avatar = $_POST['avatar'];
+
+    $path = ROOT . DS . 'images' . DS . 'avatars' . DS . $avatar;
+    $destination = ROOT.UPLOADS.'users'.DS.Session::get('user_id').'.svg';
+    if (!file_exists($path)) Response::error('Avatar not found');
+
+    $c = copy($path, $destination);
+
+    if ($c) {
+      Response::success('You have new avatar!');
+    } else {
+      Response::error('Something went wrong');
+    }
+
   }
 
   public function updateDetails ()
