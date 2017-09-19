@@ -158,6 +158,12 @@ class Users extends Controller
 
   }
 
+  public function avatarUpload ()
+  {
+    //echo json_encode(array_merge($_POST, $_FILES));return;;
+    $this->data = $_POST;
+  }
+
   public function updateDetails ()
   {
     $set = [
@@ -220,7 +226,7 @@ class Users extends Controller
 
   public function update()
   {
-
+    if (!Session::get('user_id')) redirect('/users');
     $this->userInfo();
 
     if (isset($_POST['change-details'])) {

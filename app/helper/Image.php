@@ -13,7 +13,7 @@ use m4\m4mvc\helper\Str;
 class Image
 {
 
-  public static function upload($image, $folder)
+  public static function upload($image, $folder, $thumbnails = true)
   {
     if (!extension_loaded('imagick')) {
       I::configure(array('driver' => 'gd'));
@@ -48,8 +48,10 @@ class Image
     }
 
     $img->save($location);
-    self::generateThumbnail($folder, $location, 150, 150, $name);
-    self::generateThumbnail($folder, $location, 450, 450, $name);
+    if ($thumbnails) {
+      self::generateThumbnail($folder, $location, 150, 150, $name);
+      self::generateThumbnail($folder, $location, 450, 450, $name);
+    }
     return $name;
   }
 

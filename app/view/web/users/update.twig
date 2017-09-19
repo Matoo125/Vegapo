@@ -246,8 +246,13 @@ var uploadAvatar = function () {
   avatarArea.innerHTML = document.querySelector('.uploadAvatar').innerHTML
   var uploader = new ss.SimpleUpload({
     button: document.querySelector('.upload-btn'),
-    url: '/PathTo/UploadHandler', // URL of server-side upload handler
-    name: 'uploadfile' // Parameter name of the uploaded file
+    url: '/api/users/avatarUpload', // URL of server-side upload handler
+    name: 'uploadfile', // Parameter name of the uploaded file
+    sessionProgressUrl: '/scripts/UploadProgress.php',
+    onComplete: function (filename, response) {
+      console.log(filename);
+      console.log(response)
+    }
   });
 }
 </script>
