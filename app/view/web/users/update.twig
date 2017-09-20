@@ -5,92 +5,281 @@
 {% block content %}
 
 <section id="main">
-    <div class="container">
-        <div class="wow fadeInUp text-center"><h2 class="display-4">{{ lang.PROFILE_EDIT }}</h2></div>
-        <hr>
-        <div class="text-center">
-            {{ include('web/modules/flash.twig') }}
-        </div>
-
-    <div class="row">
-        <div class="col-md-5">
-            <h3 class="h3 text-center">{{ lang.GENERAL_INFO }}</h3>
-            <hr>
-            <form method="post" action="" id="profile-update">
-                <div class="form-group">
-                    <label for="email">{{ lang.EMAIL_ADDRESS }}</label>
-                    <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}">
-                </div>
-
-                <div class="form-group">
-                    <label for="username">{{ lang.USERNAME }}</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Username" value="{{ user.username }}">
-                </div>
-
-                <div class="form-group">
-                    <label for="first-name">{{ lang.FIRST_NAME }}</label>
-                    <input type="text" class="form-control" id="first-name" name="first-name" placeholder="First Name" value="{{ user.first_name }}">
-                </div>
-
-                <div class="form-group">
-                    <label for="last-name">{{ lang.LAST_NAME }}</label>
-                    <input type="text" class="form-control" id="last-name" name="last-name" placeholder="Last Name" value="{{ user.last_name }}">
-                </div>
-
-                <div class="form-group">
-                    <label for="about-me">{{ lang.BRIEF_DESCRIPTION }}</label>
-                    <textarea class="form-control" id="about-me" name="about-me" rows="3">{{ user.about_me }}</textarea>
-                </div>
-
-                <div class="form-check">
-                  <label class="form-check-label">
-                    <input type="checkbox" name="newsletter" class="form-check-input" {{ user.newsletter ? 'checked' : '' }}>
-                    Newsletter
-                  </label>
-                </div>
-
-                <br>
-
-                <button type="submit" name="change-details" class="btn btn-primary">{{ lang.SUBMIT }}</button>
-            </form>
-            <br>
-            {#facebook aouth functionality #}
-            {% if not user.facebook_id %}
-                <a class="btn btn-primary" href="{{ fbLoginUrl('fb_connect_callback') }}">{{ lang.FACEBOOK_CONNECT }}</a>
-            {% elseif  user.password != "no password" %}
-                <a class="btn btn-primary" href="/OauthProvider/facebook_disconnect">{{ lang.FACEBOOK_DISCONNECT }}</a>
-            {% endif %}
-        </div>
-
-        <div class="col-md-5 offset-md-1">
-            <h3 class="h3 text-center">{{ lang.PASSWORD_CHANGE }}</h3>
-            <hr>
-            <form method="post" action="" id="password-update">
-                {# facebook registered user does not initially have a valid password #}
-                {% if user.password != "no password" %}
-                <div class="form-group">
-                    <label for="old-password">{{ lang.PASSWORD_OLD }}</label>
-                    <input type="password" class="form-control" id="old-password" name="old-password" >
-                </div>
-                {% else %}
-                  {{ lang.MISSING_PASSWORD }}
-                {% endif %}
-                <div class="form-group">
-                    <label for="new-password">{{ lang.PASSWORD_NEW }}</label>
-                    <input type="password" class="form-control" id="new-password" name="new-password" >
-                </div>
-
-                <div class="form-group">
-                    <label for="new-password2">{{ lang.PASSWORD_NEW2 }}</label>
-                    <input type="password" class="form-control" id="new-password2" name="new-password2" >
-                </div>
-
-                <button type="submit" name="change-password" class="btn btn-primary">{{ lang.SUBMIT }}</button>
-            </form>
-        </div>
-
+  <div class="container">
+    <div class="wow fadeInUp text-center">
+      <h2 class="display-4">
+        {{ lang.PROFILE_EDIT }}
+      </h2>
     </div>
-</div>
+    <hr>
+    <div class="text-center">
+      {{ include('web/modules/flash.twig') }}
+    </div>
+
+  <div class="row">
+    <div class="col-md-5">
+      <h3 class="h3 text-center">
+        {{ lang.GENERAL_INFO }}
+      </h3>
+      <hr>
+      <form method="post" 
+            action="" 
+            id="profile-update">
+        <div class="form-group">
+          <label for="email">
+            {{ lang.EMAIL_ADDRESS }}
+          </label>
+          <input type="email" 
+                 class="form-control" 
+                 id="email" 
+                 name="email" 
+                 value="{{ user.email }}">
+        </div>
+
+        <div class="form-group">
+          <label for="username">
+            {{ lang.USERNAME }}
+          </label>
+          <input type="text" 
+                 class="form-control" 
+                 id="username" 
+                 name="username" 
+                 placeholder="Username" 
+                 value="{{ user.username }}">
+        </div>
+
+        <div class="form-group">
+          <label for="first-name">
+            {{ lang.FIRST_NAME }}
+          </label>
+          <input type="text" 
+                 class="form-control" 
+                 id="first-name" 
+                 name="first-name" 
+                 placeholder="First Name" 
+                 value="{{ user.first_name }}">
+        </div>
+
+        <div class="form-group">
+          <label for="last-name">
+            {{ lang.LAST_NAME }}
+          </label>
+          <input type="text" 
+                 class="form-control" 
+                 id="last-name" 
+                 name="last-name" 
+                 placeholder="Last Name" 
+                 value="{{ user.last_name }}">
+        </div>
+
+        <div class="form-group">
+          <label for="about-me">
+            {{ lang.BRIEF_DESCRIPTION }}
+          </label>
+          <textarea class="form-control" 
+                    id="about-me" 
+                    name="about-me" 
+                    rows="3">{{ user.about_me }}</textarea>
+        </div>
+
+        <div class="form-check">
+          <label class="form-check-label">
+          <input type="checkbox" 
+                 name="newsletter" 
+                 class="form-check-input" 
+                 {{ user.newsletter ? 'checked' : '' }}>
+          Newsletter
+          </label>
+        </div>
+
+        <br>
+
+        <button type="submit" 
+                name="change-details" 
+                class="btn btn-primary">
+          {{ lang.SUBMIT }}
+        </button>
+
+      </form>
+      <br>
+      {#facebook aouth functionality #}
+      {% if not user.facebook_id %}
+        <a class="btn btn-primary" 
+           href="{{ fbLoginUrl('fb_connect_callback') }}">
+           {{ lang.FACEBOOK_CONNECT }}
+         </a>
+      {% elseif  user.password != "no password" %}
+        <a class="btn btn-primary" 
+           href="/OauthProvider/facebook_disconnect">
+           {{ lang.FACEBOOK_DISCONNECT }}
+         </a>
+      {% endif %}
+    </div>
+
+    <div class="col-md-5 offset-md-1">
+      <h3 class="h3 text-center">
+        {{ lang.PASSWORD_CHANGE }}
+      </h3>
+
+      <hr>
+
+      <form method="post" action="" id="password-update">
+
+        {% if user.password != "no password" %}
+          <div class="form-group">
+            <label for="old-password">
+              {{ lang.PASSWORD_OLD }}
+            </label>
+            <input type="password" 
+                   class="form-control" 
+                   id="old-password" 
+                   name="old-password" >
+          </div>
+        {% else %}
+          {{ lang.MISSING_PASSWORD }}
+        {% endif %}
+
+        <div class="form-group">
+          <label for="new-password">
+            {{ lang.PASSWORD_NEW }}
+          </label>
+          <input type="password" 
+                 class="form-control" 
+                 id="new-password" 
+                 name="new-password" >
+        </div>
+
+        <div class="form-group">
+          <label for="new-password2">
+            {{ lang.PASSWORD_NEW2 }}
+          </label>
+          <input type="password" 
+                 class="form-control" 
+                 id="new-password2" 
+                 name="new-password2" >
+        </div>
+
+        <button type="submit" 
+                name="change-password" 
+                class="btn btn-primary">
+          {{ lang.SUBMIT }}
+        </button>
+      </form>
+
+      <br>
+      <div>
+        <h3 class="h3 text-center">
+          Tvoj avatar!
+        </h3>
+        <hr>
+        <div>
+          <button onclick="selectAvatar()" class="btn btn-secondary">
+            Vybrať iný avatar
+          </button>
+          <button onclick="uploadAvatar()" class="btn btn-secondary">
+            Nahrať obrázok
+          </button>
+        </div>
+        <br>
+        <div class="user-avatar">
+          <img src="{{ user.avatar }}" alt="">
+        </div>
+      </div>
+    </div> <!-- end of right side -->
+
+  </div> <!-- end of row -->
+</div> <!-- end of container -->
 </section>
+
+<div class="uploadAvatar" style="display: none">
+  <button class="upload-btn btn btn-primary">Choose</button>
+  <div id="progress-bar"></div>
+</div>
+
+<script>
+
+var avatarArea = document.querySelector('.user-avatar')
+var original = avatarArea.innerHTML;
+var progressBar = document.querySelector('#progress-bar')
+
+var selectAvatar = function () {
+  console.log('select avatar')
+  $.get('/api/users/avatarList')
+  .done(function(r) {
+
+    avatarArea.innerHTML = '';
+
+    for (var i = Object.keys(r.avatars).length - 1; i >= 0; i--) {
+      var el = document.createElement('img')
+      var avatar = r.avatars[i+2]
+      el.setAttribute('style', 'width: 100px; height: 100px');
+      el.setAttribute('data-filename', avatar)
+      el.src = '/images/avatars/' + avatar
+      el.onclick = function () {
+        console.log('el ' + this.getAttribute('data-filename') + ' was choosen')
+        $.post({
+          url: '/api/users/avatarChange',
+          data: {
+            avatar: this.getAttribute('data-filename')
+          }
+        })
+        .done(function (r) {
+          //console.log(r)
+          if (r.status === 'SUCCESS') {
+            console.log('success')
+            avatarArea.innerHTML = original
+            document.querySelector('.user-avatar img').src = r.link
+            console.log(original)
+          }
+        }).fail(function (e, xhr) {
+          console.log(e)
+          console.log(xhr)
+        })
+      }
+      avatarArea.appendChild(el)
+    }
+  })
+  .fail(function(e) { console.log(e) })
+  
+}
+
+var uploadAvatar = function () {
+  console.log('upload avatar')
+
+  avatarArea.innerHTML = document.querySelector('.uploadAvatar').innerHTML
+
+  var uploader = new ss.SimpleUpload({
+    button: document.querySelector('.upload-btn'),
+    url: '/api/users/avatarUpload', // URL of server-side upload handler
+    name: 'avatar', // Parameter name of the uploaded file
+    sessionProgressUrl: '/scripts/UploadProgress.php',
+    multipart: true,
+    responseType: 'json',
+    debug: true,
+    onComplete: function (filename, response) {
+      console.log(filename);
+      if (!response) {
+        console.log('No response')
+      } else if (response.status === 'SUCCESS') {
+        console.log(response)
+        avatarArea.innerHTML = original
+        document.querySelector('.user-avatar img').src = response.link
+      }
+    },
+    onSubmit: function (filename, extension) {
+      this.setProgressBar(progressBar)
+    },
+    onError: function (filename, errorType, status, statusText, response) {
+      console.log(filename)
+      console.log(errorType)
+      console.log(status)
+      console.log(statusText)
+      console.log(response)
+    }
+  });
+}
+</script>
+
+
 
 {% endblock %}

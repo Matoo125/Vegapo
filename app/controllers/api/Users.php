@@ -3,10 +3,13 @@
 namespace app\controllers\api;
 
 use app\core\Controller;
-use m4\m4mvc\helper\Session;
 use app\model\Newsletter;
 use app\helper\Email;
+use app\helper\Image;
+use m4\m4mvc\helper\Session;
 use m4\m4mvc\helper\Redirect;
+use m4\m4mvc\helper\Response;
+use m4\m4mvc\helper\Request;
 
 class Users extends Controller
 {
@@ -115,6 +118,110 @@ class Users extends Controller
     $this->data['user']['newsletter'] = Newsletter::findByEmail(
         $this->data['user']['email']
       );
+
+    $path = glob (
+      ROOT . UPLOADS . "users/" . $this->data['user']['user_id'] . ".*"
+    );
+    if (!isset($path[0])) return;
+
+    $ext = pathinfo($path[0])['extension'];
+
+    $this->data['user']['avatar'] =  (
+      UPLOADS . DS .'users' . DS .  
+      $this->data['user']['user_id'] . '.' . $ext.
+      '?'.date('ms')
+    );
+
+    //echo $this->data['user']['avatar'];die;
+  }
+
+  public function avatarList ()
+  {
+    $dir = ROOT  . DS . 'images' . DS . 'avatars';
+    if (!file_exists($dir)) {
+      echo 'file does not exists';
+      die;
+    } 
+
+    $list['avatars'] = array_diff(scandir($dir), ['.','..']);
+
+    Response::success('Avatars has been loaded', $list);
+  }
+
+  public function avatarChange ()
+  {
+    Request::forceMethod('post');
+    Request::required('avatar');
+    $avatar = $_POST['avatar'];
+
+    $path = ROOT . DS . 'images' . DS . 'avatars' . DS . $avatar;
+    $destination = ROOT.UPLOADS.'users'.DS.Session::get('user_id').'.svg';
+    if (!file_exists($path)) Response::error('Avatar not found');
+
+    $old_paths = glob (
+      ROOT . UPLOADS . "users/" . Session::get('user_id') . ".*"
+    );
+    foreach ($old_paths as $old_path) {
+      unlink($old_path);
+    }
+
+    $c = copy($path, $destination);
+
+    if ($c) {
+      Response::success(
+        'You have new avatar!', 
+        [
+          'link' => '/uploads/users/' . 
+                    Session::get('user_id') . '.svg?' . date('ms')
+        ]
+      );
+    } else {
+      Response::error('Something went wrong');
+    }
+
+  }
+
+  public function avatarUpload ()
+  {
+
+    $old_paths = glob (
+      ROOT . UPLOADS . "users/" . Session::get('user_id') . ".*"
+    );
+    foreach ($old_paths as $path) {
+      rename($path, $path . 'OLD');
+    }
+
+    $folder = ROOT . UPLOADS . 'users';
+    $name = Session::get('user_id') . '.' .
+            pathinfo($_FILES['avatar']['name'])['extension'];
+    $_FILES['a'] = $name;
+
+    $this->data = $_FILES;
+
+    $upload = Image::generateThumbnail(
+      $folder, 
+      $_FILES['avatar']['tmp_name'], 
+      400, 
+      400,
+      $name
+    );
+
+    if ($upload) {
+      foreach ($old_paths as $path) {
+        unlink($path . 'OLD');
+      }
+      Response::success(
+        'Avatar was uploaded', 
+        ['link' => '/uploads/users/' . $name . '?' .date('ms')]
+      );
+    } 
+
+    else {
+      foreach ($old_paths as $path) {
+        rename($path . 'OLD', $path);
+      }
+      Response::error('Something went wrong');
+    }
   }
 
   public function updateDetails ()
@@ -179,7 +286,7 @@ class Users extends Controller
 
   public function update()
   {
-
+    if (!Session::get('user_id')) redirect('/users');
     $this->userInfo();
 
     if (isset($_POST['change-details'])) {
