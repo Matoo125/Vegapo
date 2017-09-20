@@ -49,15 +49,27 @@ class Image
 
     $img->save($location);
     if ($thumbnails) {
-      self::generateThumbnail($folder, $location, 150, 150, $name);
-      self::generateThumbnail($folder, $location, 450, 450, $name);
+      self::generateThumbnail(
+        $folder . DS . '150x150', 
+        $location, 
+        150, 
+        150, 
+        $name
+      );
+      self::generateThumbnail(
+        $folder . DS . '450x450', 
+        $location, 
+        450, 
+        450,
+        $name
+      );
     }
     return $name;
   }
 
   public static function generateThumbnail($folder, $location, $width, $height, $name)
   {
-    $path = $folder . DS . $width . "x" . $height . DS . $name;
+    $path = $folder . DS . $name;
 
     return $img = I::make($location)
           ->fit($width, $height, function ($constraint) {

@@ -193,15 +193,20 @@
 
 <div class="uploadAvatar" style="display: none">
   <button class="upload-btn btn btn-primary">Choose</button>
+  <div id="progress-bar"></div>
 </div>
 
 <script>
+
+var avatarArea = document.querySelector('.user-avatar')
+var original = avatarArea.innerHTML;
+var progressBar = document.querySelector('#progress-bar')
+
 var selectAvatar = function () {
   console.log('select avatar')
   $.get('/api/users/avatarList')
   .done(function(r) {
-    var avatarArea = document.querySelector('.user-avatar');
-    var original = avatarArea.innerHTML;
+
     avatarArea.innerHTML = '';
 
     for (var i = Object.keys(r.avatars).length - 1; i >= 0; i--) {
@@ -223,7 +228,7 @@ var selectAvatar = function () {
           if (r.status === 'SUCCESS') {
             console.log('success')
             avatarArea.innerHTML = original
-            document.querySelector('.user-avatar img').src +='?a'
+            document.querySelector('.user-avatar img').src = r.link
             console.log(original)
           }
         }).fail(function (e, xhr) {
@@ -240,17 +245,35 @@ var selectAvatar = function () {
 
 var uploadAvatar = function () {
   console.log('upload avatar')
-  var avatarArea = document.querySelector('.user-avatar')
-  var original = avatarArea.innerHTML;
 
   avatarArea.innerHTML = document.querySelector('.uploadAvatar').innerHTML
+
   var uploader = new ss.SimpleUpload({
     button: document.querySelector('.upload-btn'),
     url: '/api/users/avatarUpload', // URL of server-side upload handler
-    name: 'uploadfile', // Parameter name of the uploaded file
+    name: 'avatar', // Parameter name of the uploaded file
     sessionProgressUrl: '/scripts/UploadProgress.php',
+    multipart: true,
+    responseType: 'json',
+    debug: true,
     onComplete: function (filename, response) {
       console.log(filename);
+      if (!response) {
+        console.log('No response')
+      } else if (response.status === 'SUCCESS') {
+        console.log(response)
+        avatarArea.innerHTML = original
+        document.querySelector('.user-avatar img').src = response.link
+      }
+    },
+    onSubmit: function (filename, extension) {
+      this.setProgressBar(progressBar)
+    },
+    onError: function (filename, errorType, status, statusText, response) {
+      console.log(filename)
+      console.log(errorType)
+      console.log(status)
+      console.log(statusText)
       console.log(response)
     }
   });

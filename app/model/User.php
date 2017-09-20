@@ -70,7 +70,20 @@ class User extends Model
        "facebook_id"  => $data['facebook_id'] ?? NULL
      ];
 
-    $this->save($sql, $bind);
+    $id = $this->save($sql, $bind, true);
+    if (!$id) return false;
+
+    // pick random avatar
+    $path = ROOT . '/images/avatars/';
+    $avatars = array_diff(scandir($path), ['.','..']);
+    $avatar_id = array_rand($avatars);
+    $avatar = $avatars[$avatar_id];
+
+    copy(
+      $path . $avatar, 
+      ROOT . '/uploads/users/' . $id . '.svg'
+    );
+    return true;
   }
 
   public function update ($set, $where) 

@@ -5,6 +5,7 @@ namespace app\controllers\api;
 use app\core\Controller;
 use app\model\Newsletter;
 use app\helper\Email;
+use app\helper\Image;
 use m4\m4mvc\helper\Session;
 use m4\m4mvc\helper\Redirect;
 use m4\m4mvc\helper\Response;
@@ -118,9 +119,18 @@ class Users extends Controller
         $this->data['user']['email']
       );
 
-    $this->data['user']['avatar'] =  UPLOADS . DS .'users' . DS . 
-                                    $this->data['user']['user_id'] . '.svg' .
-                                    '?'.date('ms');
+    $path = glob (
+      ROOT . UPLOADS . "users/" . $this->data['user']['user_id'] . ".*"
+    );
+    if (!isset($path[0])) return;
+
+    $ext = pathinfo($path[0])['extension'];
+
+    $this->data['user']['avatar'] =  (
+      UPLOADS . DS .'users' . DS .  
+      $this->data['user']['user_id'] . '.' . $ext.
+      '?'.date('ms')
+    );
 
     //echo $this->data['user']['avatar'];die;
   }
@@ -148,10 +158,23 @@ class Users extends Controller
     $destination = ROOT.UPLOADS.'users'.DS.Session::get('user_id').'.svg';
     if (!file_exists($path)) Response::error('Avatar not found');
 
+    $old_paths = glob (
+      ROOT . UPLOADS . "users/" . Session::get('user_id') . ".*"
+    );
+    foreach ($old_paths as $old_path) {
+      unlink($old_path);
+    }
+
     $c = copy($path, $destination);
 
     if ($c) {
-      Response::success('You have new avatar!');
+      Response::success(
+        'You have new avatar!', 
+        [
+          'link' => '/uploads/users/' . 
+                    Session::get('user_id') . '.svg?' . date('ms')
+        ]
+      );
     } else {
       Response::error('Something went wrong');
     }
@@ -160,8 +183,45 @@ class Users extends Controller
 
   public function avatarUpload ()
   {
-    //echo json_encode(array_merge($_POST, $_FILES));return;;
-    $this->data = $_POST;
+
+    $old_paths = glob (
+      ROOT . UPLOADS . "users/" . Session::get('user_id') . ".*"
+    );
+    foreach ($old_paths as $path) {
+      rename($path, $path . 'OLD');
+    }
+
+    $folder = ROOT . UPLOADS . 'users';
+    $name = Session::get('user_id') . '.' .
+            pathinfo($_FILES['avatar']['name'])['extension'];
+    $_FILES['a'] = $name;
+
+    $this->data = $_FILES;
+
+    $upload = Image::generateThumbnail(
+      $folder, 
+      $_FILES['avatar']['tmp_name'], 
+      400, 
+      400,
+      $name
+    );
+
+    if ($upload) {
+      foreach ($old_paths as $path) {
+        unlink($path . 'OLD');
+      }
+      Response::success(
+        'Avatar was uploaded', 
+        ['link' => '/uploads/users/' . $name . '?' .date('ms')]
+      );
+    } 
+
+    else {
+      foreach ($old_paths as $path) {
+        rename($path . 'OLD', $path);
+      }
+      Response::error('Something went wrong');
+    }
   }
 
   public function updateDetails ()
