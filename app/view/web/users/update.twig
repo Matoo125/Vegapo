@@ -193,14 +193,22 @@
 
 <div class="uploadAvatar" style="display: none">
   <button class="upload-btn btn btn-primary">Choose</button>
-  <div id="progress-bar"></div>
+  <div class="progress">
+      <div id="progress-bar" 
+       class="progress-bar progress-bar-success 
+              progress-bar-striped progress-bar-animated"  
+       role="progressbar" 
+       aria-valuenow="45" 
+       aria-valuemin="0" 
+       aria-valuemax="100" 
+       style="display: none"></div>
+  </div>
 </div>
 
 <script>
 
 var avatarArea = document.querySelector('.user-avatar')
 var original = avatarArea.innerHTML;
-var progressBar = document.querySelector('#progress-bar')
 
 var selectAvatar = function () {
   console.log('select avatar')
@@ -216,7 +224,7 @@ var selectAvatar = function () {
       el.setAttribute('data-filename', avatar)
       el.src = '/images/avatars/' + avatar
       el.onclick = function () {
-        console.log('el ' + this.getAttribute('data-filename') + ' was choosen')
+       // console.log('el ' + this.getAttribute('data-filename') + ' was choosen')
         $.post({
           url: '/api/users/avatarChange',
           data: {
@@ -229,7 +237,7 @@ var selectAvatar = function () {
             console.log('success')
             avatarArea.innerHTML = original
             document.querySelector('.user-avatar img').src = r.link
-            console.log(original)
+            //console.log(original)
           }
         }).fail(function (e, xhr) {
           console.log(e)
@@ -245,6 +253,9 @@ var selectAvatar = function () {
 
 var uploadAvatar = function () {
   console.log('upload avatar')
+
+  var button = document.querySelector('.upload-btn')
+  button.innerHTML = "Prechádzať";
 
   avatarArea.innerHTML = document.querySelector('.uploadAvatar').innerHTML
 
@@ -267,7 +278,10 @@ var uploadAvatar = function () {
       }
     },
     onSubmit: function (filename, extension) {
-      this.setProgressBar(progressBar)
+      var pb = document.querySelector('#progress-bar')
+      pb.style = "width: 0";
+      this.setProgressBar(pb)
+      document.querySelector('.upload-btn').innerHTML = "Nahrávam ...";
     },
     onError: function (filename, errorType, status, statusText, response) {
       console.log(filename)

@@ -183,6 +183,7 @@ class Users extends Controller
 
   public function avatarUpload ()
   {
+    if (!Session::get('user_id')) return;
 
     $old_paths = glob (
       ROOT . UPLOADS . "users/" . Session::get('user_id') . ".*"
