@@ -12,6 +12,7 @@ use mrkovec\sdiff\SDiff;
 class Produkty extends ProduktyApiController
 {
 
+  public function upravit($id, $reason = null, $reason_id = null)
   {
     if ($_POST) {
       $data['name']         = $_POST['productName'];
@@ -46,6 +47,7 @@ class Produkty extends ProduktyApiController
       $deleted_tags = array_diff($tags_old, $tags_new);
 
       // original product data
+      $old_product = $this->model->single('id', $id);
 
       $this->model->update($data);
       $this->model->matching_supermarkets(
