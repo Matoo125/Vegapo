@@ -84,6 +84,7 @@ class Product extends Model
              p.type,
              c.name AS category,
              c.id AS category_id,
+             COUNT(fp.id) AS favourites,
              GROUP_CONCAT(DISTINCT i.filename) AS image,
              GROUP_CONCAT(DISTINCT i2.filename) AS image2,
              GROUP_CONCAT(DISTINCT i3.filename) AS image3,
@@ -102,6 +103,7 @@ class Product extends Model
           LEFT JOIN supermarkets AS s ON s.id = ms.supermarket_id
           LEFT JOIN matching_tags AS mt ON mt.product_id = p.id
           LEFT JOIN tags AS t ON t.id = mt.tag_id
+          LEFT JOIN favourite_products AS fp on p.id = fp.product_id
           LEFT JOIN users AS u ON u.user_id = p.author_id
           ";
 
@@ -140,6 +142,11 @@ class Product extends Model
     $type          =  $filters['type']         ??  null;
     $country       =  $filters['country']      ??  COUNTRY_CODE;
 
+    $selectPlus = "";
+    if ($sort AND $sort === 'fav') {
+      $selectPlus = ", COUNT(DISTINCT fp.id) favourites";
+    }
+
     $sql = "SELECT p.id AS id,
                    p.name AS name,
                    p.slug AS slug,
@@ -148,6 +155,7 @@ class Product extends Model
                    GROUP_CONCAT(DISTINCT i.filename) AS image,
                    GROUP_CONCAT(DISTINCT s.name) AS supermarkets,
                    GROUP_CONCAT(DISTINCT t.name) AS tags
+                   {$selectPlus}
             FROM products AS p
             INNER JOIN categories AS c ON p.category_id = c.id
             LEFT JOIN images AS i ON i.product_id = p.id
@@ -199,8 +207,12 @@ class Product extends Model
       $params['search'] = "%".$search."%";
     }
 
+
+    if ($favourites || $sort === 'fav'){
+      $sql .= " LEFT JOIN favourite_products AS fp ON p.id = fp.product_id";
+    }
+
     if ($favourites) {
-      $sql .= " INNER JOIN favourite_products AS fp ON p.id = fp.product_id";
       $where[] = "fp.user_id = :user_id";
       $params['user_id'] = $favourites;
     }
@@ -231,11 +243,15 @@ class Product extends Model
       case "rand":
         $sql .= "ORDER BY rand()";
         break;
+      case "fav":
+        $sql .= "ORDER BY favourites DESC";
+        break;
       default :
         $sql .= "ORDER BY p.updated_at DESC";
         break;
     }
 
+  //  echo $sql;die;
     $sql = self::paginate($sql, $start, 20);
     return $this->fetchAll($sql, $params);
 
@@ -389,7 +405,10 @@ class Product extends Model
 
     $bind = ['product_id' => $product_id, 'user_id' => $user_id];
 
-    return $this->fetch($sql, $bind);
+    $favid = $this->fetch($sql, $bind);
+
+    return $favid['id'] ?? false;
+
   }
 
   /* most of the code below this should be in different files */

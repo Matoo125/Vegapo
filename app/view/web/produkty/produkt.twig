@@ -36,57 +36,96 @@ window.fbAsyncInit = function() {
 
 <section id="main">
 	<div class="container">
-		<div class="wow fadeInUp text-center"><h2>{{ product.name }}</h2></div> <br>
+		<div class="wow fadeInUp text-center">
+      <h2>
+        {{ product.name }}
+      </h2>
+    </div> 
+
+    <br>
+
 		  <div class="row justify-content-start">
             <div class="col-lg-6 col-md-8 align-self-start">
-                <a data-fancybox="gallery" href="/uploads/products/{{ cc }}/{{ product.image }}">
-                    <img src="/uploads/products/{{ cc }}/450x450/{{ product.image }}" class="img-fluid">
+                <a data-fancybox="gallery" 
+                   href="/uploads/products/{{ cc }}/{{ product.image }}">
+                    <img src="/uploads/products/{{ cc }}/450x450/{{ product.image }}" 
+                         class="img-fluid">
                 </a>
             </div>
             <div class="col-lg-6 col-md-4">
                 <p>Približná cena: {{ product.price }}</p>
-                <p>Kategória: <a href="/produkty?kategoria={{ product.category|slugify }}">{{ product.category }}</a></p>
+                <p>
+                  Kategória: 
+                  <a href="/produkty?kategoria={{ product.category|slugify }}">
+                    {{ product.category }}
+                  </a>
+                </p>
 
                 {% set supermarkets_array = product.supermarkets|split(',') %}
                 <p>V supermarketoch:
                      {% for supermarket in supermarkets_array %}
-                        <a href="/produkty?supermarket={{ supermarket|slugify }}">{{ supermarket }}</a>{{ " " }}
+                        <a href="/produkty?supermarket={{ supermarket|slugify }}">
+                          {{ supermarket }}
+                        </a>{{ " " }}
                      {% endfor %}
                 </p>
 
                 {% set tags_array = product.tags|split(',') %}
                 <p>Tagy:
                      {% for tag in tags_array %}
-                        <a href="/produkty?tag={{ tag|slugify }}">{{ tag }}</a>{{ " " }}
+                        <a href="/produkty?tag={{ tag|slugify }}">
+                          {{ tag }}
+                        </a>{{ " " }}
                      {% endfor %}
                 </p>
 
                 <p>Poznámka: {{ product.note }}</p>
                 <p>Čiarový kód: {{ product.barcode }}</p>
+                <p>Počet srdiečok: {{ product.favourites }}</p>
 
 
                 {% if session.user_id %}
                     <div class="row">
                       <div class="col-6">
                         {% if liked %}
-                            <i class="icon ion-heart icon-lg active" id="heart" data-active="true"></i>
+                            <i class="icon ion-heart icon-lg active" 
+                               id="heart" 
+                               data-active="true"></i>
                         {% else %}
-                            <i class="icon ion-heart icon-lg" id="heart" data-active="false"></i>
+                            <i class="icon ion-heart icon-lg" 
+                               id="heart" 
+                               data-active="false"></i>
                         {% endif %}
                       </div>
 
                       <div class="col-6">                      
                         {% if session.user_role > 30 %}
-                        <a href="/admin/produkty/upravit/{{ product.id }}"><button class="btn btn-primary">Upraviť</button></a>
+                        <a href="/admin/produkty/upravit/{{ product.id }}">
+                          <button class="btn btn-primary">
+                            Upraviť
+                          </button>
+                        </a>
                         {% else %}
-                        <button class="btn btn-primary" data-toggle="modal" data-target=".suggestModal">{{ lang.SUGGEST_EDIT }}</button>
+                        <button class="btn btn-primary" 
+                                data-toggle="modal" 
+                                data-target=".suggestModal">
+                          {{ lang.SUGGEST_EDIT }}
+                        </button>
 
-                        <div class="modal fade suggestModal" tabindex="-1" role="dialog" aria-hidden="true">
+                        <!-- this one needs improvement -->
+                        <div class="modal fade suggestModal" 
+                             tabindex="-1" 
+                             role="dialog" 
+                             aria-hidden="true">
                           <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                             <div class="container">
                               <div class="modal-header">
-                                <div class="fadeInUp text-center"><h2>{{ lang.SUGGEST_EDIT }}</h2></div>
+                                <div class="fadeInUp text-center">
+                                  <h2>
+                                    {{ lang.SUGGEST_EDIT }}
+                                  </h2>
+                                </div>
                               </div>
                               <div class="modal-body">
                                 <form>
@@ -107,12 +146,17 @@ window.fbAsyncInit = function() {
                                   </div>
                                   <div class="form-group">
                                     <label>Obsah</label>
-                                    <textarea class="form-control" id="suggestBody" placeholder=""></textarea>
+                                    <textarea class="form-control" 
+                                              id="suggestBody" 
+                                              placeholder=""></textarea>
                                   </div>
                                 </form>
                                 </div>
                                 <div class="modal-footer">
-                                  <button class="btn btn-primary" id="suggestSubmit">Odoslať</button>
+                                  <button class="btn btn-primary" 
+                                          id="suggestSubmit">
+                                    Odoslať
+                                  </button>
                                 </div>
                               </div>
                             </div>
@@ -125,12 +169,28 @@ window.fbAsyncInit = function() {
                 {% endif %}
 
                 {% if product.image2 %}
-                    <p><a data-fancybox="gallery" href="/uploads/products/{{ cc }}/{{ product.image2 }}"><button class="btn btn-primary">{{ lang.INGREDIENTS }}</button></a></p>
+                    <p>
+                      <a data-fancybox="gallery" 
+                         href="/uploads/products/{{ cc }}/{{ product.image2 }}">
+                        <button class="btn btn-primary">
+                          {{ lang.INGREDIENTS }}
+                        </button>
+                      </a>
+                    </p>
                 {% endif %}
 
-                <div class="fb-like" data-layout="button" data-action="recommend" data-size="large" data-show-faces="true" data-adapt-container-width="true" data-share="true"></div>
+                <div class="fb-like" 
+                     data-layout="button" 
+                     data-action="recommend" 
+                     data-size="large" 
+                     data-show-faces="true" 
+                     data-adapt-container-width="true" 
+                     data-share="true"></div>
 
-                <div class="fb-comments" mobile="auto-detect" data-numposts="5" width='100%'></div>
+                <div class="fb-comments" 
+                     mobile="auto-detect" 
+                     data-numposts="5" 
+                     width='100%'></div>
 
             </div>
 

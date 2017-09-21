@@ -18,21 +18,19 @@ class Produkty extends Controller
   {
     $this->data['product'] = $this->model->single('slug', $slug);
 
-    if (Session::get('user_id')) {
+    if (!Session::get('user_id')) return;
 
-      $this->data['liked'] = $this->model->isProductFavourite(
-        $this->data['product']['id'], Session::get('user_id')
-      )[0];
-    }
+    $this->data['liked'] = $this->model->isProductFavourite(
+      $this->data['product']['id'], Session::get('user_id')
+    );
+    
   }
 
   public function pridat() 
   {
 
-    if (!Session::get('user_id')) {
-      redirect('/');
-    }
-
+    if (!Session::get('user_id')) redirect('/');
+      
     if ($_POST) {
       $data['name']         = $_POST['productName'];
       $data['category_id']  = $_POST['selectCategory'];

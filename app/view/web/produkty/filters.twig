@@ -74,19 +74,21 @@
                 {{ lang.PRODUCTS_SORT }}
                 {% if sorting %}
                   {% if sorting == 'namea' %}
-                    {{ lang.SORT ~ lang.PRODUCTS_SORT_NAME}}
+                    {{ lang.SORT ~ lang.PRODUCTS_SORT_NAME }}
                   {% elseif sorting == 'named' %}
-                    {{ lang.SORT ~ lang.PRODUCTS_SORT_NAME}} Z-A
+                    {{ lang.SORT ~ lang.PRODUCTS_SORT_NAME }} Z-A
                   {% elseif sorting == 'pricea' %}
-                    {{ lang.SORT ~ lang.PRODUCTS_SORT_PRICEA}}
+                    {{ lang.SORT ~ lang.PRODUCTS_SORT_PRICEA }}
                   {% elseif sorting == 'priced' %}
-                    {{ lang.SORT ~ lang.PRODUCTS_SORT_PRICED}}
+                    {{ lang.SORT ~ lang.PRODUCTS_SORT_PRICED }}
                   {% elseif sorting == 'datea' %}
-                    {{ lang.SORT ~ lang.PRODUCTS_SORT_DATEA}}
+                    {{ lang.SORT ~ lang.PRODUCTS_SORT_DATEA }}
                   {% elseif sorting == 'dated' %}
-                    {{ lang.SORT ~ lang.PRODUCTS_SORT_DATED}}
+                    {{ lang.SORT ~ lang.PRODUCTS_SORT_DATED }}
                   {% elseif sorting == 'rand' %}
                     {{ lang.SORT ~ 'random'}}
+                  {% elseif sorting == 'fav' %}
+                    {{ lang.SORT ~ 'Obľúbenosť' }}
                   {% endif %}
                 {% endif %}
               </a>
@@ -100,9 +102,13 @@
                    {{ lang.PRODUCTS_SORT_NAME}} Z-A
                  </a>
                 <a class="dropdown-item" 
-                    href="{{ changeParam(params, 'sort', 'pricea') }}">{{ lang.PRODUCTS_SORT_PRICEA}}</a>
+                    href="{{ changeParam(params, 'sort', 'pricea') }}">
+                    {{ lang.PRODUCTS_SORT_PRICEA}}
+                </a>
                 <a class="dropdown-item" 
-                    href="{{ changeParam(params, 'sort', 'priced') }}">{{ lang.PRODUCTS_SORT_PRICED}}</a>
+                    href="{{ changeParam(params, 'sort', 'priced') }}">
+                    {{ lang.PRODUCTS_SORT_PRICED}}
+                </a>
                 <a class="dropdown-item" 
                     href="{{ changeParam(params, 'sort', 'datea') }}">
                     {{ lang.PRODUCTS_SORT_DATEA}}
@@ -114,7 +120,11 @@
                 <a class="dropdown-item"
                     href="{{ changeParam(params, 'sort', 'rand') }}">
                     random
-                  </a>
+                </a>
+                <a class="dropdown-item"
+                    href="{{ changeParam(params, 'sort', 'fav') }}">
+                    favourites
+                </a>
               </div>
             </li>
 
