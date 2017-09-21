@@ -6,11 +6,12 @@ use app\controllers\api\Produkty as ProduktyApiController;
 use m4\m4mvc\helper\Session;
 use app\helper\Image;
 use app\controllers\api\Users;
+use app\model\Edit;
+use mrkovec\sdiff\SDiff;
 
 class Produkty extends ProduktyApiController
 {
 
-  public function upravit($id)
   {
     if ($_POST) {
       $data['name']         = $_POST['productName'];
@@ -45,7 +46,6 @@ class Produkty extends ProduktyApiController
       $deleted_tags = array_diff($tags_old, $tags_new);
 
       // original product data
-      $old_product = $this->model->getProductById($id);
 
       $this->model->update($data);
       $this->model->matching_supermarkets(
@@ -55,7 +55,7 @@ class Produkty extends ProduktyApiController
 
       // new edit log
       $this->model->createEdit($id, $reason ?? "update", $reason_id,
-        SDiff::getObjectDiff($old_product,$this->model->getProductById($id), False),
+        SDiff::getObjectDiff($old_product,$this->model->single('id', $id), False),
         $_POST['edit_comment']);
 
       // editing main image
