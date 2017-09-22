@@ -12,7 +12,10 @@ class Suggestion extends Model {
 
     public function create($data)
     {
-        $sql = "INSERT INTO `suggestions`(`user_id`, `product_id`, `state`, `type`, `body`, `country`) VALUES (:user_id, :product_id, :state, :type, :body, :country)";
+        $sql = "INSERT INTO `suggestions`
+                  (`user_id`, `product_id`, `state`, `type`, `body`, `country`) 
+                VALUES 
+                  (:user_id, :product_id, :state, :type, :body, :country)";
         $args = [
             'user_id'    => $data['author_id'],
             'product_id' => $data['product_id'],
@@ -51,7 +54,13 @@ class Suggestion extends Model {
 
     public function checkForDuplicate ($data)
     {
-        $sql = "SELECT * FROM suggestions WHERE user_id = :author_id and product_id = :product_id and body = :body and type = :reason and country = :country";
+        $sql = "SELECT * 
+                FROM suggestions 
+                WHERE user_id = :author_id and 
+                      product_id = :product_id and 
+                      body = :body and 
+                      type = :reason and 
+                      country = :country";
         return $this->runQuery($sql, $data, 'get');
     }
 

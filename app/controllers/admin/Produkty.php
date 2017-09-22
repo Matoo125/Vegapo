@@ -12,7 +12,7 @@ use mrkovec\sdiff\SDiff;
 class Produkty extends ProduktyApiController
 {
 
-  public function upravit($id, $reason = null, $reason_id = null)
+  public function upravit($id, $reason = 'update', $reason_id = null)
   {
     if ($_POST) {
       $data['name']         = $_POST['productName'];
@@ -56,9 +56,17 @@ class Produkty extends ProduktyApiController
       $this->model->matching_tags($id, $added_tags, $deleted_tags);
 
       // new edit log
-      $this->model->createEdit($id, $reason ?? "update", $reason_id,
-        SDiff::getObjectDiff($old_product,$this->model->single('id', $id), False),
-        $_POST['edit_comment']);
+      $this->model->createEdit(
+        $id, 
+        $reason, 
+        $reason_id,
+        SDiff::getObjectDiff(
+          $old_product,
+          $this->model->single('id', $id), 
+          False
+        ),
+        $_POST['edit_comment']
+      );
 
       // editing main image
       if ($images['1'] && $images['1']['error'] === 0) {

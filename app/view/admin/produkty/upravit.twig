@@ -157,11 +157,16 @@
       </a>
     </p>
 
-    <label for="edit_comment">
+    <div class="form-group">
+      <label for="edit_comment">
       {{ lang.EDITS_NOTE }}
     </label>
-    <textarea name="edit_comment" id="edit_comment" cols="30" rows="2" class="form-control">
-    </textarea>
+    <textarea name="edit_comment" 
+              id="edit_comment" 
+              cols="30" 
+              rows="2" 
+              class="form-control"></textarea>
+    </div>
 
     <button type="submit" class="btn btn-primary">
       {{ lang.SUBMIT }}
@@ -179,9 +184,10 @@
     </a>
 
     {% if last_edit['edit_id'] %}
-      <br>
-      <br>
-      <a class="btn btn-info" href="/admin/edits/edit/{{ last_edit['edit_id'] }}" role="button" target="_blank">
+      <a class="btn btn-info" 
+         href="/admin/edits/edit/{{ last_edit['edit_id'] }}" 
+         role="button" 
+         target="_blank">
         {{ lang.EDITS_LAST }}
       </a>
     {% endif %}
