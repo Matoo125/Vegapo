@@ -11,8 +11,8 @@ class Edit extends Model
   public function newEdit($data)
   {
     $sql = "INSERT INTO edits
-    (type, user_id, comment, diff, country, object_type, object_id) 
-            VALUES       
+    (type, user_id, comment, diff, country, object_type, object_id)
+            VALUES
     (:type, :user_id, :comment, :diff, :country, :object_type, :object_id)";
 
     $bind = [
@@ -25,7 +25,7 @@ class Edit extends Model
       ":object_id"    =>  $data['object_id']    ??    null
     ];
 
-    return $this->save($sql, $bind);
+    return $this->save($sql, $bind, True);
   }
 
   // close edit with optional edit comment and diff
@@ -39,8 +39,8 @@ class Edit extends Model
             WHERE id = :edit_id";
 
     $bind = [
-      ":edit_id" => $edit_id, 
-      ":comment" => $comment, 
+      ":edit_id" => $edit_id,
+      ":comment" => $comment,
       ":diff" => $diff
     ];
 
@@ -55,8 +55,8 @@ class Edit extends Model
               AND object_type = :object_type
               AND ifnull(object_id,-1) = ifnull(:object_id, -1)";
     $bind = [
-      ":object_type" => $type, 
-      ":object_id" => $id, 
+      ":object_type" => $type,
+      ":object_id" => $id,
       ":edit_state" => $state
     ];
 
@@ -73,29 +73,29 @@ class Edit extends Model
               AND object_type = :object_type
               AND ifnull(object_id,-1) = ifnull(:object_id, -1)";
     $bind = [
-      ":user_id" => Session::get('user_id'), 
-      ":object_type" => $type, 
-      ":object_id" => $id, 
+      ":user_id" => Session::get('user_id'),
+      ":object_type" => $type,
+      ":object_id" => $id,
       ":edit_state" => $state
     ];
 
     return $this->fetchAll($sql, $bind);
   }
 
-  public function getEdits($state = null)
+  public function list($limit, $state = null)
   {
     $sql = "SELECT *
             FROM edit_details
             WHERE edit_state = ifnull(:state, edit_state)
-            ORDER BY edit_id DESC";
+            ORDER BY edit_id DESC limit ".$limit;
 
     return $this->fetchAll($sql, [":state" => $state]);
   }
 
-  public function getEditById($id)
+  public function getById($id)
   {
     return $this->fetch(
-      "select * from edits where id = :id limit 1", 
+      "select * from edits where id = :id limit 1",
       [":id" => $id]
     );
   }
@@ -103,8 +103,18 @@ class Edit extends Model
   public function getEditDetailsById($id)
   {
     return $this->fetch(
-      "select * from edit_details where edit_id = :id limit 1", 
+      "select * from edit_details where edit_id = :id limit 1",
       [":id" => $id]
+    );
+  }
+
+  // returns all edits for given object
+  public function getObjectEdits($type, $id)
+  {
+    return $this->fetchAll(
+      "select * from edit_details where object_type = :type
+        and ifnull(object_id,-1) = ifnull(:id,-1) order by edit_id desc",
+      [":type" => $type, ":id" => $id]
     );
   }
 }

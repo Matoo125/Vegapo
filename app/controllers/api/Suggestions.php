@@ -1,8 +1,8 @@
-<?php 
+<?php
 
 namespace app\controllers\api;
 
-use app\core\Controller; 
+use app\core\Controller;
 
 class Suggestions extends Controller
 {
@@ -37,7 +37,7 @@ class Suggestions extends Controller
 
            $this->data['suggestions'] = $this->model->getByUser($id);
            return;
-      } 
+      }
 
       redirect('/');
     }
@@ -47,7 +47,7 @@ class Suggestions extends Controller
       if (!$_POST) return;
 
        $data = [];
-       
+
        $data['reason'] = $_POST['reason'];
        $data['body'] = $_POST['body'];
        $data['author_id'] = $_POST['user_id'];

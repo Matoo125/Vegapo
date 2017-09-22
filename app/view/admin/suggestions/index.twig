@@ -23,7 +23,7 @@
                     <tbody>
                     {% for item in suggestions %}
                         <tr>
-                            <td><a href="{{ url.PRODUCT_ADMIN_EDIT }}{{ item.product_id }}" target="_blank">{{ item.product_id }}</a></td>
+                            <td><a href="{{ url.PRODUCT_ADMIN_EDIT }}{{ item.product_id ~ "\\suggestion\\" ~ item.id}}" target="_blank">{{ item.product_id }}</a></td>
                             <td>{{ matchingType[item.type] }}</td>
                             <td>{{ item.body }}</td>
                             <td>{{ item.username }}</td>
