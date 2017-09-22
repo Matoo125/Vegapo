@@ -29,7 +29,7 @@ class Edits extends EditsApiController
     }
   }
 
-  // humanize edit data 
+  // humanize edit data
   private static function repl($edit) {
     switch($edit['edit_type']) {
       case "suggestion":
@@ -80,6 +80,18 @@ class Edits extends EditsApiController
         break;
       case "recover":
         $edit['lang_edit_type'] = getString('RECOVERED');
+        break;
+      case "delete":
+        $edit['lang_edit_type'] = getString('DELETED');
+        break;
+      case "move":
+        $edit['lang_edit_type'] = getString('DELETED');
+        break;
+      case "moveskcz":
+        $edit['lang_edit_type'] = getString('MOVESKCZ');
+        break;
+      case "moveczsk":
+        $edit['lang_edit_type'] = getString('MOVECZSK');
         break;
       default:
     }

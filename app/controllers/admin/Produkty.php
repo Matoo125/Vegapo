@@ -155,6 +155,9 @@ class Produkty extends ProduktyApiController
   /* move from sk to cz or the other way around */
   public function move_to($product_id, $from, $to)
   {
+    // new edit log
+    $this->model->createEdit($product_id, "move".$from.$to);
+
     new \app\helper\Move($product_id, $from, $to);
   }
 }
