@@ -18,7 +18,7 @@
           <div class="col-lg-10">
             <h3><a href ="">{{ data['edit_username'] }}</a></h3>
             <h1>{{  data['lang_object_type'] ~ " " ~ data['lang_edit_type'] ~ " " ~ data['lang_edit_sub_type'] }}</h1>
-            <h2><a href="{{ url.PRODUCT_ADMIN_EDIT ~ data['object_id'] }}" target="_blank">{{ data['object_name'] }}</a></h2>
+            <h2><a href="{{ data['object_url']|raw }}">{{ data['object_name'] }}</a></h2>
             <p>{{ lang.EDITS_EDIT_CREATED_AT ~ " " ~ data['edit_created_at'] }} {% if data['edit_created_at'] != data['edit_updated_at'] %} ({{ data['edit_updated_at'] }}) {% endif %}</p>
 
             {% if data['edit_type'] == "suggestion" %}
@@ -36,7 +36,7 @@
               <p><a href="">{{ data['object_username'] }}</a>: {{ suggestion_data['body'] }}</p>
             </div>
             {% endif %}
-            
+
             {% if data['edit_comment'] %}
             <div>
               <h4>{{ lang.EDITS_EDIT_COMMENT}}:</h4>

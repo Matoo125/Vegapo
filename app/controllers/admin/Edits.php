@@ -5,6 +5,7 @@ namespace app\controllers\admin;
 use app\controllers\api\Edits as EditsApiController;
 use app\model\Suggestion;
 use app\core\Functions;
+use app\string\Url;
 
 class Edits extends EditsApiController
 {
@@ -69,6 +70,7 @@ class Edits extends EditsApiController
             $edit['lang_edit_sub_type'] = getString('OTHER');
         }
         break;
+      // product
       case "update":
         $edit['lang_edit_type'] = getString('UPDATE');
         break;
@@ -93,21 +95,40 @@ class Edits extends EditsApiController
       case "moveczsk":
         $edit['lang_edit_type'] = getString('MOVECZSK');
         break;
+      // user role
+      case "role4":
+        $edit['lang_edit_type'] = getString('UPDATE').' - '.' na user';
+        break;
+      case "role34":
+        $edit['lang_edit_type'] = getString('UPDATE').' - '.'na admin';
+        break;
+      case "role74":
+        $edit['lang_edit_type'] = getString('UPDATE').' - '.'na superadmin';
+        break;
       default:
         $edit['lang_edit_type'] = $edit['edit_type'];
     }
+
     switch($edit['object_type']) {
       case "product":
         $edit['lang_object_type'] = getString('PRODUCT')." - ";
+        $edit['object_url'] = Url::get('PRODUCT_ADMIN_EDIT').$edit['object_id'];
         break;
       case "user":
-        $edit['lang_object_type'] = getString('USER')." - ";  
+        $edit['lang_object_type'] = getString('USER')." - ";
+        $edit['object_url'] = Url::get('ADMIN_USERS');
         break;
       case "locale":
         $edit['lang_object_type'] = getString('LOCALE');
+        $edit['object_url'] = Url::get('ADMIN_LOCALE');
+        break;
+      case "info":
+        $edit['lang_object_type'] = "Info stránka - ";
+        $edit['object_url'] = '/admin/info/edit/'.$edit['object_id'];
         break;
       default:
     }
+
     return $edit;
   }
 

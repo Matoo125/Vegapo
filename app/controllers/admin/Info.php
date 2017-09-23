@@ -1,11 +1,13 @@
-<?php 
+<?php
 
 namespace app\controllers\admin;
 
-use app\core\Controller; 
+use app\core\Controller;
+use app\model\Edit;
+use mrkovec\sdiff\SDiff;
 
 class Info extends Controller
-{    
+{
 
     public function index()
     {
@@ -29,9 +31,23 @@ class Info extends Controller
         if (!$_POST) return null;
         $path = ROOT.DS.'pages'.DS.COUNTRY_CODE.DS.$_POST['page'];
         // backup current page
-        rename($path, ROOT.DS.'pages'.DS.COUNTRY_CODE.DS.'backup'.DS.$_POST['page'].'-'.date('Y-m-d H-i-s').'.md');
+        $backup_path = ROOT.DS.'pages'.DS.COUNTRY_CODE.DS.'backup'.DS.$_POST['page'].'-'.date('Y-m-d H-i-s').'.md';
+        rename($path, $backup_path);
+        
         if (file_put_contents($path, $_POST['content'])) {
-            $this->data['response'] = "Page has been saved";      
+            $this->data['response'] = "Page has been saved";
+
+            $edit = new Edit();
+            $data['type'] = 'update';
+            $data['object_type'] = "info";
+            $edit_id = $edit->newEdit($data);
+            $diff = SDiff::getClauseDiff(
+              file_get_contents($backup_path),
+              file_get_contents($path),
+              False
+            );
+            $edit->closeEdit($edit_id, $_POST['page'], $diff["diff"]);
+
         } else {
             $this->data['response'] = "Error while saving";
         }
