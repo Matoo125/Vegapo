@@ -34,6 +34,13 @@ CREATE or replace VIEW edit_details AS
 		q.object_type, q.comment object_id, q.comment object_name, null object_user_id, null object_username
 	FROM edits q, users w 
 	where q.object_type = 'info' and q.user_id = w.user_id	
+	union
+	#tag
+	SELECT 
+		q.id edit_id, q.type edit_type, null edit_sub_type, q.state edit_state, q.user_id edit_user_id, e.username edit_username, q.comment edit_comment, q.diff edit_diff, q.country edit_country, q.created_at edit_created_at, q.updated_at edit_updated_at,
+		q.object_type, w.id object_id, w.name object_name,  w.author_id object_user_id, r.username object_username
+	FROM edits q, tags w, users e, users r
+	where q.object_type = 'product' and q.object_id = w.id and q.user_id = e.user_id and w.author_id = r.user_id 
 ;
 
 

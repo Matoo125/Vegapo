@@ -105,6 +105,10 @@ class Edits extends EditsApiController
       case "role74":
         $edit['lang_edit_type'] = getString('UPDATE').' - '.'na superadmin';
         break;
+      // tag
+      case "new":
+        $edit['lang_edit_type'] = getString('NEW');
+        break;
       default:
         $edit['lang_edit_type'] = $edit['edit_type'];
     }
@@ -125,6 +129,10 @@ class Edits extends EditsApiController
       case "info":
         $edit['lang_object_type'] = "Info stránka - ";
         $edit['object_url'] = '/admin/info/edit/'.$edit['object_id'];
+        break;
+      case "tag":
+        $edit['lang_object_type'] = "Tag - ";
+        $edit['object_url'] = Url::get('TAG_ADMIN_EDIT').$edit['object_id'];
         break;
       default:
     }

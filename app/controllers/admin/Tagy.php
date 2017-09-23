@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace app\controllers\admin;
 
@@ -6,6 +6,7 @@ use app\controllers\api\Tagy as TagyApiController;
 use m4\m4mvc\helper\Session;
 use app\controllers\api\Users;
 use app\helper\Image;
+use mrkovec\sdiff\SDiff;
 
 class Tagy extends TagyApiController
 {
@@ -15,7 +16,7 @@ class Tagy extends TagyApiController
         if (!Users::check_premission(35)) redirect('/');
     }
 
-    public function pridat() 
+    public function pridat()
     {
         if ($_POST) {
             $data['name'] = $_POST['name'];
@@ -23,19 +24,22 @@ class Tagy extends TagyApiController
             $data['description'] = $_POST['description'];
             $data['note'] = $_POST['note'];
 
-            if (!$data['image'] = Image::upload($image, "tags")) {
+            if(!$image['name']) $data['image'] = 'none';
+            elseif (!$data['image'] = Image::upload($image, "tags")) {
                 $data['image'] = 'none';
             }
 
-            if ($this->model->insert($data)) {
+            if ($id = $this->model->insert($data)) {
                 Session::setFlash("Tag pridany uspesne", 'success');
+                // log edit
+                $this->model->createEdit($id);
             }
         }
 
         $this->data['tags'] = $this->model->list();
     }
 
-    public function upravit($id) 
+    public function upravit($id)
     {
         if ($_POST) {
             $data['name'] = $_POST['name'];
@@ -50,8 +54,22 @@ class Tagy extends TagyApiController
                 Image::delete($_POST['image_old'], 'tags');
             }
 
+            $old_tag = $this->model->getTagById($id);
+
             if ($this->model->update($data, $id)) {
-                Session::setFlash("Tag zmeneny", 'success');
+
+              // log edit
+              $this->model->createEdit($id,
+                'update',
+                SDiff::getObjectDiff(
+                  $old_tag,
+                  $this->model->getTagById($id),
+                  False
+                ),
+                $_POST['edit_comment']
+              );
+
+              Session::setFlash("Tag zmeneny", 'success');
             } else {
                 Session::setFlash("Nastala chyba", 'danger');
             }
@@ -62,12 +80,17 @@ class Tagy extends TagyApiController
 
     }
 
-    public function vymazat($id, $image) 
+    public function vymazat($id, $image)
     {
+        redirect('/admin/tagy'); // otherwise error
         return false; // do not delete tag
+
         if ($this->model->delete($id, "id", $image)) {
             // delete all matching tables
             $this->model->runQuery("DELETE FROM matching_tags WHERE id = :id", array("id" => $id), "post");
+            // log edit
+            $this->model->createEdit($id, 'delete');
+
             Session::setFlash("Tag vymazany uspesne", 'success', 1);
         } else {
             Session::setFlash("Tag sa nepodarilo vymazat", 'danger', 1);
