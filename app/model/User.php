@@ -17,22 +17,22 @@ class User extends Model
     Session::set('username', $user['username']);
 
     $this->save(
-      "UPDATE users 
+      "UPDATE users
        SET last_activity = now()
        WHERE user_id = :user_id",
       ['user_id' =>  $user['user_id']]
     );
   }
 
-  public function getAll () 
+  public function getAll ()
   {
     return $this->fetchAll("select * from users");
   }
 
   public function getList ()
   {
-    $sql = "SELECT u.user_id, u.username, 
-                   COUNT(p.id) numberOfProducts, u.country 
+    $sql = "SELECT u.user_id, u.username,
+                   COUNT(p.id) numberOfProducts, u.country
             FROM users u
             LEFT JOIN products p ON p.author_id = u.user_id
             WHERE p.visibility = 1
@@ -46,17 +46,17 @@ class User extends Model
 
   public function find ($column, $value, $items = '*')
   {
-    $sql = "SELECT {$items} FROM users WHERE {$column} = :{$column} LIMIT 1"; 
+    $sql = "SELECT {$items} FROM users WHERE {$column} = :{$column} LIMIT 1";
     return $this->fetch($sql, [$column => $value]);
   }
 
   public function register ($data)
   {
-    $sql = "INSERT INTO users 
-            (username, first_name, last_name, 
-             email, password, country, role, facebook_id) 
-            VALUES 
-            (:username, :first_name, :last_name, 
+    $sql = "INSERT INTO users
+            (username, first_name, last_name,
+             email, password, country, role, facebook_id)
+            VALUES
+            (:username, :first_name, :last_name,
              :email, :password, :country, :role, :facebook_id)";
 
      $bind = [
@@ -80,13 +80,13 @@ class User extends Model
     $avatar = $avatars[$avatar_id];
 
     copy(
-      $path . $avatar, 
+      $path . $avatar,
       ROOT . '/uploads/users/' . $id . '.svg'
     );
     return true;
   }
 
-  public function update ($set, $where) 
+  public function update ($set, $where)
   {
     if (isset($set['email'])) {
       if (isset($set['newsletter'])) {
@@ -152,6 +152,16 @@ class User extends Model
 
     return $this->find('user_id', $row['user_id']);
 
+  }
+
+  public function createEdit($user_id, $reason)
+  {
+    $edit = new Edit();
+    $data['type'] = $reason;
+    $data['object_type'] = "user";
+    $data['object_id'] = $user_id;
+    $edit_id = $edit->newEdit($data);
+    $edit->closeEdit($edit_id);
   }
 
 }

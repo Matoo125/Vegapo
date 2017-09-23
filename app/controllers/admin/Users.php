@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace app\controllers\admin;
 
@@ -24,6 +24,9 @@ class Users extends UsersApiController
       ['role'     =>  $role],
       ['user_id'  =>  $id]
     );
+
+    // new edit log
+    $this->model->createEdit($id, "role".$role);
 
     redirect('/admin/users');
   }

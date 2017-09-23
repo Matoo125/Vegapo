@@ -94,14 +94,19 @@ class Edits extends EditsApiController
         $edit['lang_edit_type'] = getString('MOVECZSK');
         break;
       default:
+        $edit['lang_edit_type'] = $edit['edit_type'];
     }
     switch($edit['object_type']) {
-      // case "product":
-      //   $edit['lang_object_type'] = getString('PRODUCT').": ";
-      //   break;
+      case "product":
+        $edit['lang_object_type'] = getString('PRODUCT')." - ";
+        break;
+      case "user":
+        $edit['lang_object_type'] = getString('USER')." - ";  
+        break;
       case "locale":
         $edit['lang_object_type'] = getString('LOCALE');
         break;
+      default:
     }
     return $edit;
   }
