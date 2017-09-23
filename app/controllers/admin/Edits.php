@@ -134,6 +134,11 @@ class Edits extends EditsApiController
         $edit['lang_object_type'] = "Tag - ";
         $edit['object_url'] = Url::get('TAG_ADMIN_EDIT').$edit['object_id'];
         break;
+      case "store":
+        $edit['lang_object_type'] = getString('SUPERMARKET')." - ";
+        $edit['object_url'] = Url::get('SUPERMARKET_ADMIN_EDIT').$edit['object_id'];
+        break;
+
       default:
     }
 
