@@ -33,10 +33,11 @@ class Info extends Controller
         // backup current page
         $backup_path = ROOT.DS.'pages'.DS.COUNTRY_CODE.DS.'backup'.DS.$_POST['page'].'-'.date('Y-m-d H-i-s').'.md';
         rename($path, $backup_path);
-        
+
         if (file_put_contents($path, $_POST['content'])) {
             $this->data['response'] = "Page has been saved";
 
+            // log edit
             $edit = new Edit();
             $data['type'] = 'update';
             $data['object_type'] = "info";

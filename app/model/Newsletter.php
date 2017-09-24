@@ -4,7 +4,7 @@ namespace app\model;
 
 use app\core\Model;
 
-class Newsletter extends Model 
+class Newsletter extends Model
 {
 
     public static function findByEmail ($email)
@@ -28,9 +28,9 @@ class Newsletter extends Model
        if ($id) {
         $sql .= " and id = :id";
         $params['id'] = $id;
-       } 
+       }
 
-       return self::runQuery($sql, $params, "post"); 
+       return self::runQuery($sql, $params, "post");
     }
 
     public static function notReceived ($newsletter)
@@ -52,5 +52,13 @@ class Newsletter extends Model
         return self::runQuery($sql, ['newsletter' => $newsletter], 'get');
     }
 
+    public function createEdit($newsletter_file, $reason = null)
+    {
+      $edit = new Edit();
+      $data['type'] = $reason ?? "new";
+      $data['object_type'] = "newsletter";
+      $edit_id = $edit->newEdit($data);
+      $edit->closeEdit($edit_id, $newsletter_file);
+    }
 
 }

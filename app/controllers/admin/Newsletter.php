@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace app\controllers\admin;
 
@@ -8,7 +8,7 @@ use m4\m4mvc\helper\Redirect;
 use app\model\Newsletter as Model;
 use app\helper\Email;
 
-class Newsletter extends Controller 
+class Newsletter extends Controller
 {
 
   public $path = null;
@@ -49,11 +49,14 @@ class Newsletter extends Controller
     $newsletter = $_FILES['newsletter'];
 
     $upload = move_uploaded_file(
-      $newsletter['tmp_name'], 
+      $newsletter['tmp_name'],
       $this->path['new'] . DS . $newsletter['name']
     );
 
     if ($upload) {
+      // log edit
+      $this->model->createEdit($newsletter['name']);
+
       Session::setFlash('Newsletter uploaded successfully', "success");
     } else {
       Session::setFlash('Error while uploading newsletter', 'danger');
@@ -82,14 +85,14 @@ class Newsletter extends Controller
 
     if (file_exists($this->path['new'] . DS . $newsletter)) {
       rename(
-        $this->path['new'] . DS . $newsletter, 
+        $this->path['new'] . DS . $newsletter,
         $this->path['processing'] . DS . $newsletter
       );
-    } 
-    
+    }
+
     if (file_exists($p = $this->path['processing'] . DS . $newsletter)) {
       $content = file_get_contents($p);
-    } 
+    }
 
     else {
       Session::setFlash('File does not exists', 'danger', 1);
@@ -114,7 +117,7 @@ class Newsletter extends Controller
         // get products
         $product = new \app\model\Product;
         $parameters['products'] = $product->list(
-          'country' => $recipient['country']
+          ['country' => $recipient['country']]
         );
       }
 
@@ -130,7 +133,7 @@ class Newsletter extends Controller
     }
 
     rename(
-      $this->path['processing'] . DS . $newsletter, 
+      $this->path['processing'] . DS . $newsletter,
       $this->path['send'] . DS . $newsletter
     );
 

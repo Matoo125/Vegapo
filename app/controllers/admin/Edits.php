@@ -142,6 +142,10 @@ class Edits extends EditsApiController
         $edit['lang_object_type'] = getString('CATEGORY')." - ";
         $edit['object_url'] = Url::get('ADMIN_CATEGORIES_EDIT').$edit['object_id'];
         break;
+      case "newsletter":
+        $edit['lang_object_type'] = "Newsletter - ";
+        $edit['object_url'] = Url::get('ADMIN_NEWSLETTER');
+        break;
       default:
     }
 
