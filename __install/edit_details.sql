@@ -48,6 +48,13 @@ CREATE or replace VIEW edit_details AS
 		q.object_type, w.id object_id, w.name object_name,  e.user_id object_user_id, e.username object_username
 	FROM edits q, supermarkets w, users e
 	where q.object_type = 'store' and q.object_id = w.id and q.user_id = e.user_id 
+	union
+	#category
+	SELECT 
+		q.id edit_id, q.type edit_type, null edit_sub_type, q.state edit_state, q.user_id edit_user_id, e.username edit_username, q.comment edit_comment, q.diff edit_diff, q.country edit_country, q.created_at edit_created_at, q.updated_at edit_updated_at,
+		q.object_type, w.id object_id, w.name object_name,  e.user_id object_user_id, e.username object_username
+	FROM edits q, categories w, users e
+	where q.object_type = 'category' and q.object_id = w.id and q.user_id = e.user_id 	
 ;
 
 

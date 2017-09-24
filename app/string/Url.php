@@ -18,6 +18,7 @@ class Url
 	'CATEGORY_UPLOADS' => "/uploads/categories/",
 
 	'ADMIN_CATEGORIES' => "/admin/kategorie/",
+  'ADMIN_CATEGORIES_EDIT' => "/admin/kategorie/upravit/",
 	'ADMIN_MESSAGES' => "/admin/messages/",
 	'ADMIN_SUPERMARKETS' => "/admin/obchody/",
 	'ADMIN_TAGS' => "/admin/tagy/",

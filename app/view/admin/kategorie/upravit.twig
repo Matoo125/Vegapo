@@ -69,6 +69,16 @@
                 <textarea name="description" id="description" cols="30" rows="10" class="form-control">{{ category.description }}</textarea>
             </div>
 
+            <div class="form-group">
+              <label for="edit_comment">
+              {{ lang.EDITS_NOTE }}
+            </label>
+            <textarea name="edit_comment"
+                      id="edit_comment"
+                      cols="30"
+                      rows="2"
+                      class="form-control"></textarea>
+            </div>
 
             <button type="submit" class="btn btn-primary">{{ lang.SUBMIT }}</button>
             <a href="{{ url.CATEGORY_ADMIN_DELETE }}{{ category.id }}/{{ category.image }}" class="btn btn-danger" id="deleteConfirm">{{ lang.REMOVE }}</a>

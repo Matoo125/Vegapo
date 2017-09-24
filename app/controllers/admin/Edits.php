@@ -138,7 +138,10 @@ class Edits extends EditsApiController
         $edit['lang_object_type'] = getString('SUPERMARKET')." - ";
         $edit['object_url'] = Url::get('SUPERMARKET_ADMIN_EDIT').$edit['object_id'];
         break;
-
+      case "category":
+        $edit['lang_object_type'] = getString('CATEGORY')." - ";
+        $edit['object_url'] = Url::get('ADMIN_CATEGORIES_EDIT').$edit['object_id'];
+        break;
       default:
     }
 

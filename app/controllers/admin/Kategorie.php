@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace app\controllers\admin;
 
@@ -6,6 +6,8 @@ use app\controllers\api\Kategorie as KategorieApiController;
 use m4\m4mvc\helper\Session;
 use app\controllers\api\Users;
 use app\helper\Image;
+
+use mrkovec\sdiff\SDiff;
 
 class Kategorie extends KategorieApiController
 {
@@ -24,12 +26,15 @@ class Kategorie extends KategorieApiController
             $data['description'] = $_POST['description'];
             $data['note'] = $_POST['note'];
 
-            if (!$data['image'] = Image::upload($image, "categories")) {
+            if(!$image['name']) $data['image'] = 'none';
+            elseif (!$data['image'] = Image::upload($image, "categories")) {
                 $data['image'] = 'none';
             }
 
-            if ($this->model->insert($data)) {
-                Session::setFlash(getString('CATEGORY_ADD_SUCCESS'), "success");
+            if ($id = $this->model->insert($data)) {
+              // log edit
+              $this->model->createEdit($id);
+              Session::setFlash(getString('CATEGORY_ADD_SUCCESS'), "success");
             }
         }
 
@@ -47,14 +52,28 @@ class Kategorie extends KategorieApiController
             $data['description'] = $_POST['description'];
             $data['note'] = $_POST['note'];
 
-            if (!$data['image'] = Image::upload($image, "categories")) {
+            if(!$image['name']) $data['image'] = 'none';
+            elseif (!$data['image'] = Image::upload($image, "categories")) {
                 $data['image'] = $_POST['image_old'];
             } else {
                 Image::delete($_POST['image_old'], 'categories');
             }
 
+            $old_category = $this->model->getCategoryById($id);
+
             if ($this->model->update($data, $id)) {
-                Session::setFlash(getString('CATEGORY_UPDATE_SUCCESS'), "success");
+              // log edit
+              $this->model->createEdit($id,
+                'update',
+                SDiff::getObjectDiff(
+                  $old_category,
+                  $this->model->getCategoryById($id),
+                  False
+                ),
+                $_POST['edit_comment']
+              );
+
+              Session::setFlash(getString('CATEGORY_UPDATE_SUCCESS'), "success");
             }
         }
 
@@ -66,6 +85,7 @@ class Kategorie extends KategorieApiController
     }
 
     public function vymazat($id, $image) {
+        redirect('/admin/kategorie');
         return false; // do not delete category
         if ($this->model->delete($id, "id", $image)) {
             Session::setFlash("Kategória vymazany uspesne", 'success', 1);

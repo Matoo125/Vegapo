@@ -16,10 +16,24 @@ class Category extends Model
 
         $slug = Str::slugify($data['name']);
 
+        // $sql = "INSERT INTO categories(name, slug, parent, image, country, note, description)
+        //         VALUES(:cn, :s, :cp, :img, :c, :n, :d)";
+        // $stmt = $this->db->prepare($sql);
+        // $stmt->execute(array(
+        //     ":cn"  => $data['name'],
+        //     ":s"   => $slug,
+        //     ":cp"  => $data['parent'],
+        //     ":img" => $data['image'],
+        //     ":c"   => COUNTRY_CODE,
+        //     ":n"    =>  $data['note'],
+        //     ":d"    =>  $data['description']
+        // ));
+        //
+        // return $stmt->rowCount() ? true : null;
+
         $sql = "INSERT INTO categories(name, slug, parent, image, country, note, description)
                 VALUES(:cn, :s, :cp, :img, :c, :n, :d)";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute(array(
+        $array = array(
             ":cn"  => $data['name'],
             ":s"   => $slug,
             ":cp"  => $data['parent'],
@@ -27,9 +41,8 @@ class Category extends Model
             ":c"   => COUNTRY_CODE,
             ":n"    =>  $data['note'],
             ":d"    =>  $data['description']
-        ));
-
-        return $stmt->rowCount() ? true : null;
+        );
+        return $this->save($sql, $array, True);
     }
 
     public function update($data, $id) {
@@ -66,10 +79,20 @@ class Category extends Model
 
     }
 
-    public function list() 
+    public function list()
     {
         $sql = "select * from categories WHERE country = :country";
         return $this->fetchAll($sql, ['country' => COUNTRY_CODE]);
+    }
+
+    public function createEdit($category_id, $reason = null, $diff = null, $comment = null)
+    {
+      $edit = new Edit();
+      $data['type'] = $reason ?? "new";
+      $data['object_type'] = "category";
+      $data['object_id'] = $category_id;
+      $edit_id = $edit->newEdit($data);
+      $edit->closeEdit($edit_id, $comment, $diff);
     }
 
 }
