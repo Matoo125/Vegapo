@@ -18,6 +18,7 @@ class Url
 	'CATEGORY_UPLOADS' => "/uploads/categories/",
 
 	'ADMIN_CATEGORIES' => "/admin/kategorie/",
+  'ADMIN_CATEGORIES_EDIT' => "/admin/kategorie/upravit/",
 	'ADMIN_MESSAGES' => "/admin/messages/",
 	'ADMIN_SUPERMARKETS' => "/admin/obchody/",
 	'ADMIN_TAGS' => "/admin/tagy/",
@@ -31,6 +32,9 @@ class Url
 	'ADMIN_USERS' => "/admin/users/",
 	'ADMIN_SETTINGS' => "/admin/home/settings",
 	'ADMIN_CHANGELOG' => "/admin/home/changelog",
+  'ADMIN_LOCALE' => '/admin/locale',
+  'ADMIN_INFO' => '/admin/info',
+
 	'LOGOUT' => "/users/logout/",
 	'LOGIN' => "/users/login",
 	'ADMIN' => "/admin",

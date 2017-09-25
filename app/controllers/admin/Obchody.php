@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace app\controllers\admin;
 
@@ -6,6 +6,8 @@ use app\controllers\api\Obchody as ObchodyApiController;
 use m4\m4mvc\helper\Session;
 use app\controllers\api\Users;
 use app\helper\Image;
+
+use mrkovec\sdiff\SDiff;
 
 class Obchody extends ObchodyApiController
 {
@@ -23,12 +25,15 @@ class Obchody extends ObchodyApiController
             $data['description'] = $_POST['description'];
             $data['note'] = $_POST['note'];
 
-            if (!$data['image'] = Image::upload($image, "supermarkets")) {
+            if(!$image['name']) $data['image'] = 'none';
+            elseif (!$data['image'] = Image::upload($image, "supermarkets")) {
                 $data['image'] = 'none';
             }
 
-            if ($this->model->insert($data)) {
-                Session::setFlash(getString('SUPERMARKET_ADD_SUCCESS'), 'success');
+            if ($id = $this->model->insert($data)) {
+              // log edit
+              $this->model->createEdit($id);
+              Session::setFlash(getString('SUPERMARKET_ADD_SUCCESS'), 'success');
             }
         }
 
@@ -50,8 +55,22 @@ class Obchody extends ObchodyApiController
                 Image::delete($_POST['image_old'], 'supermarkets');
             }
 
+            $old_store = $this->model->getSupermarketById($id);
+
             if ($this->model->update($data, $id)) {
-                Session::setFlash(getString('SUPERMARKET_UPDATE_SUCCESS'), 'success');
+
+              // log edit
+              $this->model->createEdit($id,
+                'update',
+                SDiff::getObjectDiff(
+                  $old_store,
+                  $this->model->getSupermarketById($id),
+                  False
+                ),
+                $_POST['edit_comment']
+              );
+
+              Session::setFlash(getString('SUPERMARKET_UPDATE_SUCCESS'), 'success');
             } else {
                 Session::setFlash(getString('SUPERMARKET_UPDATE_FAILED'), 'danger');
             }
@@ -62,6 +81,7 @@ class Obchody extends ObchodyApiController
     }
 
     public function vymazat($id, $image) {
+        redirect('/admin/obchody');
         return false; // do not delete supermarket
         if ($this->model->delete($id, "id", $image)) {
             // delete all matching tables

@@ -56,7 +56,7 @@
                 <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_TRASH }}">{{ lang.TRASH }}</a></li>
                <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_SUGGESTIONS }}">{{ lang.SUGGESTIONS }}</a></li>
                <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_MESSAGES }}">{{ lang.MESSAGES }}</a></li>
-               <li class="nav-item"><a class="nav-link" href="/admin/info">Info Stránky</a></li>
+               <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_INFO }}">Info Stránky</a></li>
                <li class="nav-item"><a class="nav-link" href="/admin/testimonials">Ohlasy</a></li>
 
                 {% if session.user_role > 35 %}
@@ -65,7 +65,7 @@
                 <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_CATEGORIES }}">{{ lang.CATEGORIES }}</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_NEWSLETTER }}">Newsletter</a></li>
                   {% endif %}
-                <li class="nav-item"><a class="nav-link" href="/admin/locale">{{ lang.LOCALE }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_LOCALE }}">{{ lang.LOCALE }}</a></li>
 
             </ul>
         </div>
