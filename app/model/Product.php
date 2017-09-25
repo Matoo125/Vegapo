@@ -84,7 +84,7 @@ class Product extends Model
              p.type,
              c.name AS category,
              c.id AS category_id,
-             COUNT(fp.id) AS favourites,
+             COUNT(DISTINCT fp.id) AS favourites,
              GROUP_CONCAT(DISTINCT i.filename) AS image,
              GROUP_CONCAT(DISTINCT i2.filename) AS image2,
              GROUP_CONCAT(DISTINCT i3.filename) AS image3,
@@ -123,7 +123,7 @@ class Product extends Model
 
     $sql .= " AND p.country = :cc
         GROUP BY p.id LIMIT 1";
-
+        echo $sql;die;
     return $this->fetch($sql, $params);
   }
 
@@ -252,7 +252,6 @@ class Product extends Model
         break;
     }
 
-  //  echo $sql;die;
     $sql = self::paginate($sql, $start, 20);
     return $this->fetchAll($sql, $params);
 
