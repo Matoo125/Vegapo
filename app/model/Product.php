@@ -151,6 +151,7 @@ class Product extends Model
                    p.name AS name,
                    p.slug AS slug,
                    p.expected_price AS price,
+                   p.type,
                    c.name AS category,
                    GROUP_CONCAT(DISTINCT i.filename) AS image,
                    GROUP_CONCAT(DISTINCT s.name) AS supermarkets,

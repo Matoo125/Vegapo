@@ -38,16 +38,21 @@
 
 
     {% include 'web/produkty/filters.twig' %}
-    
+
       <div class="flex-row row">
 
         {% for product in products %}
         <div class="col-xs-6 col-sm-4 col-lg-3">
           <a href="/produkty/produkt/{{ product.slug }}">
-          <img class="b-lazy card-img-top img-fluid" 
-             src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" 
-             data-src="{{ "/uploads/products/#{ cc }/450x450/#{product.image}" }}">
-
+          <div>
+            <img class="b-lazy card-img-top img-fluid"
+              src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+              data-src="{{ "/uploads/products/#{ cc }/450x450/#{product.image}" }}">
+            {% if product.type == 1 %}
+            <img src="http://www.vegansymbol.com/symbol2/VeganSymbol_OpenSource2-2400px.png"
+              style="max-width:20%;max-height:20%;left:10%;top:60%;position:absolute;">
+            {% endif %}
+          </div>
           <div class="card-block">
             <p class="card-title">
               {{ product.name }}
@@ -59,7 +64,7 @@
       </div>
 
     <br>
-    
+
     <!-- PAGINATOR -->
     <div class="row">
         <ul class="pagination justify-content-center" style="width: 100%">
