@@ -83,6 +83,8 @@ class Newsletter extends Controller
     $recipients = Model::notReceived($newsletter);
     if (!$recipients) {  echo 'no recipients';die; }
 
+    $this->model->createEdit($newsletter, 'send');
+
     if (file_exists($this->path['new'] . DS . $newsletter)) {
       rename(
         $this->path['new'] . DS . $newsletter,
@@ -117,7 +119,10 @@ class Newsletter extends Controller
         // get products
         $product = new \app\model\Product;
         $parameters['products'] = $product->list(
-          ['country' => $recipient['country']]
+          [
+            'country' =>  $recipient['country'],
+            'sort'    =>  'rand'
+          ]
         );
       }
 

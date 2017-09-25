@@ -16,21 +16,6 @@ class Category extends Model
 
         $slug = Str::slugify($data['name']);
 
-        // $sql = "INSERT INTO categories(name, slug, parent, image, country, note, description)
-        //         VALUES(:cn, :s, :cp, :img, :c, :n, :d)";
-        // $stmt = $this->db->prepare($sql);
-        // $stmt->execute(array(
-        //     ":cn"  => $data['name'],
-        //     ":s"   => $slug,
-        //     ":cp"  => $data['parent'],
-        //     ":img" => $data['image'],
-        //     ":c"   => COUNTRY_CODE,
-        //     ":n"    =>  $data['note'],
-        //     ":d"    =>  $data['description']
-        // ));
-        //
-        // return $stmt->rowCount() ? true : null;
-
         $sql = "INSERT INTO categories(name, slug, parent, image, country, note, description)
                 VALUES(:cn, :s, :cp, :img, :c, :n, :d)";
         $array = array(
@@ -73,10 +58,8 @@ class Category extends Model
     }
 
     public function getCategoryById($id) {
-        $stmt = $this->db->prepare("select * from categories WHERE id = " . $id . " LIMIT 1");
-        $stmt->execute();
-        return $stmt->fetch();
-
+        $sql = "select * from categories WHERE id = :id LIMIT 1";
+        return $this->fetch($sql, ['id' => $id]);
     }
 
     public function list()

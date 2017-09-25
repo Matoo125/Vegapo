@@ -40,12 +40,12 @@ class Tag extends Model
             ":note"  =>  $data['note'],
             ":description" => $data['description']
         );
-        return $this->runQuery($sql, $args, "post");
+        return $this->save($sql, $args);
     }
 
     public function getTagById($id) {
         $sql = "select * from tags WHERE id = :id LIMIT 1";
-        return $this->runQuery($sql, array(":id" => $id), "get1");
+        return $this->fetch($sql, array(":id" => $id));
     }
 
     public function list() {
