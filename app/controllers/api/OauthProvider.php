@@ -143,7 +143,7 @@ class OauthProvider extends Controller
       // if user exist and is diferent from logend user - then error
       if($userData['user_id'] != Session::get('user_id')) {
         Session::setFlash(
-          getString('FACEBOOK_CONNECT_ERROR')." Facebook user already exists.", 
+          getString('FACEBOOK_CONNECT_ERROR')." Facebook user already exists.",
           "danger",
           1
         );
@@ -154,7 +154,7 @@ class OauthProvider extends Controller
     // update users facebook_id
     $user->update(
       ['facebook_id' =>  $fbUser['id']],
-      ['user_id'     =>  Session::get('user_id')
+      ['user_id'     =>  Session::get('user_id')]
     );
 
     Session::setFlash(getString('FACEBOOK_CONNECT_SUCCESS'), "success", 1);
