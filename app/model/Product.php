@@ -123,7 +123,7 @@ class Product extends Model
 
     $sql .= " AND p.country = :cc
         GROUP BY p.id LIMIT 1";
-        echo $sql;die;
+
     return $this->fetch($sql, $params);
   }
 
