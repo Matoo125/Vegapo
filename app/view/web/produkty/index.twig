@@ -49,8 +49,17 @@
               src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
               data-src="{{ "/uploads/products/#{ cc }/450x450/#{product.image}" }}">
             {% if product.type == 1 %}
-            <img src="http://www.vegansymbol.com/symbol2/VeganSymbol_OpenSource2-2400px.png"
-              style="max-width:20%;max-height:20%;left:10%;top:60%;position:absolute;">
+              <span class="badge badge-success badge-product-type">
+                Overené
+              </span>
+            {% elseif product.type == 2 %}
+              <span class="badge badge-info badge-product-type">
+                Pravdepodobné
+              </span>
+            {% elseif product.type == 3 %}
+              <span class="badge badge-danger badge-product-type">
+                Nieje vegan
+              </span>
             {% endif %}
           </div>
           <div class="card-block">

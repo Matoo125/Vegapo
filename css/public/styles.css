@@ -176,6 +176,11 @@ footer#footer {
 #heart.active {
   color: #5cb85c; }
 
+.badge-product-type {
+  left: 10%;
+  top: 60%;
+  position: absolute; }
+
 .productFilterBox {
   background-color: transparent;
   border: transparent;
