@@ -83,6 +83,12 @@
             <button type="submit" class="btn btn-primary">{{ lang.SUBMIT }}</button>
             <a href="{{ url.CATEGORY_ADMIN_DELETE }}{{ category.id }}/{{ category.image }}" class="btn btn-danger" id="deleteConfirm">{{ lang.REMOVE }}</a>
 
+            <a class="btn btn-info"
+               href="{{ url.ADMIN_EDITS }}?object_type=category&object_id={{ category.id }}"
+               role="button"
+               target="_blank">
+              {{ lang.EDITS }}
+            </a>
         </div>
 
     </form>

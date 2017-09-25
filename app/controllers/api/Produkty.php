@@ -23,14 +23,14 @@ class Produkty extends Controller
     $this->data['liked'] = $this->model->isProductFavourite(
       $this->data['product']['id'], Session::get('user_id')
     );
-    
+
   }
 
-  public function pridat() 
+  public function pridat()
   {
 
     if (!Session::get('user_id')) redirect('/');
-      
+
     if ($_POST) {
       $data['name']         = $_POST['productName'];
       $data['category_id']  = $_POST['selectCategory'];
@@ -51,12 +51,12 @@ class Produkty extends Controller
 
       // check for duplicant
       if ($slug = $this->model->checkProduct(
-            $data['barcode'], 
+            $data['barcode'],
             Str::slugify($data['name']))['slug']
-        ) 
+        )
       {
         Session::setFlash(
-          getString('PRODUCT_ALREADY_EXISTS') . 
+          getString('PRODUCT_ALREADY_EXISTS') .
                     "<a href='/produkty/produkt/$slug'>link</a>",
           "warning"
         );
@@ -80,6 +80,8 @@ class Produkty extends Controller
           if ($images['2']['error'] == 0 && $images['2'] = Image::upload($images['2'], "products")) {
             $this->model->insertImage($id, 2, $images['2']);
           }
+          // edit log
+          $this->model->createEdit($id, 'new');
 
           Session::setFlash(getString('PRODUCT_ADD_SUCCESS'), "success");
         }
@@ -112,15 +114,15 @@ class Produkty extends Controller
     $params['stav']         = $_GET['stav']         ?? null;
     $params['sort']         = $_GET['sort']         ?? null;
 
-    if (isset($_GET['type1']) and $_GET['type1'] == 0) { 
-      $params['type1'] = 0; 
+    if (isset($_GET['type1']) and $_GET['type1'] == 0) {
+      $params['type1'] = 0;
     }
 
-    if (isset($_GET['type2']) and $_GET['type2'] == 0) { 
-      $params['type2'] = 0; 
+    if (isset($_GET['type2']) and $_GET['type2'] == 0) {
+      $params['type2'] = 0;
     }
-    if (isset($_GET['type3']) and $_GET['type3'] == 1) { 
-      $params['type3'] = 1; 
+    if (isset($_GET['type3']) and $_GET['type3'] == 1) {
+      $params['type3'] = 1;
     }
 
     $type = [
@@ -135,18 +137,18 @@ class Produkty extends Controller
         $params['autor'], 'username'
       )['username'];
     }
-    
+
     $current_page = $_GET['p'] ?? 1;
 
     $this->listFilters();
 
     $current_category = findBySlugInArray(
-      $params['kategoria'], 
+      $params['kategoria'],
       $this->data['categories']
     );
 
     $current_supermarket = findBySlugInArray(
-      $params['supermarket'], 
+      $params['supermarket'],
       $this->data['supermarkets']
     );
 
@@ -183,15 +185,15 @@ class Produkty extends Controller
     $this->data['sorting']              = $params['sort'];
 
     $this->data['products'] = $this->model->list([
-      'category'      =>  $params['kategoria'], 
-      'supermarket'   =>  $params['supermarket'], 
-      'tags'          =>  $tag_slugs, 
-      'start'         =>  $start, 
+      'category'      =>  $params['kategoria'],
+      'supermarket'   =>  $params['supermarket'],
+      'tags'          =>  $tag_slugs,
+      'start'         =>  $start,
       'type'          =>  $type,
-      'visibility'    =>  $params['stav'], 
-      'author'        =>  $params['autor'], 
-      'search'        =>  $params['hladat'], 
-      'favourites'    =>  $params['oblubene'], 
+      'visibility'    =>  $params['stav'],
+      'author'        =>  $params['autor'],
+      'search'        =>  $params['hladat'],
+      'favourites'    =>  $params['oblubene'],
       'sort'          =>  $params['sort']]);
   }
 
@@ -204,7 +206,7 @@ class Produkty extends Controller
       $product_id = $_POST['product_id'];
       $this->model->addToFavourites($product_id, $user_id);
       echo 'added';  return;
-    } 
+    }
     else {
       $id = $_POST['id'];
       $this->model->removeFromFavourites($id);

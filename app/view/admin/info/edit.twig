@@ -1,7 +1,7 @@
 {% extends "admin/base.twig" %}
 
 {% block title %}VegaPo - {{ page }} {% endblock %}
-{% block css %} 
+{% block css %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 {% endblock %}
 {% block header %} {{ page }} {% endblock %}
@@ -12,6 +12,13 @@
         <div class="col-md-12">
             <textarea>{{ content }}</textarea>
             <button type="submit">Save</button>
+
+            <a class="btn btn-info"
+               href="{{ url.ADMIN_EDITS }}?object_type=info&object_id={{ page }}"
+               role="button"
+               target="_blank">
+              {{ lang.EDITS }}
+            </a>
         </div>
 
     </div>

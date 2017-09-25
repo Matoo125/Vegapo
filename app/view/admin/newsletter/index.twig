@@ -4,7 +4,15 @@
 
 {% block header %} Newsletter {% endblock %}
 
-{% block button %} <a class="btn btn-primary" href="/admin/newsletter/upload">Upload</a> {% endblock %}
+{% block button %}
+  <a class="btn btn-primary" href="/admin/newsletter/upload">Upload</a>
+  <a class="btn btn-info"
+     href="{{ url.ADMIN_EDITS }}?object_type=newsletter"
+     role="button"
+     target="_blank">
+    {{ lang.EDITS }}
+  </a>
+{% endblock %}
 
 {% block content %}
 

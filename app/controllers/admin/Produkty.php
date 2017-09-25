@@ -57,12 +57,12 @@ class Produkty extends ProduktyApiController
 
       // new edit log
       $this->model->createEdit(
-        $id, 
-        $reason, 
+        $id,
+        $reason,
         $reason_id,
         SDiff::getObjectDiff(
           $old_product,
-          $this->model->single('id', $id), 
+          $this->model->single('id', $id),
           False
         ),
         $_POST['edit_comment']
@@ -94,10 +94,10 @@ class Produkty extends ProduktyApiController
     $this->data['product'] = $this->model->single('id', $id);
     $this->listFilters();
 
-    // retrieve past product edits
-    if($e = (new Edit())->getObjectEdits("product", $id)) {
-      $this->data['last_edit'] = $e[0];
-    }
+    // retrieve past product edits - removed - for simplicity sake 
+    // if($e = (new Edit())->getObjectEdits("product", $id)) {
+    //   $this->data['last_edit'] = $e[0];
+    // }
 
   }
 

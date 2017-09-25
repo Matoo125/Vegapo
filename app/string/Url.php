@@ -34,6 +34,7 @@ class Url
 	'ADMIN_CHANGELOG' => "/admin/home/changelog",
   'ADMIN_LOCALE' => '/admin/locale',
   'ADMIN_INFO' => '/admin/info',
+  'ADMIN_EDITS' => '/admin/edits',
 
 	'LOGOUT' => "/users/logout/",
 	'LOGIN' => "/users/login",

@@ -82,14 +82,27 @@ class Edit extends Model
     return $this->fetchAll($sql, $bind);
   }
 
-  public function list($limit, $state = null)
+  public function list($limit, $params = null)
   {
+    $edit_state =  $params['edit_state'] ?? null;
+    $edit_user_id =  $params['edit_user_id'] ?? null;
+    $object_id =  $params['object_id'] ?? null;
+    $object_type =  $params['object_type'] ?? null;
+
     $sql = "SELECT *
             FROM edit_details
             WHERE edit_state = ifnull(:state, edit_state)
+            AND edit_user_id = ifnull(:user, edit_user_id)
+            AND object_type = ifnull(:object_t, object_type)
+            AND object_id = ifnull(:object, object_id)
             ORDER BY edit_id DESC limit ".$limit;
 
-    return $this->fetchAll($sql, [":state" => $state]);
+    return $this->fetchAll($sql,
+      [":state" => $edit_state,
+      ":user" => $edit_user_id,
+      ":object_t" => $object_type,
+      ":object" => $object_id]
+    );
   }
 
   public function getById($id)

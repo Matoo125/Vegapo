@@ -4,6 +4,15 @@
 
 {% block header %} {{ lang.LOCALE }}{% endblock %}
 
+{% block button %}
+  <a class="btn btn-info"
+     href="{{ url.ADMIN_EDITS }}?object_type=locale"
+     role="button"
+     target="_blank">
+    {{ lang.EDITS }}
+  </a>
+{% endblock %}
+
 {% block content %}
     <div class="text-center">
       {{ include('web/modules/flash.twig') }}

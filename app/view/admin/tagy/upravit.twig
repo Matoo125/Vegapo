@@ -49,9 +49,16 @@
                       rows="2"
                       class="form-control"></textarea>
             </div>
-            
+
             <button type="submit" class="btn btn-primary">{{ lang.SUBMIT }}</button>
             <a href="{{ url.TAG_ADMIN_DELETE }}{{ tag.id }}/{{ tag.image }}" class="btn btn-danger" id="deleteConfirm">{{ lang.REMOVE }}</a>
+
+            <a class="btn btn-info"
+               href="{{ url.ADMIN_EDITS }}?object_type=tag&object_id={{ tag.id }}"
+               role="button"
+               target="_blank">
+              {{ lang.EDITS }}
+            </a>
 
         </div>
 

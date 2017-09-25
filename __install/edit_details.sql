@@ -3,7 +3,7 @@ CREATE or replace VIEW edit_details AS
 	#locale
 	SELECT 
 		q.id edit_id, q.type edit_type, null edit_sub_type, q.state edit_state, q.user_id edit_user_id, w.username edit_username, q.comment edit_comment, q.diff edit_diff, q.country edit_country, q.created_at edit_created_at, q.updated_at edit_updated_at,
-		q.object_type, q.object_id, null object_name, null object_user_id, null object_username
+		q.object_type, 'locale' object_id, null object_name, null object_user_id, null object_username
 	FROM edits q, users w 
 	where q.object_type = 'locale' and q.user_id = w.user_id
 	union

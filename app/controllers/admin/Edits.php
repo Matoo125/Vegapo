@@ -11,10 +11,16 @@ class Edits extends EditsApiController
 {
   public function index($limit = null, $state = null)
   {
+    $params['edit_state'] = $state;
+    $params['edit_user_id'] = $_GET['edit_user_id'] ?? null;
+    $params['object_type'] = $_GET['object_type'] ?? null;
+    $params['object_id'] = $_GET['object_id'] ?? null;
+
     $limit = $limit ?? 20;
     $this->data['limit'] = $limit;
-    $this->data['state'] = $state;
-    if($this->model->list($limit, $state)) $this->data['edits'] = array_map('self::repl', $this->model->list($limit, $state));
+    $this->data['query_str'] = http_build_query($params);
+
+    if($edits = $this->model->list($limit, $params)) $this->data['edits'] = array_map('self::repl', $edits);
   }
 
   public function edit($id = null)

@@ -54,6 +54,12 @@
             <button type="submit" class="btn btn-primary">Submit</button>
             <a href="{{ url.SUPERMARKET_ADMIN_DELETE }}{{ supermarket.id }}/{{ supermarket.image }}" class="btn btn-danger" id="deleteConfirm">{{ lang.REMOVE }}</a>
 
+            <a class="btn btn-info"
+               href="{{ url.ADMIN_EDITS }}?object_type=store&object_id={{ supermarket.id }}"
+               role="button"
+               target="_blank">
+              {{ lang.EDITS }}
+            </a>
         </div>
 
     </form>
