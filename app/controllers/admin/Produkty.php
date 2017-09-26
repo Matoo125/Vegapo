@@ -48,12 +48,18 @@ class Produkty extends ProduktyApiController
 
       // original product data
       $old_product = $this->model->single('id', $id);
+      unset($old_product['supermarket_ids']);
+      unset($old_product['tag_ids']); 
 
       $this->model->update($data);
       $this->model->matching_supermarkets(
         $id, $added_supermarkets, $deleted_supermarkets
       );
       $this->model->matching_tags($id, $added_tags, $deleted_tags);
+
+      $new_product = $this->model->single('id', $id);
+      unset($new_product['supermarket_ids']);
+      unset($new_product['tag_ids']);
 
       // new edit log
       $this->model->createEdit(
@@ -62,7 +68,7 @@ class Produkty extends ProduktyApiController
         $reason_id,
         SDiff::getObjectDiff(
           $old_product,
-          $this->model->single('id', $id),
+          $new_product,
           False
         ),
         $_POST['edit_comment']
