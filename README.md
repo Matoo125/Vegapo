@@ -31,6 +31,7 @@ https://github.com/Matoo125/Vegapo/blob/master/composer.json
 - [PHP Mailer](https://github.com/PHPMailer/PHPMailer) 5.2 + (Posielanie emailov pri obnove hesla a odpovedanie na správy ľudí cez kontakt)
 - [Image Intervention](http://image.intervention.io) 2.3 + (Vytváranie thumbnailov a manipulácia obrázkov)
 - [Whops](http://filp.github.io/whoops/) 2.1 + (Správa error a exception počas vývoja)
+- [SDiff](https://github.com/mrkovec/SDiff) 1.0 + (Zvýraznenie zmien pri logovaní)
 
 **Front End cez bower**
 

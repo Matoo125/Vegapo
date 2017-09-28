@@ -33,7 +33,9 @@ else {
 }
 
 define("HOSTING_API_KEY", false);
-define("PATH_TO_LOGS", false);
+
+define("PATH_TO_LOGS", ROOT . '/error.log');
+ini_set('error_log', PATH_TO_LOGS);
 
 // facebook credentials
 define("FACEBOOK_APP_ID", '***');

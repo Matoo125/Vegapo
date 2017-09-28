@@ -12,8 +12,8 @@ use app\model\Newsletter;
 class Home extends Controller
 {
 	public function __construct()
-    {
-        $this->model = $this->model('Dashboard');
+    { 
+      $this->model = $this->model('Dashboard');
     }
 
     public function index()

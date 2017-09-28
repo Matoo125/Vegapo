@@ -1,107 +1,214 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>{% block title %}{% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <title>{% block title %}{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" /> -->
-    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+  <!-- <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" /> -->
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
 
-    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="/css/admin/theme.css">
-    {% block css %}{% endblock %}
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/admin/theme.css">
+  {% block css %}{% endblock %}
 
 </head>
 <body >
-<nav class="navbar navbar-fixed-top navbar-toggleable-sm navbar-inverse bg-primary mb-3">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class="navbar-brand pb-2" href="{{ url.ADMIN }}">VegaPo</a>
-    <div class="navbar-collapse collapse" id="collapsingNavbar">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url.USER_UPDATE }}">{{ lang.MY_ACCOUNT }}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url.ADMIN_USERS }}">{{ lang.MEMBERS }}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url.ADMIN_CHANGELOG }}">{{ lang.CHANGELOG }}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/admin/home/hosting">Hosting</a>
-            </li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" target="_blank" href="/">{{ lang.WEB }}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url.LOGOUT }}">{{ lang.LOGOUT }}</a>
-            </li>
-        </ul>
-    </div>
+<nav class="navbar 
+      navbar-fixed-top 
+      navbar-toggleable-sm 
+      navbar-inverse 
+      bg-primary mb-3">
+  <button class="navbar-toggler 
+                 navbar-toggler-right" 
+      type="button" 
+      data-toggle="collapse" d
+      ata-target="#collapsingNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand pb-2" 
+     href="{{ url.ADMIN }}">
+     VegaPo
+   </a>
+  <div class="navbar-collapse collapse" 
+       id="collapsingNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" 
+           href="{{ url.USER_UPDATE }}">
+          {{ lang.MY_ACCOUNT }}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" 
+           href="{{ url.ADMIN_USERS }}">
+          {{ lang.MEMBERS }}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" 
+           href="{{ url.ADMIN_CHANGELOG }}">
+          {{ lang.CHANGELOG }}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin/home/hosting">
+          Hosting
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url.ADMIN_EDITS }}" 
+           class="nav-link">
+          {{ lang.EDITS }}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url.ADMIN_TRASH }}" 
+           class="nav-link">
+          {{ lang.TRASH }}
+        </a>
+      </li>
+
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" target="_blank" href="/">
+          {{ lang.WEB }}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url.LOGOUT }}">
+          {{ lang.LOGOUT }}
+        </a>
+      </li>
+    </ul>
+  </div>
 </nav>
 
 <div class="container-fluid" id="main">
-    <div class="row row-offcanvas row-offcanvas-left">
-        <div class="col-md-3 col-lg-2 sidebar-offcanvas" id="sidebar" role="navigation">
-            <ul class="nav flex-column">
-                <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_EDITS }}">{{ lang.EDITS }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_REQUESTS }}">{{ lang.REQUESTS }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_PRODUCTS }}">{{ lang.PRODUCTS }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_TRASH }}">{{ lang.TRASH }}</a></li>
-               <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_SUGGESTIONS }}">{{ lang.SUGGESTIONS }}</a></li>
-               <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_MESSAGES }}">{{ lang.MESSAGES }}</a></li>
-               <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_INFO }}">Info Stránky</a></li>
-               <li class="nav-item"><a class="nav-link" href="/admin/testimonials">Ohlasy</a></li>
+  <div class="row 
+              row-offcanvas 
+              row-offcanvas-left">
+    <div class="col-md-3 
+                col-lg-2 
+                sidebar-offcanvas" 
+         id="sidebar" 
+         role="navigation">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link" 
+             href="{{ url.ADMIN_REQUESTS }}">
+            {{ lang.REQUESTS }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" 
+             href="{{ url.ADMIN_PRODUCTS }}">
+            {{ lang.PRODUCTS }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" 
+             href="{{ url.ADMIN_SUGGESTIONS }}">
+            {{ lang.SUGGESTIONS }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" 
+             href="{{ url.ADMIN_MESSAGES }}">
+            {{ lang.MESSAGES }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" 
+             href="{{ url.ADMIN_INFO }}">
+            Info Stránky
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" 
+             href="/admin/testimonials">
+            Ohlasy
+          </a>
+        </li>
 
-                {% if session.user_role > 35 %}
-                <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_TAGS }}">{{ lang.TAGS }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_SUPERMARKETS }}">{{ lang.SUPERMARKETS }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_CATEGORIES }}">{{ lang.CATEGORIES }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_NEWSLETTER }}">Newsletter</a></li>
-                  {% endif %}
-                <li class="nav-item"><a class="nav-link" href="{{ url.ADMIN_LOCALE }}">{{ lang.LOCALE }}</a></li>
+        {% if session.user_role > 35 %}
+        <li class="nav-item">
+          <a class="nav-link" 
+             href="{{ url.ADMIN_TAGS }}">
+             {{ lang.TAGS }}
+           </a>
+         </li>
+        <li class="nav-item">
+          <a class="nav-link" 
+             href="{{ url.ADMIN_SUPERMARKETS }}">
+             {{ lang.SUPERMARKETS }}
+           </a>
+         </li>
+        <li class="nav-item">
+          <a class="nav-link" 
+             href="{{ url.ADMIN_CATEGORIES }}">
+             {{ lang.CATEGORIES }}
+           </a>
+         </li>
+        <li class="nav-item">
+          <a class="nav-link" 
+             href="{{ url.ADMIN_NEWSLETTER }}">
+            Newsletter
+          </a>
+        </li>
+          {% endif %}
+        <li class="nav-item">
+          <a class="nav-link" 
+             href="{{ url.ADMIN_LOCALE }}">
+             {{ lang.LOCALE }}
+           </a>
+         </li>
 
-            </ul>
-        </div>
-        <!--/col-->
-        <div class="col-md-9 col-lg-10 main">
-            <!--/main col-->
-            <!--toggle sidebar button-->
-            <p class="hidden-md-up">
-                <button type="button" class="btn btn-primary-outline btn-sm" data-toggle="offcanvas"><i class="fa fa-chevron-left"></i> Menu</button>
-            </p>
-            <div class="row ">
-                <div class="col-md-4 col-xs-push-8">
-                    {% block page_menu %} {% endblock %}
-                </div>
-                <h2 class="display-4 col-md-6 col-xs-pull-4">
-                   {% block header %} {% endblock %}
-                </h2>
-
-                <div class="col-md-2">
-                    {% block  button %}{% endblock %}
-                </div>
-            </div>
-            <hr>
-            {% include "web/modules/flash.twig" %}
-
-            {% block content %}
-
-            {% endblock %}
-        </div>
-
+      </ul>
     </div>
+    <!--/col-->
+    <div class="col-md-9 
+               col-lg-10 
+               main">
+      <!--/main col-->
+      <!--toggle sidebar button-->
+      <p class="hidden-md-up">
+        <button type="button" 
+                class="btn btn-primary-outline btn-sm" 
+                data-toggle="offcanvas">
+            <i class="fa fa-chevron-left"></i>Menu
+        </button>
+      </p>
+      <div class="row ">
+        <div class="col-md-4 col-xs-push-8">
+          {% block page_menu %} {% endblock %}
+        </div>
+        <h2 class="display-4 col-md-6 col-xs-pull-4">
+           {% block header %} {% endblock %}
+        </h2>
+
+        <div class="col-md-2">
+          {% block  button %}{% endblock %}
+        </div>
+      </div>
+      <hr>
+      {% include "web/modules/flash.twig" %}
+
+      {% block content %}
+
+      {% endblock %}
+    </div>
+
+  </div>
 
 </div>
 <!--/.container-->
 <footer class="container-fluid">
-    <p class="text-right small">2017 Veg Potraviny</p>
+  <p class="text-right small">
+    <i class="fa fa-github" aria-hidden="true"></i>Vegapo
+  </p>
 </footer>
 
 
@@ -116,114 +223,114 @@
 <script src="/bower_components/jquery-confirm/jquery.confirm.min.js"></script>
 <script src="/bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
 
-    {% block scripts %} {% endblock %}
+  {% block scripts %} {% endblock %}
 
 
 <script>
-    $(document).ready(function() {
+  $(document).ready(function() {
 
-        $('[data-toggle=offcanvas]').click(function() {
-            $('.row-offcanvas').toggleClass('active');
-        });
+    $('[data-toggle=offcanvas]').click(function() {
+      $('.row-offcanvas').toggleClass('active');
+    });
 
-        $("#deleteConfirm").confirm();
+    $("#deleteConfirm").confirm();
+
+  });
+</script>
+
+<script>
+  $(function() {
+    $('a[rel=popover]').popover({
+      html: true,
+      container: 'body',
+      trigger: 'hover',
+      content: function(){return '<img src="'+$(this).data('img') + '" />';}
+    });
+  })
+</script>
+
+<script type="text/javascript">
+  $(function() {
+    $('#select-category').change(function(){
+      var params = window.location.pathname.split("/");
+      params.shift();
+      // 0 - admin
+      // 1 - produkty
+      // 2 - category id
+      // 3 - supermarket name
+      params[2] = $(this).val();
+
+      window.location = window.location.origin + "/" + params.join("/");
 
     });
-</script>
 
-<script>
-    $(function() {
-        $('a[rel=popover]').popover({
-            html: true,
-            container: 'body',
-            trigger: 'hover',
-            content: function(){return '<img src="'+$(this).data('img') + '" />';}
-        });
-    })
-</script>
+    $('#select-supermarket').change(function(){
+      var params = window.location.pathname.split("/");
+      params.shift();
+      if(typeof params[3] == "undefined") {
+        if(typeof params[2] == "undefined"){
+          params[2] = "0";
+        }
+      }
+      params[3] = $(this).val();
 
-<script type="text/javascript">
-    $(function() {
-        $('#select-category').change(function(){
-            var params = window.location.pathname.split("/");
-            params.shift();
-            // 0 - admin
-            // 1 - produkty
-            // 2 - category id
-            // 3 - supermarket name
-            params[2] = $(this).val();
-
-            window.location = window.location.origin + "/" + params.join("/");
-
-        });
-
-        $('#select-supermarket').change(function(){
-            var params = window.location.pathname.split("/");
-            params.shift();
-            if(typeof params[3] == "undefined") {
-                if(typeof params[2] == "undefined"){
-                    params[2] = "0";
-                }
-            }
-            params[3] = $(this).val();
-
-            window.location = window.location.origin + "/" + params.join("/");
-        });
-    })
+      window.location = window.location.origin + "/" + params.join("/");
+    });
+  })
 </script>
 
 <script type="text/javascript">
-    $(function() {
-        $.validator.setDefaults({
-            errorClass: 'form-control-feedback',
-            highlight: function(element) {
-                $(element).closest('.form-group').addClass('has-danger').
-                $(element).closest('input').addClass('form-control-danger')
-            },
-            unhighlight: function(element) {
-                $(element).closest('.form-group').removeClass('has-danger')
-            }
+  $(function() {
+    $.validator.setDefaults({
+      errorClass: 'form-control-feedback',
+      highlight: function(element) {
+        $(element).closest('.form-group').addClass('has-danger').
+        $(element).closest('input').addClass('form-control-danger')
+      },
+      unhighlight: function(element) {
+        $(element).closest('.form-group').removeClass('has-danger')
+      }
 
-        });
+    });
 
-        $.validator.addMethod('strongPassword', function(value) {
-            return value.length >= 6;
-        }, 'Your password must be at least 6 characters long');
+    $.validator.addMethod('strongPassword', function(value) {
+      return value.length >= 6;
+    }, 'Your password must be at least 6 characters long');
 
-        $("#profile-update").validate({
-            rules: {
-                email: {
-                    required: true,
-                    email: true
-                }
-            },
-            messages: {
-                email: {
-                    required: 'Please enter an email address',
-                    email: 'Please enter a <b>valid<b> email address'
-                }
-            }
-        });
+    $("#profile-update").validate({
+      rules: {
+        email: {
+          required: true,
+          email: true
+        }
+      },
+      messages: {
+        email: {
+          required: 'Please enter an email address',
+          email: 'Please enter a <b>valid<b> email address'
+        }
+      }
+    });
 
-        $("#password-update").validate({
-            rules: {
-                "old-password": {
-                    required: true
-                },
-                "new-password": {
-                    required: true,
-                    strongPassword: true
-                },
-                "new-password2": {
-                    required: true,
-                    equalTo: "#new-password"
-                }
-            },
-            messages: {
-                required: 'This field is required.'
-            }
-        })
+    $("#password-update").validate({
+      rules: {
+        "old-password": {
+          required: true
+        },
+        "new-password": {
+          required: true,
+          strongPassword: true
+        },
+        "new-password2": {
+          required: true,
+          equalTo: "#new-password"
+        }
+      },
+      messages: {
+        required: 'This field is required.'
+      }
     })
+  })
 
 
 </script>

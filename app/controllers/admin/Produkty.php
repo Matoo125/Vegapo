@@ -154,18 +154,20 @@ class Produkty extends ProduktyApiController
     $this->data['result'] = true;
   }
 
-/*
+
   public function vymazat($id, $image)
   {
+    Session::setFlash("Mazanie produktov je vypnuté v kóde.", 'danger', 1);
+/*
     if ($this->model->delete($id, "id", $image)) {
       Session::setFlash("Produkt vymazany uspesne", 'success', 1);
     } else {
       Session::setFlash("Produkt sa nepodarilo vymazat", 'danger', 1);
-    }
+    }*/
 
     redirect('/admin/produkty');
   }
-*/
+
   /* move from sk to cz or the other way around */
   public function move_to($product_id, $from, $to)
   {
