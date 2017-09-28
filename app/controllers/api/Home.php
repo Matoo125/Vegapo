@@ -16,12 +16,6 @@ class Home extends Controller
       $this->model = $this->model('Dashboard');
     }
 
-    public function index()
-    {
-    	$testimonial = $this->model('Testimonial');
-      $this->data['testimonials'] = $testimonial->getAll();
-        
-    }
 
     public function contactAjax()
     {

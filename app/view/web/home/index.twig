@@ -1,50 +1,78 @@
-{% extends "web/base.twig" %}
+{% extends "base.twig" %}
 
 {% block title %} VegaPo - {{ lang.PAGE_FULL_NAME }} {% endblock %}
 
 {% block content %}
 
-    <div id="main" class="index">
+  <div id="main" class="index">
+    <section class="flex-horizontal-center">
+        <h1>
+          {{ lang.PAGE_FULL_NAME }}
+        </h1>
+
+        <br>
+
+        <h5 class="wow fadeIn text-normal wow fadeIn">
+          {{ lang.PAGE_BRIEF_DESCRIPTION }}
+        </h5>
+
+        <br>
+
+        <a href="/produkty" 
+           class="btn 
+                  btn-outline-primary 
+                  btn-lg 
+                  page-scroll 
+                  wow 
+                  fadeInUp 
+                  m-t-3">
+          {{ lang.INDEX_ACTION_BUTTON }}
+        </a>
+      </section>
+
+    
+    {% if testimonials %}
       <section class="flex-horizontal-center">
-            <h1>{{ lang.PAGE_FULL_NAME }}</h1><br>
-            <h5 class="wow fadeIn text-normal wow fadeIn">{{ lang.PAGE_BRIEF_DESCRIPTION }}</h5><br>
-            <a href="/produkty" class="btn btn-outline-primary btn-lg page-scroll wow fadeInUp m-t-3">{{ lang.INDEX_ACTION_BUTTON }}</a>
-        </section>
-
-      
-      {% if testimonials %}
-        <section class="flex-horizontal-center">
-          <div class="container">
-            <div class="text-center">
-              <h2 class="pb-4">Povedali o nás</h2>
-            </div>
-            <div id="carouselTestimonials" class="carousel slide testimonials" data-ride="carousel">
-
-              <div class="carousel-inner" role="listbox">
-                {% for testimonial in testimonials %}
-                <div class="carousel-item {% if loop.first %}active{% endif %}">
-                  <div class="testimonial">
-                    <blockquote class="blockquote">
-                      <p class="mb-0">{{ testimonial.message }}</p>
-                      <footer class="blockquote-footer"> <cite title="Source Title">{{ testimonial.name }}</cite></footer>
-                    </blockquote>
-                  </div>
-                </div>
-                {% endfor %}
-              </div>
-              <ol class="carousel-indicators">
-                <li data-target="#carouselTestimonials" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselTestimonials" data-slide-to="1"></li>
-                <li data-target="#carouselTestimonials" data-slide-to="2"></li>
-              </ol>
-            </div>
-
+        <div class="container">
+          <div class="text-center">
+            <h2 class="pb-4">
+              Povedali o nás
+            </h2>
           </div>
-        </section>
+          <div id="carouselTestimonials" 
+               class="carousel slide testimonials" 
+               data-ride="carousel">
 
-      {% endif %}
+            <div class="carousel-inner" 
+                 role="listbox">
+              {% for testimonial in testimonials %}
+              <div class="carousel-item {% if loop.first %}active{% endif %}">
+                <div class="testimonial">
+                  <blockquote class="blockquote">
+                    <p class="mb-0">
+                      {{ testimonial.message }}
+                    </p>
+                    <footer class="blockquote-footer"> 
+                      <cite title="Source Title">
+                        {{ testimonial.name }}
+                      </cite>
+                    </footer>
+                  </blockquote>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            <ol class="carousel-indicators">
+              <li data-target="#carouselTestimonials" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselTestimonials" data-slide-to="1"></li>
+              <li data-target="#carouselTestimonials" data-slide-to="2"></li>
+            </ol>
+          </div>
 
+        </div>
+      </section>
 
+    {% endif %}
 
 </div>
 

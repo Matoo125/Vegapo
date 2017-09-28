@@ -1,0 +1,46 @@
+[28-Sep-2017 13:04:59 UTC] Type: Unknown | No: 4096 | Msg: Object of class m4\m4mvc\helper\Query could not be converted to string | File: C:\laragon\www\Vegapo\app\model\Comment.php | Time 2017-09-28 13:59:04
+[28-Sep-2017 13:07:05 UTC] PHP Fatal error:  Uncaught Exception: Method: Index of controller: Home does not exists in C:\laragon\www\Vegapo\vendor\m4\m4mvc\src\core\App.php:115
+Stack trace:
+#0 C:\laragon\www\Vegapo\vendor\m4\m4mvc\src\core\App.php(47): m4\m4mvc\core\App->callMethod(Array)
+#1 C:\laragon\www\Vegapo\index.php(49): m4\m4mvc\core\App->run()
+#2 {main}
+  thrown in C:\laragon\www\Vegapo\vendor\m4\m4mvc\src\core\App.php on line 115
+[28-Sep-2017 13:21:43 UTC] Type: Notice | No: 8 | Msg: Undefined variable: filders | File: C:\laragon\www\Vegapo\app\model\Comment.php | Time 2017-09-28 13:43:21
+[28-Sep-2017 13:21:43 UTC] Type: Warning | No: 2 | Msg: Invalid argument supplied for foreach() | File: C:\laragon\www\Vegapo\app\model\Comment.php | Time 2017-09-28 13:43:21
+[28-Sep-2017 13:21:43 UTC] Type: Warning | No: 2 | Msg: PDO::prepare() expects parameter 1 to be string, object given | File: C:\laragon\www\Vegapo\vendor\m4\m4mvc\src\core\Model.php | Time 2017-09-28 13:43:21
+[28-Sep-2017 13:21:43 UTC] PHP Fatal error:  Uncaught Error: Call to a member function execute() on boolean in C:\laragon\www\Vegapo\vendor\m4\m4mvc\src\core\Model.php:88
+Stack trace:
+#0 C:\laragon\www\Vegapo\vendor\m4\m4mvc\src\core\Model.php(78): m4\m4mvc\core\Model::runQuery(Object(m4\m4mvc\helper\Query), Array, 2)
+#1 C:\laragon\www\Vegapo\app\model\Comment.php(28): m4\m4mvc\core\Model->fetchAll(Object(m4\m4mvc\helper\Query), Array)
+#2 C:\laragon\www\Vegapo\app\controllers\api\Comments.php(22): app\model\Comment->list(Array)
+#3 [internal function]: app\controllers\api\Comments->index()
+#4 C:\laragon\www\Vegapo\vendor\m4\m4mvc\src\core\App.php(120): call_user_func_array(Array, Array)
+#5 C:\laragon\www\Vegapo\vendor\m4\m4mvc\src\core\App.php(47): m4\m4mvc\core\App->callMethod(Array)
+#6 C:\laragon\www\Vegapo\index.php(49): m4\m4mvc\core\App->run()
+#7 {main}
+  thrown in C:\laragon\www\Vegapo\vendor\m4\m4mvc\src\core\Model.php on line 88
+[28-Sep-2017 13:22:02 UTC] Type: Notice | No: 8 | Msg: Undefined variable: fkey | File: C:\laragon\www\Vegapo\app\model\Comment.php | Time 2017-09-28 13:02:22
+[28-Sep-2017 13:22:02 UTC] Type: Warning | No: 2 | Msg: PDO::prepare() expects parameter 1 to be string, object given | File: C:\laragon\www\Vegapo\vendor\m4\m4mvc\src\core\Model.php | Time 2017-09-28 13:02:22
+[28-Sep-2017 13:22:02 UTC] PHP Fatal error:  Uncaught Error: Call to a member function execute() on boolean in C:\laragon\www\Vegapo\vendor\m4\m4mvc\src\core\Model.php:88
+Stack trace:
+#0 C:\laragon\www\Vegapo\vendor\m4\m4mvc\src\core\Model.php(78): m4\m4mvc\core\Model::runQuery(Object(m4\m4mvc\helper\Query), Array, 2)
+#1 C:\laragon\www\Vegapo\app\model\Comment.php(28): m4\m4mvc\core\Model->fetchAll(Object(m4\m4mvc\helper\Query), Array)
+#2 C:\laragon\www\Vegapo\app\controllers\api\Comments.php(22): app\model\Comment->list(Array)
+#3 [internal function]: app\controllers\api\Comments->index()
+#4 C:\laragon\www\Vegapo\vendor\m4\m4mvc\src\core\App.php(120): call_user_func_array(Array, Array)
+#5 C:\laragon\www\Vegapo\vendor\m4\m4mvc\src\core\App.php(47): m4\m4mvc\core\App->callMethod(Array)
+#6 C:\laragon\www\Vegapo\index.php(49): m4\m4mvc\core\App->run()
+#7 {main}
+  thrown in C:\laragon\www\Vegapo\vendor\m4\m4mvc\src\core\Model.php on line 88
+[28-Sep-2017 13:22:32 UTC] Type: Notice | No: 8 | Msg: Undefined variable: fkey | File: C:\laragon\www\Vegapo\app\model\Comment.php | Time 2017-09-28 13:32:22
+[28-Sep-2017 13:22:32 UTC] Type: Warning | No: 2 | Msg: PDO::prepare() expects parameter 1 to be string, object given | File: C:\laragon\www\Vegapo\vendor\m4\m4mvc\src\core\Model.php | Time 2017-09-28 13:32:22
+[28-Sep-2017 13:22:59 UTC] Type: Notice | No: 8 | Msg: Undefined variable: fkey | File: C:\laragon\www\Vegapo\app\model\Comment.php | Time 2017-09-28 13:59:22
+[28-Sep-2017 13:23:23 UTC] Type: Notice | No: 8 | Msg: Undefined variable: fkey | File: C:\laragon\www\Vegapo\app\model\Comment.php | Time 2017-09-28 13:23:23
+[28-Sep-2017 13:23:24 UTC] Type: Notice | No: 8 | Msg: Undefined variable: fkey | File: C:\laragon\www\Vegapo\app\model\Comment.php | Time 2017-09-28 13:24:23
+[28-Sep-2017 13:23:33 UTC] Type: Notice | No: 8 | Msg: Undefined variable: fkey | File: C:\laragon\www\Vegapo\app\model\Comment.php | Time 2017-09-28 13:33:23
+[28-Sep-2017 13:23:33 UTC] Type: Unknown | No: 4096 | Msg: Object of class m4\m4mvc\helper\Query could not be converted to string | File: C:\laragon\www\Vegapo\app\model\Comment.php | Time 2017-09-28 13:33:23
+[28-Sep-2017 13:23:45 UTC] Type: Notice | No: 8 | Msg: Undefined variable: fkey | File: C:\laragon\www\Vegapo\app\model\Comment.php | Time 2017-09-28 13:45:23
+[28-Sep-2017 13:23:52 UTC] Type: Notice | No: 8 | Msg: Undefined variable: fkey | File: C:\laragon\www\Vegapo\app\model\Comment.php | Time 2017-09-28 13:52:23
+[28-Sep-2017 13:23:52 UTC] Type: Unknown | No: 4096 | Msg: Object of class m4\m4mvc\helper\Query could not be converted to string | File: C:\laragon\www\Vegapo\app\model\Comment.php | Time 2017-09-28 13:52:23
+[28-Sep-2017 13:24:03 UTC] Type: Notice | No: 8 | Msg: Undefined variable: fkey | File: C:\laragon\www\Vegapo\app\model\Comment.php | Time 2017-09-28 13:03:24
+[28-Sep-2017 13:24:20 UTC] Type: Notice | No: 8 | Msg: Undefined variable: fkey | File: C:\laragon\www\Vegapo\app\model\Comment.php | Time 2017-09-28 13:20:24

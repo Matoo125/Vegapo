@@ -8,3 +8,4 @@ composer.lock
 /css/public/styles.css.map
 /css/public/.sass-cache
 /images/avatars/*
+error.log

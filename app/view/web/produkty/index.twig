@@ -1,4 +1,4 @@
-{% extends "web/base.twig" %}
+{% extends "base.twig" %}
 
 {% block title %} VegaPo - {{ lang.PRODUCTS }} {% endblock %}
 
@@ -37,13 +37,13 @@
     </div>
 
 
-    {% include 'web/produkty/filters.twig' %}
+    {% include 'produkty/filters.twig' %}
 
       <div class="flex-row row">
 
         {% for product in products %}
         <div class="col-xs-6 col-sm-4 col-lg-3">
-          <a href="/produkty/produkt/{{ product.slug }}">
+          <a href="/{{ product.slug }}">
           <div>
             <img class="b-lazy card-img-top img-fluid"
               src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="

@@ -1,211 +1,211 @@
-    <div class="productFilterBox" >
-            <ul class="nav nav-fill flex-md-row flex-column 
-                       align-items-baseline align-items-md-center">
-            <!-- DROPDOWN SUPERMARKETS -->
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" 
-                   data-toggle="dropdown">
-                    {{ lang.SUPERMARKETS }}
+<div class="productFilterBox" >
+  <ul class="nav nav-fill flex-md-row flex-column 
+             align-items-baseline align-items-md-center">
+    <!-- DROPDOWN SUPERMARKETS -->
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" 
+           data-toggle="dropdown">
+            {{ lang.SUPERMARKETS }}
+        </a>
+        <div class="dropdown-menu">
+            {% for supermarket in supermarkets %}
+              {# only show not used supermarket #}
+              {% if supermarket.slug not in params['supermarket'] %}
+                 <a class="dropdown-item hideOnClick"
+                    href="{{ changeParam(
+                                params, 
+                                'supermarket', 
+                                supermarket.slug
+                              )
+                          }}">
+                   {{ supermarket.name }}
+                 </a>
+              {% endif %}
+            {% endfor %}
+        </div>
+    </li>
+    <!-- DROPDOWN CATEGORIES -->
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" 
+           data-toggle="dropdown">
+            {{ lang.CATEGORIES }}
+        </a>
+        <div class="dropdown-menu">
+            {% for category in categories %}
+              {# only show not used category #}
+              {% if category.slug not in params['kategoria'] %}
+                <a class="dropdown-item hideOnClick"
+                   href="{{ changeParam(
+                                params, 
+                                'kategoria', 
+                                category.slug
+                            ) 
+                          }}">
+                    {{ category.name }}
                 </a>
-                <div class="dropdown-menu">
-                    {% for supermarket in supermarkets %}
-                      {# only show not used supermarket #}
-                      {% if supermarket.slug not in params['supermarket'] %}
-                         <a class="dropdown-item hideOnClick"
-                            href="{{ changeParam(
-                                        params, 
-                                        'supermarket', 
-                                        supermarket.slug
-                                      )
-                                  }}">
-                           {{ supermarket.name }}
-                         </a>
-                      {% endif %}
-                    {% endfor %}
-                </div>
-            </li>
-            <!-- DROPDOWN CATEGORIES -->
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" 
-                   data-toggle="dropdown">
-                    {{ lang.CATEGORIES }}
+              {% endif %}
+            {% endfor %}
+        </div>
+    </li>
+    <!-- DROPDOWN TAGS -->
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" 
+           data-toggle="dropdown">
+            {{ lang.TAGS }}
+        </a>
+        <div class="dropdown-menu">
+            {% for tag in tags %}
+              {# only show not yet used tags #}
+              {% if tag.slug not in params['tag'] %}
+                <a class="dropdown-item hideOnClick"
+                href="{{ addParam(params, 'tag', tag.slug) }}">
+                    {{ tag.name }}
                 </a>
-                <div class="dropdown-menu">
-                    {% for category in categories %}
-                      {# only show not used category #}
-                      {% if category.slug not in params['kategoria'] %}
-                        <a class="dropdown-item hideOnClick"
-                           href="{{ changeParam(
-                                        params, 
-                                        'kategoria', 
-                                        category.slug
-                                    ) 
-                                  }}">
-                            {{ category.name }}
-                        </a>
-                      {% endif %}
-                    {% endfor %}
-                </div>
-            </li>
-            <!-- DROPDOWN TAGS -->
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" 
-                   data-toggle="dropdown">
-                    {{ lang.TAGS }}
-                </a>
-                <div class="dropdown-menu">
-                    {% for tag in tags %}
-                      {# only show not yet used tags #}
-                      {% if tag.slug not in params['tag'] %}
-                        <a class="dropdown-item hideOnClick"
-                        href="{{ addParam(params, 'tag', tag.slug) }}">
-                            {{ tag.name }}
-                        </a>
-                      {% endif %}
-                    {% endfor %}
-                </div>
-            </li>
+              {% endif %}
+            {% endfor %}
+        </div>
+    </li>
 
-            <!-- DROPDOWN SORT -->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" 
-                 href="#" data-toggle="dropdown" 
-                 aria-haspopup="true" aria-expanded="false">
-                {{ lang.PRODUCTS_SORT }}
-                {% if sorting %}
-                  {% if sorting == 'namea' %}
-                    {{ lang.SORT ~ lang.PRODUCTS_SORT_NAME }}
-                  {% elseif sorting == 'named' %}
-                    {{ lang.SORT ~ lang.PRODUCTS_SORT_NAME }} Z-A
-                  {% elseif sorting == 'pricea' %}
-                    {{ lang.SORT ~ lang.PRODUCTS_SORT_PRICEA }}
-                  {% elseif sorting == 'priced' %}
-                    {{ lang.SORT ~ lang.PRODUCTS_SORT_PRICED }}
-                  {% elseif sorting == 'datea' %}
-                    {{ lang.SORT ~ lang.PRODUCTS_SORT_DATEA }}
-                  {% elseif sorting == 'dated' %}
-                    {{ lang.SORT ~ lang.PRODUCTS_SORT_DATED }}
-                  {% elseif sorting == 'rand' %}
-                    {{ lang.SORT ~ 'random'}}
-                  {% elseif sorting == 'fav' %}
-                    {{ lang.SORT ~ 'Obľúbenosť' }}
-                  {% endif %}
-                {% endif %}
+    <!-- DROPDOWN SORT -->
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" 
+         href="#" data-toggle="dropdown" 
+         aria-haspopup="true" aria-expanded="false">
+        {{ lang.PRODUCTS_SORT }}
+        {% if sorting %}
+          {% if sorting == 'namea' %}
+            {{ lang.SORT ~ lang.PRODUCTS_SORT_NAME }}
+          {% elseif sorting == 'named' %}
+            {{ lang.SORT ~ lang.PRODUCTS_SORT_NAME }} Z-A
+          {% elseif sorting == 'pricea' %}
+            {{ lang.SORT ~ lang.PRODUCTS_SORT_PRICEA }}
+          {% elseif sorting == 'priced' %}
+            {{ lang.SORT ~ lang.PRODUCTS_SORT_PRICED }}
+          {% elseif sorting == 'datea' %}
+            {{ lang.SORT ~ lang.PRODUCTS_SORT_DATEA }}
+          {% elseif sorting == 'dated' %}
+            {{ lang.SORT ~ lang.PRODUCTS_SORT_DATED }}
+          {% elseif sorting == 'rand' %}
+            {{ lang.SORT ~ 'random'}}
+          {% elseif sorting == 'fav' %}
+            {{ lang.SORT ~ 'Obľúbenosť' }}
+          {% endif %}
+        {% endif %}
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" 
+           href="{{ changeParam(params, 'sort', 'namea') }}">
+           {{ lang.PRODUCTS_SORT_NAME}}
+         </a>
+        <a class="dropdown-item" 
+           href="{{ changeParam(params, 'sort', 'named') }}">
+           {{ lang.PRODUCTS_SORT_NAME}} Z-A
+         </a>
+        <a class="dropdown-item" 
+            href="{{ changeParam(params, 'sort', 'pricea') }}">
+            {{ lang.PRODUCTS_SORT_PRICEA}}
+        </a>
+        <a class="dropdown-item" 
+            href="{{ changeParam(params, 'sort', 'priced') }}">
+            {{ lang.PRODUCTS_SORT_PRICED}}
+        </a>
+        <a class="dropdown-item" 
+            href="{{ changeParam(params, 'sort', 'datea') }}">
+            {{ lang.PRODUCTS_SORT_DATEA}}
+        </a>
+        <a class="dropdown-item" 
+            href="{{ changeParam(params, 'sort', 'dated') }}">
+            {{ lang.PRODUCTS_SORT_DATED}}
+          </a>
+        <a class="dropdown-item"
+            href="{{ changeParam(params, 'sort', 'rand') }}">
+            random
+        </a>
+        <a class="dropdown-item"
+            href="{{ changeParam(params, 'sort', 'fav') }}">
+            favourites
+        </a>
+      </div>
+    </li>
+
+    <li class="nav-item dropdown types">
+      <a href="#" data-toggle="dropdown" 
+         class="nav-link dropdown-toggle">
+         Extra
+       </a>
+      <div class="dropdown-menu">
+        <div class="form-check dropdown-item">
+          <label class="form-check-label">
+            {% set type1 = params.type1 is defined ? false : true %}
+            {% if type1 %}
+              <a href="{{ changeParam(params, 'type1', false) }}">
+                <input class="form-check-input" type="checkbox" 
+                       checked data-id="type1">
+                100% Vegan
               </a>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" 
-                   href="{{ changeParam(params, 'sort', 'namea') }}">
-                   {{ lang.PRODUCTS_SORT_NAME}}
-                 </a>
-                <a class="dropdown-item" 
-                   href="{{ changeParam(params, 'sort', 'named') }}">
-                   {{ lang.PRODUCTS_SORT_NAME}} Z-A
-                 </a>
-                <a class="dropdown-item" 
-                    href="{{ changeParam(params, 'sort', 'pricea') }}">
-                    {{ lang.PRODUCTS_SORT_PRICEA}}
-                </a>
-                <a class="dropdown-item" 
-                    href="{{ changeParam(params, 'sort', 'priced') }}">
-                    {{ lang.PRODUCTS_SORT_PRICED}}
-                </a>
-                <a class="dropdown-item" 
-                    href="{{ changeParam(params, 'sort', 'datea') }}">
-                    {{ lang.PRODUCTS_SORT_DATEA}}
-                </a>
-                <a class="dropdown-item" 
-                    href="{{ changeParam(params, 'sort', 'dated') }}">
-                    {{ lang.PRODUCTS_SORT_DATED}}
-                  </a>
-                <a class="dropdown-item"
-                    href="{{ changeParam(params, 'sort', 'rand') }}">
-                    random
-                </a>
-                <a class="dropdown-item"
-                    href="{{ changeParam(params, 'sort', 'fav') }}">
-                    favourites
-                </a>
-              </div>
-            </li>
+            {% else %}
+              <a href="{{ stripUrlParam(params, 'type1') }}">
+                <input class="form-check-input" type="checkbox" 
+                       data-id="type1">
+                100% Vegan
+              </a>
+            {% endif %}
+          </label>
+        </div>
+        <div class="form-check dropdown-item">
+          <label class="form-check-label">
+            {% set type2 = params.type2 is defined ? false : true %}
+            {% if type2 %}
+            <a href="{{ changeParam(params, 'type2', false) }}">
+              <input class="form-check-input" type="checkbox" 
+                     checked data-id="type2">
+              Obsahuje éčka neistého pôvodu
+            </a>
+            {% else %}
+              <a href="{{ stripUrlParam(params, 'type2') }}">
+                <input class="form-check-input" type="checkbox" 
+                       data-id="type2">
+                Obsahuje éčka neistého pôvodu
+              </a>
+            {% endif %}
+          </label>
+        </div>
+        <div class="form-check dropdown-item">
+          <label class="form-check-label">
+            {% set type3 = params.type3 is defined ? true : false %}
+            {% if type3 %}
+            <a href="{{ stripUrlParam(params, 'type3') }}">
+              <input class="form-check-input" type="checkbox" 
+                     checked data-id="type3">
+              Obsahuje živočíšne éčka
+            </a>
+            {% else %}
+              <a href="{{ changeParam(params, 'type3', true) }}">
+                <input class="form-check-input" type="checkbox" 
+                       data-id="type2">
+                Obsahuje éčka neistého pôvodu
+              </a>
+            {% endif %}
+          </label>
+        </div>
+      </div>
+    </li>
 
-            <li class="nav-item dropdown types">
-              <a href="#" data-toggle="dropdown" 
-                 class="nav-link dropdown-toggle">
-                 Extra
-               </a>
-              <div class="dropdown-menu">
-                <div class="form-check dropdown-item">
-                  <label class="form-check-label">
-                    {% set type1 = params.type1 is defined ? false : true %}
-                    {% if type1 %}
-                      <a href="{{ changeParam(params, 'type1', false) }}">
-                        <input class="form-check-input" type="checkbox" 
-                               checked data-id="type1">
-                        100% Vegan
-                      </a>
-                    {% else %}
-                      <a href="{{ stripUrlParam(params, 'type1') }}">
-                        <input class="form-check-input" type="checkbox" 
-                               data-id="type1">
-                        100% Vegan
-                      </a>
-                    {% endif %}
-                  </label>
-                </div>
-                <div class="form-check dropdown-item">
-                  <label class="form-check-label">
-                    {% set type2 = params.type2 is defined ? false : true %}
-                    {% if type2 %}
-                    <a href="{{ changeParam(params, 'type2', false) }}">
-                      <input class="form-check-input" type="checkbox" 
-                             checked data-id="type2">
-                      Obsahuje éčka neistého pôvodu
-                    </a>
-                    {% else %}
-                      <a href="{{ stripUrlParam(params, 'type2') }}">
-                        <input class="form-check-input" type="checkbox" 
-                               data-id="type2">
-                        Obsahuje éčka neistého pôvodu
-                      </a>
-                    {% endif %}
-                  </label>
-                </div>
-                <div class="form-check dropdown-item">
-                  <label class="form-check-label">
-                    {% set type3 = params.type3 is defined ? true : false %}
-                    {% if type3 %}
-                    <a href="{{ stripUrlParam(params, 'type3') }}">
-                      <input class="form-check-input" type="checkbox" 
-                             checked data-id="type3">
-                      Obsahuje živočíšne éčka
-                    </a>
-                    {% else %}
-                      <a href="{{ changeParam(params, 'type3', true) }}">
-                        <input class="form-check-input" type="checkbox" 
-                               data-id="type2">
-                        Obsahuje éčka neistého pôvodu
-                      </a>
-                    {% endif %}
-                  </label>
-                </div>
-              </div>
-            </li>
-
-            <!-- SEARCH FORM -->
-            <li class="nav-item">
-              <form class="form-inline" method="get" action="/produkty">
-                  <div class="input-group searchWrapper">
-                    <input class="form-control"  name="hladat" 
-                           placeholder="...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-secondary" type="button">
-                          <i class="ion-search"></i>
-                      </button>
-                    </span>
-                  </div>
-              </form>
-            </li>
-
-        </ul>
+    <!-- SEARCH FORM -->
+    <li class="nav-item">
+      <form class="form-inline" method="get" action="/produkty">
+          <div class="input-group searchWrapper">
+            <input class="form-control"  name="hladat" 
+                   placeholder="...">
+            <span class="input-group-btn">
+              <button class="btn btn-secondary" type="button">
+                  <i class="ion-search"></i>
+              </button>
+            </span>
+          </div>
+      </form>
+    </li>
+    
+  </ul>
 </div>
 

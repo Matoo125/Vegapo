@@ -194,7 +194,12 @@
         </div>
       </div>
       <hr>
-      {% include "web/modules/flash.twig" %}
+      {% if sessionclass.hasFlash %}
+       <div class="alert alert-{{ sessionclass.flashStyle }}" role="alert">
+              {{ sessionclass.flash }}
+          </div>
+          <br>
+      {% endif %}   
 
       {% block content %}
 

@@ -1,38 +1,60 @@
-{% extends "web/base.twig" %}
+{% extends "base.twig" %}
 {% block title %}{{ lang.USER_FUNCTIONS }}{% endblock %}
 {% block content %}
 
 <section id="main">
-    <div class="container">
-        {# nevadi? #}
-        <div class="text-center">
-          {{ include('web/modules/flash.twig') }}
-        </div>
-        <div class="row">
-            <div class="col-md-9 text-center">
-                <h2 class="margin-top-0 wow fadeIn">{{ lang.GREETING }} {{session.username}}</h2>
-                <hr class="primary">
-                <p>{{ lang.WELCOME_BACK }}</p>
-            </div>
-            	<div class="col-md-auto">
-
-                    <div class="list-group">
-                      <a href="/produkty/pridat" class="list-group-item list-group-item-action">{{ lang.PRODUCT_NEW }}</a>
-                      <a href="/users/update" class="list-group-item list-group-item-action">{{ lang.PROFILE_EDIT }}</a>
-                      <a href="/produkty?oblubene={{ session.user_id }}" class="list-group-item list-group-item-action">{{ lang.FAVOURITES }}</a>
-                      <a href="/produkty?autor={{ session.user_id }}" class="list-group-item list-group-item-action">{{ lang.PRODUCTS_MY }}</a>
-                      <a href="/produkty?autor={{ session.user_id }}&stav=2" class="list-group-item list-group-item-action">{{ lang.MY ~ lang.REQUESTS }}</a>
-                      <a href="/suggestions?autor={{ session.user_id }}" class="list-group-item list-group-item-action">{{ lang.MY ~ lang.SUGGESTIONS }}</a>
-                    </div>
-
-
-                    </div>
-            	</div>
-
-            </div>
-
-        </div>
+  <div class="container">
+    <div class="text-center">
+      {{ include('modules/flash.twig') }}
     </div>
+    <div class="row">
+      <div class="col-md-9 text-center">
+        <h2 class="margin-top-0 wow fadeIn">
+          {{ lang.GREETING }} {{session.username}}
+        </h2>
+
+        <hr class="primary">
+
+        <p>
+          {{ lang.WELCOME_BACK }}
+        </p>
+      </div>
+        <div class="col-md-auto">
+
+          <div class="list-group">
+            <a href="/produkty/pridat" 
+               class="list-group-item list-group-item-action">
+              {{ lang.PRODUCT_NEW }}
+            </a>
+            <a href="/users/update" 
+               class="list-group-item list-group-item-action">
+              {{ lang.PROFILE_EDIT }}
+            </a>
+            <a href="/produkty?oblubene={{ session.user_id }}" 
+               class="list-group-item list-group-item-action">
+              {{ lang.FAVOURITES }}
+            </a>
+            <a href="/produkty?autor={{ session.user_id }}" 
+               class="list-group-item list-group-item-action">
+              {{ lang.PRODUCTS_MY }}
+            </a>
+            <a href="/produkty?autor={{ session.user_id }}&stav=2" 
+               class="list-group-item list-group-item-action">
+              {{ lang.MY ~ lang.REQUESTS }}
+             </a>
+            <a href="/suggestions?autor={{ session.user_id }}" 
+               class="list-group-item list-group-item-action">
+              {{ lang.MY ~ lang.SUGGESTIONS }}
+            </a>
+          </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
 </section>
 
 {% endblock %}

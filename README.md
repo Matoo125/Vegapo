@@ -1,6 +1,6 @@
 # Vegapo
 
-Vegapo mapuje vegánske potraviny a produkty na [Slovenskom](https://vegapo.sk) a [Českom](https://vegapo.cz) trhu. Aplikácia je napísaná v objektovo orientovanom PHP a je v nej integrovaný môj ľahký [MVC framework](https://github.com/Matoo125/m4mvc). 
+Vegapo mapuje vegánske potraviny a produkty na [Slovenskom](https://vegapo.sk) a [Českom](https://vegapo.cz) trhu.
 
 ## Poznámka
 
@@ -26,6 +26,7 @@ Toto je technická dokumentácia pre developerov. Nasledujúci text predpokladá
 **Backend cez Composer**
 
 https://github.com/Matoo125/Vegapo/blob/master/composer.json
+- [M4MVC](https://github.com/Matoo125/m4mvc) 0.3 + (Framework)
 - [Twig](https://twig.symfony.com) 2.0 (Template engine pre views)
 - [Parsedown](http://parsedown.org) 1.6+ (Prelklad z Markdown formátu do html, použité pri footer info stránkach)
 - [PHP Mailer](https://github.com/PHPMailer/PHPMailer) 5.2 + (Posielanie emailov pri obnove hesla a odpovedanie na správy ľudí cez kontakt)

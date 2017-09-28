@@ -1,27 +1,36 @@
-{% extends "web/base.twig" %}
+{% extends "base.twig" %}
 
 {% block title %} VegaPo - {{ lang.CATEGORIES }} {% endblock %}
 
 {% block content %}
 
 <section id="main">
-	<div class="container">
-		<div class="wow fadeInUp text-center"><h2>{{ lang.CATEGORIES }}</h2></div> <br>
-		   <div class="row">
-            {% for category in categories %}
-            <!-- card -->
-            <div class="col-xs-6 col-sm-4 col-lg-3">
-                <a href="/produkty?kategoria={{ category.slug }}">
-                <img class="card-img-top img-fluid" src={{ category.image != "none" ? "/uploads/categories/450x450/#{category.image}" : "http://placehold.jp/450x450.png"}}>
-                <div class="card-block">
-                    <p class="card-title">{{ category.name }}</p>
+  <div class="container">
+    <div class="wow fadeInUp text-center">
+      <h2>
+        {{ lang.CATEGORIES }}
+      </h2>
+    </div> 
 
-                </div>
-                </a>
-            </div>
-        {% endfor %}
+    <br>
+
+    <div class="row">
+      {% for category in categories %}
+      <!-- card -->
+      <div class="col-xs-6 col-sm-4 col-lg-3">
+        <a href="/produkty?kategoria={{ category.slug }}">
+        <img class="card-img-top img-fluid" 
+             src={{ category.image != "none" ? "/uploads/categories/450x450/#{category.image}" : "http://placehold.jp/450x450.png"}}>
+        <div class="card-block">
+          <p class="card-title">
+            {{ category.name }}
+          </p>
         </div>
-	</div>
+        </a>
+      </div>
+    {% endfor %}
+    </div>
+  </div>
 </section>
 
 

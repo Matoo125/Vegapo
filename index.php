@@ -3,30 +3,35 @@
 require_once 'app/init.php';
 
 use m4\m4mvc\core\Module;
-
+use m4\m4mvc\helper\Request;
 
 $app = new app\core\App;
 
-
 $app->settings = [
   'namespace' =>  'app',
-  'modules'   =>  true, // if you want co use modules
-  'moduleView'=> false,
   'viewExtension' => 'twig',
   'renderFunction' => 'view'
 ];
 
-// register modules
-Module::register(['web', 'admin', 'api']);
-
 $app->paths = [
   'controllers' =>  'controllers',
-  'app' =>  'app',
-  'theme'       =>  [
-    'web'   =>  'web', // path to public theme
-    'admin' =>  'admin' // path to admin theme
-  ]
+  'app' =>  APP,
+  'model' =>  'model'
 ];
+
+Module::register([
+  'web' => [
+    'render'  =>  'view',
+    'folder'  =>  'view' . DS . 'web'
+  ], 
+  'admin' => [
+    'render'  =>  'view',
+    'folder'  =>  'view/admin'
+  ],
+  'api' =>  [
+    'render'  =>  'json',
+  ]
+]);
 
 // db connection
 $app->db([
@@ -36,5 +41,9 @@ $app->db([
   'DB_USER'   =>  DB_USER
 ]);
 
+Request::mapUrl([
+  'prihlasenie' =>  'users/login',
+  'registracia' => 'users/register'
+]);
 
 $app->run();
