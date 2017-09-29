@@ -70,7 +70,8 @@ class Users extends Controller
   {
     $expire = 5184000; // 60 days
     $token = $this->generateToken(Session::get('user_id'), $expire); 
-    setcookie('auth_token', $token, $expire, '/');
+    setcookie('auth_token', $token, time() + $expire, '/');
+
   }
 
   public function register() 
@@ -168,6 +169,10 @@ class Users extends Controller
     $c = copy($path, $destination);
 
     if ($c) {
+      $this->model->update(
+        ['avatar' => Session::get('user_id') . '.svg'],
+        ['user_id'  =>  Session::get('user_id')]
+      );
       Response::success(
         'You have new avatar!', 
         [
@@ -211,6 +216,10 @@ class Users extends Controller
       foreach ($old_paths as $path) {
         unlink($path . 'OLD');
       }
+      $this->model->update(
+        ['avatar'   => $name],
+        ['user_id'  =>  Session::get('user_id')]
+      );
       Response::success(
         'Avatar was uploaded', 
         ['link' => '/uploads/users/' . $name . '?' .date('ms')]

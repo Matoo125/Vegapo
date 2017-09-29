@@ -6,5 +6,5 @@ use app\controllers\api\Produkty as ProduktyApiController;
 
 class Produkty extends ProduktyApiController
 {
-	
+
 }

@@ -17,6 +17,7 @@ class Home extends HomeApiController
     if (!$product_slug) {
         $testimonial = $this->model('Testimonial');
         $this->data['testimonials'] = $testimonial->getAll();
+        return;
     }
 
     $products = new Produkty();

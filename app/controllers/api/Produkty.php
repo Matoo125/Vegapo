@@ -18,6 +18,10 @@ class Produkty extends Controller
   {
     $this->data['product'] = $this->model->single('slug', $slug);
 
+    $this->data['comments'] = ($this->getModel('Comment')->list([
+      'product_id' => $this->data['product']['id']
+    ]));
+
     if (!Session::get('user_id')) return;
 
     $this->data['liked'] = $this->model->isProductFavourite(

@@ -4,201 +4,161 @@
 
 {% block header %}
 <link rel="stylesheet" href="/bower_components/fancybox/dist/jquery.fancybox.min.css" />
-<meta property="fb:app_id" content="1682131928749951" />
 
 {% endblock %}
 
 {% block content %}
 
-<div id="fb-root"></div>
 <script>
-window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '1682131928749951',
-    xfbml      : true,
-    version    : 'v2.9'
-  });
-  FB.AppEvents.logPageView();
-};
-(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  var cc = "{{ cc }}";
-  if (cc == 'sk') {
-     js.src = "//connect.facebook.net/sk_SK/sdk.js#xfbml=1&version=v2.9";
-  } else {
-     js.src = "//connect.facebook.net/cz_CZ/sdk.js#xfbml=1&version=v2.9";
-  }
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
+
 </script>
 
 <section id="main">
-	<div class="container">
-		<div class="wow fadeInUp text-center">
-      <h2>
-        {{ product.name }}
-      </h2>
-    </div> 
+  <div class="container">
+  <div class="wow fadeInUp text-center">
+    <h2>
+    {{ product.name }}
+    </h2>
+  </div> 
 
-    <br>
+  <br>
 
-		  <div class="row justify-content-start">
-            <div class="col-lg-6 col-md-8 align-self-start">
-                <a data-fancybox="gallery" 
-                   href="/uploads/products/{{ cc }}/{{ product.image }}">
-                    <img src="/uploads/products/{{ cc }}/450x450/{{ product.image }}" 
-                         class="img-fluid">
-                </a>
-            </div>
-            <div class="col-lg-6 col-md-4">
-                <p>Približná cena: {{ product.price }}</p>
-                <p>
-                  Kategória: 
-                  <a href="/produkty?kategoria={{ product.category|slugify }}">
-                    {{ product.category }}
-                  </a>
-                </p>
+    <div class="row justify-content-start">
+      <div class="col-lg-6 col-md-8 align-self-start">
+        <a data-fancybox="gallery" 
+           href="/uploads/products/{{ cc }}/{{ product.image }}">
+          <img src="/uploads/products/{{ cc }}/450x450/{{ product.image }}" 
+             class="img-fluid">
+        </a>
+      </div>
+      <div class="col-lg-6 col-md-4">
+        <p>Približná cena: {{ product.price }}</p>
+        <p>
+          Kategória: 
+          <a href="/produkty?kategoria={{ product.category|slugify }}">
+          {{ product.category }}
+          </a>
+        </p>
 
-                {% set supermarkets_array = product.supermarkets|split(',') %}
-                <p>V supermarketoch:
-                     {% for supermarket in supermarkets_array %}
-                        <a href="/produkty?supermarket={{ supermarket|slugify }}">
-                          {{ supermarket }}
-                        </a>{{ " " }}
-                     {% endfor %}
-                </p>
+        {% set supermarkets_array = product.supermarkets|split(',') %}
+        <p>V supermarketoch:
+           {% for supermarket in supermarkets_array %}
+            <a href="/produkty?supermarket={{ supermarket|slugify }}">
+              {{ supermarket }}
+            </a>{{ " " }}
+           {% endfor %}
+        </p>
 
-                {% set tags_array = product.tags|split(',') %}
-                <p>Tagy:
-                     {% for tag in tags_array %}
-                        <a href="/produkty?tag={{ tag|slugify }}">
-                          {{ tag }}
-                        </a>{{ " " }}
-                     {% endfor %}
-                </p>
+        {% set tags_array = product.tags|split(',') %}
+        <p>Tagy:
+           {% for tag in tags_array %}
+            <a href="/produkty?tag={{ tag|slugify }}">
+              {{ tag }}
+            </a>{{ " " }}
+           {% endfor %}
+        </p>
 
-                <p>Poznámka: {{ product.note }}</p>
-                <p>Čiarový kód: {{ product.barcode }}</p>
-                <p>Počet srdiečok: {{ product.favourites }}</p>
+        <p>Poznámka: {{ product.note }}</p>
+        <p>Čiarový kód: {{ product.barcode }}</p>
+        <p>Počet srdiečok: {{ product.favourites }}</p>
 
 
-                {% if session.user_id %}
-                    <div class="row">
-                      <div class="col-6">
-                        {% if liked %}
-                            <i class="icon ion-heart icon-lg active" 
-                               id="heart" 
-                               data-active="true"></i>
-                        {% else %}
-                            <i class="icon ion-heart icon-lg" 
-                               id="heart" 
-                               data-active="false"></i>
-                        {% endif %}
-                      </div>
-
-                      <div class="col-6">                      
-                        {% if session.user_role > 30 %}
-                        <a href="/admin/produkty/upravit/{{ product.id }}">
-                          <button class="btn btn-primary">
-                            Upraviť
-                          </button>
-                        </a>
-                        {% else %}
-                        <button class="btn btn-primary" 
-                                data-toggle="modal" 
-                                data-target=".suggestModal">
-                          {{ lang.SUGGEST_EDIT }}
-                        </button>
-
-                        <!-- this one needs improvement -->
-                        <div class="modal fade suggestModal" 
-                             tabindex="-1" 
-                             role="dialog" 
-                             aria-hidden="true">
-                          <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                            <div class="container">
-                              <div class="modal-header">
-                                <div class="fadeInUp text-center">
-                                  <h2>
-                                    {{ lang.SUGGEST_EDIT }}
-                                  </h2>
-                                </div>
-                              </div>
-                              <div class="modal-body">
-                                <form>
-                                  <div class="form-group">
-                                    <select class="form-control" id="suggestReason" reqired>
-                                      <option selected disabled>Dôvod na zmenu</option>
-                                      <option value="1">Upraviť obchody</option>
-                                      <option value="2">Upraviť kategóriu</option>
-                                      <option value="3">Upraviť tagy</option>
-                                      <option value="4">Upraviť hlavný obrázok</option>
-                                      <option value="5">Upraviť obrázok zloženia</option>
-                                      <option value="6">Pridať ďalší obrázok</option>
-                                      <option value="7">Upraviť poznámku</option>
-                                      <option value="8">Upraviť čiarový kód</option>
-                                      <option value="9">Nahlásiť produkt</option>
-                                      <option value="10">Niečo iné</option>
-                                    </select>
-                                  </div>
-                                  <div class="form-group">
-                                    <label>Obsah</label>
-                                    <textarea class="form-control" 
-                                              id="suggestBody" 
-                                              placeholder=""></textarea>
-                                  </div>
-                                </form>
-                                </div>
-                                <div class="modal-footer">
-                                  <button class="btn btn-primary" 
-                                          id="suggestSubmit">
-                                    Odoslať
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      {% endif %}
-                    </div>
-
-                    </div>
-                {% endif %}
-
-                {% if product.image2 %}
-                    <p>
-                      <a data-fancybox="gallery" 
-                         href="/uploads/products/{{ cc }}/{{ product.image2 }}">
-                        <button class="btn btn-primary">
-                          {{ lang.INGREDIENTS }}
-                        </button>
-                      </a>
-                    </p>
-                {% endif %}
-
-                <div class="fb-like" 
-                     data-layout="button" 
-                     data-action="recommend" 
-                     data-size="large" 
-                     data-show-faces="true" 
-                     data-adapt-container-width="true" 
-                     data-share="true"></div>
-
-                <div class="fb-comments" 
-                     mobile="auto-detect" 
-                     data-numposts="5" 
-                     width='100%'></div>
-
+        {% if session.user_id %}
+          <div class="row">
+            <div class="col-6">
+            {% if liked %}
+              <i class="icon ion-heart icon-lg active" 
+                 id="heart" 
+                 data-active="true"></i>
+            {% else %}
+              <i class="icon ion-heart icon-lg" 
+                 id="heart" 
+                 data-active="false"></i>
+            {% endif %}
             </div>
 
-
-
+            <div class="col-6">                      
+            {% if session.user_role > 30 %}
+            <a href="/admin/produkty/upravit/{{ product.id }}">
+              <button class="btn btn-primary">
+              Upraviť
+              </button>
+            </a>
+            {% else %}
+              {% include 'suggestions/add.twig' %}
+            {% endif %}
           </div>
 
-	</div>
+          </div>
+        {% endif %}
+
+        {% if product.image2 %}
+          <p>
+            <a data-fancybox="gallery" 
+             href="/uploads/products/{{ cc }}/{{ product.image2 }}">
+            <button class="btn btn-primary">
+              {{ lang.INGREDIENTS }}
+            </button>
+            </a>
+          </p>
+        {% endif %}
+
+
+
+
+      </div>
+
+<!-- comments box -->
+{% if session.user_id %}
+<div class="col-12">
+  <div class="card my-4">
+    <h5 class="card-header">Leave a Comment:</h5>
+    <div class="card-body">
+      <form  name="comment">
+        <div class="form-group">
+          <textarea class="form-control" rows="3"></textarea>
+        </div>
+        <button type="button" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% else %}
+
+<div class="col-12">
+  <div class="card my-4">
+    <h5 class="card-header">Please log in to comment.</h5>
+    <div class="card-body">
+      <a href="#" type="button" class="btn btn-primary">Login</a>
+      <a href="#" type="button" class="btn btn-primary">Register</a>
+    </div>
+  </div>
+</div>
+
+{% endif %}
+
+<div class="commentArea">
+  <!-- comments -->
+  {% for comment in comments %}
+  <div class="media mb-4 col-12">
+    <img class="d-flex mr-3 rounded-circle" 
+         style="width: 50px"
+         src="/uploads/users/{{ comment.avatar }}" alt="">
+    <div class="media-body">
+      <h5 class="mt-0">{{ comment.username }}</h5>
+      {{ comment.body }}
+    </div>
+  </div>
+  {% endfor %}
+  
+</div>
+
+
+
+      </div> <!-- row -->
+
+  </div> <!-- container -->
 </section>
 
 
@@ -209,113 +169,94 @@ window.fbAsyncInit = function() {
 {% block scripts %}
 <script type="text/javascript" src="/bower_components/fancybox/dist/jquery.fancybox.min.js"></script>
 <script type="text/javascript">
-    $.fancybox.defaults.hash = false;
-    var url = 'http://vegapo.{{ cc }}/produkty/produkt/{{ product.slug }}'
-    $(".fb-like").attr('data-href', url);
-    $(".fb-comments").attr('data-href', url);
+  $.fancybox.defaults.hash = false;
 
-    $("#suggestSubmit").click(function () {
-      var data = {
-        reason: $("#suggestReason").val(),
-        body: $("#suggestBody").val(),
-        product_id: '{{ product.id }}',
-        user_id: '{{ session.user_id }}',
-        country: '{{ cc }}'
-      };
+// comment
+function createComment ($username, $avatar, $text) {
+  var wrap = document.createElement('div')
+  wrap.setAttribute('class', 'media mb-4 col-12')
+  var avatar = document.createElement('img')
+  avatar.setAttribute('class', 'd-flex mr-3 rounded-circle')
+  avatar.src = '/uploads/users/' + $avatar
+  avatar.style = "width: 50px"
+  var body = document.createElement('div')
+  body.setAttribute('class', 'media-body')
+  var name = document.createElement('h5')
+  name.setAttribute('class', 'mt-0')
+  name.innerText = $username
+  var p = document.createElement('p')
+  p.innerText = $text
 
-     // console.log(data);
+  body.appendChild(name)
+  body.appendChild(p)
+  wrap.appendChild(avatar)
+  wrap.appendChild(body)
+  var area = document.querySelector('.commentArea')
 
-      $.post( "/api/suggestions/add/", data)
-      .done(function( data ) {
-        if (JSON.parse(data).result == 1) {
-          alert("Vďaka za návrh. ");
-          $('.suggestModal').modal('hide');
-        };
-        console.log(data)
+  area.insertBefore(wrap, area.firstChild)
+}
+
+document.querySelector('form[name=comment] button').addEventListener(
+  'click', 
+  function () {
+    $body = document.querySelector('form[name=comment] textarea').value
+    if (!$body) {
+      console.log('you cannot submit empty comment');
+    }
+    $.post('/api/comments/add', {
+      body: $body,
+      product_id: {{ product.id }} 
+    })
+    .done(function (r) {
+      console.log(r)
+      createComment('{{ session.username }}', '{{ session.avatar }}', $body)
+    })
+    .fail(function (e, xhr) {
+      console.log(e.responseText)
+      console.log(xhr)
+    })
+  }
+)
+
+// fav button
+$("body").on('click touchstart', '#heart', function() {
+  $(this).toggleClass('active');
+  if ($(this).attr('data-active') == 'true') {
+
+    $.post('/produkty/favourites', {action: 0, id: {{ liked ?:0 }} })
+      .done(function(msg) {
+          console.log('removed from favourites');
+          console.log(msg)
+          $(this).attr('data-active', 'false');
+
+      }).fail(function(xhr, status, error) {
+        console.log(xhr.responseText);
+        console.log(status);
+        console.log(error);
+      });
+  } else {
+    var favData = {
+      action: 1,
+      product_id: {{ product.id }},
+    }
+    // send AJAX request
+    $.post('/produkty/favourites', favData)
+      .done(function(msg){
+
+        console.log('added to favourites');
+        console.log(msg)
+        $(this).attr('data-active', 'true');
+
+       })
+      .fail(function(xhr, status, error) {
+        console.log(xhr.responseText);
+        console.log(status);
+        console.log(error);
       });
 
-    })
-
-    $("body").on('change','#suggestReason', function () {
-      var textarea = $("#suggestBody");
-      switch(parseInt($(this).val())) {
-        case 1:
-          textarea.attr('placeholder', 'napr. Tento produkt sa nachádza aj v Tescu a Jednote')
-          break;
-        case 2:
-          textarea.attr('placeholder', 'napr. Tento produkt by viac pasoval do kategórie Cestoviny')
-          break;
-        case 3:
-          textarea.attr('placeholder', 'napr. Tento produkt je bez lepku a bez´sóje')
-          break;
-        case 4:
-          textarea.attr('placeholder', 'link k novému obrázku')
-          break;
-        case 5:
-          textarea.attr('placeholder', 'link k obrázku zloženia')
-          break;
-        case 6:
-          textarea.attr('placeholder', 'link k ďalšiemu obrázku')
-          break;
-        case 7:
-          textarea.attr('placeholder', 'napr. Tento produkt obsahuje diskutabilné éčka 342 a 333')
-          break;
-        case 8:
-          textarea.attr('placeholder', '12314567552')
-          break;
-        case 9:
-          textarea.attr('placeholder', 'napr. Tento produkt nieje vegan. / Tento produkt už nieje dostupný')
-          break;
-        case 10:
-          textarea.attr('placeholder', '...')
-          break;
-        default:
-          textarea.attr('placeholder', '')
-          break;
-      }
-    })
-
-    $("body").on('click touchstart', '#heart', function() {
-        $(this).toggleClass('active');
-        if ($(this).attr('data-active') == 'true') {
-
-            $.post('/produkty/favourites', {action: 0, id: {{ liked ?:0 }} })
-                .done(function(msg) {
-                        console.log('removed from favourites');
-                        console.log(msg)
-                        $(this).attr('data-active', 'false');
-
-                }).fail(function(xhr, status, error) {
-                    console.log(xhr.responseText);
-                    console.log(status);
-                    console.log(error);
-                });
 
 
-
-        } else {
-            var favData = {
-                action: 1,
-                product_id: {{ product.id }},
-            }
-            // send AJAX request
-            $.post('/produkty/favourites', favData)
-                .done(function(msg){
-
-                    console.log('added to favourites');
-                    console.log(msg)
-                    $(this).attr('data-active', 'true');
-
-                 })
-                .fail(function(xhr, status, error) {
-                    console.log(xhr.responseText);
-                    console.log(status);
-                    console.log(error);
-                });
-
-
-
-        }
-    })
+  }
+})
 </script>
 {% endblock %}

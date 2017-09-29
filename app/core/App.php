@@ -66,7 +66,7 @@ class App extends FrameworkApp
       echo $show;
     }
 
-    $log = "Type: {$type} | No: {$level} | Msg: {$message} | File: {$file} | Time {$time}";
+    $log = "Type: {$type} | No: {$level} | Msg: {$message} | File: {$file} | Line: {$line} | Time {$time}";
 
     error_log($log); 
 
