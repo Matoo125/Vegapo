@@ -9,3 +9,4 @@ composer.lock
 /css/public/.sass-cache
 /images/avatars/*
 error.log
+css/public/styles.css
