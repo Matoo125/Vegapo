@@ -1,11 +1,13 @@
-<?php 
+<?php
 
 namespace app\controllers\api;
 
-use app\core\Controller; 
+use app\core\Controller;
+use app\model\Statistic;
+
 
 class Info extends Controller
-{    
+{
 
 	public function __construct()
     {
@@ -14,6 +16,9 @@ class Info extends Controller
 
     public function index($page)
     {
+      if($page == "stats") {
+        $this->data['stats'] = (new Statistic)->list();
+      } else {
         if (file_exists($location = ROOT . DS . 'pages' . DS . COUNTRY_CODE . DS . $page . '.md')) {
             $page = file_get_contents($location);
             $Parsedown = new \Parsedown();
@@ -22,7 +27,7 @@ class Info extends Controller
             $this->data['title'] = "Page not found";
             $this->data['parsedown'] =   "Please contact us if you think it is mistake on our side. Thank you.";
         }
-
+      }
     }
 
 }
