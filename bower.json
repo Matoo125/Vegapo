@@ -24,6 +24,7 @@
     "fancybox": "^3.0.47",
     "quagga": "^0.11.6",
     "simplemde": "^1.11.2",
-    "simple-ajax-uploader": "^2.6.2"
+    "simple-ajax-uploader": "^2.6.2",
+    "palette.js": "git://github.com/google/palette.js.git"
   }
 }
