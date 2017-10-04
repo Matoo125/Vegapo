@@ -35,25 +35,13 @@ class Statistic extends Model
 
     // products tags
     $products_tags = $this->fetchAll("
-      select x.name, sum(x.number) number from (
-        select
-          e.name, sum(1) number
-        from
-          products q, matching_tags w, tags e
-        where
-          q.id = w.product_id and w.tag_id = e.id and e.value is null
-        group by e.name
-        union
-        select
-          (select a.name from tags a where a.value = e.value and country=:cc) name,
-          sum(1) number
-        from
-          products q, matching_tags w, tags e
-        where
-          q.id = w.product_id and w.tag_id = e.id
-          and e.value is not null group by e.value
-      ) x group by x.name order by number",
-    ['cc'=>COUNTRY_CODE]);
+      select
+        e.name, sum(1) number
+      from
+        matching_tags w, tags e
+      where
+        w.tag_id = e.id and w.country = :cc and e.country = :cc
+      group by e.name order by number", ['cc'=>COUNTRY_CODE]);
 
     $data = array_reduce($products_tags, function ($c, $i) {
       $c['x'] = $c['x']."'".$i['name']."',";
@@ -66,24 +54,13 @@ class Statistic extends Model
 
     // products categories
     $categories_categories = $this->fetchAll("
-      select x.name, sum(x.number) number from (
-        select
-          w.name, sum(1) number
-        from
-          products q, categories w
-        where
-          q.category_id = w.id and w.value is null group by w.name
-        union
-        select
-          (select a.name from categories a where a.value = w.value and country=:cc) name,
-          sum(1) number
-        from
-          products q, categories w
-        where
-          q.category_id = w.id and w.value is not null
-        group by w.value
-      ) x group by x.name order by number",
-    ['cc'=>COUNTRY_CODE]);
+      select
+        w.name, sum(1) number
+      from
+        products q, categories w
+      where
+        q.category_id = w.id and q.country = :cc and w.country = :cc
+      group by w.name order by number", ['cc'=>COUNTRY_CODE]);
 
     $data = array_reduce($categories_categories, function ($c, $i) {
       $c['x'] = $c['x']."'".$i['name']."',";
@@ -96,25 +73,13 @@ class Statistic extends Model
 
     // products supermarkets
     $products_supermarkets = $this->fetchAll("
-      select x.name, sum(x.number) number from (
-        select
-          e.name, sum(1) number
-        from
-          products q, matching_supermarkets w, supermarkets e
-        where
-          q.id = w.product_id and w.supermarket_id = e.id and e.value is null
-        group by e.name
-        union
-        select
-          (select a.name from supermarkets a where a.value = e.value and country=:cc) name,
-          sum(1) number
-        from
-          products q, matching_supermarkets w, supermarkets e
-        where
-          q.id = w.product_id and w.supermarket_id = e.id and e.value is not null
-        group by e.value
-      ) x group by x.name order by number",
-    ['cc'=>COUNTRY_CODE]);
+      select
+        e.name, sum(1) number
+      from
+        matching_supermarkets w, supermarkets e
+      where
+        w.supermarket_id = e.id and w.country = :cc and e.country = :cc
+      group by e.name order by number", ['cc'=>COUNTRY_CODE]);
 
     $data = array_reduce($products_supermarkets, function ($c, $i) {
       $c['x'] = $c['x']."'".$i['name']."',";

@@ -3,8 +3,6 @@
 namespace app\controllers\api;
 
 use app\core\Controller;
-use app\model\Statistic;
-
 
 class Info extends Controller
 {
@@ -16,17 +14,13 @@ class Info extends Controller
 
     public function index($page)
     {
-      if($page == "stats") {
-        $this->data['stats'] = (new Statistic)->list();
+      if (file_exists($location = ROOT . DS . 'pages' . DS . COUNTRY_CODE . DS . $page . '.md')) {
+          $page = file_get_contents($location);
+          $Parsedown = new \Parsedown();
+          $this->data['parsedown'] = $Parsedown->text($page);
       } else {
-        if (file_exists($location = ROOT . DS . 'pages' . DS . COUNTRY_CODE . DS . $page . '.md')) {
-            $page = file_get_contents($location);
-            $Parsedown = new \Parsedown();
-            $this->data['parsedown'] = $Parsedown->text($page);
-        } else {
-            $this->data['title'] = "Page not found";
-            $this->data['parsedown'] =   "Please contact us if you think it is mistake on our side. Thank you.";
-        }
+          $this->data['title'] = "Page not found";
+          $this->data['parsedown'] =   "Please contact us if you think it is mistake on our side. Thank you.";
       }
     }
 
