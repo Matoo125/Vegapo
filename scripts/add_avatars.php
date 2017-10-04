@@ -38,6 +38,15 @@ foreach ($users as $user) {
 
   copy($path . '/' . $image, $users_uploads . '/' . $id . '.svg');
 
+  $sql = "UPDATE users 
+          SET avatar = :avatar 
+          WHERE user_id = :user_id";
+  $bind = [
+    'avatar'  =>  $id . '.svg',
+    'user_id' =>  $id
+  ];
+  $model->save($sql, $bind);
+
   echo "User {$id} has new avatar {$image} <br>";
 }
 

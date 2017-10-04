@@ -18,10 +18,9 @@ class Comments extends Controller
     $this->model = $this->model('Comment');
   }
 
-  public function index ()
+  public function list ($product_id)
   {
-    $c = $this->model->list(['product_id' => 1]);
-    echo '<pre>'; print_r($c);die;
+    $this->data = $this->model->list(['product_id' => $product_id]);
   }
 
   public function add ()
@@ -31,13 +30,16 @@ class Comments extends Controller
     }
 
     Request::forceMethod('post');
-    Request::required(['product_id', 'body']);
+    Request::required('product_id', 'body');
 
-    $this->model->insert([
+    $i = $this->model->insert([
       'author_id'   =>  $author,
       'product_id'  =>  $_POST['product_id'],
       'body'        =>  $_POST['body']
     ]);
+
+    $i ? Response::success('Comment has been added') : 
+         Response::error('Comment has not been added');
   }
 
 }

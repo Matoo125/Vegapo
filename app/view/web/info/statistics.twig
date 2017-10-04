@@ -1,14 +1,13 @@
 {% extends "base.twig" %}
 
-{% block title %}VegaPo - {{ title }} {% endblock %}
+{% block title %}VegaPo - {{ lang.STATS }} {% endblock %}
 
-{% block header %} {{ title }} {% endblock %}
+{% block header %} {{ lang.STATS }} {% endblock %}
 
 {% block content %}
 
 <section id="main">
 	<div class="container">
-		<div class="wow fadeInUp text-center"><h2>{{ title }}</h2></div>
 
       <h1>{{ stats.products_all }} {{ lang.STATS_PRODUCTS_ALL }}</h1>
       <div class="container">

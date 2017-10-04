@@ -1,0 +1,107 @@
+<footer id="footer">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-6 col-sm-3">
+        <h6 class="text-uppercase">
+          {{ lang.ABOUT }} VegaPo
+        </h6>
+        <ul class="list-unstyled">
+          <li>
+            <a href="/info/o-projekte" >
+            {{ lang.ABOUT_PROJECT }}
+            </a>
+          </li>
+          <li><a href="/info/o-autoroch">
+            {{ lang.ABOUT_AUTHORS }}
+            </a>
+          </li>
+          <li>
+            <a href="/info/o-tom-ako-pomoct">
+              {{ lang.ABOUT_HELP }}
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-6 col-sm-3 column">
+        <h6 class="text-uppercase">
+          {{ lang.OTHER }}
+        </h6>
+        <ul class="list-unstyled">
+          <li>
+            <a href="/home/kontakt/">
+              {{ lang.CONTACT }}
+            </a>
+          </li>
+          <li>
+            <a href="/info/faq">
+              {{ lang.FAQ }}
+            </a>
+          </li>
+          <li>
+            <a href="/users/list">
+              {{ lang.LIST_OF_ACTIVITY }}
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-12 col-sm-3 column">
+        <h6 class="text-uppercase">
+          {{ lang.STAY_IN_TOUCH }}
+        </h6>
+        <form method="post"
+              id="subscribe"
+              action="/home/subscribe/">
+          <div class="form-group">
+            <input type="text" 
+                   class="form-control" 
+                   name="email" 
+                   title="No spam, we promise!" 
+                   placeholder="Nebudeme ťa spamovať">
+          </div>
+          <div class="form-group">
+            <input class="btn btn-primary" 
+                   type="submit" 
+                   value="{{ lang.SUBSCRIBE }}">
+          </div>
+        </form>
+      </div>
+      <div class="col-12 col-sm-3 text-right">
+        <h6 class="text-uppercase">
+          {{ lang.SOCIAL }}
+        </h6>
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a rel="follow" 
+               href="https://www.facebook.com/veganskepotraviny" 
+               target="_blank" 
+               title="Facebook">
+              <i class="icon-lg ion-social-facebook-outline" 
+                 style="margin-right: 20px"></i>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a rel="follow" 
+               href="https://www.instagram.com/nahodne_vegan/" 
+               target="_blank" 
+               title="Instagram">
+              <i class="icon-lg ion-social-instagram-outline"></i>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a rel="follow" 
+               href="https://www.github.com/Matoo125/Vegapo" 
+               target="_blank" 
+               title="Github">
+              <i class="icon-lg ion-social-github-outline"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <br>
+    <span class="float-right text-muted small">
+      VegaPo 2017
+    </span>
+  </div>
+</footer>

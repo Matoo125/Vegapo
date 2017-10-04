@@ -15,7 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "v4.0.0-alpha.6",
+    "bootstrap": "v4.0.0-beta",
     "animate.css": "^3.5.2",
     "Ionicons": "ionicons#^2.0.1",
     "jquery-validation": "^1.16.0",

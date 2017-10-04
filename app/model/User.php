@@ -15,6 +15,7 @@ class User extends Model
     Session::set('user_role', $user['role']);
     Session::set('user_country', $user['country']);
     Session::set('username', $user['username']);
+    Session::set('avatar', $user['avatar']);
 
     $this->save(
       "UPDATE users
