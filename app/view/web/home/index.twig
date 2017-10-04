@@ -35,7 +35,7 @@
       <section class="flex-horizontal-center">
         <div class="container">
           <div class="text-center">
-            <h2 class="pb-4">
+            <h2 class="pb-2">
               Povedali o nás
             </h2>
           </div>
@@ -47,7 +47,7 @@
                  role="listbox">
               {% for testimonial in testimonials %}
               <div class="carousel-item {% if loop.first %}active{% endif %}">
-                <div class="testimonial">
+                <div class="testimonial d-flex justify-content-center">
                   <blockquote class="blockquote">
                     <p class="mb-0">
                       {{ testimonial.message }}
