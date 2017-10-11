@@ -26,7 +26,7 @@ class Controller extends FrameworkController
    */
   public function view($view) 
   {
-    $view = str_replace($this->pathToTheme, '', $view);
+    $view = strtolower(str_replace($this->pathToTheme, '', $view));
     /* this is only temporary it will be moved */
     if (!Session::get('user_id') && isset($_COOKIE['auth_token'])) {
         $user = new User;

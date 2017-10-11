@@ -2,6 +2,7 @@
 
 namespace app\controllers\admin;
 
+use m4\m4mvc\helper\Response;
 use app\core\Controller;
 use app\model\Edit;
 use mrkovec\sdiff\SDiff;
@@ -35,7 +36,7 @@ class Info extends Controller
         rename($path, $backup_path);
 
         if (file_put_contents($path, $_POST['content'])) {
-            $this->data['response'] = "Page has been saved";
+            Response::success('Page has been saved');
 
             // log edit
             $edit = new Edit();
@@ -50,7 +51,7 @@ class Info extends Controller
             $edit->closeEdit($edit_id, $_POST['page'], $diff["diff"]);
 
         } else {
-            $this->data['response'] = "Error while saving";
+            Response::error('Error while saving');
         }
     }
 

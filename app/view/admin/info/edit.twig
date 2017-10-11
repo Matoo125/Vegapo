@@ -35,7 +35,7 @@ $(function () {
         e.preventDefault();
         $.post('/admin/info/saveAjax', { content: simplemde.value(), page: '{{ page }}' })
         .done(function (data) {
-            alert(data.response);
+            alert(data.message);
         })
     })
 })

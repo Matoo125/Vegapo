@@ -15,6 +15,7 @@ class Info extends Controller
 
     public function index ($page)
     {
+      $this->data['title'] = $page;
       if (file_exists($location = ROOT . DS . 'pages' . DS . COUNTRY_CODE . DS . $page . '.md')) {
           $page = file_get_contents($location);
           $Parsedown = new \Parsedown();

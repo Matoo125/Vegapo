@@ -248,7 +248,7 @@ class Product extends Model
         $sql .= "ORDER BY favourites DESC";
         break;
       default :
-        $sql .= "ORDER BY p.updated_at DESC";
+        $sql .= "ORDER BY p.updated_at DESC, p.created_at DESC";
         break;
     }
 

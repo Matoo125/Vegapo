@@ -112,13 +112,13 @@
 {% if session.user_id %}
 <div class="col-12">
   <div class="card my-4">
-    <h5 class="card-header">Leave a Comment:</h5>
+    <h5 class="card-header">{{ lang.INSERT_COMMENT }}:</h5>
     <div class="card-body">
       <form  name="comment">
         <div class="form-group">
           <textarea class="form-control" rows="3"></textarea>
         </div>
-        <button type="button" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-primary">{{ lang.SUBMIT }}</button>
       </form>
     </div>
   </div>
@@ -128,10 +128,10 @@
 
 <div class="col-12">
   <div class="card my-4">
-    <h5 class="card-header">Please log in to comment.</h5>
+    <h5 class="card-header">{{ lang.LOGIN_TO_COMMENT }}</h5>
     <div class="card-body">
-      <a href="/users/login"  class="btn btn-primary">Login</a>
-      <a href="/users/register" class="btn btn-primary">Register</a>
+      <a href="/users/login"  class="btn btn-primary">{{ lang.LOGIN }}</a>
+      <a href="/users/register" class="btn btn-primary">{{ lang.REGISTER }}</a>
     </div>
   </div>
 </div>
