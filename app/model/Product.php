@@ -193,9 +193,9 @@ class Product extends Model
 
     /* shows only selected tag */
     if ($tags) {
-      $tags = implode(', ', $tags) ;
-      $where[]  ="t.slug IN(:tags)";
-      $params['tags'] = $tags;
+      $tags = implode(",", array_column($tags, 'id'));
+      $where[] = "t.id IN({$tags})";
+      //$params['tags'] = $tags;
     }
 
     if ($author) {
@@ -268,7 +268,7 @@ class Product extends Model
     $favourite    =  $filters['favourite']    ?? null;
     $type         =  $filters['type']         ?? null;
 
-    $sql = "SELECT COUNT(p.id) AS numberOfProducts FROM products AS p";
+    $sql = "SELECT COUNT(DISTINCT p.id) AS numberOfProducts FROM products AS p";
 
     $where[] = " p.country = :country";
     $args['country'] = COUNTRY_CODE;
@@ -304,8 +304,8 @@ class Product extends Model
     if ($tags) {
       $sql .= " LEFT JOIN matching_tags AS mt ON p.id = mt.product_id";
       $tags = implode(",", array_column($tags, 'id'));
-      $where[]  ="mt.tag_id IN(:ids)";
-      $args['ids'] = $tags;
+      $where[]  ="mt.tag_id IN({$tags})";
+      //$args['ids'] = $tags;
     }
 
     if ($search) {
@@ -320,7 +320,6 @@ class Product extends Model
     }
 
     $sql = $sql . " WHERE" . implode(" AND ", $where);
-
     return $this->fetch($sql, $args);
 
   }

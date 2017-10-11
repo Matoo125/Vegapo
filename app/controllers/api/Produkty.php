@@ -191,7 +191,7 @@ class Produkty extends Controller
     $this->data['products'] = $this->model->list([
       'category'      =>  $params['kategoria'],
       'supermarket'   =>  $params['supermarket'],
-      'tags'          =>  $tag_slugs,
+      'tags'          =>  $current_tags,
       'start'         =>  $start,
       'type'          =>  $type,
       'visibility'    =>  $params['stav'],
