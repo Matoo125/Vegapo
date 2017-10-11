@@ -1,1 +1,0 @@
-Obsah pripravujeme. Ďakujeme za pochopenie.

@@ -10,3 +10,4 @@ composer.lock
 /images/avatars/*
 error.log
 css/public/styles.css
+/pages/*
