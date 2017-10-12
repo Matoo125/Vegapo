@@ -15,7 +15,24 @@ class Info extends Controller
 
     public function index ($page)
     {
-      $this->data['title'] = $page;
+      switch ($page) {
+        case 'o-autoroch':
+          $this->data['title'] = $GLOBALS['lang']['ABOUT_AUTHORS'];
+        break;
+        case 'o-projekte':
+          $this->data['title'] = $GLOBALS['lang']['ABOUT_PROJECT'];
+        break;
+        case 'o-tom-ako-pomoct':
+          $this->data['title'] = $GLOBALS['lang']['ABOUT_HELP'];
+        break;
+        case 'faq':
+          $this->data['title'] = $GLOBALS['lang']['FAQ'];
+        break;
+        default:
+          $this->data['title'] = $page;
+        break;
+      }
+
       if (file_exists($location = ROOT . DS . 'pages' . DS . COUNTRY_CODE . DS . $page . '.md')) {
           $page = file_get_contents($location);
           $Parsedown = new \Parsedown();

@@ -33,7 +33,9 @@ class Facebook
   public function loginUrl($control)
   {
     $helper = (new \Facebook\Facebook($this->fbCredentials))->getRedirectLoginHelper();
-    return $helper->getLoginUrl('http://vegapo.dev.sk/OauthProvider/'.$control, ['email']);
+    return $helper->getLoginUrl(
+      "https://{$_SERVER['HTTP_HOST'] }/OauthProvider/".$control, ['email']
+    );
   }
 
   public function checkUserLogin()
