@@ -39,7 +39,7 @@
 
     {% include 'produkty/filters.twig' %}
 
-      <div class="flex-row row">
+      <div class="flex-row row" id="productsGrid">
 
         {% for product in products %}
         <div class="col-xs-6 col-sm-4 col-lg-3">
@@ -149,6 +149,33 @@
 
   </div>
 </section>
+
+<script type="text/javascript">
+var productsHtml = null;
+
+document.addEventListener("DOMContentLoaded", function(event) { 
+
+$('ul.pagination li a').click(function (e) {
+  e.preventDefault();
+  var link = document.createElement('a')
+  link.href = this.href
+
+  var url = '/produkty' + this.search
+  $('#productsGrid').html('loading...')
+  $('.pagination li.active').removeClass('active')
+  $(this).parent().addClass('active')
+  $.get(url)
+  .done(function (r) {
+    productsHtml = $(r).find('#productsGrid').html()
+    $("#productsGrid").html(productsHtml)
+  })
+  .fail(function (e) {
+    console.log(e)
+  })
+})
+
+})
+</script>
 
 
 {% endblock %}

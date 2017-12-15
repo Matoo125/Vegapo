@@ -90,6 +90,9 @@ define("DB_USER", "phpmyadmin");
 define("DB_PASSWORD", "123456");
 define("SHOW_ERRORS", true);
 ```
+
+Css súbor je potrebné [stiahnuť](https://vegapo.sk/css/public/styles.css) alebo exportovať z `css/public/styles.sass` do `css/public/styles.css`
+
 Hotovo, aplikácia je nainštalovaná. Obrázky k demo databáze sa dajú stiahnuť [na tomto odkaze](https://drive.google.com/file/d/0B8Do53AIinx0dHI4MFFqbTZ6aEk/view?usp=sharing), [avatary](https://drive.google.com/open?id=0B8Do53AIinx0WUREZXdsZHVqblU)
 
 ## Ako sa zapojiť
